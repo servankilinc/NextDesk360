@@ -36,7 +36,7 @@ namespace ExpressDesk360.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CargoCompanyCreateDto request)
+        public async Task<IActionResult> Create(CargoCompanyCreateDto createModel)
         {
             var result = await _cargoCompanyService.CreateAsync(createModel);
             return ToAction(result);
@@ -60,14 +60,14 @@ namespace ExpressDesk360.WebUI.Controllers
             return ToAction(result);
         }
 
-        [HttpGet]
+        [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _cargoCompanyService.DeleteAsync(id: id);
             return ToAction(result);
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> Restore(int id)
         {
             var result = await _cargoCompanyService.RestoreAsync(id: id);

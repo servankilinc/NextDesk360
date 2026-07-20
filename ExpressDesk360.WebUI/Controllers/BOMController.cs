@@ -42,7 +42,7 @@ namespace ExpressDesk360.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(BOMCreateDto request)
+        public async Task<IActionResult> Create(BOMCreateDto createModel)
         {
             var result = await _bOMService.CreateAsync(createModel);
             return ToAction(result);
@@ -68,14 +68,14 @@ namespace ExpressDesk360.WebUI.Controllers
             return ToAction(result);
         }
 
-        [HttpGet]
+        [HttpDelete]
         public async Task<IActionResult> Delete(Guid id)
         {
             var result = await _bOMService.DeleteAsync(id: id);
             return ToAction(result);
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> Restore(Guid id)
         {
             var result = await _bOMService.RestoreAsync(id: id);

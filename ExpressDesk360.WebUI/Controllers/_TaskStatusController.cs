@@ -60,14 +60,14 @@ namespace ExpressDesk360.WebUI.Controllers
             return ToAction(result);
         }
 
-        [HttpGet]
+        [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await __TaskStatusService.DeleteAsync(id: id);
             return ToAction(result);
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> Restore(int id)
         {
             var result = await __TaskStatusService.RestoreAsync(id: id);
