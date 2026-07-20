@@ -138,25 +138,25 @@
                 },
         
                 columns: [
-                    					{ data: 'ProjectId' },
-					{ data: 'UserId' },
+                    					{ data: 'projectId' },
+					{ data: 'userId' },
 
                     {
-                        data: 'JoinedDate',
+                        data: 'joinedDate',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
                     },
                     {
-                        data: 'CreateDateUtc',
+                        data: 'createDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
                     },
                     {
-                        data: 'UpdateDateUtc',
+                        data: 'updateDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');

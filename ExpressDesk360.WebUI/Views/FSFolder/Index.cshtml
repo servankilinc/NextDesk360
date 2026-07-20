@@ -158,13 +158,13 @@
                 },
         
                 columns: [
-                    					{ data: 'OwnerId' },
-					{ data: 'ParentFolderId' },
-					{ data: 'Name' },
-					{ data: 'Path' },
+                    					{ data: 'ownerId' },
+					{ data: 'parentFolderId' },
+					{ data: 'name' },
+					{ data: 'path' },
 
                     {
-                        data: 'CreateDate',
+                        data: 'createDate',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');

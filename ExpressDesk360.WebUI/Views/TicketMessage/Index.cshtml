@@ -151,42 +151,42 @@
                 },
         
                 columns: [
-                    					{ data: 'TicketId' },
+                    					{ data: 'ticketId' },
 
                     {
-                        data: 'IsSystem',
+                        data: 'isSystem',
                         render: function (data) {
                             if(data == true) return (`<span class="badge rounded-pill bg-label-danger"><i class="fa-solid fa-xmark"></i></span>`);
                             else if(data == false) return (`<span class="badge rounded-pill bg-label-success"><i class="fa-solid fa-check"></i></span>`);
                             else return ('');
                         }
-                    },					{ data: 'SenderId' },
+                    },					{ data: 'senderId' },
 
                     {
-                        data: 'ExternalAccess',
+                        data: 'externalAccess',
                         render: function (data) {
                             if(data == true) return (`<span class="badge rounded-pill bg-label-danger"><i class="fa-solid fa-xmark"></i></span>`);
                             else if(data == false) return (`<span class="badge rounded-pill bg-label-success"><i class="fa-solid fa-check"></i></span>`);
                             else return ('');
                         }
-                    },					{ data: 'Content' },
+                    },					{ data: 'content' },
 
                     {
-                        data: 'Date',
+                        data: 'date',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
                     },
                     {
-                        data: 'CreateDateUtc',
+                        data: 'createDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
                     },
                     {
-                        data: 'UpdateDateUtc',
+                        data: 'updateDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');

@@ -133,26 +133,26 @@
                 },
         
                 columns: [
-                    					{ data: 'TicketId' },
-					{ data: 'MaterialPrice' },
-					{ data: 'ServicePrice' },
-					{ data: 'AnotherPrice' },
-					{ data: 'TaxAmount' },
-					{ data: 'DiscountAmount' },
-					{ data: 'ServiceTotal' },
-					{ data: 'CurrencyId' },
-					{ data: 'ExchangeRate' },
-					{ data: 'ServiceDescription' },
+                    					{ data: 'ticketId' },
+					{ data: 'materialPrice' },
+					{ data: 'servicePrice' },
+					{ data: 'anotherPrice' },
+					{ data: 'taxAmount' },
+					{ data: 'discountAmount' },
+					{ data: 'serviceTotal' },
+					{ data: 'currencyId' },
+					{ data: 'exchangeRate' },
+					{ data: 'serviceDescription' },
 
                     {
-                        data: 'CreateDateUtc',
+                        data: 'createDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
                     },
                     {
-                        data: 'UpdateDateUtc',
+                        data: 'updateDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');

@@ -155,30 +155,30 @@
                 },
         
                 columns: [
-                    					{ data: 'StockId' },
-					{ data: 'StockMovementTypeId' },
-					{ data: 'UserId' },
-					{ data: 'Quantity' },
-					{ data: 'InvoiceId' },
-					{ data: 'TicketMovementId' },
-					{ data: 'WarehouseId' },
+                    					{ data: 'stockId' },
+					{ data: 'stockMovementTypeId' },
+					{ data: 'userId' },
+					{ data: 'quantity' },
+					{ data: 'invoiceId' },
+					{ data: 'ticketMovementId' },
+					{ data: 'warehouseId' },
 
                     {
-                        data: 'Date',
+                        data: 'date',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
                     },
                     {
-                        data: 'CreateDateUtc',
+                        data: 'createDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
                     },
                     {
-                        data: 'UpdateDateUtc',
+                        data: 'updateDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');

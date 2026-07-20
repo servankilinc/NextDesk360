@@ -150,25 +150,25 @@
                 },
         
                 columns: [
-                    					{ data: 'StockSerialId' },
-					{ data: 'WarrantyTypeId' },
+                    					{ data: 'stockSerialId' },
+					{ data: 'warrantyTypeId' },
 
                     {
-                        data: 'StartDate',
+                        data: 'startDate',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
                     },
                     {
-                        data: 'EndDate',
+                        data: 'endDate',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
                     },
                     {
-                        data: 'Status',
+                        data: 'status',
                         render: function (data) {
                             if(data == true) return (`<span class="badge rounded-pill bg-label-danger"><i class="fa-solid fa-xmark"></i></span>`);
                             else if(data == false) return (`<span class="badge rounded-pill bg-label-success"><i class="fa-solid fa-check"></i></span>`);
@@ -176,14 +176,14 @@
                         }
                     },
                     {
-                        data: 'CreateDateUtc',
+                        data: 'createDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
                     },
                     {
-                        data: 'UpdateDateUtc',
+                        data: 'updateDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');

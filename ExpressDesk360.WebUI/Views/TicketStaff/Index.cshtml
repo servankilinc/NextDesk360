@@ -124,11 +124,11 @@
                 },
         
                 columns: [
-                    					{ data: 'TicketId' },
-					{ data: 'UserId' },
+                    					{ data: 'ticketId' },
+					{ data: 'userId' },
 
                     {
-                        data: 'AddedDate',
+                        data: 'addedDate',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');

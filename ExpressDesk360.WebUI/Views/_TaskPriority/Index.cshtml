@@ -125,20 +125,20 @@
                 },
         
                 columns: [
-                    					{ data: 'Name' },
-					{ data: 'Color' },
-					{ data: 'Icon' },
-					{ data: 'Value' },
+                    					{ data: 'name' },
+					{ data: 'color' },
+					{ data: 'icon' },
+					{ data: 'value' },
 
                     {
-                        data: 'CreateDateUtc',
+                        data: 'createDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
                     },
                     {
-                        data: 'UpdateDateUtc',
+                        data: 'updateDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
