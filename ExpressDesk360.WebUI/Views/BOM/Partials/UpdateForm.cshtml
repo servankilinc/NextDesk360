@@ -1,0 +1,32 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.BOM
+@model BOMUpdateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="BOM" asp-action="Update" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <input asp-for="UpdateModel.Id" type="hidden"/>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.StockId">Stock</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.StockIds" asp-for="UpdateModel.StockId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.StockId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.VersionName">Version Name</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.VersionName" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.VersionName"></span>
+        </div>
+        <div class="col-md-6">
+            <div class="form-check">
+                <input class="form-check-input" asp-for="UpdateModel.Status" type="checkbox" value=""/>
+                <label class="form-check-label fw-semibold" asp-for="UpdateModel.Status">Status</label>
+                <span class="form_validation_feedback" asp-validation-for="UpdateModel.Status"></span>
+            </div>
+        </div>
+	</div>
+</form>

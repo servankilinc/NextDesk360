@@ -1,0 +1,29 @@
+using ExpressDesk360.Core.Model;
+using FluentValidation;
+
+namespace ExpressDesk360.Model.Dtos.TicketServicePrice.Commands
+{
+    public class TicketServicePriceCreateDto : IDto
+    {
+        public Guid TicketId { get; set; }
+        public decimal? MaterialPrice { get; set; }
+        public decimal? ServicePrice { get; set; }
+        public decimal? AnotherPrice { get; set; }
+        public decimal? TaxAmount { get; set; }
+        public decimal? DiscountAmount { get; set; }
+        public decimal ServiceTotal { get; set; }
+        public int CurrencyId { get; set; }
+        public decimal? ExchangeRate { get; set; }
+        public string? ServiceDescription { get; set; }
+    }
+
+    public class TicketServicePriceCreateDtoValidator : AbstractValidator<TicketServicePriceCreateDto>
+    {
+        public TicketServicePriceCreateDtoValidator()
+        {
+            RuleFor(v => v.TicketId).NotEqual(Guid.Empty).WithMessage("TicketId must be a valid guid value");
+            RuleFor(v => v.ServiceTotal).GreaterThan(0).WithMessage("ServiceTotal must be greater than 0");
+            RuleFor(v => v.CurrencyId).GreaterThan(0).WithMessage("CurrencyId must be greater than 0");
+        }
+    }
+}

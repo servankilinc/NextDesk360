@@ -1,0 +1,60 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.FSFile
+@model FSFileUpdateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="FSFile" asp-action="Update" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <input asp-for="UpdateModel.Id" type="hidden"/>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.FolderId">Folder</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.FolderIds" asp-for="UpdateModel.FolderId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.FolderId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Name">Name</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Name" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Name"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Path">Path</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Path" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Path"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Extension">Extension</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Extension" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Extension"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.MimeType">Mime Type</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.MimeType" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.MimeType"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Size">Size</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Size" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Size"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Hash">Hash</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Hash" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Hash"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.CreateDate">Create Date</label>
+            <input class="autoInitFlatPicker form-control form-control-solid" asp-for="UpdateModel.CreateDate"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.CreateDate"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.UpdateDate">Update Date</label>
+            <input class="autoInitFlatPicker form-control form-control-solid" asp-for="UpdateModel.UpdateDate"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.UpdateDate"></span>
+        </div>
+	</div>
+</form>

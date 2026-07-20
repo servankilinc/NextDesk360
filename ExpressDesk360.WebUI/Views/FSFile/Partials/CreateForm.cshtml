@@ -1,0 +1,59 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.FSFile
+@model FSFileCreateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="FSFile" asp-action="Create" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.FolderId">Folder</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.FolderIds" asp-for="CreateModel.FolderId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.FolderId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Name">Name</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Name" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Name"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Path">Path</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Path" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Path"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Extension">Extension</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Extension" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Extension"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.MimeType">Mime Type</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.MimeType" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.MimeType"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Size">Size</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Size" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Size"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Hash">Hash</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Hash" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Hash"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.CreateDate">Create Date</label>
+            <input class="autoInitFlatPicker form-control form-control-solid" asp-for="CreateModel.CreateDate"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.CreateDate"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.UpdateDate">Update Date</label>
+            <input class="autoInitFlatPicker form-control form-control-solid" asp-for="CreateModel.UpdateDate"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.UpdateDate"></span>
+        </div>
+	</div>
+</form>

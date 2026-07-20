@@ -1,0 +1,138 @@
+using AutoMapper;
+using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using ExpressDesk360.Business.Abstract;
+using ExpressDesk360.Core.BaseRequestModels;
+using ExpressDesk360.Core.Utils.Datatable;
+using ExpressDesk360.Core.Utils.Pagination;
+using ExpressDesk360.Core.Utils.ResultPattern;
+using ExpressDesk360.Core.Utils.Validation;
+using ExpressDesk360.DataAccess.Abstract;
+using ExpressDesk360.DataAccess.UoW;
+using ExpressDesk360.Model.Entities;
+using ExpressDesk360.Model.Dtos.StockMovement.Commands;
+using ExpressDesk360.Model.Dtos.StockMovement.Queries;
+
+namespace ExpressDesk360.Business.Concrete
+{
+    public class StockMovementService : IStockMovementService
+    {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IValidationService _validationService;
+        private readonly IMapper _mapper;
+        public StockMovementService(IUnitOfWork unitOfWork, IValidationService validationService, IMapper mapper)
+        {
+            _unitOfWork = unitOfWork;
+            _validationService = validationService;
+            _mapper = mapper;
+        }
+
+        public async Task<Result<StockMovement>> GetAsync(Expression<Func<StockMovement, bool>> where, CancellationToken cancellationToken = default)
+        {
+            var result = await _unitOfWork.StockMovements.GetAsync(where: where, cancellationToken: cancellationToken);
+            if (result == null)
+                return Result<StockMovement>.NotFound();
+            return Result<StockMovement>.Success(result);
+        }
+
+        public async Task<Result<StockMovement>> GetAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            var result = await _unitOfWork.StockMovements.GetAsync(where: (f) => f.Id == id, cancellationToken: cancellationToken);
+            if (result == null)
+                return Result<StockMovement>.NotFound();
+            return Result<StockMovement>.Success(result);
+        }
+
+        public async Task<Result<StockMovementDto>> GetBaseAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            var result = await _unitOfWork.StockMovements.GetAsync<StockMovementDto>(configurationProvider: _mapper.ConfigurationProvider, where: (f) => f.Id == id, cancellationToken: cancellationToken);
+            if (result == null)
+                return Result<StockMovementDto>.NotFound();
+            return Result<StockMovementDto>.Success(result);
+        }
+
+        public async Task<Result<ICollection<StockMovement>>> GetListAsync(Expression<Func<StockMovement, bool>>? where = default, CancellationToken cancellationToken = default)
+        {
+            var result = await _unitOfWork.StockMovements.GetAllAsync(where: where, cancellationToken: cancellationToken);
+            if (result == null)
+                return Result<ICollection<StockMovement>>.NotFound();
+            return Result<ICollection<StockMovement>>.Success(result);
+        }
+
+        public async Task<Result<ICollection<StockMovement>>> GetListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default)
+        {
+            var result = await _unitOfWork.StockMovements.GetAllAsync(filter: request?.Filter, sorts: request?.Sorts, tracking: false, cancellationToken: cancellationToken);
+            if (result == null)
+                return Result<ICollection<StockMovement>>.NotFound();
+            return Result<ICollection<StockMovement>>.Success(result);
+        }
+
+        public async Task<Result<ICollection<StockMovementDto>>> GetBaseListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default)
+        {
+            var result = await _unitOfWork.StockMovements.GetAllAsync<StockMovementDto>(configurationProvider: _mapper.ConfigurationProvider, filter: request?.Filter, sorts: request?.Sorts, cancellationToken: cancellationToken);
+            if (result == null)
+                return Result<ICollection<StockMovementDto>>.NotFound();
+            return Result<ICollection<StockMovementDto>>.Success(result);
+        }
+
+        public async Task<Result> CreateAsync(StockMovementCreateDto request, CancellationToken cancellationToken = default)
+        {
+            var validationResult = await _validationService.ValidateAsync(request, cancellationToken);
+            if (!validationResult.IsValid)
+                return Result.Validation(validationResult.Failures, description: $"Validation failed for StockMovementCreateDto");
+            await _unitOfWork.StockMovements.AddAndSaveAsync(_mapper.Map<StockMovement>(request), cancellationToken);
+            return Result.Success();
+        }
+
+        public async Task<Result<StockMovementUpdateDto>> GetUpdateModelAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            var result = await _unitOfWork.StockMovements.GetAsync<StockMovementUpdateDto>(configurationProvider: _mapper.ConfigurationProvider, where: (f) => f.Id == id, cancellationToken: cancellationToken);
+            if (result == null)
+                return Result<StockMovementUpdateDto>.NotFound();
+            return Result<StockMovementUpdateDto>.Success(result);
+        }
+
+        public async Task<Result> UpdateAsync(StockMovementUpdateDto request, CancellationToken cancellationToken = default)
+        {
+            var validationResult = await _validationService.ValidateAsync(request, cancellationToken);
+            if (!validationResult.IsValid)
+                return Result.Validation(validationResult.Failures);
+            var entity = await _unitOfWork.StockMovements.GetAsync(where: (f) => f.Id == request.Id, cancellationToken: cancellationToken);
+            if (entity == null)
+                return Result.NotFound();
+            await _unitOfWork.StockMovements.UpdateAndSaveAsync(_mapper.Map(request, entity), cancellationToken);
+            return Result.Success();
+        }
+
+        public async Task<Result> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            await _unitOfWork.StockMovements.DeleteAndSaveAsync(where: (f) => f.Id == id, cancellationToken);
+            return Result.Success();
+        }
+
+        public async Task<Result> RestoreAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            await _unitOfWork.StockMovements.RestoreAndSaveAsync(where: (f) => f.Id == id, cancellationToken);
+            return Result.Success();
+        }
+
+        public async Task<Result<PaginationResponse<StockMovement>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default)
+        {
+            var result = await _unitOfWork.StockMovements.PaginationAsync(paginationRequest: request, cancellationToken: cancellationToken);
+            return Result<PaginationResponse<StockMovement>>.Success(result);
+        }
+
+        public async Task<Result<DatatableResponseClientSide<StockMovement>>> DatatableClientSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
+        {
+            var result = await _unitOfWork.StockMovements.DatatableClientSideAsync(datatableRequest: request, cancellationToken: cancellationToken);
+            return Result<DatatableResponseClientSide<StockMovement>>.Success(result);
+        }
+
+        public async Task<Result<DatatableResponseServerSide<StockMovement>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
+        {
+            var result = await _unitOfWork.StockMovements.DatatableServerSideAsync(datatableRequest: request, cancellationToken: cancellationToken);
+            return Result<DatatableResponseServerSide<StockMovement>>.Success(result);
+        }
+    }
+}

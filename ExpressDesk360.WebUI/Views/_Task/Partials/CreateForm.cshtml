@@ -1,0 +1,44 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels._Task
+@model _TaskCreateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="_Task" asp-action="Create" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.TaskPriorityId">Task Priority</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.TaskPriorityIds" asp-for="CreateModel.TaskPriorityId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.TaskPriorityId"></span>
+        </div>
+        <input asp-for="CreateModel.ReferenceId" type="hidden"/>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.OwnerId">Owner</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.OwnerIds" asp-for="CreateModel.OwnerId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.OwnerId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Name">Name</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Name" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Name"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.LastTaskMovementTypeId">Last Task Movement Type</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.LastTaskMovementTypeIds" asp-for="CreateModel.LastTaskMovementTypeId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.LastTaskMovementTypeId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Description">Description</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Description" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Description"></span>
+        </div>
+	</div>
+</form>

@@ -1,0 +1,32 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.InvoiceType
+@model InvoiceTypeCreateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="InvoiceType" asp-action="Create" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Name">Name</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Name" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Name"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.InOutCode">In Out Code</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.InOutCode" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.InOutCode"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.NumberStart">Number Start</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.NumberStart" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.NumberStart"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Status">Status</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Status" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Status"></span>
+        </div>
+	</div>
+</form>

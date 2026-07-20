@@ -1,0 +1,66 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.TicketServicePrice
+@model TicketServicePriceCreateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="TicketServicePrice" asp-action="Create" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.TicketId">Ticket</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.TicketIds" asp-for="CreateModel.TicketId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.TicketId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.MaterialPrice">Material Price</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.MaterialPrice" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.MaterialPrice"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.ServicePrice">Service Price</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.ServicePrice" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.ServicePrice"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.AnotherPrice">Another Price</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.AnotherPrice" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.AnotherPrice"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.TaxAmount">Tax Amount</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.TaxAmount" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.TaxAmount"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.DiscountAmount">Discount Amount</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.DiscountAmount" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.DiscountAmount"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.ServiceTotal">Service Total</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.ServiceTotal" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.ServiceTotal"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.CurrencyId">Currency</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.CurrencyIds" asp-for="CreateModel.CurrencyId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.CurrencyId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.ExchangeRate">Exchange Rate</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.ExchangeRate" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.ExchangeRate"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.ServiceDescription">Service Description</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.ServiceDescription" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.ServiceDescription"></span>
+        </div>
+	</div>
+</form>

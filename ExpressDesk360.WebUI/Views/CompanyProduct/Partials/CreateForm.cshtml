@@ -1,0 +1,38 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.CompanyProduct
+@model CompanyProductCreateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="CompanyProduct" asp-action="Create" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.CompanyId">Company</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.CompanyIds" asp-for="CreateModel.CompanyId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.CompanyId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Name">Name</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Name" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Name"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.StockId">Stock</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.StockIds" asp-for="CreateModel.StockId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.StockId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.BOMId">BOM</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.BOMIds" asp-for="CreateModel.BOMId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.BOMId"></span>
+        </div>
+	</div>
+</form>

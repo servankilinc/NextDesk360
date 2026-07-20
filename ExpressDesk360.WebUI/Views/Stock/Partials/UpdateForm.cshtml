@@ -1,0 +1,97 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.Stock
+@model StockUpdateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="Stock" asp-action="Update" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <input asp-for="UpdateModel.Id" type="hidden"/>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.StockGroupId">Stock Group</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.StockGroupIds" asp-for="UpdateModel.StockGroupId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.StockGroupId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.StockBrandId">Stock Brand</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.StockBrandIds" asp-for="UpdateModel.StockBrandId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.StockBrandId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.ModelName">Model Name</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.ModelName" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.ModelName"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.ModelCode">Model Code</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.ModelCode" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.ModelCode"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.ModelType">Model Type</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.ModelType" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.ModelType"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.UnitId">Unit</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.UnitIds" asp-for="UpdateModel.UnitId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.UnitId"></span>
+        </div>
+        <div class="col-md-6">
+            <div class="form-check">
+                <input class="form-check-input" asp-for="UpdateModel.SerialTracking" type="checkbox" value=""/>
+                <label class="form-check-label fw-semibold" asp-for="UpdateModel.SerialTracking">Serial Tracking</label>
+                <span class="form_validation_feedback" asp-validation-for="UpdateModel.SerialTracking"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-check">
+                <input class="form-check-input" asp-for="UpdateModel.VirtualSeries" type="checkbox" value=""/>
+                <label class="form-check-label fw-semibold" asp-for="UpdateModel.VirtualSeries">Virtual Series</label>
+                <span class="form_validation_feedback" asp-validation-for="UpdateModel.VirtualSeries"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.SerialNumberStart">Serial Number Start</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.SerialNumberStart" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.SerialNumberStart"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Vat">Vat</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Vat" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Vat"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.PurchasePrice">Purchase Price</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.PurchasePrice" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.PurchasePrice"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.PurchaseCurrencyId">Purchase Currency</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.PurchaseCurrencyIds" asp-for="UpdateModel.PurchaseCurrencyId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.PurchaseCurrencyId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.SalePrice">Sale Price</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.SalePrice" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.SalePrice"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.SalePriceCurrencyId">Sale Price Currency</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.SalePriceCurrencyIds" asp-for="UpdateModel.SalePriceCurrencyId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.SalePriceCurrencyId"></span>
+        </div>
+	</div>
+</form>

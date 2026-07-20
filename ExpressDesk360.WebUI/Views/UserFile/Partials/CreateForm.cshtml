@@ -1,0 +1,26 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.UserFile
+@model UserFileCreateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="UserFile" asp-action="Create" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.UserId">User</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.UserIds" asp-for="CreateModel.UserId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.UserId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.FileId">File</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.FileIds" asp-for="CreateModel.FileId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.FileId"></span>
+        </div>
+	</div>
+</form>

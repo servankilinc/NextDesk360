@@ -1,0 +1,96 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.Stock
+@model StockCreateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="Stock" asp-action="Create" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.StockGroupId">Stock Group</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.StockGroupIds" asp-for="CreateModel.StockGroupId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.StockGroupId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.StockBrandId">Stock Brand</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.StockBrandIds" asp-for="CreateModel.StockBrandId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.StockBrandId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.ModelName">Model Name</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.ModelName" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.ModelName"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.ModelCode">Model Code</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.ModelCode" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.ModelCode"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.ModelType">Model Type</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.ModelType" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.ModelType"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.UnitId">Unit</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.UnitIds" asp-for="CreateModel.UnitId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.UnitId"></span>
+        </div>
+        <div class="col-md-6">
+            <div class="form-check">
+                <input class="form-check-input" asp-for="CreateModel.SerialTracking" type="checkbox" value=""/>
+                <label class="form-check-label fw-semibold" asp-for="CreateModel.SerialTracking">Serial Tracking</label>
+                <span class="form_validation_feedback" asp-validation-for="CreateModel.SerialTracking"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-check">
+                <input class="form-check-input" asp-for="CreateModel.VirtualSeries" type="checkbox" value=""/>
+                <label class="form-check-label fw-semibold" asp-for="CreateModel.VirtualSeries">Virtual Series</label>
+                <span class="form_validation_feedback" asp-validation-for="CreateModel.VirtualSeries"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.SerialNumberStart">Serial Number Start</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.SerialNumberStart" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.SerialNumberStart"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Vat">Vat</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Vat" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Vat"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.PurchasePrice">Purchase Price</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.PurchasePrice" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.PurchasePrice"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.PurchaseCurrencyId">Purchase Currency</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.PurchaseCurrencyIds" asp-for="CreateModel.PurchaseCurrencyId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.PurchaseCurrencyId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.SalePrice">Sale Price</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.SalePrice" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.SalePrice"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.SalePriceCurrencyId">Sale Price Currency</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.SalePriceCurrencyIds" asp-for="CreateModel.SalePriceCurrencyId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.SalePriceCurrencyId"></span>
+        </div>
+	</div>
+</form>

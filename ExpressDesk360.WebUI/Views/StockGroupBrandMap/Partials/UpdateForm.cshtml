@@ -1,0 +1,27 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.StockGroupBrandMap
+@model StockGroupBrandMapUpdateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="StockGroupBrandMap" asp-action="Update" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <input asp-for="UpdateModel.Id" type="hidden"/>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.StockBrandId">Stock Brand</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.StockBrandIds" asp-for="UpdateModel.StockBrandId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.StockBrandId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.StockGroupId">Stock Group</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.StockGroupIds" asp-for="UpdateModel.StockGroupId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.StockGroupId"></span>
+        </div>
+	</div>
+</form>

@@ -1,0 +1,47 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels._TaskMovementType
+@model _TaskMovementTypeUpdateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="_TaskMovementType" asp-action="Update" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <input asp-for="UpdateModel.Id" type="hidden"/>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Name">Name</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Name" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Name"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.TaskStatusId">Task Status</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.TaskStatusIds" asp-for="UpdateModel.TaskStatusId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.TaskStatusId"></span>
+        </div>
+        <div class="col-md-6">
+            <div class="form-check">
+                <input class="form-check-input" asp-for="UpdateModel.Accessible" type="checkbox" value=""/>
+                <label class="form-check-label fw-semibold" asp-for="UpdateModel.Accessible">Accessible</label>
+                <span class="form_validation_feedback" asp-validation-for="UpdateModel.Accessible"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Color">Color</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Color" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Color"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.InformationText">Information Text</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.InformationText" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.InformationText"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Description">Description</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Description" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Description"></span>
+        </div>
+	</div>
+</form>

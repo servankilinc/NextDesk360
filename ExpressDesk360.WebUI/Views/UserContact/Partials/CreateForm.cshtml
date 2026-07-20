@@ -1,0 +1,31 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.UserContact
+@model UserContactCreateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="UserContact" asp-action="Create" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.UserId">User</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.UserIds" asp-for="CreateModel.UserId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.UserId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.ContactTypeId">Contact Type</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.ContactTypeIds" asp-for="CreateModel.ContactTypeId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.ContactTypeId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Info">Info</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Info" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Info"></span>
+        </div>
+	</div>
+</form>

@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="ExpressDesk360.Business/ExpressDesk360.Business.csproj" />
+  <Project Path="ExpressDesk360.Core/ExpressDesk360.Core.csproj" />
+  <Project Path="ExpressDesk360.DataAccess/ExpressDesk360.DataAccess.csproj" />
+  <Project Path="ExpressDesk360.Model/ExpressDesk360.Model.csproj" />
+  <Project Path="ExpressDesk360.WebAPI/ExpressDesk360.WebAPI.csproj" />
+  <Project Path="ExpressDesk360.WebUI/ExpressDesk360.WebUI.csproj" />
+</Solution>

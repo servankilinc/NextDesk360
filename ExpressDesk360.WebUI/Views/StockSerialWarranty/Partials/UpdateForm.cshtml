@@ -1,0 +1,44 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.StockSerialWarranty
+@model StockSerialWarrantyUpdateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="StockSerialWarranty" asp-action="Update" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <input asp-for="UpdateModel.Id" type="hidden"/>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.StockSerialId">Stock Serial</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.StockSerialIds" asp-for="UpdateModel.StockSerialId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.StockSerialId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.WarrantyTypeId">Warranty Type</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.WarrantyTypeIds" asp-for="UpdateModel.WarrantyTypeId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.WarrantyTypeId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.StartDate">Start Date</label>
+            <input class="autoInitFlatPicker form-control form-control-solid" asp-for="UpdateModel.StartDate"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.StartDate"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.EndDate">End Date</label>
+            <input class="autoInitFlatPicker form-control form-control-solid" asp-for="UpdateModel.EndDate"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.EndDate"></span>
+        </div>
+        <div class="col-md-6">
+            <div class="form-check">
+                <input class="form-check-input" asp-for="UpdateModel.Status" type="checkbox" value=""/>
+                <label class="form-check-label fw-semibold" asp-for="UpdateModel.Status">Status</label>
+                <span class="form_validation_feedback" asp-validation-for="UpdateModel.Status"></span>
+            </div>
+        </div>
+	</div>
+</form>

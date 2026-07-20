@@ -1,0 +1,11 @@
+using ExpressDesk360.Core.Model;
+
+namespace ExpressDesk360.Model.Dtos.ContactType.Queries
+{
+    public class ContactTypeDto : IDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = null!;
+        public string Icon { get; set; } = null!;
+    }
+}

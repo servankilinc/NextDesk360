@@ -1,0 +1,50 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.TicketMessage
+@model TicketMessageCreateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="TicketMessage" asp-action="Create" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.TicketId">Ticket</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.TicketIds" asp-for="CreateModel.TicketId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.TicketId"></span>
+        </div>
+        <div class="col-md-6">
+            <div class="form-check">
+                <input class="form-check-input" asp-for="CreateModel.IsSystem" type="checkbox" value=""/>
+                <label class="form-check-label fw-semibold" asp-for="CreateModel.IsSystem">Is System</label>
+                <span class="form_validation_feedback" asp-validation-for="CreateModel.IsSystem"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.SenderId">Sender</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.SenderIds" asp-for="CreateModel.SenderId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.SenderId"></span>
+        </div>
+        <div class="col-md-6">
+            <div class="form-check">
+                <input class="form-check-input" asp-for="CreateModel.ExternalAccess" type="checkbox" value=""/>
+                <label class="form-check-label fw-semibold" asp-for="CreateModel.ExternalAccess">External Access</label>
+                <span class="form_validation_feedback" asp-validation-for="CreateModel.ExternalAccess"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Content">Content</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Content" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Content"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Date">Date</label>
+            <input class="autoInitFlatPicker form-control form-control-solid" asp-for="CreateModel.Date"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Date"></span>
+        </div>
+	</div>
+</form>

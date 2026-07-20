@@ -1,0 +1,28 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.StockMovementType
+@model StockMovementTypeUpdateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="StockMovementType" asp-action="Update" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <input asp-for="UpdateModel.Id" type="hidden"/>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Name">Name</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Name" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Name"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.InOutCode">In Out Code</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.InOutCode" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.InOutCode"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Description">Description</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Description" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Description"></span>
+        </div>
+	</div>
+</form>

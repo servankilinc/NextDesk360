@@ -1,0 +1,41 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.FSFolder
+@model FSFolderCreateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="FSFolder" asp-action="Create" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.OwnerId">Owner</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.OwnerIds" asp-for="CreateModel.OwnerId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.OwnerId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.ParentFolderId">Parent Folder</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.ParentFolderIds" asp-for="CreateModel.ParentFolderId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.ParentFolderId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Name">Name</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Name" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Name"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Path">Path</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Path" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Path"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.CreateDate">Create Date</label>
+            <input class="autoInitFlatPicker form-control form-control-solid" asp-for="CreateModel.CreateDate"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.CreateDate"></span>
+        </div>
+	</div>
+</form>

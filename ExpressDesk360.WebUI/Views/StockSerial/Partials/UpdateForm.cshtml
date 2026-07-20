@@ -1,0 +1,39 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.StockSerial
+@model StockSerialUpdateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="StockSerial" asp-action="Update" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <input asp-for="UpdateModel.Id" type="hidden"/>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.StockId">Stock</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.StockIds" asp-for="UpdateModel.StockId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.StockId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.SerialNumber">Serial Number</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.SerialNumber" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.SerialNumber"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.CompanyId">Company</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.CompanyIds" asp-for="UpdateModel.CompanyId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.CompanyId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.WarehouseId">Warehouse</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.WarehouseIds" asp-for="UpdateModel.WarehouseId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.WarehouseId"></span>
+        </div>
+	</div>
+</form>

@@ -1,0 +1,22 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.Unit
+@model UnitCreateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="Unit" asp-action="Create" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Name">Name</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Name" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Name"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.ShortName">Short Name</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.ShortName" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.ShortName"></span>
+        </div>
+	</div>
+</form>

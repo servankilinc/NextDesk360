@@ -1,0 +1,133 @@
+using Microsoft.AspNetCore.Mvc;
+using ExpressDesk360.Core.BaseRequestModels;
+using ExpressDesk360.Model.Entities;
+using ExpressDesk360.Business.Abstract;
+using ExpressDesk360.WebUI.Controllers.Base;
+using ExpressDesk360.WebUI.Models.ViewModels.StockMovement;
+using ExpressDesk360.Model.Dtos.StockMovement.Commands;
+using ExpressDesk360.Model.Dtos.StockMovement.Queries;
+
+namespace ExpressDesk360.WebUI.Controllers
+{
+    public class StockMovementController : BaseController
+    {
+        private readonly IStockMovementService _stockMovementService;
+        private readonly IStockService _stockService;
+        private readonly IStockMovementTypeService _stockMovementTypeService;
+        private readonly IUserService _userService;
+        private readonly IInvoiceService _invoiceService;
+        private readonly ITicketMovementService _ticketMovementService;
+        private readonly IWarehouseService _warehouseService;
+        public StockMovementController(ILogger<StockMovementController> logger, IStockMovementService stockMovementService, IStockService stockService, IStockMovementTypeService stockMovementTypeService, IUserService userService, IInvoiceService invoiceService, ITicketMovementService ticketMovementService, IWarehouseService warehouseService) : base(logger)
+        {
+            _stockMovementService = stockMovementService;
+            _stockService = stockService;
+            _stockMovementTypeService = stockMovementTypeService;
+            _userService = userService;
+            _invoiceService = invoiceService;
+            _ticketMovementService = ticketMovementService;
+            _warehouseService = warehouseService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var stockIds = await _stockService.SelectListAsync();
+            var stockMovementTypeIds = await _stockMovementTypeService.SelectListAsync();
+            var userIds = await _userService.SelectListAsync();
+            var viewModel = new StockMovementViewModel
+            {
+                StockIds = stockIds.Data,
+                StockMovementTypeIds = stockMovementTypeIds.Data,
+                UserIds = userIds.Data
+            };
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            var stockIds = await _stockService.SelectListAsync();
+            var stockMovementTypeIds = await _stockMovementTypeService.SelectListAsync();
+            var userIds = await _userService.SelectListAsync();
+            var invoiceIds = await _invoiceService.SelectListAsync();
+            var ticketMovementIds = await _ticketMovementService.SelectListAsync();
+            var warehouseIds = await _warehouseService.SelectListAsync();
+            var viewModel = new StockMovementCreateViewModel
+            {
+                StockIds = stockIds.Data,
+                StockMovementTypeIds = stockMovementTypeIds.Data,
+                UserIds = userIds.Data,
+                InvoiceIds = invoiceIds.Data,
+                TicketMovementIds = ticketMovementIds.Data,
+                WarehouseIds = warehouseIds.Data
+            };
+            return PartialView("./Partials/CreateForm", viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(StockMovementCreateDto request)
+        {
+            var result = await _stockMovementService.CreateAsync(request);
+            return ToAction(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(Guid id)
+        {
+            var result = await _stockMovementService.GetUpdateModelAsync(id: id); if  ( ! result . IsSuccess ) return  ToAction ( result ) ; 
+            var stockIds = await _stockService.SelectListAsync();
+            var stockMovementTypeIds = await _stockMovementTypeService.SelectListAsync();
+            var userIds = await _userService.SelectListAsync();
+            var invoiceIds = await _invoiceService.SelectListAsync();
+            var ticketMovementIds = await _ticketMovementService.SelectListAsync();
+            var warehouseIds = await _warehouseService.SelectListAsync();
+            var viewModel = new StockMovementUpdateViewModel
+            {
+                UpdateModel = result.Data,
+                StockIds = stockIds.Data,
+                StockMovementTypeIds = stockMovementTypeIds.Data,
+                UserIds = userIds.Data,
+                InvoiceIds = invoiceIds.Data,
+                TicketMovementIds = ticketMovementIds.Data,
+                WarehouseIds = warehouseIds.Data
+            };
+            return PartialView("./Partials/UpdateForm", viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(StockMovementUpdateDto updateModel)
+        {
+            var result = await _stockMovementService.UpdateAsync(updateModel);
+            return ToAction(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var result = await _stockMovementService.DeleteAsync(id: id);
+            return ToAction(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Restore(Guid id)
+        {
+            var result = await _stockMovementService.RestoreAsync(id: id);
+            return ToAction(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DatatableClientSide(DynamicDatatableRequest request)
+        {
+            var result = await _stockMovementService.DatatableClientSideAsync(request);
+            return ToAction(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DatatableServerSide(DynamicDatatableRequest request)
+        {
+            var result = await _stockMovementService.DatatableServerSideAsync(request);
+            return ToAction(result);
+        }
+    }
+}

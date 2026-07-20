@@ -1,0 +1,31 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.ProjectStaff
+@model ProjectStaffCreateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="ProjectStaff" asp-action="Create" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.ProjectId">Project</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.ProjectIds" asp-for="CreateModel.ProjectId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.ProjectId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.UserId">User</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.UserIds" asp-for="CreateModel.UserId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.UserId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.JoinedDate">Joined Date</label>
+            <input class="autoInitFlatPicker form-control form-control-solid" asp-for="CreateModel.JoinedDate"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.JoinedDate"></span>
+        </div>
+	</div>
+</form>

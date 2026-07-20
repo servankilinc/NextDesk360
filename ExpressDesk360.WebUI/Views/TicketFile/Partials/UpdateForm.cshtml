@@ -1,0 +1,27 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.TicketFile
+@model TicketFileUpdateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="TicketFile" asp-action="Update" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <input asp-for="UpdateModel.Id" type="hidden"/>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.TicketId">Ticket</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.TicketIds" asp-for="UpdateModel.TicketId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.TicketId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.FileId">File</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.FileIds" asp-for="UpdateModel.FileId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.FileId"></span>
+        </div>
+	</div>
+</form>

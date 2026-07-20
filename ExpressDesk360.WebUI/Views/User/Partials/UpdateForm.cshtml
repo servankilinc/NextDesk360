@@ -1,0 +1,45 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.User
+@model UserUpdateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="User" asp-action="Update" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <input asp-for="UpdateModel.Id" type="hidden"/>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.CompanyId">Company</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.CompanyIds" asp-for="UpdateModel.CompanyId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.CompanyId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.UserName">User Name</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.UserName" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.UserName"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Name">Name</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Name" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Name"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.SurName">Sur Name</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.SurName" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.SurName"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.HireDate">Hire Date</label>
+            <input class="autoInitFlatPicker form-control form-control-solid" asp-for="UpdateModel.HireDate"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.HireDate"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.LogoUrl">Logo Url</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.LogoUrl" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.LogoUrl"></span>
+        </div>
+	</div>
+</form>

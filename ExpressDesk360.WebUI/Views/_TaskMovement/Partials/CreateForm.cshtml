@@ -1,0 +1,43 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels._TaskMovement
+@model _TaskMovementCreateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="_TaskMovement" asp-action="Create" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.TaskId">Task</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.TaskIds" asp-for="CreateModel.TaskId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.TaskId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.TaskMovementTypeId">Task Movement Type</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.TaskMovementTypeIds" asp-for="CreateModel.TaskMovementTypeId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.TaskMovementTypeId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.UserId">User</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.UserIds" asp-for="CreateModel.UserId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.UserId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Date">Date</label>
+            <input class="autoInitFlatPicker form-control form-control-solid" asp-for="CreateModel.Date"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Date"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Description">Description</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Description" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Description"></span>
+        </div>
+	</div>
+</form>

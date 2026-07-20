@@ -1,0 +1,45 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels._Task
+@model _TaskUpdateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="_Task" asp-action="Update" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <input asp-for="UpdateModel.Id" type="hidden"/>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.TaskPriorityId">Task Priority</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.TaskPriorityIds" asp-for="UpdateModel.TaskPriorityId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.TaskPriorityId"></span>
+        </div>
+        <input asp-for="UpdateModel.ReferenceId" type="hidden"/>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.OwnerId">Owner</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.OwnerIds" asp-for="UpdateModel.OwnerId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.OwnerId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Name">Name</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Name" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Name"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.LastTaskMovementTypeId">Last Task Movement Type</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.LastTaskMovementTypeIds" asp-for="UpdateModel.LastTaskMovementTypeId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.LastTaskMovementTypeId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Description">Description</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Description" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Description"></span>
+        </div>
+	</div>
+</form>

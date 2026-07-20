@@ -1,0 +1,31 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.BOMItem
+@model BOMItemCreateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="BOMItem" asp-action="Create" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.BOMId">BOM</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.BOMIds" asp-for="CreateModel.BOMId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.BOMId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.StockId">Stock</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.StockIds" asp-for="CreateModel.StockId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.StockId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Quantity">Quantity</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Quantity" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Quantity"></span>
+        </div>
+	</div>
+</form>

@@ -1,0 +1,65 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.StockMovement
+@model StockMovementUpdateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="StockMovement" asp-action="Update" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <input asp-for="UpdateModel.Id" type="hidden"/>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.StockId">Stock</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.StockIds" asp-for="UpdateModel.StockId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.StockId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.StockMovementTypeId">Stock Movement Type</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.StockMovementTypeIds" asp-for="UpdateModel.StockMovementTypeId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.StockMovementTypeId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.UserId">User</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.UserIds" asp-for="UpdateModel.UserId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.UserId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Quantity">Quantity</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Quantity" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Quantity"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.InvoiceId">Invoice</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.InvoiceIds" asp-for="UpdateModel.InvoiceId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.InvoiceId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.TicketMovementId">Ticket Movement</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.TicketMovementIds" asp-for="UpdateModel.TicketMovementId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.TicketMovementId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.WarehouseId">Warehouse</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.WarehouseIds" asp-for="UpdateModel.WarehouseId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.WarehouseId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Date">Date</label>
+            <input class="autoInitFlatPicker form-control form-control-solid" asp-for="UpdateModel.Date"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Date"></span>
+        </div>
+	</div>
+</form>

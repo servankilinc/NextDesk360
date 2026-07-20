@@ -1,0 +1,72 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.Shipping
+@model ShippingCreateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="Shipping" asp-action="Create" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.CargoCompanyId">Cargo Company</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.CargoCompanyIds" asp-for="CreateModel.CargoCompanyId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.CargoCompanyId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.ShippingTypeId">Shipping Type</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.ShippingTypeIds" asp-for="CreateModel.ShippingTypeId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.ShippingTypeId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.UserId">User</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.UserIds" asp-for="CreateModel.UserId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.UserId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.SendingCompanyName">Sending Company Name</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.SendingCompanyName" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.SendingCompanyName"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.ReceivingCompanyName">Receiving Company Name</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.ReceivingCompanyName" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.ReceivingCompanyName"></span>
+        </div>
+        <div class="col-md-6">
+            <div class="form-check">
+                <input class="form-check-input" asp-for="CreateModel.IsIncoming" type="checkbox" value=""/>
+                <label class="form-check-label fw-semibold" asp-for="CreateModel.IsIncoming">Is Incoming</label>
+                <span class="form_validation_feedback" asp-validation-for="CreateModel.IsIncoming"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.TrackingNumber">Tracking Number</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.TrackingNumber" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.TrackingNumber"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.ShippingDate">Shipping Date</label>
+            <input class="autoInitFlatPicker form-control form-control-solid" asp-for="CreateModel.ShippingDate"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.ShippingDate"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Price">Price</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Price" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Price"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.PriceCurrencyId">Price Currency</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.PriceCurrencyIds" asp-for="CreateModel.PriceCurrencyId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.PriceCurrencyId"></span>
+        </div>
+	</div>
+</form>

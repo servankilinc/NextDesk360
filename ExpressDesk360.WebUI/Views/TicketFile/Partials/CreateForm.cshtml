@@ -1,0 +1,26 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.TicketFile
+@model TicketFileCreateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="TicketFile" asp-action="Create" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.TicketId">Ticket</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.TicketIds" asp-for="CreateModel.TicketId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.TicketId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.FileId">File</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.FileIds" asp-for="CreateModel.FileId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.FileId"></span>
+        </div>
+	</div>
+</form>

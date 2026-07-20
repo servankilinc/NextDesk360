@@ -1,0 +1,33 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels._TaskPriority
+@model _TaskPriorityUpdateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="_TaskPriority" asp-action="Update" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <input asp-for="UpdateModel.Id" type="hidden"/>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Name">Name</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Name" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Name"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Color">Color</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Color" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Color"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Icon">Icon</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Icon" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Icon"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Value">Value</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Value" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Value"></span>
+        </div>
+	</div>
+</form>

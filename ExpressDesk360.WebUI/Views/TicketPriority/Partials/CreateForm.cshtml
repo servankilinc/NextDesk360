@@ -1,0 +1,32 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.TicketPriority
+@model TicketPriorityCreateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="TicketPriority" asp-action="Create" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Name">Name</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Name" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Name"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Color">Color</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Color" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Color"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Icon">Icon</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Icon" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Icon"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Value">Value</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Value" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Value"></span>
+        </div>
+	</div>
+</form>

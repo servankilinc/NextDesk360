@@ -1,0 +1,32 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.UserContact
+@model UserContactUpdateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="UserContact" asp-action="Update" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <input asp-for="UpdateModel.Id" type="hidden"/>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.UserId">User</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.UserIds" asp-for="UpdateModel.UserId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.UserId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.ContactTypeId">Contact Type</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.ContactTypeIds" asp-for="UpdateModel.ContactTypeId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.ContactTypeId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Info">Info</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Info" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Info"></span>
+        </div>
+	</div>
+</form>

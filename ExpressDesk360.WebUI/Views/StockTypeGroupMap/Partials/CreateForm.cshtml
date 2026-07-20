@@ -1,0 +1,26 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.StockTypeGroupMap
+@model StockTypeGroupMapCreateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="StockTypeGroupMap" asp-action="Create" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.StockTypeId">Stock Type</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.StockTypeIds" asp-for="CreateModel.StockTypeId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.StockTypeId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.StockGroupId">Stock Group</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.StockGroupIds" asp-for="CreateModel.StockGroupId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.StockGroupId"></span>
+        </div>
+	</div>
+</form>

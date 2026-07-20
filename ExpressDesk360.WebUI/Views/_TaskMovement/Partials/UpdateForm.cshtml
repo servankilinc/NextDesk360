@@ -1,0 +1,44 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels._TaskMovement
+@model _TaskMovementUpdateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="_TaskMovement" asp-action="Update" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <input asp-for="UpdateModel.Id" type="hidden"/>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.TaskId">Task</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.TaskIds" asp-for="UpdateModel.TaskId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.TaskId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.TaskMovementTypeId">Task Movement Type</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.TaskMovementTypeIds" asp-for="UpdateModel.TaskMovementTypeId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.TaskMovementTypeId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.UserId">User</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.UserIds" asp-for="UpdateModel.UserId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.UserId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Date">Date</label>
+            <input class="autoInitFlatPicker form-control form-control-solid" asp-for="UpdateModel.Date"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Date"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Description">Description</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Description" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Description"></span>
+        </div>
+	</div>
+</form>

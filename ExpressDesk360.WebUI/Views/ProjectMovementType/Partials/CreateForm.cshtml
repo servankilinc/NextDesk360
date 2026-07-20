@@ -1,0 +1,46 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.ProjectMovementType
+@model ProjectMovementTypeCreateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="ProjectMovementType" asp-action="Create" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Name">Name</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Name" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Name"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.ProjectStatusId">Project Status</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.ProjectStatusIds" asp-for="CreateModel.ProjectStatusId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.ProjectStatusId"></span>
+        </div>
+        <div class="col-md-6">
+            <div class="form-check">
+                <input class="form-check-input" asp-for="CreateModel.Accessible" type="checkbox" value=""/>
+                <label class="form-check-label fw-semibold" asp-for="CreateModel.Accessible">Accessible</label>
+                <span class="form_validation_feedback" asp-validation-for="CreateModel.Accessible"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Color">Color</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Color" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Color"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.InformationText">Information Text</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.InformationText" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.InformationText"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Description">Description</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Description" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.Description"></span>
+        </div>
+	</div>
+</form>

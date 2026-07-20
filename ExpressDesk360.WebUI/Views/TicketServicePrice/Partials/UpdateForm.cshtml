@@ -1,0 +1,67 @@
+
+@using ExpressDesk360.WebUI.Models.ViewModels.TicketServicePrice
+@model TicketServicePriceUpdateViewModel
+@{
+	Layout = null;
+}
+
+<form asp-controller="TicketServicePrice" asp-action="Update" method="post"> 
+	<div class="row row-gap-4 m-2">
+        
+        <input asp-for="UpdateModel.Id" type="hidden"/>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.TicketId">Ticket</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.TicketIds" asp-for="UpdateModel.TicketId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.TicketId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.MaterialPrice">Material Price</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.MaterialPrice" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.MaterialPrice"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.ServicePrice">Service Price</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.ServicePrice" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.ServicePrice"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.AnotherPrice">Another Price</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.AnotherPrice" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.AnotherPrice"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.TaxAmount">Tax Amount</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.TaxAmount" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.TaxAmount"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.DiscountAmount">Discount Amount</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.DiscountAmount" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.DiscountAmount"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.ServiceTotal">Service Total</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.ServiceTotal" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.ServiceTotal"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.CurrencyId">Currency</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.CurrencyIds" asp-for="UpdateModel.CurrencyId" data-control="select2"  data-allow-clear="true">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.CurrencyId"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.ExchangeRate">Exchange Rate</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.ExchangeRate" type="number"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.ExchangeRate"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.ServiceDescription">Service Description</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.ServiceDescription" type="text"/>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.ServiceDescription"></span>
+        </div>
+	</div>
+</form>
