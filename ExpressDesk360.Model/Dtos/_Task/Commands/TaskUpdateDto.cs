@@ -21,7 +21,7 @@ namespace ExpressDesk360.Model.Dtos._Task.Commands
             RuleFor(v => v.Id).NotEqual(Guid.Empty).WithMessage("Id must be a valid guid value");
             RuleFor(v => v.Name).NotEmpty().WithMessage("Name cannot be empty");
             RuleFor(v => v.Name).MaximumLength(200).WithMessage("Name cannot exceed 200 characters");
-            RuleFor(v => v.LastTaskMovementTypeId).GreaterThan(0).WithMessage("LastTaskMovementTypeId must be greater than 0");
+            RuleFor(v => v.LastTaskMovementTypeId).NotNull();
         }
     }
 }

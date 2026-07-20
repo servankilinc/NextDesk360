@@ -19,7 +19,7 @@ namespace ExpressDesk360.Model.Dtos.CompanyProductWarranty.Commands
         {
             RuleFor(v => v.Id).NotEqual(Guid.Empty).WithMessage("Id must be a valid guid value");
             RuleFor(v => v.CompanyProductId).NotEqual(Guid.Empty).WithMessage("CompanyProductId must be a valid guid value");
-            RuleFor(v => v.WarrantyTypeId).GreaterThan(0).WithMessage("WarrantyTypeId must be greater than 0");
+            RuleFor(v => v.WarrantyTypeId).NotNull();
         }
     }
 }

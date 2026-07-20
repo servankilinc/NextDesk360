@@ -14,7 +14,7 @@ namespace ExpressDesk360.Model.Dtos.Stock.Commands
         public bool SerialTracking { get; set; }
         public bool VirtualSeries { get; set; }
         public string? SerialNumberStart { get; set; }
-        public decimal Vat { get; set; }
+        public decimal Vat { get; set; } = 0;
         public decimal? PurchasePrice { get; set; }
         public int? PurchaseCurrencyId { get; set; }
         public decimal? SalePrice { get; set; }
@@ -25,9 +25,9 @@ namespace ExpressDesk360.Model.Dtos.Stock.Commands
     {
         public StockCreateDtoValidator()
         {
-            RuleFor(v => v.StockGroupId).GreaterThan(0).WithMessage("StockGroupId must be greater than 0");
-            RuleFor(v => v.StockBrandId).GreaterThan(0).WithMessage("StockBrandId must be greater than 0");
-            RuleFor(v => v.Vat).GreaterThan(0).WithMessage("Vat must be greater than 0");
+            RuleFor(v => v.StockGroupId).NotNull();
+            RuleFor(v => v.StockBrandId).NotNull();
+            RuleFor(v => v.Vat).NotNull();
         }
     }
 }

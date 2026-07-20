@@ -17,7 +17,7 @@ namespace ExpressDesk360.Model.Dtos.CompanyContact.Commands
         {
             RuleFor(v => v.Id).NotEqual(Guid.Empty).WithMessage("Id must be a valid guid value");
             RuleFor(v => v.CompanyId).NotEqual(Guid.Empty).WithMessage("CompanyId must be a valid guid value");
-            RuleFor(v => v.ContactTypeId).GreaterThan(0).WithMessage("ContactTypeId must be greater than 0");
+            RuleFor(v => v.ContactTypeId).NotNull();
             RuleFor(v => v.Info).NotEmpty().WithMessage("Info cannot be empty");
             RuleFor(v => v.Info).MaximumLength(100).WithMessage("Info cannot exceed 100 characters");
         }

@@ -19,7 +19,7 @@ namespace ExpressDesk360.Model.Dtos._TaskMovementType.Commands
         {
             RuleFor(v => v.Name).NotEmpty().WithMessage("Name cannot be empty");
             RuleFor(v => v.Name).MaximumLength(500).WithMessage("Name cannot exceed 500 characters");
-            RuleFor(v => v.TaskStatusId).GreaterThan(0).WithMessage("TaskStatusId must be greater than 0");
+            RuleFor(v => v.TaskStatusId).NotNull();
             RuleFor(v => v.Color).NotEmpty().WithMessage("Color cannot be empty");
             RuleFor(v => v.Color).MaximumLength(500).WithMessage("Color cannot exceed 500 characters");
         }

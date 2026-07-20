@@ -15,7 +15,7 @@ namespace ExpressDesk360.Model.Dtos.Warehouse.Commands
     {
         public WarehouseUpdateDtoValidator()
         {
-            RuleFor(v => v.Id).GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(v => v.Id).NotNull();
             RuleFor(v => v.CompanyId).NotEqual(Guid.Empty).WithMessage("CompanyId must be a valid guid value");
         }
     }

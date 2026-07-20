@@ -16,10 +16,10 @@ namespace ExpressDesk360.Model.Dtos.TicketPriority.Commands
     {
         public TicketPriorityUpdateDtoValidator()
         {
-            RuleFor(v => v.Id).GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(v => v.Id).NotNull();
             RuleFor(v => v.Name).NotEmpty().WithMessage("Name cannot be empty");
             RuleFor(v => v.Name).MaximumLength(100).WithMessage("Name cannot exceed 100 characters");
-            RuleFor(v => v.Value).GreaterThan(0).WithMessage("Value must be greater than 0");
+            RuleFor(v => v.Value).GreaterThan(-1).WithMessage("Value must be greater than -1");
         }
     }
 }

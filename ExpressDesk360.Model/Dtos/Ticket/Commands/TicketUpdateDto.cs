@@ -26,12 +26,12 @@ namespace ExpressDesk360.Model.Dtos.Ticket.Commands
         public TicketUpdateDtoValidator()
         {
             RuleFor(v => v.Id).NotEqual(Guid.Empty).WithMessage("Id must be a valid guid value");
-            RuleFor(v => v.TicketTypeId).GreaterThan(0).WithMessage("TicketTypeId must be greater than 0");
-            RuleFor(v => v.TicketPriorityId).GreaterThan(0).WithMessage("TicketPriorityId must be greater than 0");
+            RuleFor(v => v.TicketTypeId).NotNull();
+            RuleFor(v => v.TicketPriorityId).NotNull();
             RuleFor(v => v.RequesterId).NotEqual(Guid.Empty).WithMessage("RequesterId must be a valid guid value");
             RuleFor(v => v.CompanyId).NotEqual(Guid.Empty).WithMessage("CompanyId must be a valid guid value");
-            RuleFor(v => v.Number).GreaterThan(0).WithMessage("Number must be greater than 0");
-            RuleFor(v => v.LastTicketMovementTypeId).GreaterThan(0).WithMessage("LastTicketMovementTypeId must be greater than 0");
+            RuleFor(v => v.Number).NotNull();
+            RuleFor(v => v.LastTicketMovementTypeId).NotNull();
             RuleFor(v => v.Title).NotEmpty().WithMessage("Title cannot be empty");
         }
     }

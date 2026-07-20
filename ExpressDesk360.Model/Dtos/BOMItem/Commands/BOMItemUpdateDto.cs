@@ -18,7 +18,7 @@ namespace ExpressDesk360.Model.Dtos.BOMItem.Commands
             RuleFor(v => v.Id).NotEqual(Guid.Empty).WithMessage("Id must be a valid guid value");
             RuleFor(v => v.BOMId).NotEqual(Guid.Empty).WithMessage("BOMId must be a valid guid value");
             RuleFor(v => v.StockId).NotEqual(Guid.Empty).WithMessage("StockId must be a valid guid value");
-            RuleFor(v => v.Quantity).GreaterThan(0).WithMessage("Quantity must be greater than 0");
+            RuleFor(v => v.Quantity).NotNull();
         }
     }
 }

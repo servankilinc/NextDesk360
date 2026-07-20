@@ -15,7 +15,7 @@ namespace ExpressDesk360.Model.Dtos.StockMovementType.Commands
     {
         public StockMovementTypeUpdateDtoValidator()
         {
-            RuleFor(v => v.Id).GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(v => v.Id).NotNull();
             RuleFor(v => v.Name).NotEmpty().WithMessage("Name cannot be empty");
         }
     }

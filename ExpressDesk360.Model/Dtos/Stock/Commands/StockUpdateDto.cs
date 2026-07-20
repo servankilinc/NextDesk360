@@ -27,9 +27,9 @@ namespace ExpressDesk360.Model.Dtos.Stock.Commands
         public StockUpdateDtoValidator()
         {
             RuleFor(v => v.Id).NotEqual(Guid.Empty).WithMessage("Id must be a valid guid value");
-            RuleFor(v => v.StockGroupId).GreaterThan(0).WithMessage("StockGroupId must be greater than 0");
-            RuleFor(v => v.StockBrandId).GreaterThan(0).WithMessage("StockBrandId must be greater than 0");
-            RuleFor(v => v.Vat).GreaterThan(0).WithMessage("Vat must be greater than 0");
+            RuleFor(v => v.StockGroupId).NotNull();
+            RuleFor(v => v.StockBrandId).NotNull();
+            RuleFor(v => v.Vat).NotNull();
         }
     }
 }

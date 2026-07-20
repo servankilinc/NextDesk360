@@ -17,7 +17,7 @@ namespace ExpressDesk360.Model.Dtos.ProjectMovement.Commands
         public ProjectMovementCreateDtoValidator()
         {
             RuleFor(v => v.ProjectId).NotEqual(Guid.Empty).WithMessage("ProjectId must be a valid guid value");
-            RuleFor(v => v.ProjectMovementTypeId).GreaterThan(0).WithMessage("ProjectMovementTypeId must be greater than 0");
+            RuleFor(v => v.ProjectMovementTypeId).NotNull();
             RuleFor(v => v.UserId).NotEqual(Guid.Empty).WithMessage("UserId must be a valid guid value");
         }
     }

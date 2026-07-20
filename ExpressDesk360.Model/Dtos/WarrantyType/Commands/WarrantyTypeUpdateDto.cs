@@ -14,7 +14,7 @@ namespace ExpressDesk360.Model.Dtos.WarrantyType.Commands
     {
         public WarrantyTypeUpdateDtoValidator()
         {
-            RuleFor(v => v.Id).GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(v => v.Id).NotNull();
             RuleFor(v => v.Name).NotEmpty().WithMessage("Name cannot be empty");
         }
     }

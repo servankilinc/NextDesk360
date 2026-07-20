@@ -19,7 +19,7 @@ namespace ExpressDesk360.Model.Dtos.TicketMovement.Commands
         public TicketMovementCreateDtoValidator()
         {
             RuleFor(v => v.TicketId).NotEqual(Guid.Empty).WithMessage("TicketId must be a valid guid value");
-            RuleFor(v => v.TicketMovementTypeId).GreaterThan(0).WithMessage("TicketMovementTypeId must be greater than 0");
+            RuleFor(v => v.TicketMovementTypeId).NotNull();
             RuleFor(v => v.UserId).NotEqual(Guid.Empty).WithMessage("UserId must be a valid guid value");
         }
     }

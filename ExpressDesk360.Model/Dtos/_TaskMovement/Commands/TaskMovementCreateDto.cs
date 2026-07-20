@@ -17,7 +17,7 @@ namespace ExpressDesk360.Model.Dtos._TaskMovement.Commands
         public TaskMovementCreateDtoValidator()
         {
             RuleFor(v => v.TaskId).NotEqual(Guid.Empty).WithMessage("TaskId must be a valid guid value");
-            RuleFor(v => v.TaskMovementTypeId).GreaterThan(0).WithMessage("TaskMovementTypeId must be greater than 0");
+            RuleFor(v => v.TaskMovementTypeId).NotNull();
             RuleFor(v => v.UserId).NotEqual(Guid.Empty).WithMessage("UserId must be a valid guid value");
         }
     }

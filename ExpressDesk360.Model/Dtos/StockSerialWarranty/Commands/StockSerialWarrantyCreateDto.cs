@@ -17,7 +17,7 @@ namespace ExpressDesk360.Model.Dtos.StockSerialWarranty.Commands
         public StockSerialWarrantyCreateDtoValidator()
         {
             RuleFor(v => v.StockSerialId).NotEqual(Guid.Empty).WithMessage("StockSerialId must be a valid guid value");
-            RuleFor(v => v.WarrantyTypeId).GreaterThan(0).WithMessage("WarrantyTypeId must be greater than 0");
+            RuleFor(v => v.WarrantyTypeId).NotNull();
         }
     }
 }

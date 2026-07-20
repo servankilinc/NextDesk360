@@ -13,8 +13,8 @@ namespace ExpressDesk360.Model.Dtos.StockGroupBrandMap.Commands
     {
         public StockGroupBrandMapCreateDtoValidator()
         {
-            RuleFor(v => v.StockBrandId).GreaterThan(0).WithMessage("StockBrandId must be greater than 0");
-            RuleFor(v => v.StockGroupId).GreaterThan(0).WithMessage("StockGroupId must be greater than 0");
+            RuleFor(v => v.StockBrandId).NotNull();
+            RuleFor(v => v.StockGroupId).NotNull();
         }
     }
 }

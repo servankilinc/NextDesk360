@@ -23,8 +23,8 @@ namespace ExpressDesk360.Model.Dtos.Shipping.Commands
         public ShippingUpdateDtoValidator()
         {
             RuleFor(v => v.Id).NotEqual(Guid.Empty).WithMessage("Id must be a valid guid value");
-            RuleFor(v => v.CargoCompanyId).GreaterThan(0).WithMessage("CargoCompanyId must be greater than 0");
-            RuleFor(v => v.ShippingTypeId).GreaterThan(0).WithMessage("ShippingTypeId must be greater than 0");
+            RuleFor(v => v.CargoCompanyId).NotNull();
+            RuleFor(v => v.ShippingTypeId).NotNull();
         }
     }
 }

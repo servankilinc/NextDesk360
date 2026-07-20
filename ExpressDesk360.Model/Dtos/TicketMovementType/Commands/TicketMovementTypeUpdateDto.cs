@@ -18,10 +18,10 @@ namespace ExpressDesk360.Model.Dtos.TicketMovementType.Commands
     {
         public TicketMovementTypeUpdateDtoValidator()
         {
-            RuleFor(v => v.Id).GreaterThan(0).WithMessage("Id must be greater than 0");
+            RuleFor(v => v.Id).NotNull();
             RuleFor(v => v.Name).NotEmpty().WithMessage("Name cannot be empty");
             RuleFor(v => v.Name).MaximumLength(500).WithMessage("Name cannot exceed 500 characters");
-            RuleFor(v => v.TicketStatusId).GreaterThan(0).WithMessage("TicketStatusId must be greater than 0");
+            RuleFor(v => v.TicketStatusId).NotNull();
             RuleFor(v => v.Color).NotEmpty().WithMessage("Color cannot be empty");
             RuleFor(v => v.Color).MaximumLength(500).WithMessage("Color cannot exceed 500 characters");
         }
