@@ -1,7 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExpressDesk360.WebUI.Controllers.Base
 {
+    /// <summary>
+    /// Error pages must stay reachable for signed-out users, otherwise the global fallback
+    /// policy redirects them to Login and they never see the error.
+    /// </summary>
+    [AllowAnonymous]
     public class ErrorController : BaseController
     {
         public ErrorController(ILogger<BaseController> logger) : base(logger)

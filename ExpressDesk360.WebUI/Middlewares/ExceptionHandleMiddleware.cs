@@ -21,6 +21,14 @@ public class ExceptionHandleMiddleware
         }
         catch (Exception e)
         {
+            // Once the response has started we can no longer change the status code or redirect;
+            // attempting to would throw "Headers are read-only" and hide the real exception.
+            if (context.Response.HasStarted)
+            {
+                _logger.LogError(e, "An error occurred after the response had started. TraceId: {TraceId}", context.TraceIdentifier);
+                throw;
+            }
+
             if (context.IsJsonRequest())
             {
                 await CatchJsonExceptionAsync(context, e);

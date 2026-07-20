@@ -5,6 +5,9 @@ namespace ExpressDesk360.Core.Utils.Datatable;
 
 public static class QueryableDatatableExtension
 {
+    /// <summary>Upper bound for a single server-side page, guarding against unbounded reads.</summary>
+    public const int MaxPageSize = 500;
+
     #region SERVER-SIDE VERSION
     public static DatatableResponseServerSide<TData> ToDatatableServerSide<TData>(this IQueryable<TData> query, DatatableRequest dataTableRequest)
     {
@@ -23,7 +26,11 @@ public static class QueryableDatatableExtension
         if (!string.IsNullOrWhiteSpace(orderPredicate)) query = query.OrderBy(orderPredicate);
 
         // 5. Pagination
-        query = query.Skip(dataTableRequest.Start).Take(dataTableRequest.Length);
+        // DataTables sends Length = -1 for its "All" option, and Start can arrive negative.
+        // Clamp both, and cap the page size so one request cannot pull the whole table.
+        int skip = Math.Max(0, dataTableRequest.Start);
+        int take = dataTableRequest.Length <= 0 ? MaxPageSize : Math.Min(dataTableRequest.Length, MaxPageSize);
+        query = query.Skip(skip).Take(take);
 
         var data = query.ToList();
 
@@ -53,7 +60,11 @@ public static class QueryableDatatableExtension
         if (!string.IsNullOrWhiteSpace(orderPredicate)) query = query.OrderBy(orderPredicate);
 
         // 5. Pagination
-        query = query.Skip(dataTableRequest.Start).Take(dataTableRequest.Length);
+        // DataTables sends Length = -1 for its "All" option, and Start can arrive negative.
+        // Clamp both, and cap the page size so one request cannot pull the whole table.
+        int skip = Math.Max(0, dataTableRequest.Start);
+        int take = dataTableRequest.Length <= 0 ? MaxPageSize : Math.Min(dataTableRequest.Length, MaxPageSize);
+        query = query.Skip(skip).Take(take);
 
         var data = await query.ToListAsync(cancellationToken);
 
@@ -128,13 +139,20 @@ public static class QueryableDatatableExtension
         List<string> orderList = new List<string>();
         foreach (var orderItem in dataTableRequest.Order)
         {
+            // The column index comes from the client; an out-of-range value would throw.
+            if (orderItem.Column < 0 || orderItem.Column >= dataTableRequest.Columns.Count) continue;
+
             var column = dataTableRequest.Columns[orderItem.Column];
             if (column == null || !column.Orderable || string.IsNullOrWhiteSpace(column.Data)) continue;
+
+            // Dir is interpolated into the ordering string; anything but asc/desc could inject
+            // additional ordering terms (e.g. "asc, PasswordHash desc").
+            var dir = string.Equals(orderItem.Dir, "desc", StringComparison.OrdinalIgnoreCase) ? "desc" : "asc";
 
             var key = column.Data.ToLower();
             if (props.TryGetValue(key, out var actualPropName))
             {
-                orderList.Add($"{actualPropName} {orderItem.Dir}");
+                orderList.Add($"{actualPropName} {dir}");
             }
         }
         string orderPredicate = string.Join(",", orderList);

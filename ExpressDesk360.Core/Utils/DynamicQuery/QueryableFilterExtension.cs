@@ -34,17 +34,17 @@ public static class QueryableFilterExtension
         if (filter is null) return query;
 
         var parameters = new List<object>();
-        var where = BuildExpression(filter, parameters);
+        var where = BuildExpression<T>(filter, parameters);
 
         return string.IsNullOrWhiteSpace(where) ? query : query.Where(where, parameters.ToArray());
     }
 
-    private static void Validate(Filter filter)
+    private static void Validate<T>(Filter filter)
     {
         if (filter.Operator == "base") return;
 
-        if (string.IsNullOrWhiteSpace(filter.Field))
-            throw new ArgumentException("Empty field for dynamic filter");
+        // Field is interpolated into the expression string, so it must be whitelisted.
+        DynamicFieldValidator.EnsureValidField<T>(filter.Field);
 
         if (!OperatorsWithValue.ContainsKey(filter.Operator!) && !OperatorsWithoutValue.ContainsKey(filter.Operator!))
             throw new ArgumentException($"Invalid opreator type for dynamic filter, operator: {filter.Operator}");
@@ -58,11 +58,14 @@ public static class QueryableFilterExtension
             throw new ArgumentException($"Invalid logic type for dynamic filter, logic: {filter.Logic}");
     }
 
-    private static string BuildExpression(Filter filter, IList<object> parameters)
+    private static string BuildExpression<T>(Filter filter, IList<object> parameters)
     {
-        if (filter.Value == null) filter.Value = string.Empty;
+        // Validate before defaulting the value, otherwise the "value required" rule below can
+        // never fire and a valueless 'contains' silently degrades to Contains("") - matching
+        // every row, i.e. no filter at all.
+        Validate<T>(filter);
 
-        Validate(filter);
+        if (filter.Value == null) filter.Value = string.Empty;
 
         var parts = new List<string>();
 
@@ -83,7 +86,7 @@ public static class QueryableFilterExtension
         if (filter.Filters?.Any() == true)
         {
             var childParts = filter.Filters
-                .Select(f => BuildExpression(f, parameters))
+                .Select(f => BuildExpression<T>(f, parameters))
                 .Where(x => !string.IsNullOrWhiteSpace(x))
                 .ToList();
 

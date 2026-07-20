@@ -181,14 +181,14 @@ namespace ExpressDesk360.DataAccess.Contexts
             {
                 f.ToTable("FS_File");
                 f.HasKey(f => f.Id);
-                f.HasMany(f => f.FileCompanyFiles).WithOne(c => c.File).HasForeignKey(c => c.FileId).OnDelete(DeleteBehavior.Cascade);
-                f.HasMany(f => f.FileProjectFiles).WithOne(p => p.File).HasForeignKey(p => p.FileId).OnDelete(DeleteBehavior.Cascade);
-                f.HasMany(f => f.FileShippingFiles).WithOne(s => s.File).HasForeignKey(s => s.FileId).OnDelete(DeleteBehavior.Cascade);
-                f.HasMany(f => f.FileTaskFiles).WithOne(_ => _.File).HasForeignKey(_ => _.FileId).OnDelete(DeleteBehavior.Cascade);
-                f.HasMany(f => f.FileTicketFiles).WithOne(t => t.File).HasForeignKey(t => t.FileId).OnDelete(DeleteBehavior.Cascade);
-                f.HasMany(f => f.FileTicketMessageFiles).WithOne(t => t.File).HasForeignKey(t => t.FileId).OnDelete(DeleteBehavior.Cascade);
-                f.HasMany(f => f.FileTicketMovementFiles).WithOne(t => t.File).HasForeignKey(t => t.FileId).OnDelete(DeleteBehavior.Cascade);
-                f.HasMany(f => f.FileUserFiles).WithOne(u => u.File).HasForeignKey(u => u.FileId).OnDelete(DeleteBehavior.Cascade);
+                f.HasMany(f => f.FileCompanyFiles).WithOne(c => c.File).HasForeignKey(c => c.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileProjectFiles).WithOne(p => p.File).HasForeignKey(p => p.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileShippingFiles).WithOne(s => s.File).HasForeignKey(s => s.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileTaskFiles).WithOne(_ => _.File).HasForeignKey(_ => _.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileTicketFiles).WithOne(t => t.File).HasForeignKey(t => t.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileTicketMessageFiles).WithOne(t => t.File).HasForeignKey(t => t.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileTicketMovementFiles).WithOne(t => t.File).HasForeignKey(t => t.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileUserFiles).WithOne(u => u.File).HasForeignKey(u => u.FileId).OnDelete(DeleteBehavior.Restrict);
                 f.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<FSFolder>(f =>
@@ -196,7 +196,8 @@ namespace ExpressDesk360.DataAccess.Contexts
                 f.ToTable("FS_Folder");
                 f.HasKey(f => f.Id);
                 f.HasMany(f => f.FolderFSFiles).WithOne(f => f.Folder).HasForeignKey(f => f.FolderId).OnDelete(DeleteBehavior.Cascade);
-                f.HasMany(f => f.ParentFolderFSFolders).WithOne(f => f.ParentFolder).HasForeignKey(f => f.ParentFolderId).OnDelete(DeleteBehavior.Cascade);
+                // Self-referencing FK: SQL Server rejects ON DELETE CASCADE here (multiple cascade paths).
+                f.HasMany(f => f.ParentFolderFSFolders).WithOne(f => f.ParentFolder).HasForeignKey(f => f.ParentFolderId).OnDelete(DeleteBehavior.Restrict);
                 f.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<Invoice>(i =>

@@ -12,7 +12,8 @@ public static class QueryableSortExtension
         {
             foreach (Sort item in sorts)
             {
-                if (string.IsNullOrEmpty(item.Field)) throw new ArgumentException("Empty Field For Sorting Process");
+                // Field is interpolated into the ordering string, so it must be whitelisted.
+                DynamicFieldValidator.EnsureValidField<T>(item.Field);
                 if (string.IsNullOrEmpty(item.Dir) || !_orderDirs.Contains(item.Dir)) throw new ArgumentException("Invalid Order Type For Sorting Process");
             }
 
