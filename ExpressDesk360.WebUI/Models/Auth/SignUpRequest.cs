@@ -33,6 +33,9 @@ public class SignUpRequestMappingProfile : Profile
         CreateMap<SignUpRequest, User>()
             .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
             .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
+            // The entity calls these Name/SurName; without this the form values were silently dropped.
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.FirstName))
+            .ForMember(dest => dest.SurName, opt => opt.MapFrom(src => src.LastName))
             .ForAllMembers(opt => opt.Condition((src, dest, srcMember, destMember) => !Equals(srcMember, destMember)));
     }
 }

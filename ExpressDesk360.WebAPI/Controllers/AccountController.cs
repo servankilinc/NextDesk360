@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ExpressDesk360.Model.Auth.Login;
 using ExpressDesk360.Model.Auth.Refresh;
@@ -14,6 +16,7 @@ public class AccountController : BaseController
     public AccountController(IAuthService authService, ILogger<AccountController> logger) : base(logger) => _authService = authService;
 
 
+    [AllowAnonymous]
     [HttpPost("Login")]
     public async Task<IActionResult> Login(LoginRequest request)
     {
@@ -22,6 +25,7 @@ public class AccountController : BaseController
         return ToAction(result);
     }
 
+    [AllowAnonymous]
     [HttpPost("SignUp")]
     public async Task<IActionResult> SignUp(SignUpRequest request)
     {
@@ -30,6 +34,9 @@ public class AccountController : BaseController
         return ToAction(result);
     }
 
+    // Anonymous by design: the caller's access token is normally already expired at this point.
+    // The refresh token itself (cookie or body) is the credential being verified.
+    [AllowAnonymous]
     [HttpPost("RefreshAuth")]
     public async Task<IActionResult> RefreshAuth(RefreshAuthRequest request)
     {

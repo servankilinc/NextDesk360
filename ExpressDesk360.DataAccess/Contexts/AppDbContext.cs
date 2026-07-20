@@ -113,7 +113,7 @@ namespace ExpressDesk360.DataAccess.Contexts
                 c.HasMany(c => c.BuyerCompanyInvoices).WithOne(i => i.BuyerCompany).HasForeignKey(i => i.BuyerCompanyId).OnDelete(DeleteBehavior.Restrict);
                 c.HasMany(c => c.StockSerials).WithOne(s => s.Company).HasForeignKey(s => s.CompanyId).OnDelete(DeleteBehavior.Restrict);
                 c.HasMany(c => c.Tickets).WithOne(t => t.Company).HasForeignKey(t => t.CompanyId).OnDelete(DeleteBehavior.Restrict);
-                c.HasMany(c => c.Users).WithOne(u => u.Company).HasForeignKey(u => u.CompanyId).OnDelete(DeleteBehavior.Restrict);
+                c.HasMany(c => c.Users).WithOne(u => u.Company).HasForeignKey(u => u.CompanyId).OnDelete(DeleteBehavior.SetNull);
                 c.HasMany(c => c.Warehouses).WithOne(w => w.Company).HasForeignKey(w => w.CompanyId).OnDelete(DeleteBehavior.Restrict);
                 c.HasQueryFilter(f => !f.IsDeleted);
             });

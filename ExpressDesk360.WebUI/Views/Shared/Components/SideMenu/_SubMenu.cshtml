@@ -38,7 +38,8 @@ else
         <div class="menu-sub menu-sub-accordion">
             @foreach (var subMenuItem in Model.SubMenuItems!)
             {
-                <partial name="./_subMenu.cshtml" model="subMenuItem" />
+                @* File is _SubMenu.cshtml - a lowercase reference resolves on Windows but 404s on Linux. *@
+                <partial name="./_SubMenu.cshtml" model="subMenuItem" />
             }
         </div>
     </div>

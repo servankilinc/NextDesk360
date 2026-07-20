@@ -29,6 +29,7 @@
 
             <div class="d-flex flex-center flex-column flex-column-fluid px-lg-10 pb-0">
                 <form class="form w-100" asp-controller="Account" asp-action="SignUp" method="post">
+                    <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
                     <div class="text-center mb-11">
                         <h1 class="text-gray-900 fw-bolder mb-3">Sign Up</h1>
                         <div class="text-gray-500 fw-semibold fs-6">Your Social Campaigns</div>

@@ -5,9 +5,9 @@ namespace ExpressDesk360.Model.Entities
 {
     public class User : IdentityUser<Guid>, IEntity, ISoftDeletableEntity, IAuditableEntity
     {
-        public Guid Id { get; set; }
-        public Guid CompanyId { get; set; }
-        public string UserName { get; set; } = null!;
+        // public Guid Id { get; set; }
+        // public string UserName { get; set; } = null!;
+        public Guid? CompanyId { get; set; }
         public string? Name { get; set; }
         public string? SurName { get; set; }
         public DateTime? HireDate { get; set; }

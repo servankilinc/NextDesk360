@@ -69,14 +69,15 @@ builder.Services.AddBusinessServices(builder.Configuration);
 
                     options.SignIn.RequireConfirmedEmail = false;
 
-                    options.Password.RequiredLength = 4;
+                    options.Password.RequiredLength = 6;
                     options.Password.RequireDigit = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;
 
-                    options.User.RequireUniqueEmail = false;
-                    options.User.AllowedUserNameCharacters = "abcÃƒÂ§defgÃ„Å¸hiÃ„Â±jklmnoÃƒÂ¶pqrsÃ…Å¸tuÃƒÂ¼vwxyzABCÃƒâ€¡DEFGÃ„ÂHIÃ„Â°JKLMNOÃƒâ€“PQRSÃ…ÂTUÃƒÅ“VWXYZ0123456789-._@+/*|!,;:()&#?[] ";
+                    // Login resolves users by e-mail, so e-mail has to be unique.
+                    options.User.RequireUniqueEmail = true;
+                    options.User.AllowedUserNameCharacters = "abcçdefgðhiýjklmnoöpqrsþtuüvwxyzABCÇDEFGÐHIÝJKLMNOÖPQRSÞTUÜVWXYZ0123456789-._@+/*|!,;:()&#?[] ";
                 })
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
@@ -106,7 +107,10 @@ builder.Services.AddBusinessServices(builder.Configuration);
                         ValidateIssuer = true,
                         ValidIssuer = tokenSettings.Issuer,
                         ValidAudience = tokenSettings.Audience,
-                        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(tokenSettings.SecurityKey))
+                        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(tokenSettings.SecurityKey)),
+                        // Default is 5 minutes of leeway, which keeps expired tokens usable for too long.
+                        ClockSkew = TimeSpan.FromSeconds(30),
+                        RoleClaimType = System.Security.Claims.ClaimTypes.Role
                     };
                 });
             #endregion
@@ -158,6 +162,7 @@ app.UseRateLimiter();
 
 app.MapControllers().RequireRateLimiting("policy_rate_limiter");
 
-app.MapHealthChecks("/health").RequireHost("localhost");
+// Exempt from the global fallback policy: probes cannot authenticate.
+app.MapHealthChecks("/health").RequireHost("localhost").AllowAnonymous();
 
 app.Run();

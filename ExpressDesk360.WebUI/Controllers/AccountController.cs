@@ -25,15 +25,19 @@ public class AccountController : BaseController
     }
 
     [HttpGet]
-    public IActionResult Login()
+    public IActionResult Login(string? returnUrl = null)
     {
+        ViewData["ReturnUrl"] = returnUrl;
         var model = new LoginRequest();
         return View(model);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login(LoginRequest loginRequest)
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Login(LoginRequest loginRequest, string? returnUrl = null)
     {
+        ViewData["ReturnUrl"] = returnUrl;
+
         if (!ModelState.IsValid)
             return View(loginRequest);
 
@@ -74,18 +78,22 @@ public class AccountController : BaseController
             return View(loginRequest);
         }
 
-        return RedirectToAction("Index", "Home");
+        return RedirectToLocalUrl(returnUrl);
     }
 
     [HttpGet]
-    public IActionResult SignUp()
+    public IActionResult SignUp(string? returnUrl = null)
     {
+        ViewData["ReturnUrl"] = returnUrl;
         return View();
     }
 
     [HttpPost]
-    public async Task<IActionResult> SignUp(SignUpRequest signUpRequest)
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> SignUp(SignUpRequest signUpRequest, string? returnUrl = null)
     {
+        ViewData["ReturnUrl"] = returnUrl;
+
         if (!ModelState.IsValid)
             return View(signUpRequest);
 
@@ -130,7 +138,7 @@ public class AccountController : BaseController
             ModelState.AddModelError("", "User created successfully.");
             return View(signUpRequest);
         }
-        return RedirectToAction("Index", "Home");
+        return RedirectToLocalUrl(returnUrl);
     }
 
     [HttpGet]

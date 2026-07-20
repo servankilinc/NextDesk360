@@ -1,0 +1,32 @@
+@using Microsoft.AspNetCore.Identity
+@using ExpressDesk360.Model.Entities
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@*
+    Drop this into the layout wherever the user menu belongs:
+        <partial name="Partials/_LoginPartial" />
+    Logout is a POST form on purpose - a GET logout link is CSRF-able.
+*@
+
+@if (SignInManager.IsSignedIn(User))
+{
+    var currentUser = await UserManager.GetUserAsync(User);
+    var displayName = string.IsNullOrWhiteSpace(currentUser?.Name)
+        ? currentUser?.UserName
+        : $"{currentUser.Name} {currentUser.SurName}".Trim();
+
+    <div class="d-flex align-items-center gap-3">
+        <span class="text-gray-700 fw-semibold">@displayName</span>
+        <form asp-controller="Account" asp-action="LogOut" method="post" class="m-0">
+            <button type="submit" class="btn btn-sm btn-light-danger">Log out</button>
+        </form>
+    </div>
+}
+else
+{
+    <div class="d-flex align-items-center gap-2">
+        <a asp-controller="Account" asp-action="Login" class="btn btn-sm btn-light-primary">Login</a>
+        <a asp-controller="Account" asp-action="SignUp" class="btn btn-sm btn-primary">Sign up</a>
+    </div>
+}

@@ -114,6 +114,10 @@ namespace ExpressDesk360.Business.Concrete
 
         public async Task<Result> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
+            // RefreshToken has no soft-delete flag and no query filter, so a soft-deleted user's
+            // tokens stay usable and keep the session alive. Revoke them alongside the delete.
+            await _unitOfWork.RefreshTokens.RevokeDeviceRefreshTokensAsync(f => f.UserId == id && f.IsRevoked == false, cancellationToken);
+            
             var affected = await _unitOfWork.Users.DeleteAndSaveAsync(where: (f) => f.Id == id, cancellationToken);
             if (affected == 0) return Result.NotFound();
             return Result.Success();

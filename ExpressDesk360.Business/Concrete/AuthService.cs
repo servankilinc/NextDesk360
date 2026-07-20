@@ -53,24 +53,25 @@ namespace ExpressDesk360.Business.Concrete
                 user = await _userManager.FindByNameAsync(loginRequest.UserName);
             }
 
+            // Rejected credentials are a client-side condition (403), not a server fault (500).
             if (user == null)
-                return Result<LoginResponse>.Failure(message: "Credentials are incorrect.", metadata: GlobalExtensions.Meta("Requester Email or Username", loginRequest.Email ?? loginRequest.UserName));
+                return Result<LoginResponse>.Forbidden(message: "Credentials are incorrect.", metadata: GlobalExtensions.Meta("Requester Email or Username", loginRequest.Email ?? loginRequest.UserName));
             // 2) Check password
             SignInResult checkPassword = await _signInManager.CheckPasswordSignInAsync(user, loginRequest.Password, lockoutOnFailure: true);
             if (!checkPassword.Succeeded)
             {
                 if (checkPassword.IsLockedOut)
-                    return Result<LoginResponse>.Failure(message: "Your account is temporarily locked due to multiple failed login attempts.", metadata: GlobalExtensions.Meta("Requester Email", loginRequest.Email));
+                    return Result<LoginResponse>.Forbidden(message: "Your account is temporarily locked due to multiple failed login attempts.", metadata: GlobalExtensions.Meta("Requester Email", loginRequest.Email));
                 if (checkPassword.RequiresTwoFactor)
-                    return Result<LoginResponse>.Failure(message: "Two-factor authentication is required to login.", metadata: GlobalExtensions.Meta("Requester Email", loginRequest.Email));
+                    return Result<LoginResponse>.Forbidden(message: "Two-factor authentication is required to login.", metadata: GlobalExtensions.Meta("Requester Email", loginRequest.Email));
                 if (checkPassword.IsNotAllowed)
-                    return Result<LoginResponse>.Failure(message: "The user is not allowed to sign in.", metadata: GlobalExtensions.Meta("Requester Email", loginRequest.Email));
-                return Result<LoginResponse>.Failure(message: "Credentials are incorrect.", metadata: GlobalExtensions.Meta("Requester Email or Username", loginRequest.Email ?? loginRequest.UserName));
+                    return Result<LoginResponse>.Forbidden(message: "The user is not allowed to sign in.", metadata: GlobalExtensions.Meta("Requester Email", loginRequest.Email));
+                return Result<LoginResponse>.Forbidden(message: "Credentials are incorrect.", metadata: GlobalExtensions.Meta("Requester Email or Username", loginRequest.Email ?? loginRequest.UserName));
             }
 
             if (!await _signInManager.CanSignInAsync(user))
             {
-                return Result<LoginResponse>.Failure(message: "You are not allowed to login.", metadata: GlobalExtensions.Meta("User", user));
+                return Result<LoginResponse>.Forbidden(message: "You are not allowed to login.", metadata: GlobalExtensions.Meta("User", user));
             }
 
             // 3) Get user roles and claims
@@ -111,34 +112,51 @@ namespace ExpressDesk360.Business.Concrete
                 var validationResult = await _validationService.ValidateAsync(signUpRequest, cancellationToken);
                 if (!validationResult.IsValid)
                     return Result<SignUpResponse>.Validation(validationResult.Failures);
-                await _unitOfWork.BeginTransactionAsync(cancellationToken);
-                // 1) Check if user already exists
+                // 1) Check if user already exists (read-only, no transaction needed)
+                // A taken e-mail/username is normal user behaviour, not a server fault: Validation
+                // maps to 400, whereas Failure would return 500 and log at Error level.
                 var userExist = await _userManager.FindByEmailAsync(signUpRequest.Email);
                 if (userExist != null)
-                    return Result<SignUpResponse>.Failure(message: "The email address is already in use.", metadata: GlobalExtensions.Meta("Request Email", signUpRequest.Email));
-                userExist = await _userManager.FindByNameAsync(signUpRequest.Email);
+                    return Result<SignUpResponse>.Validation(new Dictionary<string, string[]> { [nameof(signUpRequest.Email)] = new[] { "The email address is already in use." } }, message: "The email address is already in use.");
+                userExist = await _userManager.FindByNameAsync(signUpRequest.UserName);
                 if (userExist != null)
-                    return Result<SignUpResponse>.Failure(message: "The user name is already in use.", metadata: GlobalExtensions.Meta("Request User Name", signUpRequest.UserName));
+                    return Result<SignUpResponse>.Validation(new Dictionary<string, string[]> { [nameof(signUpRequest.UserName)] = new[] { "The user name is already in use." } }, message: "The user name is already in use.");
+                await _unitOfWork.BeginTransactionAsync(cancellationToken);
                 // 2) Create new user
                 var user = _mapper.Map<User>(signUpRequest);
                 var result = await _userManager.CreateAsync(user, signUpRequest.Password);
                 if (!result.Succeeded)
+                {
+                    await _unitOfWork.RollbackTransactionAsync(cancellationToken);
                     return Result<SignUpResponse>.Failure(description: $"User cannot be created.", metadata: GlobalExtensions.Meta(("Requester Email", signUpRequest.Email), ("Identity Service Errors", result)));
+                }
+
                 // 3) Assign "User" role to the new user
-                var roleResult = await _userManager.AddToRoleAsync(user, "User");
+                var roleResult = await _userManager.AddToRoleAsync(user, Roles.User);
                 if (!roleResult.Succeeded)
+                {
+                    await _unitOfWork.RollbackTransactionAsync(cancellationToken);
                     return Result<SignUpResponse>.Failure(description: $"Failed to assign role", metadata: GlobalExtensions.Meta(("Requester Email", signUpRequest.Email), ("Identity Service Errors", roleResult)));
+                }
+
                 // 4) Get user roles and claims
                 IList<string> roles = await _userManager.GetRolesAsync(user);
                 IList<Claim> claims = await GetClaimsAsync(user, roles);
                 // 5) Generate Access Token and Refresh Token
                 Result<AccessToken> accessToken = _tokenService.GenerateAccessToken(claims);
                 if (!accessToken.IsSuccess)
+                {
+                    await _unitOfWork.RollbackTransactionAsync(cancellationToken);
                     return Result<SignUpResponse>.Failure(description: "Access token could not generated", metadata: GlobalExtensions.Meta("Access Token Result", accessToken));
+                }
+
                 string tokenValue = _tokenService.GenerateRandomNumber();
                 Result<RefreshToken> refreshToken = _tokenService.GenerateRefreshToken(user, tokenValue, signUpRequest.ClientType, signUpRequest.DeviceId);
                 if (!refreshToken.IsSuccess)
+                {
+                    await _unitOfWork.RollbackTransactionAsync(cancellationToken);
                     return Result<SignUpResponse>.Failure(description: "Refresh token could not generated", metadata: GlobalExtensions.Meta("Refresh Token Result", refreshToken));
+                }
                 // 6) Save Refresh Token and Revoke old ones if deviceId is provided
                 if (signUpRequest.DeviceId != null && signUpRequest.DeviceId.HasValue)
                 {
@@ -173,25 +191,32 @@ namespace ExpressDesk360.Business.Concrete
                 var validationResult = await _validationService.ValidateAsync(refreshAuthRequest, cancellationToken);
                 if (!validationResult.IsValid)
                     return Result<RefreshAuthResponse>.Validation(validationResult.Failures);
-                await _unitOfWork.BeginTransactionAsync(cancellationToken);
                 // 1) Set refresh token from cookie if not provided
                 if (string.IsNullOrWhiteSpace(refreshAuthRequest.RefreshToken))
                 {
                     var cookieValue = _httpContextManager.GetRefreshTokenFromCookie();
                     if (!cookieValue.IsSuccess)
-                        return Result<RefreshAuthResponse>.Failure(description: "Refresh auth request cookie not found in cookie", metadata: GlobalExtensions.Meta("Cookie Result", cookieValue.Error.Description));
+                        return Result<RefreshAuthResponse>.Forbidden(message: "Your session has expired. Please sign in again.", description: "Refresh auth request cookie not found in cookie", metadata: GlobalExtensions.Meta("Cookie Result", cookieValue.Error.Description));
                     refreshAuthRequest.RefreshToken = cookieValue.Data;
                 }
 
+                await _unitOfWork.BeginTransactionAsync(cancellationToken);
                 string hashedToken = _tokenService.HashToken(refreshAuthRequest.RefreshToken);
                 // 2) Find refresh token record
                 RefreshToken? refreshToken = await _unitOfWork.RefreshTokens.GetAsync(where: f => f.UserId == refreshAuthRequest.UserId && f.DeviceId == refreshAuthRequest.DeviceId && f.Token == hashedToken && f.TTL > 0 && f.IsRevoked == false && f.ExpirationUtc > DateTime.UtcNow, cancellationToken: cancellationToken);
                 if (refreshToken == null)
-                    return Result<RefreshAuthResponse>.Failure(description: "There is no refresh token that can be used.", metadata: GlobalExtensions.Meta("Request Model", refreshAuthRequest));
+                {
+                    await _unitOfWork.RollbackTransactionAsync(cancellationToken);
+                    return Result<RefreshAuthResponse>.Forbidden(message: "Your session has expired. Please sign in again.", description: "There is no refresh token that can be used.", metadata: GlobalExtensions.Meta("Request Model", refreshAuthRequest));
+                }
+
                 // 3) Find user
                 var user = await _unitOfWork.Users.GetAsync(where: f => f.Id == refreshAuthRequest.UserId, cancellationToken: cancellationToken);
                 if (user == null)
-                    return Result<RefreshAuthResponse>.Failure(description: $"User cannot found for refresh auth, userId: {refreshAuthRequest.UserId}", metadata: GlobalExtensions.Meta("Request Model", refreshAuthRequest));
+                {
+                    await _unitOfWork.RollbackTransactionAsync(cancellationToken);
+                    return Result<RefreshAuthResponse>.Forbidden(message: "Your session has expired. Please sign in again.", description: $"User cannot found for refresh auth, userId: {refreshAuthRequest.UserId}", metadata: GlobalExtensions.Meta("Request Model", refreshAuthRequest));
+                }
                 // 4) Update refresh token 
                 string tokenValue = _tokenService.GenerateRandomNumber();
                 refreshToken.Token = _tokenService.HashToken(tokenValue);
@@ -207,7 +232,11 @@ namespace ExpressDesk360.Business.Concrete
                 // 7) Generate new access token
                 Result<AccessToken> accessToken = _tokenService.GenerateAccessToken(claims);
                 if (!accessToken.IsSuccess)
+                {
+                    await _unitOfWork.RollbackTransactionAsync(cancellationToken);
                     return Result<RefreshAuthResponse>.Failure(description: "Access token could not generated", metadata: GlobalExtensions.Meta("Access Token Result", accessToken));
+                }
+
                 await _unitOfWork.CommitTransactionAsync(cancellationToken);
                 if (refreshToken.ClientType != ClientType.Web)
                 {
@@ -228,16 +257,20 @@ namespace ExpressDesk360.Business.Concrete
 
         private async Task<IList<Claim>> GetClaimsAsync(User user, IList<string>? roles = default)
         {
+            // Name/SurName are optional; fall back to the user name instead of emitting a blank claim.
+            string displayName = $"{user.Name} {user.SurName}".Trim();
+            if (string.IsNullOrWhiteSpace(displayName))
+                displayName = user.UserName ?? user.Email ?? user.Id.ToString();
             List<Claim> claimList = new List<Claim>()
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, $"{user.Name} {user.SurName}")
+                new Claim(ClaimTypes.Name, displayName)
             };
             if (!string.IsNullOrEmpty(user.Email))
                 claimList.Add(new Claim(ClaimTypes.Email, user.Email));
             IList<Claim>? persistentClaims = await _userManager.GetClaimsAsync(user);
             claimList.AddRange(persistentClaims);
-            IEnumerable<Claim>? roleClaims = roles.Select(role => new Claim(ClaimTypes.Role, role));
+            IEnumerable<Claim> roleClaims = (roles ?? Array.Empty<string>()).Select(role => new Claim(ClaimTypes.Role, role));
             claimList.AddRange(roleClaims);
             // password, role vs. deÄŸiÅŸdiÄŸinde mevcut tokenlarÄ± geÃ§ersiz kÄ±lmak iÃ§in security stamp eklenebilir
             // var securityStamp = await _userManager.GetSecurityStampAsync(user);

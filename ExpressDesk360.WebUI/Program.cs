@@ -77,14 +77,16 @@ builder.Services.AddBusinessServices(builder.Configuration);
 
                     options.SignIn.RequireConfirmedEmail = false;
 
-                    options.Password.RequiredLength = 4;
+                    // Must stay >= the minimum enforced by the FluentValidation request validators.
+                    options.Password.RequiredLength = 6;
                     options.Password.RequireDigit = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;
 
-                    options.User.RequireUniqueEmail = false;
-                    options.User.AllowedUserNameCharacters = "abcÃ§defgÄŸhiÄ±jklmnoÃ¶pqrsÅŸtuÃ¼vwxyzABCÃ‡DEFGÄHIÄ°JKLMNOÃ–PQRSÅTUÃœVWXYZ0123456789-._@+/*|!,;:()&#?[] ";
+                    // Login resolves users by e-mail, so e-mail has to be unique.
+                    options.User.RequireUniqueEmail = true;
+                    options.User.AllowedUserNameCharacters = "abcçdefgðhiýjklmnoöpqrsþtuüvwxyzABCÇDEFGÐHIÝJKLMNOÖPQRSÞTUÜVWXYZ0123456789-._@+/*|!,;:()&#?[] ";
                 })
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
@@ -206,7 +208,9 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapStaticAssets();
+// Exempt from the global fallback policy: MapStaticAssets creates endpoints, so without this
+// every css/js/image request is redirected to Login for signed-out users.
+app.MapStaticAssets().AllowAnonymous();
 
 app.UseRateLimiter();
 
