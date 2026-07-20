@@ -9,6 +9,7 @@ using ExpressDesk360.Core.Utils.ResultPattern;
 using ExpressDesk360.Core.Utils.Validation;
 using ExpressDesk360.DataAccess.UoW;
 using ExpressDesk360.Model.Auth.Login;
+using ExpressDesk360.Model.Auth.Logout;
 using ExpressDesk360.Model.Auth.Refresh;
 using ExpressDesk360.Model.Auth.SignUp;
 using ExpressDesk360.Model.Entities;
@@ -253,6 +254,47 @@ namespace ExpressDesk360.Business.Concrete
                 await _unitOfWork.RollbackTransactionAsync(cancellationToken);
                 throw;
             }
+        }
+
+        public async Task<Result> LogoutAsync(LogoutRequest logoutRequest, CancellationToken cancellationToken = default)
+        {
+            var validationResult = await _validationService.ValidateAsync(logoutRequest, cancellationToken);
+            if (!validationResult.IsValid)
+                return Result.Validation(validationResult.Failures);
+            // Fall back to the cookie when the caller did not send the token explicitly (web clients).
+            if (string.IsNullOrWhiteSpace(logoutRequest.RefreshToken))
+            {
+                var cookieValue = _httpContextManager.GetRefreshTokenFromCookie();
+                if (cookieValue.IsSuccess)
+                    logoutRequest.RefreshToken = cookieValue.Data;
+            }
+
+            if (!string.IsNullOrWhiteSpace(logoutRequest.RefreshToken))
+            {
+                string hashedToken = _tokenService.HashToken(logoutRequest.RefreshToken);
+                await _unitOfWork.RefreshTokens.RevokeDeviceRefreshTokensAsync(f => f.UserId == logoutRequest.UserId && f.DeviceId == logoutRequest.DeviceId && f.Token == hashedToken && f.IsRevoked == false, cancellationToken);
+            }
+            else
+            {
+                // No token supplied: revoke everything issued to this device.
+                await _unitOfWork.RefreshTokens.RevokeDeviceRefreshTokensAsync(f => f.UserId == logoutRequest.UserId && f.DeviceId == logoutRequest.DeviceId && f.IsRevoked == false, cancellationToken);
+            }
+
+            _httpContextManager.DeletetRefreshTokenFromCookie();
+            return Result.Success();
+        }
+
+        public async Task<Result> RevokeAllAsync(Guid userId, CancellationToken cancellationToken = default)
+        {
+            if (userId == Guid.Empty)
+                return Result.Validation(new Dictionary<string, string[]> { ["userId"] = new[] { "A valid user id is required." } }, message: "A valid user id is required.");
+            await _unitOfWork.RefreshTokens.RevokeDeviceRefreshTokensAsync(f => f.UserId == userId && f.IsRevoked == false, cancellationToken);
+            // Rotating the security stamp invalidates cookies and any stamp-bound tokens.
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user != null)
+                await _userManager.UpdateSecurityStampAsync(user);
+            _httpContextManager.DeletetRefreshTokenFromCookie();
+            return Result.Success();
         }
 
         private async Task<IList<Claim>> GetClaimsAsync(User user, IList<string>? roles = default)

@@ -82,7 +82,7 @@ builder.Services.AddBusinessServices(builder.Configuration);
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
-            builder.Services.AddAuthorization();
+            builder.Services.AddAppAuthorization();
             #endregion
 
 
@@ -144,11 +144,14 @@ app.UseExceptionHandler();
 
 //app.UseStaticFiles();
 
-//if (app.Environment.IsDevelopment())
-//{
-app.MapOpenApi();
-app.MapScalarApiReference();
-//}
+// Development only: the API reference documents every endpoint and should not be public.
+// AllowAnonymous is required because the global fallback policy would otherwise answer the
+// documentation UI with a 401 challenge.
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi().AllowAnonymous();
+    app.MapScalarApiReference().AllowAnonymous();
+}
 
 app.UseHttpsRedirection();
 

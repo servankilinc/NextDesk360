@@ -141,11 +141,19 @@ public class AccountController : BaseController
         return RedirectToLocalUrl(returnUrl);
     }
 
-    [HttpGet]
+    // POST-only: a GET logout can be triggered by any third-party page embedding the URL.
+    [HttpPost]
+    [Authorize]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> LogOut()
     {
         await _signInManager.SignOutAsync();
-        //await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         return RedirectToAction("Login", "Account");
     }
+
+    /// <summary>Guards against open-redirect via a crafted returnUrl.</summary>
+    private IActionResult RedirectToLocalUrl(string? returnUrl)
+        => !string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl)
+            ? Redirect(returnUrl)
+            : RedirectToAction("Index", "Home");
 }
