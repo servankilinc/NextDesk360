@@ -18,6 +18,7 @@ namespace ExpressDesk360.Business.Abstract
         Task<Result<ICollection<StockMovement>>> GetListAsync(Expression<Func<StockMovement, bool>> where, CancellationToken cancellationToken = default);
         Task<Result<ICollection<StockMovement>>> GetListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default);
         Task<Result<ICollection<StockMovementDto>>> GetBaseListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default);
+        Task<Result<SelectList>> SelectListAsync(Expression<Func<StockMovement, bool>>? where = default, CancellationToken cancellationToken = default);
         Task<Result> CreateAsync(StockMovementCreateDto request, CancellationToken cancellationToken = default);
         Task<Result<StockMovementUpdateDto>> GetUpdateModelAsync(Guid id, CancellationToken cancellationToken = default);
         Task<Result> UpdateAsync(StockMovementUpdateDto request, CancellationToken cancellationToken = default);

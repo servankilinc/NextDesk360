@@ -76,6 +76,18 @@ namespace ExpressDesk360.Business.Concrete
             return Result<ICollection<StockMovementDto>>.Success(result);
         }
 
+        public async Task<Result<SelectList>> SelectListAsync(Expression<Func<StockMovement, bool>>? where = default, CancellationToken cancellationToken = default)
+        {
+            // StockMovement has no Name column. Project only translatable columns, then build the
+            // label in memory - DateTime.ToString(format) has no SQL translation.
+            var rows = await _unitOfWork.StockMovements.GetAllAsync<StockMovementSelectRow>(select: s => new StockMovementSelectRow { Id = s.Id, Date = s.Date, Quantity = s.Quantity }, where: where, cancellationToken: cancellationToken);
+            var items = (rows ?? new List<StockMovementSelectRow>())
+                .Select(r => new { r.Id, Name = $"{r.Date:yyyy-MM-dd} / {r.Quantity}" })
+                .ToList();
+            var selectList = new SelectList(items, "Id", "Name");
+            return Result<SelectList>.Success(selectList);
+        }
+
         public async Task<Result> CreateAsync(StockMovementCreateDto request, CancellationToken cancellationToken = default)
         {
             var validationResult = await _validationService.ValidateAsync(request, cancellationToken);
@@ -135,6 +147,14 @@ namespace ExpressDesk360.Business.Concrete
         {
             var result = await _unitOfWork.StockMovements.DatatableServerSideAsync(datatableRequest: request, cancellationToken: cancellationToken);
             return Result<DatatableResponseServerSide<StockMovement>>.Success(result);
+        }
+
+        /// <summary>Intermediate projection for <see cref="SelectListAsync"/>; label is built in memory.</summary>
+        private sealed class StockMovementSelectRow
+        {
+            public Guid Id { get; set; }
+            public DateTime Date { get; set; }
+            public decimal Quantity { get; set; }
         }
     }
 }
