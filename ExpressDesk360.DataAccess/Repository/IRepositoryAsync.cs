@@ -24,11 +24,13 @@ public interface IRepositoryAsync<TEntity> where TEntity : IEntity
     #region Delete
     Task DeleteAndSaveAsync(TEntity entity, CancellationToken cancellationToken = default);
     Task DeleteAndSaveAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
-    Task DeleteAndSaveAsync(Expression<Func<TEntity, bool>> where, CancellationToken cancellationToken = default);
+    /// <summary>Deletes the matching rows and returns how many were affected (0 = nothing matched).</summary>
+    Task<int> DeleteAndSaveAsync(Expression<Func<TEntity, bool>> where, CancellationToken cancellationToken = default);
     #endregion
     
     #region Restore
-    Task RestoreAndSaveAsync(Expression<Func<TEntity, bool>> where, CancellationToken cancellationToken = default);
+    /// <summary>Restores the matching soft-deleted rows and returns how many were affected.</summary>
+    Task<int> RestoreAndSaveAsync(Expression<Func<TEntity, bool>> where, CancellationToken cancellationToken = default);
     #endregion
 
     #region IsExist & Count

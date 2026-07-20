@@ -106,7 +106,8 @@
                                 kind: ModalManager.buttonKinds.confirmation,
                                 disable: disable,
                                 onClick: (e_btn, e_mdl) => {
-                                    RequestManager.Get({
+                                    // Restore mutates state: POST, not GET (CSRF + verb correctness).
+                                    RequestManager.Post({
                                         path: requestUrl,
                                         requestData: requestData,
                                         buttonElement: e_btn,

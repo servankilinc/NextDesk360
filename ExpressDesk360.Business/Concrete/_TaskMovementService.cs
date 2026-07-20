@@ -114,13 +114,15 @@ namespace ExpressDesk360.Business.Concrete
 
         public async Task<Result> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            await _unitOfWork._TaskMovements.DeleteAndSaveAsync(where: (f) => f.Id == id, cancellationToken);
+            var affected = await _unitOfWork._TaskMovements.DeleteAndSaveAsync(where: (f) => f.Id == id, cancellationToken);
+            if (affected == 0) return Result.NotFound();
             return Result.Success();
         }
 
         public async Task<Result> RestoreAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            await _unitOfWork._TaskMovements.RestoreAndSaveAsync(where: (f) => f.Id == id, cancellationToken);
+            var restored = await _unitOfWork._TaskMovements.RestoreAndSaveAsync(where: (f) => f.Id == id, cancellationToken);
+            if (restored == 0) return Result.NotFound();
             return Result.Success();
         }
 
