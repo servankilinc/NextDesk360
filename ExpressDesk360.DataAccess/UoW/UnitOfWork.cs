@@ -154,20 +154,36 @@ namespace ExpressDesk360.DataAccess.UoW
 
         public void CommitTransaction()
         {
-            if (_transaction == null)
-                throw new InvalidOperationException("Transaction has not been started for commit transaction.");
-            _transaction.Commit();
-            _transaction.Dispose();
-            _transaction = null;
+            // No-op when there is nothing to commit. Throwing here breaks the common
+            // catch { Rollback(); throw; } pattern by replacing the original exception.
+            if (_transaction == null) return;
+
+            try
+            {
+                _transaction.Commit();
+            }
+            finally
+            {
+                // Must run even if Commit throws, otherwise the transaction leaks and every
+                // later BeginTransaction in this scope fails with "already started".
+                _transaction.Dispose();
+                _transaction = null;
+            }
         }
 
         public void RollbackTransaction()
         {
-            if (_transaction == null)
-                throw new InvalidOperationException("Transaction has not been started for rollback.");
-            _transaction.Rollback();
-            _transaction.Dispose();
-            _transaction = null;
+            if (_transaction == null) return;
+
+            try
+            {
+                _transaction.Rollback();
+            }
+            finally
+            {
+                _transaction.Dispose();
+                _transaction = null;
+            }
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -184,22 +200,40 @@ namespace ExpressDesk360.DataAccess.UoW
 
         public async Task CommitTransactionAsync(CancellationToken cancellationToken = default)
         {
-            if (_transaction == null)
-                throw new InvalidOperationException("Transaction has not been started for commit.");
-            await _transaction.CommitAsync(cancellationToken);
-            await _transaction.DisposeAsync();
-            _transaction = null;
+            // See CommitTransaction: a no-op keeps catch { Rollback(); throw; } from masking
+            // the original exception, and the finally keeps a failed commit from leaking.
+            if (_transaction == null) return;
+
+            try
+            {
+                await _transaction.CommitAsync(cancellationToken);
+            }
+            finally
+            {
+                await _transaction.DisposeAsync();
+                _transaction = null;
+            }
         }
 
         public async Task RollbackTransactionAsync(CancellationToken cancellationToken = default)
         {
-            if (_transaction == null)
-                throw new InvalidOperationException("Transaction has not been started for rollback.");
-            await _transaction.RollbackAsync(cancellationToken);
-            await _transaction.DisposeAsync();
-            _transaction = null;
+            if (_transaction == null) return;
+
+            try
+            {
+                await _transaction.RollbackAsync(cancellationToken);
+            }
+            finally
+            {
+                await _transaction.DisposeAsync();
+                _transaction = null;
+            }
         }
 
+        // The DbContext is registered with AddDbContext (scoped) and shared with every repository
+        // in the same scope, so its lifetime belongs to the DI container. Disposing it here would
+        // leave the rest of the request holding a disposed context. Only the transaction we
+        // created is ours to release.
         public void Dispose()
         {
             if (_transaction != null)
@@ -207,8 +241,6 @@ namespace ExpressDesk360.DataAccess.UoW
                 _transaction.Dispose();
                 _transaction = null;
             }
-
-            _context.Dispose();
         }
 
         public async ValueTask DisposeAsync()
@@ -218,8 +250,6 @@ namespace ExpressDesk360.DataAccess.UoW
                 await _transaction.DisposeAsync();
                 _transaction = null;
             }
-
-            await _context.DisposeAsync();
         }
     }
 }
