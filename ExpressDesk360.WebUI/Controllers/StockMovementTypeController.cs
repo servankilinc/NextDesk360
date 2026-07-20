@@ -36,9 +36,9 @@ namespace ExpressDesk360.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(StockMovementTypeCreateDto request)
+        public async Task<IActionResult> Create(StockMovementTypeCreateDto createModel)
         {
-            var result = await _stockMovementTypeService.CreateAsync(request);
+            var result = await _stockMovementTypeService.CreateAsync(createModel);
             return ToAction(result);
         }
 

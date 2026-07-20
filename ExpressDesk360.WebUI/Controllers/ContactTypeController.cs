@@ -36,9 +36,9 @@ namespace ExpressDesk360.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ContactTypeCreateDto request)
+        public async Task<IActionResult> Create(ContactTypeCreateDto createModel)
         {
-            var result = await _contactTypeService.CreateAsync(request);
+            var result = await _contactTypeService.CreateAsync(createModel);
             return ToAction(result);
         }
 

@@ -42,9 +42,9 @@ namespace ExpressDesk360.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(FSFileCreateDto request)
+        public async Task<IActionResult> Create(FSFileCreateDto createModel)
         {
-            var result = await _fSFileService.CreateAsync(request);
+            var result = await _fSFileService.CreateAsync(createModel);
             return ToAction(result);
         }
 

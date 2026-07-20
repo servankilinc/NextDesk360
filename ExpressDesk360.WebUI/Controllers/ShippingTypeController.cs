@@ -36,9 +36,9 @@ namespace ExpressDesk360.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ShippingTypeCreateDto request)
+        public async Task<IActionResult> Create(ShippingTypeCreateDto createModel)
         {
-            var result = await _shippingTypeService.CreateAsync(request);
+            var result = await _shippingTypeService.CreateAsync(createModel);
             return ToAction(result);
         }
 

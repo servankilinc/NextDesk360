@@ -48,9 +48,9 @@ namespace ExpressDesk360.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(StockSerialWarrantyCreateDto request)
+        public async Task<IActionResult> Create(StockSerialWarrantyCreateDto createModel)
         {
-            var result = await _stockSerialWarrantyService.CreateAsync(request);
+            var result = await _stockSerialWarrantyService.CreateAsync(createModel);
             return ToAction(result);
         }
 

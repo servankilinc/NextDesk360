@@ -44,9 +44,9 @@ namespace ExpressDesk360.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CompanyProductStockSerialMapCreateDto request)
+        public async Task<IActionResult> Create(CompanyProductStockSerialMapCreateDto createModel)
         {
-            var result = await _companyProductStockSerialMapService.CreateAsync(request);
+            var result = await _companyProductStockSerialMapService.CreateAsync(createModel);
             return ToAction(result);
         }
 

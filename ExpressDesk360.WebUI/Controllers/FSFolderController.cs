@@ -46,9 +46,9 @@ namespace ExpressDesk360.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(FSFolderCreateDto request)
+        public async Task<IActionResult> Create(FSFolderCreateDto createModel)
         {
-            var result = await _fSFolderService.CreateAsync(request);
+            var result = await _fSFolderService.CreateAsync(createModel);
             return ToAction(result);
         }
 

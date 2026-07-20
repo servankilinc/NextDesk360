@@ -48,9 +48,9 @@ namespace ExpressDesk360.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ProjectFileCreateDto request)
+        public async Task<IActionResult> Create(ProjectFileCreateDto createModel)
         {
-            var result = await _projectFileService.CreateAsync(request);
+            var result = await _projectFileService.CreateAsync(createModel);
             return ToAction(result);
         }
 

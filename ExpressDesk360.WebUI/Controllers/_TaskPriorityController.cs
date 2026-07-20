@@ -36,9 +36,9 @@ namespace ExpressDesk360.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(TaskPriorityCreateDto request)
+        public async Task<IActionResult> Create(TaskPriorityCreateDto createModel)
         {
-            var result = await __TaskPriorityService.CreateAsync(request);
+            var result = await __TaskPriorityService.CreateAsync(createModel);
             return ToAction(result);
         }
 

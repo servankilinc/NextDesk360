@@ -36,9 +36,9 @@ namespace ExpressDesk360.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(WarrantyTypeCreateDto request)
+        public async Task<IActionResult> Create(WarrantyTypeCreateDto createModel)
         {
-            var result = await _warrantyTypeService.CreateAsync(request);
+            var result = await _warrantyTypeService.CreateAsync(createModel);
             return ToAction(result);
         }
 

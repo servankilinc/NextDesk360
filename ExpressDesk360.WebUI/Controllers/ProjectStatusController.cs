@@ -38,7 +38,7 @@ namespace ExpressDesk360.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProjectStatusCreateDto request)
         {
-            var result = await _projectStatusService.CreateAsync(request);
+            var result = await _projectStatusService.CreateAsync(createModel);
             return ToAction(result);
         }
 

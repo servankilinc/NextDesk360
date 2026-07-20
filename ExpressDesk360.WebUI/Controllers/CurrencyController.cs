@@ -36,9 +36,9 @@ namespace ExpressDesk360.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CurrencyCreateDto request)
+        public async Task<IActionResult> Create(CurrencyCreateDto createModel)
         {
-            var result = await _currencyService.CreateAsync(request);
+            var result = await _currencyService.CreateAsync(createModel);
             return ToAction(result);
         }
 

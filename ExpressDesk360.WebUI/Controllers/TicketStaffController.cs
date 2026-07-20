@@ -46,9 +46,9 @@ namespace ExpressDesk360.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(TicketStaffCreateDto request)
+        public async Task<IActionResult> Create(TicketStaffCreateDto createModel)
         {
-            var result = await _ticketStaffService.CreateAsync(request);
+            var result = await _ticketStaffService.CreateAsync(createModel);
             return ToAction(result);
         }
 

@@ -48,9 +48,9 @@ namespace ExpressDesk360.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(BOMItemCreateDto request)
+        public async Task<IActionResult> Create(BOMItemCreateDto createModel)
         {
-            var result = await _bOMItemService.CreateAsync(request);
+            var result = await _bOMItemService.CreateAsync(createModel);
             return ToAction(result);
         }
 
