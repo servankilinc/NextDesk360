@@ -1359,13 +1359,10 @@
 						</div>
 						<!--end::Menu item (Language) -->
 						<!--begin::Menu item-->
-						<div class="menu-item px-5 my-1">
-							<a href="account/settings.html" class="menu-link px-5">Account Settings</a>
-						</div>
-						<!--end::Menu item-->
-						<!--begin::Menu item-->
+						@* Logout posts through the partial's form. The previous markup pointed at a
+						   static Metronic demo page and never signed the user out. *@
 						<div class="menu-item px-5">
-							<a href="authentication/layouts/corporate/sign-in.html" class="menu-link px-5">Sign Out</a>
+							<partial name="Partials/_LoginPartial" />
 						</div>
 						<!--end::Menu item-->
 					</div>

@@ -32,8 +32,7 @@ public class AccountController : BaseController
         return View(model);
     }
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
+    [HttpPost]
     public async Task<IActionResult> Login(LoginRequest loginRequest, string? returnUrl = null)
     {
         ViewData["ReturnUrl"] = returnUrl;
@@ -88,8 +87,7 @@ public class AccountController : BaseController
         return View();
     }
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
+    [HttpPost]
     public async Task<IActionResult> SignUp(SignUpRequest signUpRequest, string? returnUrl = null)
     {
         ViewData["ReturnUrl"] = returnUrl;
@@ -143,8 +141,7 @@ public class AccountController : BaseController
 
     // POST-only: a GET logout can be triggered by any third-party page embedding the URL.
     [HttpPost]
-    [Authorize]
-    [ValidateAntiForgeryToken]
+    [Authorize]
     public async Task<IActionResult> LogOut()
     {
         await _signInManager.SignOutAsync();

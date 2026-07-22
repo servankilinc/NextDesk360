@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Options;
 using System.Threading.RateLimiting;
@@ -91,7 +92,7 @@ builder.Services.AddBusinessServices(builder.Configuration);
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
-            builder.Services.AddAuthorization();
+            builder.Services.AddAppAuthorization();
             #endregion
         
 

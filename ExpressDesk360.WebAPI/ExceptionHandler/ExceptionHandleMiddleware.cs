@@ -11,15 +11,28 @@ public class ExceptionHandleMiddleware : IExceptionHandler
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
         var traceId = httpContext.TraceIdentifier;
-        _logger.LogError(exception, "An error occurred during the process. TraceId: {TraceId}, Message: {Message}, InnerException: {InnerException}", traceId, exception.Message, exception.InnerException?.Message ?? string.Empty);
+
+        // A rejected dynamic filter/sort field is bad input, not a server fault. Reporting it as
+        // 500 both misleads the caller and fills the error log with ordinary client mistakes.
+        bool isBadRequest = exception is ArgumentException;
+
+        if (isBadRequest)
+            _logger.LogWarning("A request was rejected as invalid. TraceId: {TraceId}, Message: {Message}", traceId, exception.Message);
+        else
+            _logger.LogError(exception, "An error occurred during the process. TraceId: {TraceId}, Message: {Message}, InnerException: {InnerException}", traceId, exception.Message, exception.InnerException?.Message ?? string.Empty);
+
+        int statusCode = isBadRequest ? StatusCodes.Status400BadRequest : StatusCodes.Status500InternalServerError;
 
         httpContext.Response.ContentType = "application/problem+json";
-        httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
+        httpContext.Response.StatusCode = statusCode;
         await httpContext.Response.WriteAsJsonAsync(new Microsoft.AspNetCore.Mvc.ProblemDetails()
         {
-            Status = StatusCodes.Status500InternalServerError,
-            Type = $"http://ExpressDesk360.com/problems/InternalServerError",
-            Title = "An error occurred",
+            Status = statusCode,
+            Type = isBadRequest
+                ? "http://ExpressDesk360.com/problems/BadRequest"
+                : "http://ExpressDesk360.com/problems/InternalServerError",
+            // Safe to surface: ArgumentException here only ever reports a rejected field name.
+            Title = isBadRequest ? exception.Message : "An error occurred",
             Extensions =
             {
                 ["traceId"] = traceId
