@@ -82,7 +82,7 @@ builder.Services.AddBusinessServices(builder.Configuration);
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
-            builder.Services.AddAppAuthorization();
+            builder.Services.AddAuthorization();
             #endregion
 
 

@@ -138,19 +138,19 @@
                 },
         
                 columns: [
-                    					{ data: 'UserId' },
-					{ data: 'ContactTypeId' },
-					{ data: 'Info' },
+                    					{ data: 'userId' },
+					{ data: 'contactTypeId' },
+					{ data: 'info' },
 
                     {
-                        data: 'CreateDateUtc',
+                        data: 'createDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
                     },
                     {
-                        data: 'UpdateDateUtc',
+                        data: 'updateDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');

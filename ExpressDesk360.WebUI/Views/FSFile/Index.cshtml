@@ -150,23 +150,23 @@
                 },
         
                 columns: [
-                    					{ data: 'FolderId' },
-					{ data: 'Name' },
-					{ data: 'Path' },
-					{ data: 'Extension' },
-					{ data: 'MimeType' },
-					{ data: 'Size' },
-					{ data: 'Hash' },
+                    					{ data: 'folderId' },
+					{ data: 'name' },
+					{ data: 'path' },
+					{ data: 'extension' },
+					{ data: 'mimeType' },
+					{ data: 'size' },
+					{ data: 'hash' },
 
                     {
-                        data: 'CreateDate',
+                        data: 'createDate',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
                     },
                     {
-                        data: 'UpdateDate',
+                        data: 'updateDate',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');

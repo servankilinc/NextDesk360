@@ -49,23 +49,13 @@ public static class QueryableFilterExtension
         if (!OperatorsWithValue.ContainsKey(filter.Operator!) && !OperatorsWithoutValue.ContainsKey(filter.Operator!))
             throw new ArgumentException($"Invalid opreator type for dynamic filter, operator: {filter.Operator}");
 
-        if (filter.Value is null && OperatorsWithValue.ContainsKey(filter.Operator!))
-        {
-            throw new ArgumentException($"Value required for operator: {filter.Operator}");
-        }
-
         if (!string.IsNullOrWhiteSpace(filter.Logic) && !Logics.Contains(filter.Logic))
             throw new ArgumentException($"Invalid logic type for dynamic filter, logic: {filter.Logic}");
     }
 
     private static string BuildExpression<T>(Filter filter, IList<object> parameters)
     {
-        // Validate before defaulting the value, otherwise the "value required" rule below can
-        // never fire and a valueless 'contains' silently degrades to Contains("") - matching
-        // every row, i.e. no filter at all.
         Validate<T>(filter);
-
-        if (filter.Value == null) filter.Value = string.Empty;
 
         var parts = new List<string>();
 
@@ -73,9 +63,15 @@ public static class QueryableFilterExtension
         {
             if (OperatorsWithValue.TryGetValue(filter.Operator!, out var op))
             {
-                var index = parameters.Count;
-                parameters.Add(filter.Value!);
-                parts.Add(op(filter.Field!, index));
+                // A value operator with no value (e.g. an unselected combobox sending null)
+                // is skipped entirely rather than participating in the query. This also avoids
+                // a valueless 'contains' degrading to Contains("") - which would match every row.
+                if (!string.IsNullOrWhiteSpace(filter.Value))
+                {
+                    var index = parameters.Count;
+                    parameters.Add(filter.Value!);
+                    parts.Add(op(filter.Field!, index));
+                }
             }
             else if (OperatorsWithoutValue.TryGetValue(filter.Operator!, out var opNoVal))
             {

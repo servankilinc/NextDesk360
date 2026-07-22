@@ -183,44 +183,44 @@
                 },
         
                 columns: [
-                    					{ data: 'InvoiceTypeId' },
-					{ data: 'InvoiceNo' },
-					{ data: 'ItemNumber' },
-					{ data: 'SellerCompanyId' },
-					{ data: 'BuyerCompanyId' },
+                    					{ data: 'invoiceTypeId' },
+					{ data: 'invoiceNo' },
+					{ data: 'itemNumber' },
+					{ data: 'sellerCompanyId' },
+					{ data: 'buyerCompanyId' },
 
                     {
-                        data: 'PaymentDate',
+                        data: 'paymentDate',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
                     },
                     {
-                        data: 'DeliveryDate',
+                        data: 'deliveryDate',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
-                    },					{ data: 'TotalPrice' },
-					{ data: 'DiscountAmount1' },
-					{ data: 'DiscountAmount2' },
-					{ data: 'DiscountRate1' },
-					{ data: 'DiscountRate2' },
-					{ data: 'TaxTotal' },
-					{ data: 'GrandTotal' },
-					{ data: 'CurrencyId' },
-					{ data: 'ExchangeRate' },
+                    },					{ data: 'totalPrice' },
+					{ data: 'discountAmount1' },
+					{ data: 'discountAmount2' },
+					{ data: 'discountRate1' },
+					{ data: 'discountRate2' },
+					{ data: 'taxTotal' },
+					{ data: 'grandTotal' },
+					{ data: 'currencyId' },
+					{ data: 'exchangeRate' },
 
                     {
-                        data: 'CreateDateUtc',
+                        data: 'createDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
                     },
                     {
-                        data: 'UpdateDateUtc',
+                        data: 'updateDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');

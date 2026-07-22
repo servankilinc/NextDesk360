@@ -197,39 +197,39 @@
                 },
         
                 columns: [
-                    					{ data: 'CargoCompanyId' },
-					{ data: 'ShippingTypeId' },
-					{ data: 'UserId' },
-					{ data: 'SendingCompanyName' },
-					{ data: 'ReceivingCompanyName' },
+                    					{ data: 'cargoCompanyId' },
+					{ data: 'shippingTypeId' },
+					{ data: 'userId' },
+					{ data: 'sendingCompanyName' },
+					{ data: 'receivingCompanyName' },
 
                     {
-                        data: 'IsIncoming',
+                        data: 'isIncoming',
                         render: function (data) {
                             if(data == true) return (`<span class="badge rounded-pill bg-label-danger"><i class="fa-solid fa-xmark"></i></span>`);
                             else if(data == false) return (`<span class="badge rounded-pill bg-label-success"><i class="fa-solid fa-check"></i></span>`);
                             else return ('');
                         }
-                    },					{ data: 'TrackingNumber' },
+                    },					{ data: 'trackingNumber' },
 
                     {
-                        data: 'ShippingDate',
+                        data: 'shippingDate',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
-                    },					{ data: 'Price' },
-					{ data: 'PriceCurrencyId' },
+                    },					{ data: 'price' },
+					{ data: 'priceCurrencyId' },
 
                     {
-                        data: 'CreateDateUtc',
+                        data: 'createDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
                     },
                     {
-                        data: 'UpdateDateUtc',
+                        data: 'updateDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');

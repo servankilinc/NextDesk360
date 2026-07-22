@@ -138,19 +138,19 @@
                 },
         
                 columns: [
-                    					{ data: 'BOMId' },
-					{ data: 'StockId' },
-					{ data: 'Quantity' },
+                    					{ data: 'bomId' },
+					{ data: 'stockId' },
+					{ data: 'quantity' },
 
                     {
-                        data: 'CreateDateUtc',
+                        data: 'createDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
                     },
                     {
-                        data: 'UpdateDateUtc',
+                        data: 'updateDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');

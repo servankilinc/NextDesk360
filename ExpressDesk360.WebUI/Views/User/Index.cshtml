@@ -159,28 +159,28 @@
                 },
         
                 columns: [
-                    					{ data: 'CompanyId' },
-					{ data: 'UserName' },
-					{ data: 'Name' },
-					{ data: 'SurName' },
+                    					{ data: 'companyId' },
+					{ data: 'userName' },
+					{ data: 'name' },
+					{ data: 'surName' },
 
                     {
-                        data: 'HireDate',
+                        data: 'hireDate',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
-                    },					{ data: 'LogoUrl' },
+                    },					{ data: 'logoUrl' },
 
                     {
-                        data: 'CreateDateUtc',
+                        data: 'createDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
                     },
                     {
-                        data: 'UpdateDateUtc',
+                        data: 'updateDateUtc',
                         render: function (data) {
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');

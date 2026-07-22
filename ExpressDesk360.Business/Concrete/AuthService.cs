@@ -133,7 +133,7 @@ namespace ExpressDesk360.Business.Concrete
                 }
 
                 // 3) Assign "User" role to the new user
-                var roleResult = await _userManager.AddToRoleAsync(user, Roles.User);
+                var roleResult = await _userManager.AddToRoleAsync(user, RoleType.User.GetDescription());
                 if (!roleResult.Succeeded)
                 {
                     await _unitOfWork.RollbackTransactionAsync(cancellationToken);
