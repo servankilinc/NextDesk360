@@ -5,14 +5,16 @@
     ViewData["Title"] = "TicketFiles";
 }
 
-@await Html.PartialAsync("Partials/Toolbar", new Breadcrum
-{
-    BreadcrumbItems = new List<BreadcrumbItem>
+@{
+    ViewData["Breadcrumb"] = new Breadcrum
     {
-        new BreadcrumbItem { Title = "Home", Path = Url.Action("Index", "Home") },
-    },
-    PageName = ViewData["Title"]?.ToString() ?? "Page"
-})
+        BreadcrumbItems = new List<BreadcrumbItem>
+        {
+            new BreadcrumbItem { Title = "Home", Path = Url.Action("Index", "Home") },
+        },
+        PageName = ViewData["Title"]?.ToString() ?? "Page"
+    };
+}
 
 <link href="~/metronic/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" />
 

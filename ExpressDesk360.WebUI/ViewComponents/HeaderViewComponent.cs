@@ -12,7 +12,7 @@ public class HeaderViewComponent : ViewComponent
 
     public HeaderViewComponent(LocalizationSettings localizationSettings) => _localizationSettings = localizationSettings;
 
-    public IViewComponentResult Invoke() {
+    public IViewComponentResult Invoke(Breadcrum? breadcrumb) {
 
         var currentUrl = HttpContext.GetUrl();
         var currentCulture = HttpContext.GetCurrentLanguage();
@@ -77,6 +77,10 @@ public class HeaderViewComponent : ViewComponent
             if (item.Culture == currentCulture) 
                 item.IsActive = true;
         
-        return View(localizations);
+        return View(new HeaderViewModel
+        {
+            Localizations = localizations,
+            Breadcrumb = breadcrumb
+        });
     }
 }
