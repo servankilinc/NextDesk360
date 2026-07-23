@@ -4,16 +4,22 @@
     Layout = "_LayoutBase";
 }
 
-<div class="container-xxl container-p-y">
-    <div class="misc-wrapper">
-        <h1 class="mb-2 mx-2" style="line-height: 6rem;font-size: 6rem;">500</h1>
-        <h4 class="mb-2 mx-2">Invalid Process Error ⚠️</h4>
-        <p class="mb-6 mx-2">
-            @(string.IsNullOrWhiteSpace(Model) ? "You are not authorized!" : Model)
-        </p>
-        <a href="/" class="btn btn-primary">Back to home</a>
-        <div class="mt-6">
-            <img src="~/assets/img/illustrations/girl-doing-yoga-light.png" alt="page-misc-error-light" width="500" class="img-fluid">
+<div class="d-flex flex-column flex-center flex-column-fluid">
+    <div class="d-flex flex-column flex-center text-center p-10">
+        <div class="card card-flush w-lg-650px py-5">
+            <div class="card-body py-15 py-lg-20">
+                <h1 class="fw-bolder fs-2hx text-gray-900 mb-4">Oops!</h1>
+                <div class="fw-semibold fs-6 text-gray-500 mb-7">
+                    @(string.IsNullOrWhiteSpace(Model) ? "That process could not be completed." : Model)
+                </div>
+                <div class="mb-3">
+                    <img src="~/media/auth/500-error.png" class="mw-100 mh-300px theme-light-show" alt="" />
+                    <img src="~/media/auth/500-error-dark.png" class="mw-100 mh-300px theme-dark-show" alt="" />
+                </div>
+                <div class="mb-0">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-sm btn-primary">Return Home</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

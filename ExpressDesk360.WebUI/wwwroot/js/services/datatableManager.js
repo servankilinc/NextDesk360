@@ -10,12 +10,12 @@
                     <"d-flex align-items-center gap-5"
                         <"my-2 d-flex align-items-center justify-conten-start dt-toolbar"l>
                         <"my-2 dt-action-buttons text-end"B>
-                    >
+        >
                     <"d-flex align-items-center justify-content-end dt-toolbar"f>
                 >
             >
             <"card-body"
-                <"table-responsive"tr>
+        <"table-responsive"tr>
                 <"d-flex justify-content-between row px-3 pb-3"
                     <"col-sm-12 col-md-6 d-flex align-items-center justify-content-center justify-content-md-start"i>
                     <"col-sm-12 col-md-6 d-flex align-items-center justify-content-center justify-content-md-end"p>
@@ -67,10 +67,10 @@
             extend: type,
             className: 'dropdown-item',
             text: {
-                print: '<i class="bx bx-printer me-1"></i>Yazdır',
-                excel: '<i class="bx bx-file me-1"></i>Excel',
-                pdf: '<i class="bx bxs-file-pdf me-1"></i>Pdf',
-                copy: '<i class="bx bx-copy me-1"></i>Kopyala'
+                print: '<i class="ki-outline ki-printer fs-4 me-2"></i>Yazdır',
+                excel: '<i class="ki-outline ki-file-down fs-4 me-2"></i>Excel',
+                pdf: '<i class="ki-outline ki-file-down fs-4 me-2"></i>Pdf',
+                copy: '<i class="ki-outline ki-copy fs-4 me-2"></i>Kopyala'
             }[type],
             exportOptions: {} // columns: [3, 4, 5, 6, 7]
         }))
@@ -90,32 +90,32 @@
         detail: {
             text: 'Detay',
             name: 'btn btn-outline btn-outline-primary',
-            icon: 'fa-solid fa-file-lines', // 'fa-regular fa-file-lines',
+            icon: 'ki-outline ki-eye',
         },
         update: {
             text: 'Güncelle',
             name: 'btn btn-outline btn-outline-success',
-            icon: 'fa-solid fa-pen-to-square',
+            icon: 'ki-outline ki-pencil',
         },
         delete: {
             text: 'Sil',
             name: 'btn btn-outline btn-outline-danger',
-            icon: 'fa-solid fa-trash',
+            icon: 'ki-outline ki-trash',
         },
         confirmation: {
             text: 'Onay',
             name: 'btn btn-outline btn-outline-info',
-            icon: 'fa-solid fa-circle-check',
+            icon: 'ki-outline ki-check-circle',
         },
         cancel: {
             text: 'İptal',
             name: 'btn btn-outline btn-outline-secondary',
-            icon: 'fa-solid fa-ban',
+            icon: 'ki-outline ki-cross-circle',
         },
         undo: {
             text: 'Geri Al',
             name: 'btn btn-outline btn-outline-warning',
-            icon: 'fa-solid fa-trash-can-arrow-up',
+            icon: 'ki-outline ki-arrows-circle',
         }
     },
     //#endregion
@@ -224,7 +224,6 @@
             },
             pageLength: pageLength,
             lengthMenu: lengthMenu || this.defaultLengthMenu,
-            stateSave: true,
             select: {
                 style: 'multi',
                 selector: 'td:first-child input[type="checkbox"]',
@@ -386,26 +385,22 @@
 
         btnObject.id = btnObject.id || GenerateId();
         btnObject.text = btnObject.text || '';
-        btnObject.name = btnObject.name || defaultProps.name;
         btnObject.icon = btnObject.icon || defaultProps.icon;
 
         // btn-init
         const btnElement = document.createElement('button');
         btnElement.id = btnObject.id;
-        btnElement.className = `btn ${btnObject.name} btn-${btnObject.size} mx-1 ${btnObject.className || ``} px-2 py-1`;
+        btnElement.className = `btn ${defaultProps.name} btn-${btnObject.size} mx-1 ${btnObject.className || ``} px-2 py-1`;
         Object.entries(btnObject.attributes).forEach(([key, val]) => btnElement.setAttribute(key, val));
         btnElement.disabled = btnObject.disable;
 
         // btn-onclick
         if (typeof btnObject.onClick === 'function') {
             btnElement.onclick = async (e) => {
-                //const $btn = $(btnElement); // (zaten requestManager buutonu işliyor)
-                //if ($btn != null) this._toggleButtonLoading($btn, true);
                 try {
                     await onClick(e);
                 }
-                finally {
-                    //if ($btn != null) this._toggleButtonLoading($btn, false);
+                catch {
                 }
             };
         }
@@ -443,7 +438,7 @@
                 });
             }
             else if (buttons instanceof HTMLElement) {
-                btnGroup.appendChild(b);
+                btnGroup.appendChild(buttons);
             }
         }
 

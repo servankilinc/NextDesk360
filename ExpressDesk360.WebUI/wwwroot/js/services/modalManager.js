@@ -202,7 +202,7 @@
         const btn = document.createElement('button');
         btn.id = btnObject.id;
         btn.type = btnObject.type;
-        btn.className = `btn ${btnObject.name} btn-${btnObject.size} ${btnObject.className}`;
+        btn.className = `btn ${btnObject.name} btn-${btnObject.size} ${btnObject.className || ''}`.trim();
         btn.disabled = btnObject.disable;
 
         Object.entries(btnObject.attributes || {}).forEach(([k, v]) => btn.setAttribute(k, v));
@@ -210,17 +210,15 @@
         btn.onclick = async e => {
             if (!btnObject.onClick) return;
 
-            const dynamic = btn.querySelector('.dynamic-content');
-            const original = dynamic?.innerHTML;
-
             btn.disabled = true;
-            if (dynamic) dynamic.innerHTML = '<i class="fa-solid fa-spinner me-2"></i> Bekleyiniz';
 
             try {
                 await btnObject.onClick(e, modalRef, $(modalRef).find("form"));
-            } finally {
+            }
+            catch {
+            }
+            finally {
                 btn.disabled = false;
-                if (dynamic) dynamic.innerHTML = original;
             }
         };
 

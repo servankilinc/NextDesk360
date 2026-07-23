@@ -132,6 +132,9 @@
                 }
             };
 
+            // Verilmediyse jQuery'nin içerik tipi tahminine bırak
+            if (dataType) ajaxOptions.dataType = dataType;
+
             // FormData GET isteklerinde query string olarak gönderilecek
             if (ajaxOptions.data instanceof FormData) {
                 if (ajaxOptions.type === 'GET') {
