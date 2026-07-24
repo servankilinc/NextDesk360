@@ -21,13 +21,11 @@
 				data-kt-scroll-wrappers="#kt_aside_nav" data-kt-scroll-dependencies="#kt_aside_logo"
 				data-kt-scroll-offset="0px">
 				<!--begin::Nav-->
-				<ul class="nav flex-column w-100" id="kt_aside_nav_tabs">
-					<!--begin::Nav item-->
-					<li class="nav-item mb-2" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="right"
-						data-bs-dismiss="click" title="Menu">
-						<!--begin::Nav link-->
-						<a class="nav-link btn btn-icon btn-active-color-primary btn-color-gray-500 btn-active-light active"
-							data-bs-toggle="tab" href="#kt_aside_nav_tab_menu">
+				<ul class="nav flex-column w-100" id="kt_aside_nav_tabs"> 
+
+					<!--begin::Nav item (Static Dashboard)-->
+					<li class="nav-item mb-2" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="right" data-bs-dismiss="click" title="Dashboard">
+						<a class="nav-link btn btn-icon btn-active-color-primary btn-color-gray-500 btn-active-light @(Model.Any(m => m.IsActive) ? "" : "active")" data-bs-toggle="tab" href="#kt_aside_nav_tab_dashboard">
 							<i class="ki-duotone ki-element-11 fs-2x">
 								<span class="path1"></span>
 								<span class="path2"></span>
@@ -35,23 +33,24 @@
 								<span class="path4"></span>
 							</i>
 						</a>
-						<!--end::Nav link-->
 					</li>
-					<!--end::Nav item-->
-					<!--begin::Nav item-->
-					<li class="nav-item mb-2" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="right"
-						data-bs-dismiss="click" title="Tasks">
-						<!--begin::Nav link-->
-						<a class="nav-link btn btn-icon btn-active-color-primary btn-color-gray-500 btn-active-light"
-							data-bs-toggle="tab" href="#kt_aside_nav_tab_tasks">
-							<i class="ki-duotone ki-briefcase fs-2x">
-								<span class="path1"></span>
-								<span class="path2"></span>
-							</i>
-						</a>
-						<!--end::Nav link-->
-					</li>
-					<!--end::Nav item-->
+					<!--end::Nav item (Static Dashboard)-->
+
+					<!--begin::Nav item (Dynamic)-->
+					@{
+						foreach(var item in Model)
+						{ 
+							<li class="nav-item mb-1" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="right" data-bs-dismiss="click" title="@item.GroupName">
+								<a class="nav-link btn btn-icon btn-active-color-primary btn-color-gray-500 btn-active-light @(item.IsActive ? "active" : "")" data-bs-toggle="tab" href="#kt_aside_nav_tab_@item.GroupName">
+									<span class="svg-icon svg-icon-2x">
+										@Html.Raw(item.Icon)
+									</span>
+								</a>
+							</li>
+						}
+                    }
+					<!--end::Nav item (Dynamic)-->
+
 				</ul>
 				<!--end::Tabs-->
 			</div>
@@ -73,29 +72,12 @@
 
 					<!--begin::Tab content-->
 					<div class="tab-content">
-						<!--begin::Tab pane-->
-						<div class="tab-pane fade show active" id="kt_aside_nav_tab_menu" role="tabpanel">
-							<!--begin::Menu-->
-							<div class="menu menu-column menu-fit menu-rounded menu-title-gray-600 menu-icon-gray-500 menu-state-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500 fw-semibold fs-5 px-6 my-5 my-lg-0"
-								id="kt_aside_menu" data-kt-menu="true">
-								<div id="kt_aside_menu_wrapper" class="menu-fit">
-                                    @foreach (var mainMenu in Model)
-                                    {
-                                        <partial name="./_SubMenu.cshtml" model="mainMenu" />
-                                    }
-
-								</div>
-							</div>
-							<!--end::Menu-->
-						</div>
-						<!--end::Tab pane--> 
-
-						<!--begin::Tab pane-->
-						<div class="tab-pane fade" id="kt_aside_nav_tab_tasks" role="tabpanel">
-							<!--begin::Tasks-->
+						 
+						<!--begin::Tab pane (Static Dashboard)-->
+						<div class="tab-pane fade @(Model.Any(m => m.IsActive) ? "" : "show active")" id="kt_aside_nav_tab_dashboard" role="tabpanel">
 							<div class="mx-5">
 								<!--begin::Header-->
-								<h3 class="fw-bold text-gray-900 mb-10 mx-0">Tasks Overview</h3>
+								<h3 class="fw-bold text-gray-900 mb-10 mx-0">Dashboard Overview</h3>
 								<!--end::Header-->
 								<!--begin::Body-->
 								<div class="mb-12">
@@ -114,8 +96,10 @@
 										<!--begin::Text-->
 										<div class="d-flex flex-column">
 											<a href="#"
-												class="text-gray-800 text-hover-primary fs-6 fw-bold">Project
-												Briefing</a>
+											   class="text-gray-800 text-hover-primary fs-6 fw-bold">
+												Project
+												Briefing
+											</a>
 											<span class="text-muted fw-bold">Project Manager</span>
 										</div>
 										<!--end::Text-->
@@ -136,7 +120,7 @@
 										<!--begin::Text-->
 										<div class="d-flex flex-column">
 											<a href="#"
-												class="text-gray-800 text-hover-primary fs-6 fw-bold">Concept Design</a>
+											   class="text-gray-800 text-hover-primary fs-6 fw-bold">Concept Design</a>
 											<span class="text-muted fw-bold">Art Director</span>
 										</div>
 										<!--end::Text-->
@@ -158,8 +142,10 @@
 										<!--begin::Text-->
 										<div class="d-flex flex-column">
 											<a href="#"
-												class="text-gray-800 text-hover-primary fs-6 fw-bold">Functional
-												Logics</a>
+											   class="text-gray-800 text-hover-primary fs-6 fw-bold">
+												Functional
+												Logics
+											</a>
 											<span class="text-muted fw-bold">Lead Developer</span>
 										</div>
 										<!--end::Text-->
@@ -183,7 +169,7 @@
 										<!--begin::Text-->
 										<div class="d-flex flex-column">
 											<a href="#"
-												class="text-gray-800 text-hover-primary fs-6 fw-bold">Development</a>
+											   class="text-gray-800 text-hover-primary fs-6 fw-bold">Development</a>
 											<span class="text-muted fw-bold">DevOps</span>
 										</div>
 										<!--end::Text-->
@@ -204,7 +190,7 @@
 										<!--begin::Text-->
 										<div class="d-flex flex-column">
 											<a href="#"
-												class="text-gray-800 text-hover-primary fs-6 fw-bold">Testing</a>
+											   class="text-gray-800 text-hover-primary fs-6 fw-bold">Testing</a>
 											<span class="text-muted fw-bold">QA Managers</span>
 										</div>
 										<!--end::Text-->
@@ -225,8 +211,10 @@
 										<!--begin::Text-->
 										<div class="d-flex flex-column">
 											<a href="#"
-												class="text-gray-800 text-hover-primary fs-6 fw-bold">HTML, CSS
-												Coding</a>
+											   class="text-gray-800 text-hover-primary fs-6 fw-bold">
+												HTML, CSS
+												Coding
+											</a>
 											<span class="text-muted fw-bold">Art Director</span>
 										</div>
 										<!--end::Text-->
@@ -248,8 +236,10 @@
 										<!--begin::Text-->
 										<div class="d-flex flex-column">
 											<a href="#"
-												class="text-gray-800 text-hover-primary fs-6 fw-bold">ReactJS
-												Developer</a>
+											   class="text-gray-800 text-hover-primary fs-6 fw-bold">
+												ReactJS
+												Developer
+											</a>
 											<span class="text-muted fw-bold">Web, UI/UX Design</span>
 										</div>
 										<!--end::Text-->
@@ -258,9 +248,24 @@
 								</div>
 								<!--end::Body-->
 							</div>
-							<!--end::Tasks-->
 						</div>
-						<!--end::Tab pane--> 
+						<!--end::Tab pane (Static Dashboard)-->
+
+						<!--begin::Tab pane (Dynamic)-->
+						@foreach (var item in Model.Where(f => f.SubMenuItems != null && f.SubMenuItems.Any()))
+						{
+							<div class="tab-pane fade @(item.IsActive ? "show active" : "")" id="kt_aside_nav_tab_@item.GroupName" role="tabpanel">
+								<div id="kt_aside_@item.GroupName" class="menu menu-column menu-fit menu-rounded menu-title-gray-600 menu-icon-gray-500 menu-state-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500 fw-semibold fs-5 px-6 my-5 my-lg-0" data-kt-menu="true">
+									<div id="kt_aside_@(item.GroupName)_wrapper" class="menu-fit">
+										@foreach (var mainMenu in item.SubMenuItems!)
+										{
+											<partial name="./_SubMenu.cshtml" model="mainMenu" />
+										}
+									</div>
+								</div>
+							</div>
+						} 
+						<!--end::Tab pane (Dynamic)-->
 
 					</div>
 					<!--end::Tab content-->

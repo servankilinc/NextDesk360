@@ -11,15 +11,8 @@ namespace ExpressDesk360.WebUI.ViewComponents
             {
                 new MenuItem
                 {
-                    Title = "Dashboard",
-                    Icon = "<i class=\"ki-duotone ki-element-11 fs-2\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span></i>",
-                    Path = "/Home/Index"
-                },
-
-                new MenuItem
-                {
                     Title = "Ticket",
-                    Icon = "<i class=\"ki-duotone ki-delivery-24 text-gray-900 fs-2tx\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span></i>",
+                    Icon = "<i class=\"ki-duotone ki-delivery-24 fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span></i>",
                     GroupName = "Ticket",
                     SubMenuItems = new List<MenuItem>{
                         new MenuItem
@@ -106,7 +99,7 @@ namespace ExpressDesk360.WebUI.ViewComponents
                new MenuItem
                 {
                     Title = "Stock",
-                    Icon = "<i class=\"ki-duotone ki-parcel-tracking text-gray-900 fs-2tx\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>",
+                    Icon = "<i class=\"ki-duotone ki-parcel-tracking fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>",
                     GroupName = "Stock",
                     SubMenuItems = new List<MenuItem>{
                         new MenuItem
@@ -200,7 +193,7 @@ namespace ExpressDesk360.WebUI.ViewComponents
                 new MenuItem
                 {
                     Title = "Shipping",
-                    Icon = "<i class=\"ki-duotone ki-delivery-time text-gray-900 fs-2tx\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span></i>",
+                    Icon = "<i class=\"ki-duotone ki-delivery-time fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span></i>",
                     GroupName = "Shipping",
                     SubMenuItems = new List<MenuItem>{
                         new MenuItem
@@ -233,7 +226,7 @@ namespace ExpressDesk360.WebUI.ViewComponents
                 new MenuItem
                 {
                     Title = "Project",
-                    Icon = "<i class=\"ki-duotone ki-some-files text-gray-900 fs-2tx\"><span class=\"path1\"></span><span class=\"path2\"></span></i>",
+                    Icon = "<i class=\"ki-duotone ki-some-files fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span></i>",
                     GroupName = "Project",
                     SubMenuItems = new List<MenuItem>{
                         new MenuItem
@@ -279,7 +272,7 @@ namespace ExpressDesk360.WebUI.ViewComponents
                 new MenuItem
                 {
                     Title = "Invoice",
-                    Icon = "<i class=\"ki-duotone ki-cheque text-gray-900 fs-2tx\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span><span class=\"path6\"></span><span class=\"path7\"></span></i>",
+                    Icon = "<i class=\"ki-duotone ki-cheque fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span><span class=\"path6\"></span><span class=\"path7\"></span></i>",
                     GroupName = "Invoice",
                     SubMenuItems = new List<MenuItem>{
                         new MenuItem
@@ -301,7 +294,7 @@ namespace ExpressDesk360.WebUI.ViewComponents
                 new MenuItem
                 {
                     Title = "Company",
-                    Icon = "<i class=\"ki-duotone ki-bank text-gray-900 fs-2tx\"><span class=\"path1\"></span><span class=\"path2\"></span></i>",
+                    Icon = "<i class=\"ki-duotone ki-bank fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span></i>",
                     GroupName = "Company",
                     SubMenuItems = new List<MenuItem>{
                         new MenuItem
@@ -330,7 +323,7 @@ namespace ExpressDesk360.WebUI.ViewComponents
                 new MenuItem
                 {
                     Title = "Task",
-                    Icon = "<i class=\"ki-duotone ki-calendar-tick text-gray-900 fs-2tx\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span><span class=\"path6\"></span></i>",
+                    Icon = "<i class=\"ki-duotone ki-calendar-tick fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span><span class=\"path6\"></span></i>",
                     GroupName = "Task",
                     SubMenuItems = new List<MenuItem>{
                         new MenuItem
@@ -382,7 +375,7 @@ namespace ExpressDesk360.WebUI.ViewComponents
                 new MenuItem
                 {
                     Title = "Production",
-                    Icon = "<i class=\"ki-duotone ki-laravel text-gray-900 fs-2tx\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span><span class=\"path6\"></span><span class=\"path7\"></span></i>",
+                    Icon = "<i class=\"ki-duotone ki-laravel fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span><span class=\"path6\"></span><span class=\"path7\"></span></i>",
                     GroupName = "Production",
                     SubMenuItems = new List<MenuItem>{
                         new MenuItem
@@ -422,8 +415,8 @@ namespace ExpressDesk360.WebUI.ViewComponents
                 new MenuItem
                 {
                     Title = "Definations",
-                    // <i class="ki-duotone ki-switch text-gray-900 fs-2tx"><span class="path1"></span><span class="path2"></span></i>
-                    Icon = "<i class=\"ki-duotone ki-setting-2 text-gray-900 fs-2tx\"><span class=\"path1\"></span><span class=\"path2\"></span></i>",
+                    // <i class=\"ki-duotone ki-setting-2 fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span></i>
+                    Icon = "<i class=\"ki-duotone ki-switch fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span></i>",
                     GroupName = "Definations",
                     SubMenuItems = new List<MenuItem>
                     {
@@ -463,7 +456,7 @@ namespace ExpressDesk360.WebUI.ViewComponents
                 new MenuItem
                 {
                     Title = "User",
-                    Icon = "<i class=\"ki-duotone ki-profile-user text-gray-900 fs-2tx\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span></i>",
+                    Icon = "<i class=\"ki-duotone ki-user-edit fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>",
                     GroupName = "User",
                     SubMenuItems = new List<MenuItem>{
                         new MenuItem
