@@ -14,9 +14,13 @@ namespace ExpressDesk360.Model.Entities
         public string? Hash { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime? UpdateDate { get; set; }
+        
+        #region ISoftDeletableEntity
         public string? DeletedBy { get; set; }
         public bool IsDeleted { get; set; }
-        public DateTime? DeletedDateUtc { get; set; }
+        public DateTime? DeletedDateUtc { get; set; } 
+        #endregion
+        
         public virtual FSFolder? Folder { get; set; }
         public virtual ICollection<CompanyFile>? FileCompanyFiles { get; set; }
         public virtual ICollection<ProjectFile>? FileProjectFiles { get; set; }

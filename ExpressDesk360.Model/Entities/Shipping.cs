@@ -15,13 +15,20 @@ namespace ExpressDesk360.Model.Entities
         public DateTime ShippingDate { get; set; }
         public decimal? Price { get; set; }
         public int? PriceCurrencyId { get; set; }
+        
+        #region IAuditableEntity
         public string? CreatedBy { get; set; }
         public string? UpdatedBy { get; set; }
         public DateTime? CreateDateUtc { get; set; }
-        public DateTime? UpdateDateUtc { get; set; }
+        public DateTime? UpdateDateUtc { get; set; } 
+        #endregion
+        
+        #region ISoftDeletableEntity
         public string? DeletedBy { get; set; }
         public bool IsDeleted { get; set; }
-        public DateTime? DeletedDateUtc { get; set; }
+        public DateTime? DeletedDateUtc { get; set; } 
+        #endregion
+        
         public virtual CargoCompany? CargoCompany { get; set; }
         public virtual ShippingType? ShippingType { get; set; }
         public virtual User? User { get; set; }

@@ -21,13 +21,20 @@ namespace ExpressDesk360.Model.Entities
         public decimal GrandTotal { get; set; }
         public int CurrencyId { get; set; }
         public decimal? ExchangeRate { get; set; }
+        
+        #region IAuditableEntity
         public string? CreatedBy { get; set; }
         public string? UpdatedBy { get; set; }
         public DateTime? CreateDateUtc { get; set; }
-        public DateTime? UpdateDateUtc { get; set; }
+        public DateTime? UpdateDateUtc { get; set; } 
+        #endregion
+
+        #region ISoftDeletableEntity
         public string? DeletedBy { get; set; }
         public bool IsDeleted { get; set; }
-        public DateTime? DeletedDateUtc { get; set; }
+        public DateTime? DeletedDateUtc { get; set; } 
+        #endregion
+        
         public virtual InvoiceType? InvoiceType { get; set; }
         public virtual Company? SellerCompany { get; set; }
         public virtual Company? BuyerCompany { get; set; }

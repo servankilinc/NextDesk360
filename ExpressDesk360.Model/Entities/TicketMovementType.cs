@@ -11,13 +11,20 @@ namespace ExpressDesk360.Model.Entities
         public string Color { get; set; } = null!;
         public string? InformationText { get; set; }
         public string? Description { get; set; }
+
+        #region IAuditableEntity
         public string? CreatedBy { get; set; }
         public string? UpdatedBy { get; set; }
         public DateTime? CreateDateUtc { get; set; }
         public DateTime? UpdateDateUtc { get; set; }
+        #endregion
+
+        #region ISoftDeletableEntity
         public string? DeletedBy { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? DeletedDateUtc { get; set; }
+        #endregion
+
         public virtual TicketStatus? TicketStatus { get; set; }
         public virtual ICollection<Ticket>? LastTicketMovementTypeTickets { get; set; }
         public virtual ICollection<TicketMovement>? TicketMovements { get; set; }

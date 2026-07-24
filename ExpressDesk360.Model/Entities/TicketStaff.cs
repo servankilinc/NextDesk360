@@ -8,9 +8,13 @@ namespace ExpressDesk360.Model.Entities
         public Guid TicketId { get; set; }
         public Guid UserId { get; set; }
         public DateTime AddedDate { get; set; }
+        
+        #region ISoftDeletableEntity
         public string? DeletedBy { get; set; }
         public bool IsDeleted { get; set; }
-        public DateTime? DeletedDateUtc { get; set; }
+        public DateTime? DeletedDateUtc { get; set; } 
+        #endregion
+        
         public virtual Ticket? Ticket { get; set; }
         public virtual User? User { get; set; }
     }

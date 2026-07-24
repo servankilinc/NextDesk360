@@ -12,75 +12,11 @@ namespace ExpressDesk360.DataAccess.Contexts
         {
         }
 
-        public DbSet<BOM> BOMs { get; set; }
-        public DbSet<BOMItem> BOMItems { get; set; }
-        public DbSet<CargoCompany> CargoCompanies { get; set; }
-        public DbSet<Company> Companies { get; set; }
-        public DbSet<CompanyContact> CompanyContacts { get; set; }
-        public DbSet<CompanyFile> CompanyFiles { get; set; }
-        public DbSet<CompanyProduct> CompanyProducts { get; set; }
-        public DbSet<CompanyProductStockSerialMap> CompanyProductStockSerialMaps { get; set; }
-        public DbSet<CompanyProductWarranty> CompanyProductWarranties { get; set; }
-        public DbSet<ContactType> ContactTypes { get; set; }
-        public DbSet<Currency> Currencies { get; set; }
-        public DbSet<FaultType> FaultTypes { get; set; }
-        public DbSet<FSFile> FSFiles { get; set; }
-        public DbSet<FSFolder> FSFolders { get; set; }
-        public DbSet<Invoice> Invoices { get; set; }
-        public DbSet<InvoiceType> InvoiceTypes { get; set; }
-        public DbSet<Project> Projects { get; set; }
-        public DbSet<ProjectFile> ProjectFiles { get; set; }
-        public DbSet<ProjectMovement> ProjectMovements { get; set; }
-        public DbSet<ProjectMovementType> ProjectMovementTypes { get; set; }
-        public DbSet<ProjectStaff> ProjectStaffs { get; set; }
-        public DbSet<ProjectStatus> ProjectStatuses { get; set; }
-        public DbSet<Shipping> Shippings { get; set; }
-        public DbSet<ShippingFile> ShippingFiles { get; set; }
-        public DbSet<ShippingType> ShippingTypes { get; set; }
-        public DbSet<Stock> Stocks { get; set; }
-        public DbSet<StockBrand> StockBrands { get; set; }
-        public DbSet<StockGroup> StockGroups { get; set; }
-        public DbSet<StockGroupBrandMap> StockGroupBrandMaps { get; set; }
-        public DbSet<StockGroupFaultTypeMap> StockGroupFaultTypeMaps { get; set; }
-        public DbSet<StockMovement> StockMovements { get; set; }
-        public DbSet<StockMovementStockSerialMap> StockMovementStockSerialMaps { get; set; }
-        public DbSet<StockMovementType> StockMovementTypes { get; set; }
-        public DbSet<StockSerial> StockSerials { get; set; }
-        public DbSet<StockSerialWarranty> StockSerialWarranties { get; set; }
-        public DbSet<StockType> StockTypes { get; set; }
-        public DbSet<StockTypeGroupMap> StockTypeGroupMaps { get; set; }
-        public DbSet<_Task> _Tasks { get; set; }
-        public DbSet<_TaskFile> _TaskFiles { get; set; }
-        public DbSet<_TaskMovement> _TaskMovements { get; set; }
-        public DbSet<_TaskMovementType> _TaskMovementTypes { get; set; }
-        public DbSet<_TaskPriority> _TaskPriorities { get; set; }
-        public DbSet<_TaskStaff> _TaskStaffs { get; set; }
-        public DbSet<_TaskStatus> _TaskStatuses { get; set; }
-        public DbSet<Ticket> Tickets { get; set; }
-        public DbSet<TicketFile> TicketFiles { get; set; }
-        public DbSet<TicketMessage> TicketMessages { get; set; }
-        public DbSet<TicketMessageFile> TicketMessageFiles { get; set; }
-        public DbSet<TicketMovement> TicketMovements { get; set; }
-        public DbSet<TicketMovementFile> TicketMovementFiles { get; set; }
-        public DbSet<TicketMovementType> TicketMovementTypes { get; set; }
-        public DbSet<TicketPriority> TicketPriorities { get; set; }
-        public DbSet<TicketServicePrice> TicketServicePrices { get; set; }
-        public DbSet<TicketStaff> TicketStaffs { get; set; }
-        public DbSet<TicketStatus> TicketStatuses { get; set; }
-        public DbSet<TicketType> TicketTypes { get; set; }
-        public DbSet<Unit> Units { get; set; }
-        public  override  DbSet < User > Users { get; set; }
-        public DbSet<UserContact> UserContacts { get; set; }
-        public DbSet<UserFile> UserFiles { get; set; }
-        public DbSet<Warehouse> Warehouses { get; set; }
-        public DbSet<WarrantyType> WarrantyTypes { get; set; }
-        public DbSet<RefreshToken> RefreshTokens { get; set; }
-        public DbSet<Log> Logs { get; set; }
-        public DbSet<Archive> Archives { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            #region Production Tables
             modelBuilder.Entity<BOM>(b =>
             {
                 b.ToTable("BOM");
@@ -95,13 +31,30 @@ namespace ExpressDesk360.DataAccess.Contexts
                 b.HasKey(b => b.Id);
                 b.HasQueryFilter(f => !f.IsDeleted);
             });
-            modelBuilder.Entity<CargoCompany>(c =>
+            modelBuilder.Entity<CompanyProduct>(c =>
             {
-                c.ToTable("CargoCompany");
+                c.ToTable("CompanyProduct");
                 c.HasKey(c => c.Id);
-                c.HasMany(c => c.Shippings).WithOne(s => s.CargoCompany).HasForeignKey(s => s.CargoCompanyId).OnDelete(DeleteBehavior.Restrict);
+                c.HasMany(c => c.CompanyProductStockSerialMaps).WithOne(c => c.CompanyProduct).HasForeignKey(c => c.CompanyProductId).OnDelete(DeleteBehavior.Restrict);
+                c.HasMany(c => c.CompanyProductWarranties).WithOne(c => c.CompanyProduct).HasForeignKey(c => c.CompanyProductId).OnDelete(DeleteBehavior.Cascade);
+                c.HasMany(c => c.Tickets).WithOne(t => t.CompanyProduct).HasForeignKey(t => t.CompanyProductId).OnDelete(DeleteBehavior.Restrict);
                 c.HasQueryFilter(f => !f.IsDeleted);
             });
+            modelBuilder.Entity<CompanyProductStockSerialMap>(c =>
+            {
+                c.ToTable("CompanyProductStockSerialMap");
+                c.HasKey(c => c.Id);
+                c.HasQueryFilter(f => !f.IsDeleted);
+            });
+            modelBuilder.Entity<CompanyProductWarranty>(c =>
+            {
+                c.ToTable("CompanyProductWarranty");
+                c.HasKey(c => c.Id);
+                c.HasQueryFilter(f => !f.IsDeleted);
+            });
+            #endregion
+
+            #region Company Tables
             modelBuilder.Entity<Company>(c =>
             {
                 c.ToTable("Company");
@@ -129,77 +82,9 @@ namespace ExpressDesk360.DataAccess.Contexts
                 c.HasKey(c => c.Id);
                 c.HasQueryFilter(f => !f.IsDeleted);
             });
-            modelBuilder.Entity<CompanyProduct>(c =>
-            {
-                c.ToTable("CompanyProduct");
-                c.HasKey(c => c.Id);
-                c.HasMany(c => c.CompanyProductStockSerialMaps).WithOne(c => c.CompanyProduct).HasForeignKey(c => c.CompanyProductId).OnDelete(DeleteBehavior.Restrict);
-                c.HasMany(c => c.CompanyProductWarranties).WithOne(c => c.CompanyProduct).HasForeignKey(c => c.CompanyProductId).OnDelete(DeleteBehavior.Cascade);
-                c.HasMany(c => c.Tickets).WithOne(t => t.CompanyProduct).HasForeignKey(t => t.CompanyProductId).OnDelete(DeleteBehavior.Restrict);
-                c.HasQueryFilter(f => !f.IsDeleted);
-            });
-            modelBuilder.Entity<CompanyProductStockSerialMap>(c =>
-            {
-                c.ToTable("CompanyProductStockSerialMap");
-                c.HasKey(c => c.Id);
-                c.HasQueryFilter(f => !f.IsDeleted);
-            });
-            modelBuilder.Entity<CompanyProductWarranty>(c =>
-            {
-                c.ToTable("CompanyProductWarranty");
-                c.HasKey(c => c.Id);
-                c.HasQueryFilter(f => !f.IsDeleted);
-            });
-            modelBuilder.Entity<ContactType>(c =>
-            {
-                c.ToTable("ContactType");
-                c.HasKey(c => c.Id);
-                c.HasMany(c => c.CompanyContacts).WithOne(c => c.ContactType).HasForeignKey(c => c.ContactTypeId).OnDelete(DeleteBehavior.Cascade);
-                c.HasMany(c => c.UserContacts).WithOne(u => u.ContactType).HasForeignKey(u => u.ContactTypeId).OnDelete(DeleteBehavior.Cascade);
-                c.HasQueryFilter(f => !f.IsDeleted);
-            });
-            modelBuilder.Entity<Currency>(c =>
-            {
-                c.ToTable("Currency");
-                c.HasKey(c => c.Id);
-                c.HasMany(c => c.Invoices).WithOne(i => i.Currency).HasForeignKey(i => i.CurrencyId).OnDelete(DeleteBehavior.Restrict);
-                c.HasMany(c => c.PriceCurrencyShippings).WithOne(s => s.PriceCurrency).HasForeignKey(s => s.PriceCurrencyId).OnDelete(DeleteBehavior.Restrict);
-                c.HasMany(c => c.PurchaseCurrencyStocks).WithOne(s => s.PurchaseCurrency).HasForeignKey(s => s.PurchaseCurrencyId).OnDelete(DeleteBehavior.Restrict);
-                c.HasMany(c => c.SalePriceCurrencyStocks).WithOne(s => s.SalePriceCurrency).HasForeignKey(s => s.SalePriceCurrencyId).OnDelete(DeleteBehavior.Restrict);
-                c.HasMany(c => c.TicketServicePrices).WithOne(t => t.Currency).HasForeignKey(t => t.CurrencyId).OnDelete(DeleteBehavior.Restrict);
-                c.HasQueryFilter(f => !f.IsDeleted);
-            });
-            modelBuilder.Entity<FaultType>(f =>
-            {
-                f.ToTable("FaultType");
-                f.HasKey(f => f.Id);
-                f.HasMany(f => f.StockGroupFaultTypeMaps).WithOne(s => s.FaultType).HasForeignKey(s => s.FaultTypeId).OnDelete(DeleteBehavior.Cascade);
-                f.HasMany(f => f.TicketMovements).WithOne(t => t.FaultType).HasForeignKey(t => t.FaultTypeId).OnDelete(DeleteBehavior.Restrict);
-                f.HasQueryFilter(f => !f.IsDeleted);
-            });
-            modelBuilder.Entity<FSFile>(f =>
-            {
-                f.ToTable("FS_File");
-                f.HasKey(f => f.Id);
-                f.HasMany(f => f.FileCompanyFiles).WithOne(c => c.File).HasForeignKey(c => c.FileId).OnDelete(DeleteBehavior.Restrict);
-                f.HasMany(f => f.FileProjectFiles).WithOne(p => p.File).HasForeignKey(p => p.FileId).OnDelete(DeleteBehavior.Restrict);
-                f.HasMany(f => f.FileShippingFiles).WithOne(s => s.File).HasForeignKey(s => s.FileId).OnDelete(DeleteBehavior.Restrict);
-                f.HasMany(f => f.FileTaskFiles).WithOne(_ => _.File).HasForeignKey(_ => _.FileId).OnDelete(DeleteBehavior.Restrict);
-                f.HasMany(f => f.FileTicketFiles).WithOne(t => t.File).HasForeignKey(t => t.FileId).OnDelete(DeleteBehavior.Restrict);
-                f.HasMany(f => f.FileTicketMessageFiles).WithOne(t => t.File).HasForeignKey(t => t.FileId).OnDelete(DeleteBehavior.Restrict);
-                f.HasMany(f => f.FileTicketMovementFiles).WithOne(t => t.File).HasForeignKey(t => t.FileId).OnDelete(DeleteBehavior.Restrict);
-                f.HasMany(f => f.FileUserFiles).WithOne(u => u.File).HasForeignKey(u => u.FileId).OnDelete(DeleteBehavior.Restrict);
-                f.HasQueryFilter(f => !f.IsDeleted);
-            });
-            modelBuilder.Entity<FSFolder>(f =>
-            {
-                f.ToTable("FS_Folder");
-                f.HasKey(f => f.Id);
-                f.HasMany(f => f.FolderFSFiles).WithOne(f => f.Folder).HasForeignKey(f => f.FolderId).OnDelete(DeleteBehavior.Cascade);
-                // Self-referencing FK: SQL Server rejects ON DELETE CASCADE here (multiple cascade paths).
-                f.HasMany(f => f.ParentFolderFSFolders).WithOne(f => f.ParentFolder).HasForeignKey(f => f.ParentFolderId).OnDelete(DeleteBehavior.Restrict);
-                f.HasQueryFilter(f => !f.IsDeleted);
-            });
+            #endregion
+
+            #region Invoice
             modelBuilder.Entity<Invoice>(i =>
             {
                 i.ToTable("Invoice");
@@ -214,6 +99,9 @@ namespace ExpressDesk360.DataAccess.Contexts
                 i.HasMany(i => i.Invoices).WithOne(i => i.InvoiceType).HasForeignKey(i => i.InvoiceTypeId).OnDelete(DeleteBehavior.Restrict);
                 i.HasQueryFilter(f => !f.IsDeleted);
             });
+            #endregion
+
+            #region Project Tables
             modelBuilder.Entity<Project>(p =>
             {
                 p.ToTable("Project");
@@ -255,6 +143,9 @@ namespace ExpressDesk360.DataAccess.Contexts
                 p.HasMany(p => p.ProjectMovementTypes).WithOne(p => p.ProjectStatus).HasForeignKey(p => p.ProjectStatusId).OnDelete(DeleteBehavior.Cascade);
                 p.HasQueryFilter(f => !f.IsDeleted);
             });
+            #endregion
+
+            #region Shipping
             modelBuilder.Entity<Shipping>(s =>
             {
                 s.ToTable("Shipping");
@@ -276,6 +167,16 @@ namespace ExpressDesk360.DataAccess.Contexts
                 s.HasMany(s => s.Shippings).WithOne(s => s.ShippingType).HasForeignKey(s => s.ShippingTypeId).OnDelete(DeleteBehavior.Restrict);
                 s.HasQueryFilter(f => !f.IsDeleted);
             });
+            modelBuilder.Entity<CargoCompany>(c =>
+            {
+                c.ToTable("CargoCompany");
+                c.HasKey(c => c.Id);
+                c.HasMany(c => c.Shippings).WithOne(s => s.CargoCompany).HasForeignKey(s => s.CargoCompanyId).OnDelete(DeleteBehavior.Restrict);
+                c.HasQueryFilter(f => !f.IsDeleted);
+            });
+            #endregion
+
+            #region Stock Tables
             modelBuilder.Entity<Stock>(s =>
             {
                 s.ToTable("Stock");
@@ -365,55 +266,17 @@ namespace ExpressDesk360.DataAccess.Contexts
                 s.HasKey(s => s.Id);
                 s.HasQueryFilter(f => !f.IsDeleted);
             });
-            modelBuilder.Entity<_Task>(_ =>
+            modelBuilder.Entity<Warehouse>(w =>
             {
-                _.ToTable("_Task");
-                _.HasKey(_ => _.Id);
-                _.HasMany(_ => _.TaskFiles).WithOne(_ => _.Task).HasForeignKey(_ => _.TaskId).OnDelete(DeleteBehavior.Cascade);
-                _.HasMany(_ => _.TaskMovements).WithOne(_ => _.Task).HasForeignKey(_ => _.TaskId).OnDelete(DeleteBehavior.Cascade);
-                _.HasMany(_ => _.TaskStaffs).WithOne(_ => _.Task).HasForeignKey(_ => _.TaskId).OnDelete(DeleteBehavior.Cascade);
-                _.HasQueryFilter(f => !f.IsDeleted);
+                w.ToTable("Warehouse");
+                w.HasKey(w => w.Id);
+                w.HasMany(w => w.StockMovements).WithOne(s => s.Warehouse).HasForeignKey(s => s.WarehouseId).OnDelete(DeleteBehavior.Restrict);
+                w.HasMany(w => w.StockSerials).WithOne(s => s.Warehouse).HasForeignKey(s => s.WarehouseId).OnDelete(DeleteBehavior.Restrict);
+                w.HasQueryFilter(f => !f.IsDeleted);
             });
-            modelBuilder.Entity<_TaskFile>(_ =>
-            {
-                _.ToTable("_TaskFile");
-                _.HasKey(_ => _.Id);
-                _.HasQueryFilter(f => !f.IsDeleted);
-            });
-            modelBuilder.Entity<_TaskMovement>(_ =>
-            {
-                _.ToTable("_TaskMovement");
-                _.HasKey(_ => _.Id);
-                _.HasQueryFilter(f => !f.IsDeleted);
-            });
-            modelBuilder.Entity<_TaskMovementType>(_ =>
-            {
-                _.ToTable("_TaskMovementType");
-                _.HasKey(_ => _.Id);
-                _.HasMany(_ => _.LastTaskMovementTypeTasks).WithOne(_ => _.LastTaskMovementType).HasForeignKey(_ => _.LastTaskMovementTypeId).OnDelete(DeleteBehavior.Restrict);
-                _.HasMany(_ => _.TaskMovements).WithOne(_ => _.TaskMovementType).HasForeignKey(_ => _.TaskMovementTypeId).OnDelete(DeleteBehavior.Restrict);
-                _.HasQueryFilter(f => !f.IsDeleted);
-            });
-            modelBuilder.Entity<_TaskPriority>(_ =>
-            {
-                _.ToTable("_TaskPriority");
-                _.HasKey(_ => _.Id);
-                _.HasMany(_ => _.Tasks).WithOne(_ => _.TaskPriority).HasForeignKey(_ => _.TaskPriorityId).OnDelete(DeleteBehavior.Restrict);
-                _.HasQueryFilter(f => !f.IsDeleted);
-            });
-            modelBuilder.Entity<_TaskStaff>(_ =>
-            {
-                _.ToTable("_TaskStaff");
-                _.HasKey(_ => _.Id);
-                _.HasQueryFilter(f => !f.IsDeleted);
-            });
-            modelBuilder.Entity<_TaskStatus>(_ =>
-            {
-                _.ToTable("_TaskStatus");
-                _.HasKey(_ => _.Id);
-                _.HasMany(_ => _.TaskMovementTypes).WithOne(_ => _.TaskStatus).HasForeignKey(_ => _.TaskStatusId).OnDelete(DeleteBehavior.Cascade);
-                _.HasQueryFilter(f => !f.IsDeleted);
-            });
+            #endregion
+
+            #region Ticket Tables
             modelBuilder.Entity<Ticket>(t =>
             {
                 t.ToTable("Ticket");
@@ -499,6 +362,116 @@ namespace ExpressDesk360.DataAccess.Contexts
                 t.HasMany(t => t.Tickets).WithOne(t => t.TicketType).HasForeignKey(t => t.TicketTypeId).OnDelete(DeleteBehavior.Restrict);
                 t.HasQueryFilter(f => !f.IsDeleted);
             });
+            modelBuilder.Entity<FaultType>(f =>
+            {
+                f.ToTable("FaultType");
+                f.HasKey(f => f.Id);
+                f.HasMany(f => f.StockGroupFaultTypeMaps).WithOne(s => s.FaultType).HasForeignKey(s => s.FaultTypeId).OnDelete(DeleteBehavior.Cascade);
+                f.HasMany(f => f.TicketMovements).WithOne(t => t.FaultType).HasForeignKey(t => t.FaultTypeId).OnDelete(DeleteBehavior.Restrict);
+                f.HasQueryFilter(f => !f.IsDeleted);
+            });
+            #endregion
+
+            #region Task Tables
+            modelBuilder.Entity<_Task>(_ =>
+            {
+                _.ToTable("_Task");
+                _.HasKey(_ => _.Id);
+                _.HasMany(_ => _.TaskFiles).WithOne(_ => _.Task).HasForeignKey(_ => _.TaskId).OnDelete(DeleteBehavior.Cascade);
+                _.HasMany(_ => _.TaskMovements).WithOne(_ => _.Task).HasForeignKey(_ => _.TaskId).OnDelete(DeleteBehavior.Cascade);
+                _.HasMany(_ => _.TaskStaffs).WithOne(_ => _.Task).HasForeignKey(_ => _.TaskId).OnDelete(DeleteBehavior.Cascade);
+                _.HasQueryFilter(f => !f.IsDeleted);
+            });
+            modelBuilder.Entity<_TaskFile>(_ =>
+            {
+                _.ToTable("_TaskFile");
+                _.HasKey(_ => _.Id);
+                _.HasQueryFilter(f => !f.IsDeleted);
+            });
+            modelBuilder.Entity<_TaskMovement>(_ =>
+            {
+                _.ToTable("_TaskMovement");
+                _.HasKey(_ => _.Id);
+                _.HasQueryFilter(f => !f.IsDeleted);
+            });
+            modelBuilder.Entity<_TaskMovementType>(_ =>
+            {
+                _.ToTable("_TaskMovementType");
+                _.HasKey(_ => _.Id);
+                _.HasMany(_ => _.LastTaskMovementTypeTasks).WithOne(_ => _.LastTaskMovementType).HasForeignKey(_ => _.LastTaskMovementTypeId).OnDelete(DeleteBehavior.Restrict);
+                _.HasMany(_ => _.TaskMovements).WithOne(_ => _.TaskMovementType).HasForeignKey(_ => _.TaskMovementTypeId).OnDelete(DeleteBehavior.Restrict);
+                _.HasQueryFilter(f => !f.IsDeleted);
+            });
+            modelBuilder.Entity<_TaskPriority>(_ =>
+            {
+                _.ToTable("_TaskPriority");
+                _.HasKey(_ => _.Id);
+                _.HasMany(_ => _.Tasks).WithOne(_ => _.TaskPriority).HasForeignKey(_ => _.TaskPriorityId).OnDelete(DeleteBehavior.Restrict);
+                _.HasQueryFilter(f => !f.IsDeleted);
+            });
+            modelBuilder.Entity<_TaskStaff>(_ =>
+            {
+                _.ToTable("_TaskStaff");
+                _.HasKey(_ => _.Id);
+                _.HasQueryFilter(f => !f.IsDeleted);
+            });
+            modelBuilder.Entity<_TaskStatus>(_ =>
+            {
+                _.ToTable("_TaskStatus");
+                _.HasKey(_ => _.Id);
+                _.HasMany(_ => _.TaskMovementTypes).WithOne(_ => _.TaskStatus).HasForeignKey(_ => _.TaskStatusId).OnDelete(DeleteBehavior.Cascade);
+                _.HasQueryFilter(f => !f.IsDeleted);
+            });
+            #endregion
+
+            #region File System
+            modelBuilder.Entity<FSFile>(f =>
+            {
+                f.ToTable("FS_File");
+                f.HasKey(f => f.Id);
+                f.HasMany(f => f.FileCompanyFiles).WithOne(c => c.File).HasForeignKey(c => c.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileProjectFiles).WithOne(p => p.File).HasForeignKey(p => p.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileShippingFiles).WithOne(s => s.File).HasForeignKey(s => s.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileTaskFiles).WithOne(_ => _.File).HasForeignKey(_ => _.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileTicketFiles).WithOne(t => t.File).HasForeignKey(t => t.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileTicketMessageFiles).WithOne(t => t.File).HasForeignKey(t => t.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileTicketMovementFiles).WithOne(t => t.File).HasForeignKey(t => t.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileUserFiles).WithOne(u => u.File).HasForeignKey(u => u.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasQueryFilter(f => !f.IsDeleted);
+            });
+            modelBuilder.Entity<FSFolder>(f =>
+            {
+                f.ToTable("FS_Folder");
+                f.HasKey(f => f.Id);
+                f.HasMany(f => f.FolderFSFiles).WithOne(f => f.Folder).HasForeignKey(f => f.FolderId).OnDelete(DeleteBehavior.Cascade);
+                // Self-referencing FK: SQL Server rejects ON DELETE CASCADE here (multiple cascade paths).
+                f.HasMany(f => f.ParentFolderFSFolders).WithOne(f => f.ParentFolder).HasForeignKey(f => f.ParentFolderId).OnDelete(DeleteBehavior.Restrict);
+                f.HasQueryFilter(f => !f.IsDeleted);
+            });
+            #endregion
+
+            #region Commons
+            modelBuilder.Entity<ContactType>(c =>
+            {
+                c.ToTable("ContactType");
+                c.HasKey(c => c.Id);
+                c.HasMany(c => c.CompanyContacts).WithOne(c => c.ContactType).HasForeignKey(c => c.ContactTypeId).OnDelete(DeleteBehavior.Cascade);
+                c.HasMany(c => c.UserContacts).WithOne(u => u.ContactType).HasForeignKey(u => u.ContactTypeId).OnDelete(DeleteBehavior.Cascade);
+                c.HasQueryFilter(f => !f.IsDeleted);
+            });
+
+            modelBuilder.Entity<Currency>(c =>
+            {
+                c.ToTable("Currency");
+                c.HasKey(c => c.Id);
+                c.HasMany(c => c.Invoices).WithOne(i => i.Currency).HasForeignKey(i => i.CurrencyId).OnDelete(DeleteBehavior.Restrict);
+                c.HasMany(c => c.PriceCurrencyShippings).WithOne(s => s.PriceCurrency).HasForeignKey(s => s.PriceCurrencyId).OnDelete(DeleteBehavior.Restrict);
+                c.HasMany(c => c.PurchaseCurrencyStocks).WithOne(s => s.PurchaseCurrency).HasForeignKey(s => s.PurchaseCurrencyId).OnDelete(DeleteBehavior.Restrict);
+                c.HasMany(c => c.SalePriceCurrencyStocks).WithOne(s => s.SalePriceCurrency).HasForeignKey(s => s.SalePriceCurrencyId).OnDelete(DeleteBehavior.Restrict);
+                c.HasMany(c => c.TicketServicePrices).WithOne(t => t.Currency).HasForeignKey(t => t.CurrencyId).OnDelete(DeleteBehavior.Restrict);
+                c.HasQueryFilter(f => !f.IsDeleted);
+            });
+
             modelBuilder.Entity<Unit>(u =>
             {
                 u.ToTable("Unit");
@@ -506,6 +479,31 @@ namespace ExpressDesk360.DataAccess.Contexts
                 u.HasMany(u => u.Stocks).WithOne(s => s.Unit).HasForeignKey(s => s.UnitId).OnDelete(DeleteBehavior.Restrict);
                 u.HasQueryFilter(f => !f.IsDeleted);
             });
+
+            modelBuilder.Entity<WarrantyType>(w =>
+            {
+                w.ToTable("WarrantyType");
+                w.HasKey(w => w.Id);
+                w.HasMany(w => w.CompanyProductWarranties).WithOne(c => c.WarrantyType).HasForeignKey(c => c.WarrantyTypeId).OnDelete(DeleteBehavior.Restrict);
+                w.HasMany(w => w.StockSerialWarranties).WithOne(s => s.WarrantyType).HasForeignKey(s => s.WarrantyTypeId).OnDelete(DeleteBehavior.Restrict);
+                w.HasQueryFilter(f => !f.IsDeleted);
+            });
+            #endregion
+
+            #region Project Core Tables
+            modelBuilder.Entity<Log>(l =>
+                {
+                    l.ToTable("ProjectLogs");
+                    l.HasKey(l => l.Id);
+                });
+            modelBuilder.Entity<Archive>(a =>
+            {
+                a.ToTable("ProjectArchives");
+                a.HasKey(a => a.Id);
+            });
+            #endregion
+
+            #region User Tables
             modelBuilder.Entity<User>(u =>
             {
                 u.ToTable("User");
@@ -539,36 +537,46 @@ namespace ExpressDesk360.DataAccess.Contexts
                 u.HasKey(u => u.Id);
                 u.HasQueryFilter(f => !f.IsDeleted);
             });
-            modelBuilder.Entity<Warehouse>(w =>
-            {
-                w.ToTable("Warehouse");
-                w.HasKey(w => w.Id);
-                w.HasMany(w => w.StockMovements).WithOne(s => s.Warehouse).HasForeignKey(s => s.WarehouseId).OnDelete(DeleteBehavior.Restrict);
-                w.HasMany(w => w.StockSerials).WithOne(s => s.Warehouse).HasForeignKey(s => s.WarehouseId).OnDelete(DeleteBehavior.Restrict);
-                w.HasQueryFilter(f => !f.IsDeleted);
-            });
-            modelBuilder.Entity<WarrantyType>(w =>
-            {
-                w.ToTable("WarrantyType");
-                w.HasKey(w => w.Id);
-                w.HasMany(w => w.CompanyProductWarranties).WithOne(c => c.WarrantyType).HasForeignKey(c => c.WarrantyTypeId).OnDelete(DeleteBehavior.Restrict);
-                w.HasMany(w => w.StockSerialWarranties).WithOne(s => s.WarrantyType).HasForeignKey(s => s.WarrantyTypeId).OnDelete(DeleteBehavior.Restrict);
-                w.HasQueryFilter(f => !f.IsDeleted);
-            });
             modelBuilder.Entity<RefreshToken>(r =>
             {
                 r.HasKey(r => r.Id);
                 r.HasOne(r => r.User).WithMany(u => u.RefreshTokens).HasForeignKey(r => r.UserId).OnDelete(DeleteBehavior.Cascade);
             });
-            modelBuilder.Entity<Log>(l =>
-            {
-                l.ToTable("ProjectLogs");
-                l.HasKey(l => l.Id);
-            }); modelBuilder . Entity < Archive > ( a  =>  { a . ToTable ( "ProjectArchives" ) ;  a . HasKey ( a  =>  a . Id ) ;  } ) ; 
+            #endregion
+
+            #region Identity Tables
             modelBuilder.Entity<IdentityRole<Guid>>(entity =>
             {
                 entity.ToTable("Roles");
-                entity.HasData(new IdentityRole<Guid> { Id = new Guid("b370875e-34cd-4b79-891c-93ae38f99d11"), Name = "User", NormalizedName = "USER", ConcurrencyStamp = new Guid("b370875e-34cd-4b79-891c-93ae38f99d11").ToString() }, new IdentityRole<Guid> { Id = new Guid("cd6040ef-dacc-4678-9a85-154f12581cff"), Name = "Manager", NormalizedName = "MANAGER", ConcurrencyStamp = new Guid("cd6040ef-dacc-4678-9a85-154f12581cff").ToString() }, new IdentityRole<Guid> { Id = new Guid("7138ec51-4f9e-4afd-b61b-5a9a4584f5da"), Name = "Admin", NormalizedName = "ADMIN", ConcurrencyStamp = new Guid("7138ec51-4f9e-4afd-b61b-5a9a4584f5da").ToString() }, new IdentityRole<Guid> { Id = new Guid("1f20c152-530e-4064-a39c-bbbed341fe84"), Name = "Owner", NormalizedName = "OWNER", ConcurrencyStamp = new Guid("1f20c152-530e-4064-a39c-bbbed341fe84").ToString() });
+
+                entity.HasData(new IdentityRole<Guid>
+                {
+                    Id = new Guid("b370875e-34cd-4b79-891c-93ae38f99d11"),
+                    Name = "User",
+                    NormalizedName = "USER",
+                    ConcurrencyStamp = new Guid("b370875e-34cd-4b79-891c-93ae38f99d11").ToString()
+                },
+                new IdentityRole<Guid>
+                {
+                    Id = new Guid("cd6040ef-dacc-4678-9a85-154f12581cff"),
+                    Name = "Manager",
+                    NormalizedName = "MANAGER",
+                    ConcurrencyStamp = new Guid("cd6040ef-dacc-4678-9a85-154f12581cff").ToString()
+                },
+                new IdentityRole<Guid>
+                {
+                    Id = new Guid("7138ec51-4f9e-4afd-b61b-5a9a4584f5da"),
+                    Name = "Admin",
+                    NormalizedName = "ADMIN",
+                    ConcurrencyStamp = new Guid("7138ec51-4f9e-4afd-b61b-5a9a4584f5da").ToString()
+                },
+                new IdentityRole<Guid>
+                {
+                    Id = new Guid("1f20c152-530e-4064-a39c-bbbed341fe84"),
+                    Name = "Owner",
+                    NormalizedName = "OWNER",
+                    ConcurrencyStamp = new Guid("1f20c152-530e-4064-a39c-bbbed341fe84").ToString()
+                });
             });
             modelBuilder.Entity<IdentityUserClaim<Guid>>(entity =>
             {
@@ -590,6 +598,74 @@ namespace ExpressDesk360.DataAccess.Contexts
             {
                 entity.ToTable("UserTokens");
             });
+            #endregion
         }
+
+
+        public DbSet<BOM> BOMs { get; set; }
+        public DbSet<BOMItem> BOMItems { get; set; }
+        public DbSet<CargoCompany> CargoCompanies { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<CompanyContact> CompanyContacts { get; set; }
+        public DbSet<CompanyFile> CompanyFiles { get; set; }
+        public DbSet<CompanyProduct> CompanyProducts { get; set; }
+        public DbSet<CompanyProductStockSerialMap> CompanyProductStockSerialMaps { get; set; }
+        public DbSet<CompanyProductWarranty> CompanyProductWarranties { get; set; }
+        public DbSet<ContactType> ContactTypes { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
+        public DbSet<FaultType> FaultTypes { get; set; }
+        public DbSet<FSFile> FSFiles { get; set; }
+        public DbSet<FSFolder> FSFolders { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<InvoiceType> InvoiceTypes { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<ProjectFile> ProjectFiles { get; set; }
+        public DbSet<ProjectMovement> ProjectMovements { get; set; }
+        public DbSet<ProjectMovementType> ProjectMovementTypes { get; set; }
+        public DbSet<ProjectStaff> ProjectStaffs { get; set; }
+        public DbSet<ProjectStatus> ProjectStatuses { get; set; }
+        public DbSet<Shipping> Shippings { get; set; }
+        public DbSet<ShippingFile> ShippingFiles { get; set; }
+        public DbSet<ShippingType> ShippingTypes { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
+        public DbSet<StockBrand> StockBrands { get; set; }
+        public DbSet<StockGroup> StockGroups { get; set; }
+        public DbSet<StockGroupBrandMap> StockGroupBrandMaps { get; set; }
+        public DbSet<StockGroupFaultTypeMap> StockGroupFaultTypeMaps { get; set; }
+        public DbSet<StockMovement> StockMovements { get; set; }
+        public DbSet<StockMovementStockSerialMap> StockMovementStockSerialMaps { get; set; }
+        public DbSet<StockMovementType> StockMovementTypes { get; set; }
+        public DbSet<StockSerial> StockSerials { get; set; }
+        public DbSet<StockSerialWarranty> StockSerialWarranties { get; set; }
+        public DbSet<StockType> StockTypes { get; set; }
+        public DbSet<StockTypeGroupMap> StockTypeGroupMaps { get; set; }
+        public DbSet<_Task> _Tasks { get; set; }
+        public DbSet<_TaskFile> _TaskFiles { get; set; }
+        public DbSet<_TaskMovement> _TaskMovements { get; set; }
+        public DbSet<_TaskMovementType> _TaskMovementTypes { get; set; }
+        public DbSet<_TaskPriority> _TaskPriorities { get; set; }
+        public DbSet<_TaskStaff> _TaskStaffs { get; set; }
+        public DbSet<_TaskStatus> _TaskStatuses { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<TicketFile> TicketFiles { get; set; }
+        public DbSet<TicketMessage> TicketMessages { get; set; }
+        public DbSet<TicketMessageFile> TicketMessageFiles { get; set; }
+        public DbSet<TicketMovement> TicketMovements { get; set; }
+        public DbSet<TicketMovementFile> TicketMovementFiles { get; set; }
+        public DbSet<TicketMovementType> TicketMovementTypes { get; set; }
+        public DbSet<TicketPriority> TicketPriorities { get; set; }
+        public DbSet<TicketServicePrice> TicketServicePrices { get; set; }
+        public DbSet<TicketStaff> TicketStaffs { get; set; }
+        public DbSet<TicketStatus> TicketStatuses { get; set; }
+        public DbSet<TicketType> TicketTypes { get; set; }
+        public DbSet<Unit> Units { get; set; }
+        public override DbSet<User> Users { get; set; }
+        public DbSet<UserContact> UserContacts { get; set; }
+        public DbSet<UserFile> UserFiles { get; set; }
+        public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<WarrantyType> WarrantyTypes { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<Log> Logs { get; set; }
+        public DbSet<Archive> Archives { get; set; }
     }
 }
