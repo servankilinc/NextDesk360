@@ -72,6 +72,11 @@ namespace ExpressDesk360.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(TicketCreateDto createModel)
         {
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (Guid.TryParse(userId, out var requesterId))
+            {
+                createModel.RequesterId = requesterId;
+            }
             var result = await _ticketService.CreateAsync(createModel);
             return ToAction(result);
         }
