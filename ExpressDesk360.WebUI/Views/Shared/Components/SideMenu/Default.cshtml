@@ -252,10 +252,32 @@
 						<!--end::Tab pane (Static Dashboard)-->
 
 						<!--begin::Tab pane (Dynamic)-->
-						@foreach (var item in Model.Where(f => f.SubMenuItems != null && f.SubMenuItems.Any()))
+ 						@foreach (var item in Model.Where(f => f.SubMenuItems != null && f.SubMenuItems.Any()))
 						{
 							<div class="tab-pane fade @(item.IsActive ? "show active" : "")" id="kt_aside_nav_tab_@item.GroupName" role="tabpanel">
+								<div class="mx-5">
+									<!--begin::Header-->
+									<h3 class="fw-bold text-gray-900 mb-10 mx-0">@item.GroupName</h3>
+									<!--end::Header-->
+
+									<!--begin::Body-->
+									<div class="mb-12">
+										@foreach (var mainMenu in item.SubMenuItems!)
+										{
+											<partial name="./_SubMenu.cshtml" model="mainMenu" />
+										}
+									</div>
+									<!--end::Body-->
+								</div>
+							</div>
+						}
+
+						@* @foreach (var item in Model.Where(f => f.SubMenuItems != null && f.SubMenuItems.Any()))
+						{
+							<div class="tab-pane fade @(item.IsActive ? "show active" : "")" id="kt_aside_nav_tab_@item.GroupName" role="tabpanel">
+								
 								<div id="kt_aside_@item.GroupName" class="menu menu-column menu-fit menu-rounded menu-title-gray-600 menu-icon-gray-500 menu-state-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500 fw-semibold fs-5 px-6 my-5 my-lg-0" data-kt-menu="true">
+									<h3 class="fw-bold text-gray-900 mb-10 mx-0">@item.GroupName</h3>
 									<div id="kt_aside_@(item.GroupName)_wrapper" class="menu-fit">
 										@foreach (var mainMenu in item.SubMenuItems!)
 										{
@@ -264,7 +286,7 @@
 									</div>
 								</div>
 							</div>
-						} 
+						}  *@
 						<!--end::Tab pane (Dynamic)-->
 
 					</div>

@@ -18,8 +18,9 @@ namespace ExpressDesk360.WebUI.ViewComponents
                         new MenuItem
                         {
                             Title = "Ticket",
-                            Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                            Path = "/Ticket/Index"
+                            Icon = "<i class=\"ki-duotone ki-questionnaire-tablet text-primary fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span></i>",
+                            Path = "/Ticket/Index",
+                            CollorTheme = "primary"
                         },
                         //new MenuItem
                         //{
@@ -60,8 +61,9 @@ namespace ExpressDesk360.WebUI.ViewComponents
                         new MenuItem
                         {
                             Title = "TicketPriority",
-                            Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                            Path = "/TicketPriority/Index"
+                            Icon = "<i class=\"ki-duotone ki-text-number text-success fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span><span class=\"path6\"></span></i>",
+                            Path = "/TicketPriority/Index",
+                            CollorTheme = "success"
                         },
                         //new MenuItem
                         //{
@@ -78,20 +80,23 @@ namespace ExpressDesk360.WebUI.ViewComponents
                         new MenuItem
                         {
                             Title = "TicketStatus",
-                            Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                            Path = "/TicketStatus/Index"
+                            Icon = "<i class=\"ki-duotone ki-element-plus text-warning fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span></i>",
+                            Path = "/TicketStatus/Index",
+                            CollorTheme = "warning"
                         },
                         new MenuItem
                         {
                             Title = "TicketType",
-                            Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                            Path = "/TicketType/Index"
+                            Icon = "<i class=\"ki-duotone ki-filter-edit text-danger fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span></i>",
+                            Path = "/TicketType/Index",
+                            CollorTheme = "danger"
                         },
                         new MenuItem
                         {
                             Title = "FaultType",
-                            Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                            Path = "/FaultType/Index"
+                            Icon = "<i class=\"ki-duotone ki-book-square text-info fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>",
+                            Path = "/FaultType/Index",
+                            CollorTheme = "info"
                         },
                     }
                 },
