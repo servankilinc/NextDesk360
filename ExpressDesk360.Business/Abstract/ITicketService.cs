@@ -26,6 +26,6 @@ namespace ExpressDesk360.Business.Abstract
         Task<Result> RestoreAsync(Guid id, CancellationToken cancellationToken = default);
         Task<Result<PaginationResponse<Ticket>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default);
         Task<Result<DatatableResponseClientSide<Ticket>>> DatatableClientSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);
-        Task<Result<DatatableResponseServerSide<Ticket>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);
+        Task<Result<DatatableResponseServerSide<TicketReportDto>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);
     }
 }

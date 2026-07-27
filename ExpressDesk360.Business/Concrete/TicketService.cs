@@ -11,6 +11,7 @@ using ExpressDesk360.Core.Utils.Validation;
 using ExpressDesk360.DataAccess.Abstract;
 using ExpressDesk360.DataAccess.UoW;
 using ExpressDesk360.Model.Entities;
+using ExpressDesk360.Model.Enums;
 using ExpressDesk360.Model.Dtos.Ticket.Commands;
 using ExpressDesk360.Model.Dtos.Ticket.Queries;
 
@@ -88,7 +89,36 @@ namespace ExpressDesk360.Business.Concrete
             var validationResult = await _validationService.ValidateAsync(request, cancellationToken);
             if (!validationResult.IsValid)
                 return Result.Validation(validationResult.Failures, description: $"Validation failed for TicketCreateDto");
-            await _unitOfWork.Tickets.AddAndSaveAsync(_mapper.Map<Ticket>(request), cancellationToken);
+
+            var ticket = _mapper.Map<Ticket>(request);
+
+            var numberList = await _unitOfWork.Tickets.GetAllAsync<int>(select: t => t.Number, cancellationToken: cancellationToken);
+            int nextNumber = 1;
+            if (numberList != null && numberList.Any())
+                nextNumber = numberList.Max() + 1;
+
+            ticket.Number = nextNumber;
+            ticket.Date = DateTime.Now;
+            ticket.DueDate = null;
+            ticket.LastTicketMovementTypeId = (int)TicketEnums.TicketMovementType.NewTicket;
+
+            bool underWarranty = false;
+            if (ticket.CompanyProductId.HasValue && ticket.CompanyProductId.Value != Guid.Empty)
+            {
+                var warranty = await _unitOfWork.CompanyProductWarranties.GetAsync(
+                    where: w => w.CompanyProductId == ticket.CompanyProductId.Value && 
+                                w.Status == true && 
+                                w.StartDate <= DateTime.Now && 
+                                w.EndDate >= DateTime.Now && 
+                                !w.IsDeleted,
+                    cancellationToken: cancellationToken
+                );
+                if (warranty != null)
+                    underWarranty = true;
+            }
+            ticket.UnderWarranty = underWarranty;
+
+            await _unitOfWork.Tickets.AddAndSaveAsync(ticket, cancellationToken);
             return Result.Success();
         }
 
@@ -138,10 +168,10 @@ namespace ExpressDesk360.Business.Concrete
             return Result<DatatableResponseClientSide<Ticket>>.Success(result);
         }
 
-        public async Task<Result<DatatableResponseServerSide<Ticket>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
+        public async Task<Result<DatatableResponseServerSide<TicketReportDto>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
         {
-            var result = await _unitOfWork.Tickets.DatatableServerSideAsync(datatableRequest: request, cancellationToken: cancellationToken);
-            return Result<DatatableResponseServerSide<Ticket>>.Success(result);
+            var result = await _unitOfWork.Tickets.DatatableServerSideAsync<TicketReportDto>(datatableRequest: request, configurationProvider: _mapper.ConfigurationProvider, cancellationToken: cancellationToken);
+            return Result<DatatableResponseServerSide<TicketReportDto>>.Success(result);
         }
     }
 }

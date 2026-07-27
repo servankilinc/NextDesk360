@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ExpressDesk360.Model.Entities;
 using ExpressDesk360.Model.ProjectEntities;
+using ExpressDesk360.Model.Enums;
+using ExpressDesk360.Core.Utils;
 
 namespace ExpressDesk360.DataAccess.Contexts
 {
@@ -328,6 +330,22 @@ namespace ExpressDesk360.DataAccess.Contexts
                 t.HasMany(t => t.LastTicketMovementTypeTickets).WithOne(t => t.LastTicketMovementType).HasForeignKey(t => t.LastTicketMovementTypeId).OnDelete(DeleteBehavior.Restrict);
                 t.HasMany(t => t.TicketMovements).WithOne(t => t.TicketMovementType).HasForeignKey(t => t.TicketMovementTypeId).OnDelete(DeleteBehavior.Restrict);
                 t.HasQueryFilter(f => !f.IsDeleted);
+
+
+                t.HasData(
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.NewTicket, Name = TicketEnums.TicketMovementType.NewTicket.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.NewTicket, Accessible = true, Color = "#3699FF", InformationText = "Talep ilk kez açıldı.", IsDeleted = false },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.AppointedTechnicSupportStaff, Name = TicketEnums.TicketMovementType.AppointedTechnicSupportStaff.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.InTheProcess, Accessible = true, Color = "#8950FC", InformationText = "Talebe temsilci atandı.", IsDeleted = false },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.DirectedToTechnicalServices, Name = TicketEnums.TicketMovementType.DirectedToTechnicalServices.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.InTheProcess, Accessible = true, Color = "#FFA800", InformationText = "Teknik servise yönlendirme yapıldı.", IsDeleted = false },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.FaultDetected, Name = TicketEnums.TicketMovementType.FaultDetected.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.InTheProcess, Accessible = true, Color = "#1BC5BD", InformationText = "Arıza tespiti tamamlandı.", IsDeleted = false },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.CargoWaiting, Name = TicketEnums.TicketMovementType.CargoWaiting.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.WaitingForProccess, Accessible = true, Color = "#F64E60", InformationText = "Kargo teslimatı bekleniyor.", IsDeleted = false },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.PartWaiting, Name = TicketEnums.TicketMovementType.PartWaiting.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.WaitingForProccess, Accessible = true, Color = "#E4E6EF", InformationText = "Yedek parça bekleniyor.", IsDeleted = false },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.CargoSent, Name = TicketEnums.TicketMovementType.CargoSent.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.WaitingForProccess, Accessible = true, Color = "#3699FF", InformationText = "Kargo gönderimi yapıldı.", IsDeleted = false },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.ProcessApprovalWaiting, Name = TicketEnums.TicketMovementType.ProcessApprovalWaiting.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.ApprovalIsPending, Accessible = true, Color = "#FFA800", InformationText = "Yönetici onayı bekleniyor.", IsDeleted = false },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.FeeApprovalaWaiting, Name = TicketEnums.TicketMovementType.FeeApprovalaWaiting.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.ApprovalIsPending, Accessible = true, Color = "#F64E60", InformationText = "Müşteri ücret onayı bekleniyor.", IsDeleted = false },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.Approved, Name = TicketEnums.TicketMovementType.Approved.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.InTheProcess, Accessible = true, Color = "#1BC5BD", InformationText = "Onay alındı, işleme devam ediliyor.", IsDeleted = false },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.Denied, Name = TicketEnums.TicketMovementType.Denied.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.Denied, Accessible = true, Color = "#3F4254", InformationText = "Talep iptal edildi.", IsDeleted = false },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.Completted, Name = TicketEnums.TicketMovementType.Completted.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.Completted, Accessible = true, Color = "#1BC5BD", InformationText = "Talep tamamlandı ve kapatıldı.", IsDeleted = false }
+                );
             });
             modelBuilder.Entity<TicketPriority>(t =>
             {
@@ -354,6 +372,51 @@ namespace ExpressDesk360.DataAccess.Contexts
                 t.HasKey(t => t.Id);
                 t.HasMany(t => t.TicketMovementTypes).WithOne(t => t.TicketStatus).HasForeignKey(t => t.TicketStatusId).OnDelete(DeleteBehavior.Restrict);
                 t.HasQueryFilter(f => !f.IsDeleted);
+
+                t.HasData(
+                    new TicketStatus
+                    {
+                        Id = (int)TicketEnums.TicketStatusType.NewTicket,
+                        Name = TicketEnums.TicketStatusType.NewTicket.GetDescription(),
+                        Description = "Yeni açılan ve atanma bekleyen talepler",
+                        IsDeleted = false
+                    },
+                    new TicketStatus
+                    {
+                        Id = (int)TicketEnums.TicketStatusType.InTheProcess,
+                        Name = TicketEnums.TicketStatusType.InTheProcess.GetDescription(),
+                        Description = "Personel atanmış ve işlem süreci devam eden talepler",
+                        IsDeleted = false
+                    },
+                    new TicketStatus
+                    {
+                        Id = (int)TicketEnums.TicketStatusType.WaitingForProccess,
+                        Name = TicketEnums.TicketStatusType.WaitingForProccess.GetDescription(),
+                        Description = "Kargo veya parça bekleyen talepler",
+                        IsDeleted = false
+                    },
+                    new TicketStatus
+                    {
+                        Id = (int)TicketEnums.TicketStatusType.ApprovalIsPending,
+                        Name = TicketEnums.TicketStatusType.ApprovalIsPending.GetDescription(),
+                        Description = "Yönetici veya müşteri onayı bekleyen talepler",
+                        IsDeleted = false
+                    },
+                    new TicketStatus
+                    {
+                        Id = (int)TicketEnums.TicketStatusType.Denied,
+                        Name = TicketEnums.TicketStatusType.Denied.GetDescription(),
+                        Description = "İptal edilen ve işlem yapılmayan talepler",
+                        IsDeleted = false
+                    },
+                    new TicketStatus
+                    {
+                        Id = (int)TicketEnums.TicketStatusType.Completted,
+                        Name = TicketEnums.TicketStatusType.Completted.GetDescription(),
+                        Description = "Çözümlenmiş ve kapatılmış talepler",
+                        IsDeleted = false
+                    }
+                );
             });
             modelBuilder.Entity<TicketType>(t =>
             {

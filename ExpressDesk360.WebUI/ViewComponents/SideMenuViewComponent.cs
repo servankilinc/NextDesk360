@@ -91,13 +91,6 @@ namespace ExpressDesk360.WebUI.ViewComponents
                             Path = "/TicketType/Index",
                             CollorTheme = "danger"
                         },
-                        new MenuItem
-                        {
-                            Title = "FaultType",
-                            Icon = "<i class=\"ki-duotone ki-book-square text-info fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>",
-                            Path = "/FaultType/Index",
-                            CollorTheme = "info"
-                        },
                     }
                 },
 
@@ -124,6 +117,13 @@ namespace ExpressDesk360.WebUI.ViewComponents
                             Title = "StockGroup",
                             Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
                             Path = "/StockGroup/Index"
+                        },
+                        new MenuItem
+                        {
+                            Title = "FaultType",
+                            Icon = "<i class=\"ki-duotone ki-book-square text-info fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>",
+                            Path = "/FaultType/Index",
+                            CollorTheme = "info"
                         },
                         //new MenuItem
                         //{
@@ -195,8 +195,10 @@ namespace ExpressDesk360.WebUI.ViewComponents
                     }
                 },
 
-                new MenuItem
+                #region Disable
+		        new MenuItem
                 {
+                    Available = false,
                     Title = "Shipping",
                     Icon = "<i class=\"ki-duotone ki-delivery-time fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span></i>",
                     GroupName = "Shipping",
@@ -230,6 +232,7 @@ namespace ExpressDesk360.WebUI.ViewComponents
 
                 new MenuItem
                 {
+                    Available = false,
                     Title = "Project",
                     Icon = "<i class=\"ki-duotone ki-some-files fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span></i>",
                     GroupName = "Project",
@@ -276,6 +279,7 @@ namespace ExpressDesk360.WebUI.ViewComponents
 
                 new MenuItem
                 {
+                    Available = false,
                     Title = "Invoice",
                     Icon = "<i class=\"ki-duotone ki-cheque fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span><span class=\"path6\"></span><span class=\"path7\"></span></i>",
                     GroupName = "Invoice",
@@ -298,35 +302,7 @@ namespace ExpressDesk360.WebUI.ViewComponents
 
                 new MenuItem
                 {
-                    Title = "Company",
-                    Icon = "<i class=\"ki-duotone ki-bank fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span></i>",
-                    GroupName = "Company",
-                    SubMenuItems = new List<MenuItem>{
-                        new MenuItem
-                        {
-                            Title = "Company",
-                            Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                            Path = "/Company/Index"
-                        },
-                        new MenuItem
-                        {
-                            Title = "CompanyContact",
-                            Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                            Path = "/CompanyContact/Index"
-                        },
-                        //new MenuItem
-                        //{
-                        //    Title = "CompanyFile",
-                        //    Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                        //    Path = "/CompanyFile/Index"
-                        //},
-                    }
-                },
-
-
-
-                new MenuItem
-                {
+                    Available = false,
                     Title = "Task",
                     Icon = "<i class=\"ki-duotone ki-calendar-tick fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span><span class=\"path6\"></span></i>",
                     GroupName = "Task",
@@ -375,8 +351,9 @@ namespace ExpressDesk360.WebUI.ViewComponents
                         },
                     }
                 },
+	            #endregion
 
-
+                 
                 new MenuItem
                 {
                     Title = "Production",
@@ -415,8 +392,58 @@ namespace ExpressDesk360.WebUI.ViewComponents
                         //},
                     }
                 },
-
-
+                new MenuItem
+                {
+                    Title = "Company",
+                    Icon = "<i class=\"ki-duotone ki-bank fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span></i>",
+                    GroupName = "Company",
+                    SubMenuItems = new List<MenuItem>{
+                        new MenuItem
+                        {
+                            Title = "Company",
+                            Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
+                            Path = "/Company/Index"
+                        },
+                        new MenuItem
+                        {
+                            Title = "CompanyContact",
+                            Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
+                            Path = "/CompanyContact/Index"
+                        },
+                        //new MenuItem
+                        //{
+                        //    Title = "CompanyFile",
+                        //    Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
+                        //    Path = "/CompanyFile/Index"
+                        //},
+                    }
+                },
+                new MenuItem
+                {
+                    Title = "User",
+                    Icon = "<i class=\"ki-duotone ki-user-edit fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>",
+                    GroupName = "User",
+                    SubMenuItems = new List<MenuItem>{
+                        new MenuItem
+                        {
+                            Title = "User",
+                            Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
+                            Path = "/User/Index"
+                        },
+                        //new MenuItem
+                        //{
+                        //    Title = "UserContact",
+                        //    Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
+                        //    Path = "/UserContact/Index"
+                        //},
+                        //new MenuItem
+                        //{
+                        //    Title = "UserFile",
+                        //    Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
+                        //    Path = "/UserFile/Index"
+                        //},
+                    }
+                },
                 new MenuItem
                 {
                     Title = "Definations",
@@ -456,34 +483,7 @@ namespace ExpressDesk360.WebUI.ViewComponents
                             Path = "/WarrantyType/Index"
                         }
                     }
-                },
-
-                new MenuItem
-                {
-                    Title = "User",
-                    Icon = "<i class=\"ki-duotone ki-user-edit fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>",
-                    GroupName = "User",
-                    SubMenuItems = new List<MenuItem>{
-                        new MenuItem
-                        {
-                            Title = "User",
-                            Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                            Path = "/User/Index"
-                        },
-                        //new MenuItem
-                        //{
-                        //    Title = "UserContact",
-                        //    Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                        //    Path = "/UserContact/Index"
-                        //},
-                        //new MenuItem
-                        //{
-                        //    Title = "UserFile",
-                        //    Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                        //    Path = "/UserFile/Index"
-                        //},
-                    }
-                },
+                }
             };
             string currentPath = (HttpContext.Request.Path.Value ?? string.Empty).TrimEnd('/'); foreach (var menu in menuItems) { HandleActiveMenu(menu, currentPath); }
             return View(menuItems);

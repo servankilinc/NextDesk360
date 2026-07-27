@@ -24,13 +24,6 @@
             <span class="form_validation_feedback" asp-validation-for="UpdateModel.TicketPriorityId"></span>
         </div>
         <div class="col-md-6">
-            <label class="form-label fw-semibold" asp-for="UpdateModel.RequesterId">Requester</label>
-            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.RequesterIds" asp-for="UpdateModel.RequesterId" data-control="select2"  data-allow-clear="true">
-                <option></option>
-            </select>
-            <span class="form_validation_feedback" asp-validation-for="UpdateModel.RequesterId"></span>
-        </div>
-        <div class="col-md-6">
             <label class="form-label fw-semibold" asp-for="UpdateModel.CompanyId">Company</label>
             <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.CompanyIds" asp-for="UpdateModel.CompanyId" data-control="select2"  data-allow-clear="true">
                 <option></option>
@@ -44,51 +37,15 @@
             </select>
             <span class="form_validation_feedback" asp-validation-for="UpdateModel.CompanyProductId"></span>
         </div>
-        <div class="col-md-6">
-            <label class="form-label fw-semibold" asp-for="UpdateModel.Number">Number</label>
-            <input class="form-control form-control-solid" asp-for="UpdateModel.Number" type="number"/>
-            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Number"></span>
-        </div>
-        <div class="col-md-6">
-            <label class="form-label fw-semibold" asp-for="UpdateModel.LastTicketMovementTypeId">Last Ticket Movement Type</label>
-            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.LastTicketMovementTypeIds" asp-for="UpdateModel.LastTicketMovementTypeId" data-control="select2"  data-allow-clear="true">
-                <option></option>
-            </select>
-            <span class="form_validation_feedback" asp-validation-for="UpdateModel.LastTicketMovementTypeId"></span>
-        </div>
-        <div class="col-md-6">
+        <div class="col-md-12">
             <label class="form-label fw-semibold" asp-for="UpdateModel.Title">Title</label>
             <input class="form-control form-control-solid" asp-for="UpdateModel.Title" type="text"/>
             <span class="form_validation_feedback" asp-validation-for="UpdateModel.Title"></span>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-12">
             <label class="form-label fw-semibold" asp-for="UpdateModel.TicketDescription">Ticket Description</label>
-            <input class="form-control form-control-solid" asp-for="UpdateModel.TicketDescription" type="text"/>
+            <textarea class="form-control form-control-solid" asp-for="UpdateModel.TicketDescription" type="text" rows="3"></textarea>
             <span class="form_validation_feedback" asp-validation-for="UpdateModel.TicketDescription"></span>
-        </div>
-        <div class="col-md-6">
-            <div class="form-check">
-                <input class="form-check-input" asp-for="UpdateModel.RemoteSupport" type="checkbox" value=""/>
-                <label class="form-check-label fw-semibold" asp-for="UpdateModel.RemoteSupport">Remote Support</label>
-                <span class="form_validation_feedback" asp-validation-for="UpdateModel.RemoteSupport"></span>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-check">
-                <input class="form-check-input" asp-for="UpdateModel.UnderWarranty" type="checkbox" value=""/>
-                <label class="form-check-label fw-semibold" asp-for="UpdateModel.UnderWarranty">Under Warranty</label>
-                <span class="form_validation_feedback" asp-validation-for="UpdateModel.UnderWarranty"></span>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <label class="form-label fw-semibold" asp-for="UpdateModel.Date">Date</label>
-            <input class="autoInitFlatPicker form-control form-control-solid" asp-for="UpdateModel.Date"/>
-            <span class="form_validation_feedback" asp-validation-for="UpdateModel.Date"></span>
-        </div>
-        <div class="col-md-6">
-            <label class="form-label fw-semibold" asp-for="UpdateModel.DueDate">Due Date</label>
-            <input class="autoInitFlatPicker form-control form-control-solid" asp-for="UpdateModel.DueDate"/>
-            <span class="form_validation_feedback" asp-validation-for="UpdateModel.DueDate"></span>
         </div>
 	</div>
 </form>

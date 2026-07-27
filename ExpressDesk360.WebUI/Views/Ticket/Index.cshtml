@@ -1,8 +1,7 @@
-
 @using ExpressDesk360.WebUI.Models.ViewModels.Ticket
 @model TicketViewModel
 @{
-    ViewData["Title"] = "Tickets";
+    ViewData["Title"] = "Talepler";
 }
 
 @{
@@ -10,9 +9,9 @@
     {
         BreadcrumbItems = new List<BreadcrumbItem>
         {
-            new BreadcrumbItem { Title = "Home", Path = Url.Action("Index", "Home") },
+            new BreadcrumbItem { Title = "Anasayfa", Path = Url.Action("Index", "Home") },
         },
-        PageName = ViewData["Title"]?.ToString() ?? "Page"
+        PageName = ViewData["Title"]?.ToString() ?? "Sayfa"
     };
 }
 
@@ -23,66 +22,66 @@
         <div class="card-title">
             <div class="menu menu-sub menu-sub-dropdown mt-2 w-75 w-lg-500px" data-kt-menu="true">
                 <div class="px-7 py-5">
-                    <div class="fs-5 text-gray-900 fw-bold">Filter Options</div>
+                    <div class="fs-5 text-gray-900 fw-bold">Filtrele</div>
                 </div>
                 <div class="separator border-gray-200"></div>
                 <div class="px-7 py-5">
-                    
+
                     <div class="mb-10">
-                        <label class="form-label fw-semibold" for="slct_ticketTypeId">Ticket Type</label>
-                        <select id="slct_ticketTypeId" class="autoInitSelect2 form-select form-select-sm form-select-solid" name="TicketTypeId" asp-items="Model.TicketTypeIds" data-control="select2"  data-allow-clear="true">
+                        <label class="form-label fw-semibold" for="slct_ticketTypeId">Talep Tipi</label>
+                        <select id="slct_ticketTypeId" class="autoInitSelect2 form-select form-select-sm form-select-solid" name="TicketTypeId" asp-items="Model.TicketTypeIds" data-control="select2" data-allow-clear="true">
                             <option></option>
                         </select>
                     </div>
                     <div class="mb-10">
-                        <label class="form-label fw-semibold" for="slct_ticketPriorityId">Ticket Priority</label>
-                        <select id="slct_ticketPriorityId" class="autoInitSelect2 form-select form-select-sm form-select-solid" name="TicketPriorityId" asp-items="Model.TicketPriorityIds" data-control="select2"  data-allow-clear="true">
+                        <label class="form-label fw-semibold" for="slct_ticketPriorityId">Talep Önceliği</label>
+                        <select id="slct_ticketPriorityId" class="autoInitSelect2 form-select form-select-sm form-select-solid" name="TicketPriorityId" asp-items="Model.TicketPriorityIds" data-control="select2" data-allow-clear="true">
                             <option></option>
                         </select>
                     </div>
                     <div class="mb-10">
-                        <label class="form-label fw-semibold" for="slct_companyId">Company</label>
-                        <select id="slct_companyId" class="autoInitSelect2 form-select form-select-sm form-select-solid" name="CompanyId" asp-items="Model.CompanyIds" data-control="select2"  data-allow-clear="true">
+                        <label class="form-label fw-semibold" for="slct_companyId">Firma</label>
+                        <select id="slct_companyId" class="autoInitSelect2 form-select form-select-sm form-select-solid" name="CompanyId" asp-items="Model.CompanyIds" data-control="select2" data-allow-clear="true">
                             <option></option>
                         </select>
                     </div>
                     <div class="mb-10">
-                        <label class="form-label fw-semibold" for="slct_companyProductId">Company Product</label>
-                        <select id="slct_companyProductId" class="autoInitSelect2 form-select form-select-sm form-select-solid" name="CompanyProductId" asp-items="Model.CompanyProductIds" data-control="select2"  data-allow-clear="true">
+                        <label class="form-label fw-semibold" for="slct_companyProductId">Firma Ürünü</label>
+                        <select id="slct_companyProductId" class="autoInitSelect2 form-select form-select-sm form-select-solid" name="CompanyProductId" asp-items="Model.CompanyProductIds" data-control="select2" data-allow-clear="true">
                             <option></option>
                         </select>
                     </div>
                     <div class="mb-10">
-                        <label class="form-label fw-semibold" for="slct_lastTicketMovementTypeId">Last Ticket Movement Type</label>
-                        <select id="slct_lastTicketMovementTypeId" class="autoInitSelect2 form-select form-select-sm form-select-solid" name="LastTicketMovementTypeId" asp-items="Model.LastTicketMovementTypeIds" data-control="select2"  data-allow-clear="true">
+                        <label class="form-label fw-semibold" for="slct_lastTicketMovementTypeId">Son Hareketi Tipi</label>
+                        <select id="slct_lastTicketMovementTypeId" class="autoInitSelect2 form-select form-select-sm form-select-solid" name="LastTicketMovementTypeId" asp-items="Model.LastTicketMovementTypeIds" data-control="select2" data-allow-clear="true">
                             <option></option>
                         </select>
                     </div>
                     <div class="mb-10 form-check">
-                        <input id="chckb_remoteSupport" class="form-check-input" name="RemoteSupport" type="checkbox" value=""/>
-                        <label class="form-check-label fw-semibold" for="chckb_remoteSupport">Remote Support</label>
+                        <input id="chckb_remoteSupport" class="form-check-input" name="RemoteSupport" type="checkbox" value="" />
+                        <label class="form-check-label fw-semibold" for="chckb_remoteSupport">Uzaktan Destek</label>
                     </div>
                     <div class="mb-10">
-                        <label class="form-label fw-semibold" for="dtpick_date">Date</label>
-                        <input id="dtpick_date" class="autoInitFlatPicker form-control form-control-sm form-control-solid" name="Date"/>
+                        <label class="form-label fw-semibold" for="dtpick_date">Tarih</label>
+                        <input id="dtpick_date" class="autoInitFlatPicker form-control form-control-sm form-control-solid" name="Date" />
                     </div>
                     <div class="mb-10">
                         <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
                             <input name="IsDeleted" value="false" type="hidden" />
                             <input name="IsDeleted" value="true" type="checkbox" class="form-check-input" />
-                            <span class="form-check-label fs-sm">Include Deleted</span>
+                            <span class="form-check-label fs-sm">Silinenleri Dahil Et</span>
                         </div>
                     </div>
-            
+
                     <div class="d-flex justify-content-end">
-                        <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">Reset</button>
-                        <button type="button" onclick="InitilazeTable(this)" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">Apply</button>
+                        <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">Temizle</button>
+                        <button type="button" onclick="InitilazeTable(this)" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">Uygula</button>
                     </div>
                 </div>
             </div>
             <button class="btn btn-sm btn-flex btn-light-dark fw-bold" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start">
                 <i class="ki-duotone ki-filter fs-6 text-muted me-1"><span class="path1"></span><span class="path2"></span></i>
-                Filter
+                Filtre
             </button>
         </div>
     </div>
@@ -90,25 +89,18 @@
         <table id="main_table" class="table align-middle table-row-dashed fs-6 gy-5">
             <thead>
                 <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
-                    					<th>Ticket Type</th>
-					<th>Ticket Priority</th>
-					<th>Requester</th>
-					<th>Company</th>
-					<th>Company Product</th>
-					<th>Number</th>
-					<th>Last Ticket Movement Type</th>
-					<th>Title</th>
-					<th>Ticket Description</th>
-					<th>Remote Support</th>
-					<th>Under Warranty</th>
-					<th>Date</th>
-					<th>Due Date</th>
-					<th>Create Date</th>
-					<th>Last Update Date</th>
-					<th>Status</th>
-					<th>Delete Date</th>
-					<th>Actions</th>
-
+                    <th>No</th>
+                    <th>Öncelik</th>
+                    <th>Tarih</th>
+                    <th>Firma</th>
+                    <th>Ürün</th>
+                    <th>Talep Tipi</th>
+                    <th>Başlık</th>
+                    <th>Başvuran</th>
+                    <th>Temsilci</th>
+                    <th>Son İşlem</th>
+                    <th>Garanti</th>
+                    <th>Hızlı İşlemler</th>
                 </tr>
             </thead>
             <tbody class="fw-semibold text-gray-600">
@@ -124,7 +116,7 @@
 
         let mainTable;
 
-        $(document).ready(function(){
+        $(document).ready(function() {
             InitilazeTable();
         })
 
@@ -135,55 +127,46 @@
                 path: 'Ticket/DatatableServerSide',
                 method: 'Post',
                 buttonElement: btn,
-                
                 requestData: {
                     filter: {
                         operator: 'base',
                         logic: 'and',
                         filters: [
-                             
                             {
                                 operator: 'eq',
                                 field: 'TicketTypeId',
                                 value: $("select[name='TicketTypeId']").val()
-                            }
-                , 
+                            },
                             {
                                 operator: 'eq',
                                 field: 'TicketPriorityId',
                                 value: $("select[name='TicketPriorityId']").val()
-                            }
-                , 
+                            },
                             {
                                 operator: 'eq',
                                 field: 'CompanyId',
                                 value: $("select[name='CompanyId']").val()
-                            }
-                , 
+                            },
                             {
                                 operator: 'eq',
                                 field: 'CompanyProductId',
                                 value: $("select[name='CompanyProductId']").val()
-                            }
-                , 
+                            },
                             {
                                 operator: 'eq',
                                 field: 'LastTicketMovementTypeId',
                                 value: $("select[name='LastTicketMovementTypeId']").val()
-                            }
-                , 
+                            },
                             {
                                 operator: 'eq',
                                 field: 'RemoteSupport',
                                 value: $('input[name="RemoteSupport"]:checked').prop("checked") || false,
-                            }
-                , 
+                            },
                             {
                                 operator: 'eq',
                                 field: 'Date',
                                 value: $("input[name='Date']").val()
-                            }
-                , 
+                            },
                             {
                                 operator: 'base',
                                 logic: 'or',
@@ -200,95 +183,74 @@
                                     }
                                 ]
                             }
-            
                         ]
                     }
                 },
-        
                 columns: [
-                    					{ data: 'ticketTypeId' },
-					{ data: 'ticketPriorityId' },
-					{ data: 'requesterId' },
-					{ data: 'companyId' },
-					{ data: 'companyProductId' },
-					{ data: 'number' },
-					{ data: 'lastTicketMovementTypeId' },
-					{ data: 'title' },
-					{ data: 'ticketDescription' },
-
-                    {
-                        data: 'remoteSupport',
-                        render: function (data) {
-                            if(data == true) return (`<span class="badge rounded-pill bg-label-danger"><i class="fa-solid fa-xmark"></i></span>`);
-                            else if(data == false) return (`<span class="badge rounded-pill bg-label-success"><i class="fa-solid fa-check"></i></span>`);
-                            else return ('');
-                        }
-                    },
-                    {
-                        data: 'underWarranty',
-                        render: function (data) {
-                            if(data == true) return (`<span class="badge rounded-pill bg-label-danger"><i class="fa-solid fa-xmark"></i></span>`);
-                            else if(data == false) return (`<span class="badge rounded-pill bg-label-success"><i class="fa-solid fa-check"></i></span>`);
-                            else return ('');
-                        }
-                    },
+                    { data: 'number' },
+                    { data: 'ticketPriorityName' },
                     {
                         data: 'date',
-                        render: function (data) {
-                            if(data == null) return '';
+                        render: function(data) {
+                            if (data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
                     },
+                    { data: 'companyName' },
+                    { data: 'companyProductName' },
+                    { data: 'ticketTypeName' },
+                    { data: 'title' },
+                    { data: 'requesterName' },
                     {
-                        data: 'dueDate',
-                        render: function (data) {
-                            if(data == null) return '';
-                            return moment(data).format('DD.MM.YYYY HH:mm');
+                        data: 'ticketStaffs',
+                        render: function(data) {
+                            if (!data || data.length === 0) return '';
+                            return data.map(x => x.userFullName || '').filter(name => name !== '').join(', ');
                         }
                     },
+                    { data: 'lastTicketMovementTypeName' },
                     {
-                        data: 'createDateUtc',
-                        render: function (data) {
-                            if(data == null) return '';
-                            return moment(data).format('DD.MM.YYYY HH:mm');
-                        }
-                    },
-                    {
-                        data: 'updateDateUtc',
-                        render: function (data) {
-                            if(data == null) return '';
-                            return moment(data).format('DD.MM.YYYY HH:mm');
-                        }
-                    },
-                    {
-                        data: 'isDeleted',
-                        render: function (data) {
-                            if(data == true) return (`<span class="badge rounded-pill bg-label-danger"><i class="fa-solid fa-xmark"></i></span>`);
-                            else if(data == false) return (`<span class="badge rounded-pill bg-label-success"><i class="fa-solid fa-check"></i></span>`);
+                        data: 'underWarranty',
+                        render: function(data) {
+                            if (data == true) return (`<span class="badge rounded-pill bg-label-success"><i class="fa-solid fa-check"></i></span>`);
+                            else if (data == false) return (`<span class="badge rounded-pill bg-label-danger"><i class="fa-solid fa-xmark"></i></span>`);
                             else return ('');
-                        }
-                    },
-                    {
-                        data: 'deletedDateUtc',
-                        render: function (data) {
-                            if(data == null) return '';
-                            return moment(data).format('DD.MM.YYYY HH:mm');
                         }
                     },
                     {
                         data: null,
                         defaultContent: '',
                         searchable: false,
-                        createdCell: function (td, cellData, rowData, row, col)
-                        {
+                        createdCell: function(td, cellData, rowData, row, col) {
                             let deleteHandleButton = rowData.isDeleted == true ?
                                 HelperService.UndoDeleteButtonTable({ requestUrl: 'Ticket/Restore', requestData: { "id": rowData.id }, pageTable: mainTable }) :
-                                HelperService.DeleteButtonTable({requestUrl: 'Ticket/Delete', requestData: { "id": rowData.id }, pageTable: mainTable });
+                                HelperService.DeleteButtonTable({ requestUrl: 'Ticket/Delete', requestData: { "id": rowData.id }, pageTable: mainTable });
 
-                            DatatableManager.AppendRowButtons(td,
-                            [
+                            DatatableManager.AppendRowButtons(td, [
+                                DatatableManager.RowButton({
+                                    kind: DatatableManager.buttonKinds.detail,
+                                    icon: 'fa-solid fa-users-gear',
+                                    attributes: { title: 'Temsilciler' },
+                                    onClick: () => {
+                                        RequestManager.Get({
+                                            path: 'TicketStaff/ListForTicket',
+                                            requestData: { ticketId: rowData.id },
+                                            dataType: 'text',
+                                            showToastrSuccess: false,
+                                            onSuccess: (html) => {
+                                                ModalManager.CreateModal({
+                                                    title: 'Talep Temsilcileri',
+                                                    innerHtml: html,
+                                                    modalSize: "lg",
+                                                    btnCancelText: 'Kapat',
+                                                    buttons: []
+                                                }).show();
+                                            }
+                                        });
+                                    }
+                                }),
                                 HelperService.UpdateButtonTable({
-                                    title: 'Update Ticket Informations',
+                                    title: 'Talep Bilgilerini Güncelle',
                                     formGetterUrl: 'Ticket/Update',
                                     requestData: {
                                         "id": rowData.id
@@ -301,22 +263,35 @@
                     }
                 ],
                 customButtons:
-                [  
+                [
                     {
-                        text: '<span class="dynamic-content"><i class="fa-solid fa-file-circle-plus me-2"></i>Add New Ticket</span>',
+                        text: '<span class="dynamic-content"><i class="fa-solid fa-file-circle-plus me-2"></i>Yeni Talep Ekle</span>',
                         className: 'btn btn-primary mx-2',
-                        action: (e_btn) =>
-                        {
+                        action: (e_btn) => {
                             HelperService.InsertModal({
-                                title: 'Add New Ticket',
+                                title: 'Yeni Talep Ekle',
                                 formGetterUrl: 'Ticket/Create',
                                 e_btn: e_btn.currentTarget,
                                 pageTable: mainTable
                             })
                         }
                     }
-                ]
+                ],
+                order: [[1, 'desc']]
             })
+        }
+
+        function RefreshTicketStaffModal(ticketId) {
+            const modalBody = $('#form_AssignTicketStaff').closest('.modal-body');
+            RequestManager.Get({
+                path: 'TicketStaff/ListForTicket',
+                requestData: { ticketId: ticketId },
+                dataType: 'text',
+                showToastrSuccess: false,
+                onSuccess: (html) => {
+                    modalBody.html(html);
+                }
+            });
         }
     </script>
 }
