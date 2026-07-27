@@ -1,0 +1,147 @@
+@using ExpressDesk360.Model.Dtos.TicketStaff.Queries
+@model ICollection<TicketStaffDto>
+@{
+    Layout = null;
+    var ticketId = (Guid)ViewBag.TicketId;
+    var userIds = (SelectList)ViewBag.UserIds;
+    // Generate a unique identifier for this modal container instance to avoid ID collision
+    var uniqueId = Guid.NewGuid().ToString("N");
+}
+
+<div class="px-2" id="ticket_staff_container_@uniqueId">
+    <!-- Assign new representative Form (At the top) -->
+    <div class="card card-flush mb-6">
+        <div class="card-body p-0">
+            <form id="form_AssignTicketStaff_@uniqueId" method="post" action="TicketStaff/Create">
+                <input type="hidden" name="CreateModel.TicketId" value="@ticketId" />
+                <input type="hidden" name="CreateModel.AddedDate" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")" />
+                
+                <div class="d-flex align-items-end gap-3">
+                    <div class="flex-grow-1">
+                        <label class="form-label fw-bold fs-6 text-gray-700 mb-2">Yeni Temsilci Ekle</label>
+                        <select name="CreateModel.UserId" class="form-select form-select-solid autoInitSelect2" data-placeholder="Temsilci Seçiniz..." required>
+                            <option value=""></option>
+                            @foreach (var user in userIds)
+                            {
+                                <option value="@user.Value">@user.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-assign-ticket-staff" style="height: 41px;">
+                        <i class="fa-solid fa-plus me-1"></i>Ata
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="separator separator-dashed my-6"></div>
+
+    <!-- Mevcut Temsilciler Listesi (At the bottom) -->
+    <div>
+        <h6 class="fw-bold text-gray-800 mb-4"><i class="fa-solid fa-users me-2 text-primary"></i>Mevcut Temsilciler</h6>
+        <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
+            <table class="table table-hover align-middle table-row-dashed fs-7 gy-3">
+                <thead>
+                    <tr class="text-start text-gray-500 fw-bold fs-8 text-uppercase gs-0">
+                        <th>Temsilci</th>
+                        <th>Atanma Tarihi</th>
+                        <th class="text-end">İşlem</th>
+                    </tr>
+                </thead>
+                <tbody class="fw-semibold text-gray-600">
+                    @if (Model == null || !Model.Any())
+                    {
+                        <tr>
+                            <td colspan="3" class="text-center text-muted py-4">Bu talebe atanmış temsilci bulunmamaktadır.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var staff in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="symbol symbol-30px symbol-circle me-3 bg-light-primary">
+                                            <span class="symbol-label fs-7 fw-bold text-primary">@staff.UserFullName?.Substring(0, Math.Min(2, staff.UserFullName.Length)).ToUpper()</span>
+                                        </div>
+                                        <span class="text-gray-800 fw-bold">@staff.UserFullName</span>
+                                    </div>
+                                </td>
+                                <td>@staff.AddedDate.ToString("dd.MM.yyyy HH:mm")</td>
+                                <td class="text-end">
+                                    <button type="button" class="btn btn-icon btn-bg-light btn-active-color-danger btn-sm btn-remove-ticket-staff" data-id="@staff.Id">
+                                        <i class="fa-solid fa-trash fs-6"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const container = $('#ticket_staff_container_@uniqueId');
+        const form = $('#form_AssignTicketStaff_@uniqueId');
+        
+        // Initialize select2 with modal element as parent
+        const modalElement = container.closest('.modal');
+        AutoInitSelect2(modalElement);
+
+        // Bind event listeners programmatically to the elements within this unique container
+        container.find('.btn-assign-ticket-staff').on('click', function() {
+            if (form[0].checkValidity() === false) {
+                form.addClass("was-validated");
+                return;
+            }
+            
+            RequestManager.Post({
+                path: 'TicketStaff/Create',
+                requestData: form.serializeArray(),
+                buttonElement: this,
+                onSuccess: () => {
+                    RefreshTicketStaffModal('@ticketId');
+                    if (typeof mainTable !== 'undefined' && mainTable !== null) {
+                        mainTable.reload();
+                    }
+                }
+            });
+        });
+
+        container.find('.btn-remove-ticket-staff').on('click', function() {
+            const staffId = $(this).data('id');
+            
+            ModalManager.CreateModal({
+                innerHtml: `<div class="d-flex flex-column justify-content-center align-items-center"><i class="fa-solid fa-triangle-exclamation text-warning opacity-50" style="font-size: 2.5rem;"></i><h5 class="text-center fw-normal mt-4">Temsilciyi silmek istediğinize emin misiniz?</h4></div>`,
+                modalSize: 'sm',
+                btnCancelSize: 'sm',
+                showHeader: false,
+                buttons: [
+                    ModalManager.Button({
+                        kind: ModalManager.buttonKinds.delete,
+                        onClick: (e_btn, e_mdl) => {
+                            RequestManager.Delete({
+                                path: 'TicketStaff/Delete',
+                                requestData: { id: staffId },
+                                buttonElement: e_btn,
+                                onSuccess: () => {
+                                    $(e_mdl).modal("hide");
+                                    RefreshTicketStaffModal('@ticketId');
+                                    if (typeof mainTable !== 'undefined' && mainTable !== null) {
+                                        mainTable.reload();
+                                    }
+                                }
+                            });
+                        },
+                        size: 'sm'
+                    })
+                ]
+            }).show();
+        });
+    })();
+</script>

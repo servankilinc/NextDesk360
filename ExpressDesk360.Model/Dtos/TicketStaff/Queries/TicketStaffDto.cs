@@ -8,5 +8,6 @@ namespace ExpressDesk360.Model.Dtos.TicketStaff.Queries
         public Guid TicketId { get; set; }
         public Guid UserId { get; set; }
         public DateTime AddedDate { get; set; }
+        public string? UserFullName { get; set; }
     }
 }

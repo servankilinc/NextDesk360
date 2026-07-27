@@ -68,6 +68,14 @@ namespace ExpressDesk360.Business.Concrete
             return Result<ICollection<TicketStaff>>.Success(result);
         }
 
+        public async Task<Result<ICollection<TicketStaffDto>>> GetBaseListAsync(Expression<Func<TicketStaff, bool>> where, CancellationToken cancellationToken = default)
+        {
+            var result = await _unitOfWork.TicketStaffs.GetAllAsync<TicketStaffDto>(configurationProvider: _mapper.ConfigurationProvider, where: where, cancellationToken: cancellationToken);
+            if (result == null)
+                return Result<ICollection<TicketStaffDto>>.NotFound();
+            return Result<ICollection<TicketStaffDto>>.Success(result);
+        }
+
         public async Task<Result<ICollection<TicketStaffDto>>> GetBaseListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork.TicketStaffs.GetAllAsync<TicketStaffDto>(configurationProvider: _mapper.ConfigurationProvider, filter: request?.Filter, sorts: request?.Sorts, cancellationToken: cancellationToken);
