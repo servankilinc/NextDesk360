@@ -15,7 +15,7 @@ namespace ExpressDesk360.Business.Abstract
         Task<Result<TicketMovement>> GetAsync(Expression<Func<TicketMovement, bool>> where, CancellationToken cancellationToken = default);
         Task<Result<TicketMovement>> GetAsync(Guid id, CancellationToken cancellationToken = default);
         Task<Result<TicketMovementDto>> GetBaseAsync(Guid id, CancellationToken cancellationToken = default);
-        Task<Result<ICollection<TicketMovement>>> GetListAsync(Expression<Func<TicketMovement, bool>> where, CancellationToken cancellationToken = default);
+        Task<Result<ICollection<TicketMovement>>> GetListAsync(Expression<Func<TicketMovement, bool>>? where = default, Func<IQueryable<TicketMovement>, Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<TicketMovement, object?>>? include = default, Func<IQueryable<TicketMovement>, IOrderedQueryable<TicketMovement>>? orderBy = default, CancellationToken cancellationToken = default);
         Task<Result<ICollection<TicketMovement>>> GetListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default);
         Task<Result<ICollection<TicketMovementDto>>> GetBaseListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default);
         Task<Result<SelectList>> SelectListAsync(Expression<Func<TicketMovement, bool>>? where = default, CancellationToken cancellationToken = default);

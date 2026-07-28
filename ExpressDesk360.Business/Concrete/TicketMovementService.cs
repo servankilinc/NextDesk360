@@ -52,9 +52,9 @@ namespace ExpressDesk360.Business.Concrete
             return Result<TicketMovementDto>.Success(result);
         }
 
-        public async Task<Result<ICollection<TicketMovement>>> GetListAsync(Expression<Func<TicketMovement, bool>>? where = default, CancellationToken cancellationToken = default)
+        public async Task<Result<ICollection<TicketMovement>>> GetListAsync(Expression<Func<TicketMovement, bool>>? where = default, Func<IQueryable<TicketMovement>, Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<TicketMovement, object?>>? include = default, Func<IQueryable<TicketMovement>, IOrderedQueryable<TicketMovement>>? orderBy = default, CancellationToken cancellationToken = default)
         {
-            var result = await _unitOfWork.TicketMovements.GetAllAsync(where: where, cancellationToken: cancellationToken);
+            var result = await _unitOfWork.TicketMovements.GetAllAsync(where: where, include: include, orderBy: orderBy, cancellationToken: cancellationToken);
             if (result == null)
                 return Result<ICollection<TicketMovement>>.NotFound();
             return Result<ICollection<TicketMovement>>.Success(result);
@@ -89,6 +89,14 @@ namespace ExpressDesk360.Business.Concrete
             if (!validationResult.IsValid)
                 return Result.Validation(validationResult.Failures, description: $"Validation failed for TicketMovementCreateDto");
             await _unitOfWork.TicketMovements.AddAndSaveAsync(_mapper.Map<TicketMovement>(request), cancellationToken);
+
+            var ticket = await _unitOfWork.Tickets.GetAsync(where: t => t.Id == request.TicketId, cancellationToken: cancellationToken);
+            if (ticket != null)
+            {
+                ticket.LastTicketMovementTypeId = request.TicketMovementTypeId;
+                await _unitOfWork.Tickets.UpdateAndSaveAsync(ticket, cancellationToken);
+            }
+
             return Result.Success();
         }
 

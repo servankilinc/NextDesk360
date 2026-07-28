@@ -1,4 +1,4 @@
-﻿const ModalManager = {
+const ModalManager = {
 
     //#region BUTTON PROPS
     buttonKinds: {
@@ -87,8 +87,25 @@
             element: modal,
             show: () => modal.modal("show"),
             close: () => modal.modal("hide"),
-            remove: () => modal.remove()
+            remove: () => modal.remove(),
+            updateContent: (htmlContent) => this.UpdateContent(modal, htmlContent)
         };
+    },
+
+    UpdateContent(elementOrHtml, htmlContent = null) {
+        let targetModal = $(elementOrHtml);
+        if (!targetModal || targetModal.length === 0) return;
+
+        const modalBody = targetModal.find('.modal-body');
+        if (typeof htmlContent === 'string') {
+            modalBody.html(htmlContent);
+        }
+        else if (htmlContent) {
+            modalBody.empty().append(htmlContent);
+        }
+
+        AutoInitFlatPicker(targetModal);
+        AutoInitSelect2(targetModal);
     },
 
     DeleteModal({ id = null, onClick = null }) {

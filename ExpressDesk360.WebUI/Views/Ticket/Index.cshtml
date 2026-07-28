@@ -115,6 +115,8 @@
     <script>
 
         let mainTable;
+        let modalTicketStaff = null;
+        let modalFaults = null;
 
         $(document).ready(function() {
             InitilazeTable();
@@ -233,18 +235,42 @@
                                     attributes: { title: 'Temsilciler' },
                                     onClick: () => {
                                         RequestManager.Get({
-                                            path: 'TicketStaff/ListForTicket',
+                                            path: 'Ticket/StaffList',
                                             requestData: { ticketId: rowData.id },
                                             dataType: 'text',
                                             showToastrSuccess: false,
                                             onSuccess: (html) => {
-                                                ModalManager.CreateModal({
+                                                modalTicketStaff = ModalManager.CreateModal({
                                                     title: 'Talep Temsilcileri',
                                                     innerHtml: html,
                                                     modalSize: "lg",
                                                     btnCancelText: 'Kapat',
                                                     buttons: []
-                                                }).show();
+                                                });
+                                                modalTicketStaff.show();
+                                            }
+                                        });
+                                    }
+                                }),
+                                DatatableManager.RowButton({
+                                    kind: DatatableManager.buttonKinds.detail,
+                                    icon: 'fa-solid fa-screwdriver-wrench',
+                                    attributes: { title: 'Arıza Tespit' },
+                                    onClick: () => {
+                                        RequestManager.Get({
+                                            path: 'Ticket/FaultList',
+                                            requestData: { ticketId: rowData.id },
+                                            dataType: 'text',
+                                            showToastrSuccess: false,
+                                            onSuccess: (html) => {
+                                                modalFaults = ModalManager.CreateModal({
+                                                    title: 'Arıza Tespit Kayıtları',
+                                                    innerHtml: html,
+                                                    modalSize: "lg",
+                                                    btnCancelText: 'Kapat',
+                                                    buttons: []
+                                                });
+                                                modalFaults.show();
                                             }
                                         });
                                     }
@@ -279,19 +305,6 @@
                 ],
                 order: [[1, 'desc']]
             })
-        }
-
-        function RefreshTicketStaffModal(ticketId) {
-            const modalBody = $('#form_AssignTicketStaff').closest('.modal-body');
-            RequestManager.Get({
-                path: 'TicketStaff/ListForTicket',
-                requestData: { ticketId: ticketId },
-                dataType: 'text',
-                showToastrSuccess: false,
-                onSuccess: (html) => {
-                    modalBody.html(html);
-                }
-            });
         }
     </script>
 }

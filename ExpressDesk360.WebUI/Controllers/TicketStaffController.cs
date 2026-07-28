@@ -1,12 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using ExpressDesk360.Core.BaseRequestModels;
-using ExpressDesk360.Core.Utils.DynamicQuery;
-using ExpressDesk360.Model.Entities;
 using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.WebUI.Controllers.Base;
 using ExpressDesk360.WebUI.Models.ViewModels.TicketStaff;
 using ExpressDesk360.Model.Dtos.TicketStaff.Commands;
-using ExpressDesk360.Model.Dtos.TicketStaff.Queries;
 
 namespace ExpressDesk360.WebUI.Controllers
 {
@@ -22,15 +19,6 @@ namespace ExpressDesk360.WebUI.Controllers
             _userService = userService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> ListForTicket(Guid ticketId)
-        {
-            var result = await _ticketStaffService.GetBaseListAsync(x => x.TicketId == ticketId);
-            var userIds = await _userService.SelectListAsync();
-            ViewBag.TicketId = ticketId;
-            ViewBag.UserIds = userIds.Data;
-            return PartialView("./Partials/ListForTicket", result.Data);
-        }
 
         [HttpGet]
         public async Task<IActionResult> Index()
