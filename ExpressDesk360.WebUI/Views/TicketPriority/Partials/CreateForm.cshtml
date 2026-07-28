@@ -9,22 +9,22 @@
 	<div class="row row-gap-4 m-2">
         
         <div class="col-md-6">
-            <label class="form-label fw-semibold" asp-for="CreateModel.Name">Name</label>
+            <label class="form-label fw-semibold" asp-for="CreateModel.Name">Ad</label>
             <input class="form-control form-control-solid" asp-for="CreateModel.Name" type="text"/>
             <span class="form_validation_feedback" asp-validation-for="CreateModel.Name"></span>
         </div>
         <div class="col-md-6">
-            <label class="form-label fw-semibold" asp-for="CreateModel.Color">Color</label>
-            <input class="form-control form-control-solid" asp-for="CreateModel.Color" type="text"/>
+            <label class="form-label fw-semibold" asp-for="CreateModel.Color">Renk</label>
+            <input class="form-control form-control-solid form-control-color w-100" asp-for="CreateModel.Color" type="color" value="@(Model.CreateModel.Color ?? "#3699ff")" />
             <span class="form_validation_feedback" asp-validation-for="CreateModel.Color"></span>
         </div>
         <div class="col-md-6">
-            <label class="form-label fw-semibold" asp-for="CreateModel.Icon">Icon</label>
-            <input class="form-control form-control-solid" asp-for="CreateModel.Icon" type="text"/>
+            <label class="form-label fw-semibold" asp-for="CreateModel.Icon">Simge</label>
+            <input class="form-control form-control-solid" asp-for="CreateModel.Icon" type="text" placeholder="fa-solid fa-flag"/>
             <span class="form_validation_feedback" asp-validation-for="CreateModel.Icon"></span>
         </div>
         <div class="col-md-6">
-            <label class="form-label fw-semibold" asp-for="CreateModel.Value">Value</label>
+            <label class="form-label fw-semibold" asp-for="CreateModel.Value">Sıra</label>
             <input class="form-control form-control-solid" asp-for="CreateModel.Value" type="number"/>
             <span class="form_validation_feedback" asp-validation-for="CreateModel.Value"></span>
         </div>

@@ -9,41 +9,41 @@
 	<div class="row row-gap-4 m-2">
         
         <div class="col-md-6">
-            <label class="form-label fw-semibold" asp-for="CreateModel.TicketTypeId">Ticket Type</label>
-            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.TicketTypeIds" asp-for="CreateModel.TicketTypeId" data-control="select2"  data-allow-clear="true">
+            <label class="form-label fw-semibold" asp-for="CreateModel.TicketTypeId">Talep Tipi</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.TicketTypeIds" asp-for="CreateModel.TicketTypeId" data-control="select2" data-allow-clear="true">
                 <option></option>
             </select>
             <span class="form_validation_feedback" asp-validation-for="CreateModel.TicketTypeId"></span>
         </div>
         <div class="col-md-6">
-            <label class="form-label fw-semibold" asp-for="CreateModel.TicketPriorityId">Ticket Priority</label>
-            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.TicketPriorityIds" asp-for="CreateModel.TicketPriorityId" data-control="select2"  data-allow-clear="true">
+            <label class="form-label fw-semibold" asp-for="CreateModel.TicketPriorityId">Talep Önceliği</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.TicketPriorityIds" asp-for="CreateModel.TicketPriorityId" data-control="select2" data-allow-clear="true">
                 <option></option>
             </select>
             <span class="form_validation_feedback" asp-validation-for="CreateModel.TicketPriorityId"></span>
         </div>
         <div class="col-md-6">
-            <label class="form-label fw-semibold" asp-for="CreateModel.CompanyId">Company</label>
-            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.CompanyIds" asp-for="CreateModel.CompanyId" data-control="select2"  data-allow-clear="true">
+            <label class="form-label fw-semibold" asp-for="CreateModel.CompanyId">Firma</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.CompanyIds" asp-for="CreateModel.CompanyId" data-control="select2" data-allow-clear="true">
                 <option></option>
             </select>
             <span class="form_validation_feedback" asp-validation-for="CreateModel.CompanyId"></span>
         </div>
         <div class="col-md-6">
-            <label class="form-label fw-semibold" asp-for="CreateModel.CompanyProductId">Company Product</label>
-            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.CompanyProductIds" asp-for="CreateModel.CompanyProductId" data-control="select2"  data-allow-clear="true">
+            <label class="form-label fw-semibold" asp-for="CreateModel.CompanyProductId">Firma Ürünü</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.CompanyProductIds" asp-for="CreateModel.CompanyProductId" data-control="select2" data-allow-clear="true">
                 <option></option>
             </select>
             <span class="form_validation_feedback" asp-validation-for="CreateModel.CompanyProductId"></span>
         </div>
         <div class="col-md-12">
-            <label class="form-label fw-semibold" asp-for="CreateModel.Title">Title</label>
+            <label class="form-label fw-semibold" asp-for="CreateModel.Title">Başlık</label>
             <input class="form-control form-control-solid" asp-for="CreateModel.Title" type="text"/>
             <span class="form_validation_feedback" asp-validation-for="CreateModel.Title"></span>
         </div>
         <div class="col-md-12">
-            <label class="form-label fw-semibold" asp-for="CreateModel.TicketDescription">Ticket Description</label>
-            <textarea class="form-control form-control-solid" asp-for="CreateModel.TicketDescription" type="text" rows="3"></textarea>
+            <label class="form-label fw-semibold" asp-for="CreateModel.TicketDescription">Talep Açıklaması</label>
+            <textarea class="form-control form-control-solid" asp-for="CreateModel.TicketDescription" rows="3"></textarea>
             <span class="form_validation_feedback" asp-validation-for="CreateModel.TicketDescription"></span>
         </div>
 	</div>

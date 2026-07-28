@@ -10,22 +10,22 @@
         
         <input asp-for="UpdateModel.Id" type="hidden"/>
         <div class="col-md-6">
-            <label class="form-label fw-semibold" asp-for="UpdateModel.Name">Name</label>
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Name">Ad</label>
             <input class="form-control form-control-solid" asp-for="UpdateModel.Name" type="text"/>
             <span class="form_validation_feedback" asp-validation-for="UpdateModel.Name"></span>
         </div>
         <div class="col-md-6">
-            <label class="form-label fw-semibold" asp-for="UpdateModel.Color">Color</label>
-            <input class="form-control form-control-solid" asp-for="UpdateModel.Color" type="text"/>
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Color">Renk</label>
+            <input class="form-control form-control-solid form-control-color w-100" asp-for="UpdateModel.Color" type="color" />
             <span class="form_validation_feedback" asp-validation-for="UpdateModel.Color"></span>
         </div>
         <div class="col-md-6">
-            <label class="form-label fw-semibold" asp-for="UpdateModel.Icon">Icon</label>
-            <input class="form-control form-control-solid" asp-for="UpdateModel.Icon" type="text"/>
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Icon">Simge</label>
+            <input class="form-control form-control-solid" asp-for="UpdateModel.Icon" type="text" placeholder="fa-solid fa-flag"/>
             <span class="form_validation_feedback" asp-validation-for="UpdateModel.Icon"></span>
         </div>
         <div class="col-md-6">
-            <label class="form-label fw-semibold" asp-for="UpdateModel.Value">Value</label>
+            <label class="form-label fw-semibold" asp-for="UpdateModel.Value">Sıra</label>
             <input class="form-control form-control-solid" asp-for="UpdateModel.Value" type="number"/>
             <span class="form_validation_feedback" asp-validation-for="UpdateModel.Value"></span>
         </div>
