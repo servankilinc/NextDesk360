@@ -10,6 +10,5 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.StockMovementStockSerialMap
 
     public class StockMovementStockSerialMapFilterModel
     {
-        public bool IsDeleted { get; set; }
     }
 }

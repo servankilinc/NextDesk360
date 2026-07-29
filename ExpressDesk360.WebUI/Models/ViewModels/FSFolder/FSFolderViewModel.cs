@@ -16,6 +16,5 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.FSFolder
         public Guid ParentFolderId { get; set; }
         public string? Name { get; set; }
         public string? Path { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

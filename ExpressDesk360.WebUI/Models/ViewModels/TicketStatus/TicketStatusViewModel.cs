@@ -11,6 +11,5 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.TicketStatus
     public class TicketStatusFilterModel
     {
         public string? Name { get; set; }
-        public bool IsDeleted { get; set; }
-    }
+}
 }

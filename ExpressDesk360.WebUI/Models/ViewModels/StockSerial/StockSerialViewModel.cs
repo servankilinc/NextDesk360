@@ -13,10 +13,10 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.StockSerial
 
     public class StockSerialFilterModel
     {
+        public bool IsActive { get; set; }
         public Guid StockId { get; set; }
         public string? SerialNumber { get; set; }
         public Guid CompanyId { get; set; }
         public int WarehouseId { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

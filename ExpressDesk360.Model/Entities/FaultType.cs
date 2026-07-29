@@ -18,6 +18,6 @@ namespace ExpressDesk360.Model.Entities
         #endregion
         public virtual ICollection<StockGroupFaultTypeMap>? StockGroupFaultTypeMaps { get; set; }
         public virtual ICollection<TicketMovement>? TicketMovements { get; set; }
-        public virtual ICollection<StockSerialMovement>? StockSerialMovements { get; set; }
+        public virtual ICollection<StockMovement>? StockMovements { get; set; }
     }
 }

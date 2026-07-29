@@ -14,6 +14,5 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.CompanyContact
     {
         public Guid CompanyId { get; set; }
         public int ContactTypeId { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

@@ -10,6 +10,5 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.StockGroupBrandMap
 
     public class StockGroupBrandMapFilterModel
     {
-        public bool IsDeleted { get; set; }
     }
 }

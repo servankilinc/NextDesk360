@@ -17,12 +17,6 @@ namespace ExpressDesk360.Model.Entities
         public DateTime? UpdateDateUtc { get; set; }
         #endregion
 
-        #region IImmutableEntity
-        public string? DeletedBy { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime? DeletedDateUtc { get; set; }
-        #endregion
-
-        public virtual ICollection<_Task>? Tasks { get; set; }
+public virtual ICollection<_Task>? Tasks { get; set; }
     }
 }

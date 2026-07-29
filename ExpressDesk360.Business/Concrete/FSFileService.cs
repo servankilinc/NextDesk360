@@ -119,13 +119,6 @@ namespace ExpressDesk360.Business.Concrete
             return Result.Success();
         }
 
-        public async Task<Result> RestoreAsync(Guid id, CancellationToken cancellationToken = default)
-        {
-            var restored = await _unitOfWork.FSFiles.RestoreAndSaveAsync(where: (f) => f.Id == id, cancellationToken);
-            if (restored == 0) return Result.NotFound();
-            return Result.Success();
-        }
-
         public async Task<Result<PaginationResponse<FSFile>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork.FSFiles.PaginationAsync(paginationRequest: request, cancellationToken: cancellationToken);

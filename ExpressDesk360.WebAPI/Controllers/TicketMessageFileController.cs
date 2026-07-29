@@ -72,13 +72,6 @@ namespace ExpressDesk360.WebAPI.Controllers
             return ToAction(result);
         }
 
-        [HttpGet("{id:guid}/restore")]
-        public async Task<IActionResult> Restore(Guid id)
-        {
-            var result = await _ticketMessageFileService.RestoreAsync(id: id);
-            return ToAction(result);
-        }
-
         [HttpPost("pagination")]
         public async Task<IActionResult> Pagination(DynamicPaginationRequest request)
         {

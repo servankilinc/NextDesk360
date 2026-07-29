@@ -11,8 +11,8 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.Warehouse
 
     public class WarehouseFilterModel
     {
+        public bool IsActive { get; set; }
         public Guid CompanyId { get; set; }
         public string? Name { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

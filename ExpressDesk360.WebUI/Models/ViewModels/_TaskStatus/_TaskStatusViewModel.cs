@@ -11,6 +11,5 @@ namespace ExpressDesk360.WebUI.Models.ViewModels._TaskStatus
     public class _TaskStatusFilterModel
     {
         public string? Name { get; set; }
-        public bool IsDeleted { get; set; }
-    }
+}
 }

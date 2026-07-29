@@ -11,6 +11,5 @@ namespace ExpressDesk360.WebUI.Models.ViewModels._TaskPriority
     public class _TaskPriorityFilterModel
     {
         public string? Name { get; set; }
-        public bool IsDeleted { get; set; }
-    }
+}
 }

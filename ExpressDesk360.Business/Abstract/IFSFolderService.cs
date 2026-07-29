@@ -23,7 +23,6 @@ namespace ExpressDesk360.Business.Abstract
         Task<Result<FSFolderUpdateDto>> GetUpdateModelAsync(Guid id, CancellationToken cancellationToken = default);
         Task<Result> UpdateAsync(FSFolderUpdateDto request, CancellationToken cancellationToken = default);
         Task<Result> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
-        Task<Result> RestoreAsync(Guid id, CancellationToken cancellationToken = default);
         Task<Result<PaginationResponse<FSFolder>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default);
         Task<Result<DatatableResponseClientSide<FSFolder>>> DatatableClientSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);
         Task<Result<DatatableResponseServerSide<FSFolder>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);

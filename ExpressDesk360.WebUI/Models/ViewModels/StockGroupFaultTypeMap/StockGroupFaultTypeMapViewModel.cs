@@ -10,6 +10,5 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.StockGroupFaultTypeMap
 
     public class StockGroupFaultTypeMapFilterModel
     {
-        public bool IsDeleted { get; set; }
     }
 }

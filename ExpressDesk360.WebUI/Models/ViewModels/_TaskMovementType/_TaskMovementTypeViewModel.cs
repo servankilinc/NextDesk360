@@ -11,9 +11,9 @@ namespace ExpressDesk360.WebUI.Models.ViewModels._TaskMovementType
 
     public class _TaskMovementTypeFilterModel
     {
+        public bool IsActive { get; set; }
         public string? Name { get; set; }
         public int TaskStatusId { get; set; }
         public bool Accessible { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

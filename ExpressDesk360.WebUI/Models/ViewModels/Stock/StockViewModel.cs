@@ -12,10 +12,10 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.Stock
 
     public class StockFilterModel
     {
+        public bool IsActive { get; set; }
         public int StockGroupId { get; set; }
         public int StockBrandId { get; set; }
         public bool SerialTracking { get; set; }
         public bool VirtualSeries { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

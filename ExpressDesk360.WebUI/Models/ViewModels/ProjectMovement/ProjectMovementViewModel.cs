@@ -12,6 +12,5 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.ProjectMovement
     public class ProjectMovementFilterModel
     {
         public Guid ProjectId { get; set; }
-        public bool IsDeleted { get; set; }
-    }
+}
 }

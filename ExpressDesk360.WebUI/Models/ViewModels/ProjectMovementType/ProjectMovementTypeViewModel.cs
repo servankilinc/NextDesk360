@@ -11,10 +11,10 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.ProjectMovementType
 
     public class ProjectMovementTypeFilterModel
     {
+        public bool IsActive { get; set; }
         public string? Name { get; set; }
         public int ProjectStatusId { get; set; }
         public bool Accessible { get; set; }
         public string? InformationText { get; set; }
-        public bool IsDeleted { get; set; }
-    }
+}
 }

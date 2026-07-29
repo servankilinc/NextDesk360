@@ -10,6 +10,5 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.CompanyProductStockSerialMap
 
     public class CompanyProductStockSerialMapFilterModel
     {
-        public bool IsDeleted { get; set; }
     }
 }

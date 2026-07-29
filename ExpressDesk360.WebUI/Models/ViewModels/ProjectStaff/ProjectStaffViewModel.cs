@@ -14,6 +14,5 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.ProjectStaff
     {
         public Guid ProjectId { get; set; }
         public Guid UserId { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

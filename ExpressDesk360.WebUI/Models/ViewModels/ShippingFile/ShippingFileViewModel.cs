@@ -12,6 +12,5 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.ShippingFile
     public class ShippingFileFilterModel
     {
         public Guid ShippingId { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

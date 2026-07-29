@@ -48,8 +48,6 @@ namespace ExpressDesk360.DataAccess
             services.AddScoped<IStockMovementTypeRepository, StockMovementTypeRepository>();
             services.AddScoped<IStockSerialRepository, StockSerialRepository>();
             services.AddScoped<IStockSerialWarrantyRepository, StockSerialWarrantyRepository>();
-            services.AddScoped<IStockSerialMovementRepository, StockSerialMovementRepository>();
-            services.AddScoped<IStockSerialMovementTypeRepository, StockSerialMovementTypeRepository>();
             services.AddScoped<IStockTypeRepository, StockTypeRepository>();
             services.AddScoped<IStockTypeGroupMapRepository, StockTypeGroupMapRepository>();
             services.AddScoped<I_TaskRepository, _TaskRepository>();

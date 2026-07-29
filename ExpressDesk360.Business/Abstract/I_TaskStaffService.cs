@@ -1,5 +1,4 @@
 using System.Linq.Expressions;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using ExpressDesk360.Core.BaseRequestModels;
 using ExpressDesk360.Core.Utils.Datatable;
 using ExpressDesk360.Core.Utils.Pagination;
@@ -22,7 +21,6 @@ namespace ExpressDesk360.Business.Abstract
         Task<Result<TaskStaffUpdateDto>> GetUpdateModelAsync(Guid id, CancellationToken cancellationToken = default);
         Task<Result> UpdateAsync(TaskStaffUpdateDto request, CancellationToken cancellationToken = default);
         Task<Result> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
-        Task<Result> RestoreAsync(Guid id, CancellationToken cancellationToken = default);
         Task<Result<PaginationResponse<_TaskStaff>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default);
         Task<Result<DatatableResponseClientSide<_TaskStaff>>> DatatableClientSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);
         Task<Result<DatatableResponseServerSide<_TaskStaff>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);

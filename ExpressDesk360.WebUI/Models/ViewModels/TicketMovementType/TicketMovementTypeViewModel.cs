@@ -11,9 +11,9 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.TicketMovementType
 
     public class TicketMovementTypeFilterModel
     {
+        public bool IsActive { get; set; }
         public string? Name { get; set; }
         public int TicketStatusId { get; set; }
         public bool Accessible { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

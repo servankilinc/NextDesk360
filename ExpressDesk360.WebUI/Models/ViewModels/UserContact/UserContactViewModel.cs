@@ -14,6 +14,5 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.UserContact
     {
         public Guid UserId { get; set; }
         public int ContactTypeId { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

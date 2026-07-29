@@ -16,6 +16,5 @@ namespace ExpressDesk360.WebUI.Models.ViewModels._TaskMovement
         public Guid TaskId { get; set; }
         public int TaskMovementTypeId { get; set; }
         public Guid UserId { get; set; }
-        public bool IsDeleted { get; set; }
-    }
+}
 }

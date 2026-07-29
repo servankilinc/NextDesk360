@@ -23,7 +23,6 @@ namespace ExpressDesk360.Business.Abstract
         Task<Result<CompanyContactUpdateDto>> GetUpdateModelAsync(Guid id, CancellationToken cancellationToken = default);
         Task<Result> UpdateAsync(CompanyContactUpdateDto request, CancellationToken cancellationToken = default);
         Task<Result> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
-        Task<Result> RestoreAsync(Guid id, CancellationToken cancellationToken = default);
         Task<Result<PaginationResponse<CompanyContact>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default);
         Task<Result<DatatableResponseClientSide<CompanyContact>>> DatatableClientSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);
         Task<Result<DatatableResponseServerSide<CompanyContact>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);

@@ -36,7 +36,7 @@
                         <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
                             <input name="IsActive" value="true" type="hidden" />
                             <input name="IsActive" value="false" type="checkbox" class="form-check-input" />
-                            <span class="form-check-label fs-sm">Show Inactive</span>
+                            <span class="form-check-label fs-sm">Pasifleri Dahil Et</span>
                         </div>
                     </div>
             
@@ -106,7 +106,7 @@
                             {
                                 operator: 'eq',
                                 field: 'isActive',
-                                value: !($('input[name="IsActive"]:checked').prop("checked") || false)
+                                value: $('input[name="IsActive"]:checked').prop("checked") ? "" : "true"
                             }
             
                         ]

@@ -10,7 +10,7 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.ContactType
 
     public class ContactTypeFilterModel
     {
+        public bool IsActive { get; set; }
         public string? Name { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

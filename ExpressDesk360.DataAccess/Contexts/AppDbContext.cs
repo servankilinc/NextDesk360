@@ -95,6 +95,12 @@ namespace ExpressDesk360.DataAccess.Contexts
                 i.ToTable("InvoiceType");
                 i.HasKey(i => i.Id);
                 i.HasMany(i => i.Invoices).WithOne(i => i.InvoiceType).HasForeignKey(i => i.InvoiceTypeId).OnDelete(DeleteBehavior.Restrict);
+
+                i.HasData(
+                    new InvoiceType { Id = (int)GeneralEnums.InvoiceType.PurchaseInvoice, Name = GeneralEnums.InvoiceType.PurchaseInvoice.GetDescription() },
+                    new InvoiceType { Id = (int)GeneralEnums.InvoiceType.SalesInvoice, Name = GeneralEnums.InvoiceType.SalesInvoice.GetDescription() },
+                    new InvoiceType { Id = (int)GeneralEnums.InvoiceType.ReturnInvoice, Name = GeneralEnums.InvoiceType.ReturnInvoice.GetDescription() }
+                );
             });
             #endregion
 
@@ -121,6 +127,17 @@ namespace ExpressDesk360.DataAccess.Contexts
                 p.ToTable("ProjectMovementType");
                 p.HasKey(p => p.Id);
                 p.HasMany(p => p.ProjectMovements).WithOne(p => p.ProjectMovementType).HasForeignKey(p => p.ProjectMovementTypeId).OnDelete(DeleteBehavior.Restrict);
+
+                p.HasData(
+                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.ProjectCreated, Name = ProjectEnums.ProjectMovementType.ProjectCreated.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.Planning },
+                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.PlanningPhase, Name = ProjectEnums.ProjectMovementType.PlanningPhase.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.Planning },
+                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.DevelopmentPhase, Name = ProjectEnums.ProjectMovementType.DevelopmentPhase.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.InProgress },
+                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.TestingPhase, Name = ProjectEnums.ProjectMovementType.TestingPhase.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.InProgress },
+                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.Deployed, Name = ProjectEnums.ProjectMovementType.Deployed.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.Completed },
+                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.Cancelled, Name = ProjectEnums.ProjectMovementType.Cancelled.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.Cancelled },
+                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.Completed, Name = ProjectEnums.ProjectMovementType.Completed.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.Completed },
+                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.FileAdded, Name = ProjectEnums.ProjectMovementType.FileAdded.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.InProgress }
+                );
             });
             modelBuilder.Entity<ProjectStaff>(p =>
             {
@@ -152,6 +169,11 @@ namespace ExpressDesk360.DataAccess.Contexts
                 s.ToTable("ShippingType");
                 s.HasKey(s => s.Id);
                 s.HasMany(s => s.Shippings).WithOne(s => s.ShippingType).HasForeignKey(s => s.ShippingTypeId).OnDelete(DeleteBehavior.Restrict);
+
+                s.HasData(
+                    new ShippingType { Id = (int)GeneralEnums.ShippingType.ReceiverPays, Name = GeneralEnums.ShippingType.ReceiverPays.GetDescription() },
+                    new ShippingType { Id = (int)GeneralEnums.ShippingType.SenderPays, Name = GeneralEnums.ShippingType.SenderPays.GetDescription() }
+                );
             });
             modelBuilder.Entity<CargoCompany>(c =>
             {
@@ -201,7 +223,10 @@ namespace ExpressDesk360.DataAccess.Contexts
             modelBuilder.Entity<StockMovement>(s =>{
                 s.ToTable("StockMovement");
                 s.HasKey(s => s.Id);
-                s.HasMany(s => s.StockMovementStockSerialMaps).WithOne(s => s.StockMovement).HasForeignKey(s => s.StockMovementId).OnDelete(DeleteBehavior.Restrict);            });
+                s.HasMany(s => s.StockMovementStockSerialMaps).WithOne(s => s.StockMovement).HasForeignKey(s => s.StockMovementId).OnDelete(DeleteBehavior.Restrict);
+                s.HasOne(s => s.CompanyProduct).WithMany(cp => cp.StockMovements).HasForeignKey(s => s.CompanyProductId).OnDelete(DeleteBehavior.Restrict);
+                s.HasOne(s => s.FaultType).WithMany(ft => ft.StockMovements).HasForeignKey(s => s.FaultTypeId).OnDelete(DeleteBehavior.Restrict);
+            });
             modelBuilder.Entity<StockMovementStockSerialMap>(s =>
             {
                 s.ToTable("StockMovementStockSerialMap");
@@ -212,6 +237,21 @@ namespace ExpressDesk360.DataAccess.Contexts
                 s.ToTable("StockMovementType");
                 s.HasKey(s => s.Id);
                 s.HasMany(s => s.StockMovements).WithOne(s => s.StockMovementType).HasForeignKey(s => s.StockMovementTypeId).OnDelete(DeleteBehavior.Restrict);
+
+                s.HasData(
+                    new StockMovementType { Id = (int)StockEnums.StockMovementType.SalesInvoiceOut, Name = StockEnums.StockMovementType.SalesInvoiceOut.GetDescription() },
+                    new StockMovementType { Id = (int)StockEnums.StockMovementType.PurchaseInvoiceIn, Name = StockEnums.StockMovementType.PurchaseInvoiceIn.GetDescription() },
+                    new StockMovementType { Id = (int)StockEnums.StockMovementType.WarehouseTransferIn, Name = StockEnums.StockMovementType.WarehouseTransferIn.GetDescription() },
+                    new StockMovementType { Id = (int)StockEnums.StockMovementType.WarehouseTransferOut, Name = StockEnums.StockMovementType.WarehouseTransferOut.GetDescription() },
+                    new StockMovementType { Id = (int)StockEnums.StockMovementType.ProductionIn, Name = StockEnums.StockMovementType.ProductionIn.GetDescription() },
+                    new StockMovementType { Id = (int)StockEnums.StockMovementType.ProductionOut, Name = StockEnums.StockMovementType.ProductionOut.GetDescription() },
+                    new StockMovementType { Id = (int)StockEnums.StockMovementType.ReservedOut, Name = StockEnums.StockMovementType.ReservedOut.GetDescription() },
+                    new StockMovementType { Id = (int)StockEnums.StockMovementType.TransferIn, Name = StockEnums.StockMovementType.TransferIn.GetDescription() },
+                    new StockMovementType { Id = (int)StockEnums.StockMovementType.SparePartChanged, Name = StockEnums.StockMovementType.SparePartChanged.GetDescription() },
+                    new StockMovementType { Id = (int)StockEnums.StockMovementType.AttachedToProduct, Name = StockEnums.StockMovementType.AttachedToProduct.GetDescription() },
+                    new StockMovementType { Id = (int)StockEnums.StockMovementType.RemovedFromProduct, Name = StockEnums.StockMovementType.RemovedFromProduct.GetDescription() },
+                    new StockMovementType { Id = (int)StockEnums.StockMovementType.SupportTicketOpened, Name = StockEnums.StockMovementType.SupportTicketOpened.GetDescription() }
+                );
             });
             modelBuilder.Entity<StockSerial>(s =>
             {
@@ -220,7 +260,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 s.HasMany(s => s.CompanyProductStockSerialMaps).WithOne(c => c.StockSerial).HasForeignKey(c => c.StockSerialId).OnDelete(DeleteBehavior.Restrict);
                 s.HasMany(s => s.StockMovementStockSerialMaps).WithOne(s => s.StockSerial).HasForeignKey(s => s.StockSerialId).OnDelete(DeleteBehavior.Restrict);
                 s.HasMany(s => s.StockSerialWarranties).WithOne(s => s.StockSerial).HasForeignKey(s => s.StockSerialId).OnDelete(DeleteBehavior.Cascade);
-                s.HasMany(s => s.StockSerialMovements).WithOne(s => s.StockSerial).HasForeignKey(s => s.StockSerialId).OnDelete(DeleteBehavior.Restrict);
             });
             modelBuilder.Entity<StockSerialWarranty>(s =>
             {
@@ -233,6 +272,12 @@ namespace ExpressDesk360.DataAccess.Contexts
                 s.ToTable("StockType");
                 s.HasKey(s => s.Id);
                 s.HasMany(s => s.StockTypeGroupMaps).WithOne(s => s.StockType).HasForeignKey(s => s.StockTypeId).OnDelete(DeleteBehavior.Cascade);
+
+                s.HasData(
+                    new StockType { Id = (int)StockEnums.StockType.RawMaterial, Name = StockEnums.StockType.RawMaterial.GetDescription() },
+                    new StockType { Id = (int)StockEnums.StockType.SemiFinishedProduct, Name = StockEnums.StockType.SemiFinishedProduct.GetDescription() },
+                    new StockType { Id = (int)StockEnums.StockType.FinishedProduct, Name = StockEnums.StockType.FinishedProduct.GetDescription() }
+                );
             });
             modelBuilder.Entity<StockTypeGroupMap>(s =>
             {
@@ -245,24 +290,7 @@ namespace ExpressDesk360.DataAccess.Contexts
                 w.HasKey(w => w.Id);
                 w.HasMany(w => w.StockMovements).WithOne(s => s.Warehouse).HasForeignKey(s => s.WarehouseId).OnDelete(DeleteBehavior.Restrict);
                 w.HasMany(w => w.StockSerials).WithOne(s => s.Warehouse).HasForeignKey(s => s.WarehouseId).OnDelete(DeleteBehavior.Restrict);
-                w.HasMany(w => w.StockSerialMovements).WithOne(s => s.Warehouse).HasForeignKey(s => s.WarehouseId).OnDelete(DeleteBehavior.Restrict);
             });
-            modelBuilder.Entity<StockSerialMovementType>(s =>
-            {
-                s.ToTable("StockSerialMovementType");
-                s.HasKey(s => s.Id);
-                s.HasMany(s => s.StockSerialMovements).WithOne(s => s.StockSerialMovementType).HasForeignKey(s => s.StockSerialMovementTypeId).OnDelete(DeleteBehavior.Restrict);
-            });
-            modelBuilder.Entity<StockSerialMovement>(s =>{
-                s.ToTable("StockSerialMovement");
-                s.HasKey(s => s.Id);
-                s.HasOne(s => s.StockSerial).WithMany(ss => ss.StockSerialMovements).HasForeignKey(s => s.StockSerialId).OnDelete(DeleteBehavior.Restrict);
-                s.HasOne(s => s.StockSerialMovementType).WithMany(smt => smt.StockSerialMovements).HasForeignKey(s => s.StockSerialMovementTypeId).OnDelete(DeleteBehavior.Restrict);
-                s.HasOne(s => s.Warehouse).WithMany(w => w.StockSerialMovements).HasForeignKey(s => s.WarehouseId).OnDelete(DeleteBehavior.Restrict);
-                s.HasOne(s => s.CompanyProduct).WithMany(cp => cp.StockSerialMovements).HasForeignKey(s => s.CompanyProductId).OnDelete(DeleteBehavior.Restrict);
-                s.HasOne(s => s.FaultType).WithMany(ft => ft.StockSerialMovements).HasForeignKey(s => s.FaultTypeId).OnDelete(DeleteBehavior.Restrict);
-                s.HasOne(s => s.Ticket).WithMany(t => t.StockSerialMovements).HasForeignKey(s => s.TicketId).OnDelete(DeleteBehavior.Restrict);
-                s.HasOne(s => s.User).WithMany(u => u.StockSerialMovements).HasForeignKey(s => s.UserId).OnDelete(DeleteBehavior.Restrict);            });
             #endregion
 
             #region Ticket Tables
@@ -389,6 +417,12 @@ namespace ExpressDesk360.DataAccess.Contexts
                 t.ToTable("TicketType");
                 t.HasKey(t => t.Id);
                 t.HasMany(t => t.Tickets).WithOne(t => t.TicketType).HasForeignKey(t => t.TicketTypeId).OnDelete(DeleteBehavior.Restrict);
+
+                t.HasData(
+                    new TicketType { Id = (int)TicketEnums.TicketType.TechnicalSupport, Name = TicketEnums.TicketType.TechnicalSupport.GetDescription() },
+                    new TicketType { Id = (int)TicketEnums.TicketType.GeneralMaintenance, Name = TicketEnums.TicketType.GeneralMaintenance.GetDescription() },
+                    new TicketType { Id = (int)TicketEnums.TicketType.SoftwareSupport, Name = TicketEnums.TicketType.SoftwareSupport.GetDescription() }
+                );
             });
             modelBuilder.Entity<FaultType>(f =>
             {
@@ -423,6 +457,16 @@ namespace ExpressDesk360.DataAccess.Contexts
                 _.HasKey(_ => _.Id);
                 _.HasMany(_ => _.LastTaskMovementTypeTasks).WithOne(_ => _.LastTaskMovementType).HasForeignKey(_ => _.LastTaskMovementTypeId).OnDelete(DeleteBehavior.Restrict);
                 _.HasMany(_ => _.TaskMovements).WithOne(_ => _.TaskMovementType).HasForeignKey(_ => _.TaskMovementTypeId).OnDelete(DeleteBehavior.Restrict);
+
+                _.HasData(
+                    new _TaskMovementType { Id = (int)TaskEnums.TaskMovementType.TaskCreated, Name = TaskEnums.TaskMovementType.TaskCreated.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.NewTask, Accessible = true, Color = "#3699FF" },
+                    new _TaskMovementType { Id = (int)TaskEnums.TaskMovementType.StaffAssigned, Name = TaskEnums.TaskMovementType.StaffAssigned.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.InTheProcess, Accessible = true, Color = "#8950FC" },
+                    new _TaskMovementType { Id = (int)TaskEnums.TaskMovementType.Processing, Name = TaskEnums.TaskMovementType.Processing.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.InTheProcess, Accessible = true, Color = "#FFA800" },
+                    new _TaskMovementType { Id = (int)TaskEnums.TaskMovementType.PutOnHold, Name = TaskEnums.TaskMovementType.PutOnHold.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.Waiting, Accessible = true, Color = "#F64E60" },
+                    new _TaskMovementType { Id = (int)TaskEnums.TaskMovementType.Cancelled, Name = TaskEnums.TaskMovementType.Cancelled.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.Cancelled, Accessible = true, Color = "#3F4254" },
+                    new _TaskMovementType { Id = (int)TaskEnums.TaskMovementType.Completed, Name = TaskEnums.TaskMovementType.Completed.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.Completed, Accessible = true, Color = "#1BC5BD" },
+                    new _TaskMovementType { Id = (int)TaskEnums.TaskMovementType.FileAdded, Name = TaskEnums.TaskMovementType.FileAdded.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.InTheProcess, Accessible = true, Color = "#E4E6EF" }
+                );
             });
             modelBuilder.Entity<_TaskPriority>(_ =>{
                 _.ToTable("_TaskPriority");
@@ -496,6 +540,12 @@ namespace ExpressDesk360.DataAccess.Contexts
                 w.HasKey(w => w.Id);
                 w.HasMany(w => w.CompanyProductWarranties).WithOne(c => c.WarrantyType).HasForeignKey(c => c.WarrantyTypeId).OnDelete(DeleteBehavior.Restrict);
                 w.HasMany(w => w.StockSerialWarranties).WithOne(s => s.WarrantyType).HasForeignKey(s => s.WarrantyTypeId).OnDelete(DeleteBehavior.Restrict);
+
+                w.HasData(
+                    new WarrantyType { Id = (int)GeneralEnums.WarrantyType.ManufacturerWarranty, Name = GeneralEnums.WarrantyType.ManufacturerWarranty.GetDescription() },
+                    new WarrantyType { Id = (int)GeneralEnums.WarrantyType.SellerWarranty, Name = GeneralEnums.WarrantyType.SellerWarranty.GetDescription() },
+                    new WarrantyType { Id = (int)GeneralEnums.WarrantyType.ExtendedWarranty, Name = GeneralEnums.WarrantyType.ExtendedWarranty.GetDescription() }
+                );
             });
             #endregion
 
@@ -643,8 +693,6 @@ namespace ExpressDesk360.DataAccess.Contexts
         public DbSet<StockMovementType> StockMovementTypes { get; set; }
         public DbSet<StockSerial> StockSerials { get; set; }
         public DbSet<StockSerialWarranty> StockSerialWarranties { get; set; }
-        public DbSet<StockSerialMovement> StockSerialMovements { get; set; }
-        public DbSet<StockSerialMovementType> StockSerialMovementTypes { get; set; }
         public DbSet<StockType> StockTypes { get; set; }
         public DbSet<StockTypeGroupMap> StockTypeGroupMaps { get; set; }
         public DbSet<_Task> _Tasks { get; set; }

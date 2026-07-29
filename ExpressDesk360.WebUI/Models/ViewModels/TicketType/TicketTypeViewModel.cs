@@ -10,7 +10,7 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.TicketType
 
     public class TicketTypeFilterModel
     {
+        public bool IsActive { get; set; }
         public string? Name { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

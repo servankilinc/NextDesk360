@@ -16,6 +16,5 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.StockMovement
         public Guid StockId { get; set; }
         public int StockMovementTypeId { get; set; }
         public Guid UserId { get; set; }
-        public bool IsDeleted { get; set; }
-    }
+}
 }

@@ -11,6 +11,5 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.ProjectStatus
     public class ProjectStatusFilterModel
     {
         public string? Name { get; set; }
-        public bool IsDeleted { get; set; }
-    }
+}
 }

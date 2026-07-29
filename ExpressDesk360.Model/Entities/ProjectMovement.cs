@@ -19,13 +19,7 @@ namespace ExpressDesk360.Model.Entities
 
         #endregion
 
-        #region IImmutableEntity
-        public string? DeletedBy { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime? DeletedDateUtc { get; set; }
-        #endregion
-
-        public virtual Project? Project { get; set; }
+public virtual Project? Project { get; set; }
         public virtual ProjectMovementType? ProjectMovementType { get; set; }
         public virtual User? User { get; set; }
     }

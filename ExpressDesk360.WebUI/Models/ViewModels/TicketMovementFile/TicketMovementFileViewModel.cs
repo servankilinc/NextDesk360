@@ -12,6 +12,5 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.TicketMovementFile
     public class TicketMovementFileFilterModel
     {
         public Guid TicketMovementId { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

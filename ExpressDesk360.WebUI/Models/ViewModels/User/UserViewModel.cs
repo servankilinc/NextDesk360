@@ -11,10 +11,10 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.User
 
     public class UserFilterModel
     {
+        public bool IsActive { get; set; }
         public Guid? CompanyId { get; set; }
         public string? UserName { get; set; }
         public string? Name { get; set; }
         public string? SurName { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

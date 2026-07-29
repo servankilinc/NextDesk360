@@ -12,6 +12,5 @@ namespace ExpressDesk360.WebUI.Models.ViewModels._TaskStaff
     public class _TaskStaffFilterModel
     {
         public Guid TaskId { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

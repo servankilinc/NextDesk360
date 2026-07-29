@@ -14,6 +14,5 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.ProjectFile
     {
         public Guid ProjectId { get; set; }
         public Guid FileId { get; set; }
-        public bool IsDeleted { get; set; }
-    }
+}
 }
