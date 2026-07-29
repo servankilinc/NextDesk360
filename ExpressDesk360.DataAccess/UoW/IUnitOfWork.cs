@@ -74,6 +74,10 @@ namespace ExpressDesk360.DataAccess.UoW
 
         IStockSerialWarrantyRepository StockSerialWarranties { get; }
 
+        IStockSerialMovementRepository StockSerialMovements { get; }
+
+        IStockSerialMovementTypeRepository StockSerialMovementTypes { get; }
+
         IStockTypeRepository StockTypes { get; }
 
         IStockTypeGroupMapRepository StockTypeGroupMaps { get; }

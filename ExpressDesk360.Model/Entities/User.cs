@@ -42,5 +42,6 @@ namespace ExpressDesk360.Model.Entities
         public virtual ICollection<UserContact>? UserContacts { get; set; }
         public virtual ICollection<UserFile>? UserFiles { get; set; }
         public virtual ICollection<RefreshToken>? RefreshTokens { get; set; }
+        public virtual ICollection<StockSerialMovement>? StockSerialMovements { get; set; }
     }
 }

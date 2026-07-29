@@ -43,5 +43,6 @@ namespace ExpressDesk360.Model.Entities
         public virtual ICollection<TicketMovement>? TicketMovements { get; set; }
         public virtual ICollection<TicketServicePrice>? TicketServicePrices { get; set; }
         public virtual ICollection<TicketStaff>? TicketStaffs { get; set; }
+        public virtual ICollection<StockSerialMovement>? StockSerialMovements { get; set; }
     }
 }

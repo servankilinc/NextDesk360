@@ -25,5 +25,6 @@ namespace ExpressDesk360.Model.Entities
         public virtual Company? Company { get; set; }
         public virtual ICollection<StockMovement>? StockMovements { get; set; }
         public virtual ICollection<StockSerial>? StockSerials { get; set; }
+        public virtual ICollection<StockSerialMovement>? StockSerialMovements { get; set; }
     }
 }

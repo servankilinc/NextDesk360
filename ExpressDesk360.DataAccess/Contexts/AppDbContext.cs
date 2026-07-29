@@ -247,6 +247,7 @@ namespace ExpressDesk360.DataAccess.Contexts
                 s.HasMany(s => s.CompanyProductStockSerialMaps).WithOne(c => c.StockSerial).HasForeignKey(c => c.StockSerialId).OnDelete(DeleteBehavior.Restrict);
                 s.HasMany(s => s.StockMovementStockSerialMaps).WithOne(s => s.StockSerial).HasForeignKey(s => s.StockSerialId).OnDelete(DeleteBehavior.Restrict);
                 s.HasMany(s => s.StockSerialWarranties).WithOne(s => s.StockSerial).HasForeignKey(s => s.StockSerialId).OnDelete(DeleteBehavior.Cascade);
+                s.HasMany(s => s.StockSerialMovements).WithOne(s => s.StockSerial).HasForeignKey(s => s.StockSerialId).OnDelete(DeleteBehavior.Restrict);
                 s.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<StockSerialWarranty>(s =>
@@ -274,7 +275,27 @@ namespace ExpressDesk360.DataAccess.Contexts
                 w.HasKey(w => w.Id);
                 w.HasMany(w => w.StockMovements).WithOne(s => s.Warehouse).HasForeignKey(s => s.WarehouseId).OnDelete(DeleteBehavior.Restrict);
                 w.HasMany(w => w.StockSerials).WithOne(s => s.Warehouse).HasForeignKey(s => s.WarehouseId).OnDelete(DeleteBehavior.Restrict);
+                w.HasMany(w => w.StockSerialMovements).WithOne(s => s.Warehouse).HasForeignKey(s => s.WarehouseId).OnDelete(DeleteBehavior.Restrict);
                 w.HasQueryFilter(f => !f.IsDeleted);
+            });
+            modelBuilder.Entity<StockSerialMovementType>(s =>
+            {
+                s.ToTable("StockSerialMovementType");
+                s.HasKey(s => s.Id);
+                s.HasMany(s => s.StockSerialMovements).WithOne(s => s.StockSerialMovementType).HasForeignKey(s => s.StockSerialMovementTypeId).OnDelete(DeleteBehavior.Restrict);
+            });
+            modelBuilder.Entity<StockSerialMovement>(s =>
+            {
+                s.ToTable("StockSerialMovement");
+                s.HasKey(s => s.Id);
+                s.HasOne(s => s.StockSerial).WithMany(ss => ss.StockSerialMovements).HasForeignKey(s => s.StockSerialId).OnDelete(DeleteBehavior.Restrict);
+                s.HasOne(s => s.StockSerialMovementType).WithMany(smt => smt.StockSerialMovements).HasForeignKey(s => s.StockSerialMovementTypeId).OnDelete(DeleteBehavior.Restrict);
+                s.HasOne(s => s.Warehouse).WithMany(w => w.StockSerialMovements).HasForeignKey(s => s.WarehouseId).OnDelete(DeleteBehavior.Restrict);
+                s.HasOne(s => s.CompanyProduct).WithMany(cp => cp.StockSerialMovements).HasForeignKey(s => s.CompanyProductId).OnDelete(DeleteBehavior.Restrict);
+                s.HasOne(s => s.FaultType).WithMany(ft => ft.StockSerialMovements).HasForeignKey(s => s.FaultTypeId).OnDelete(DeleteBehavior.Restrict);
+                s.HasOne(s => s.Ticket).WithMany(t => t.StockSerialMovements).HasForeignKey(s => s.TicketId).OnDelete(DeleteBehavior.Restrict);
+                s.HasOne(s => s.User).WithMany(u => u.StockSerialMovements).HasForeignKey(s => s.UserId).OnDelete(DeleteBehavior.Restrict);
+                s.HasQueryFilter(f => !f.IsDeleted);
             });
             #endregion
 
@@ -700,6 +721,8 @@ namespace ExpressDesk360.DataAccess.Contexts
         public DbSet<StockMovementType> StockMovementTypes { get; set; }
         public DbSet<StockSerial> StockSerials { get; set; }
         public DbSet<StockSerialWarranty> StockSerialWarranties { get; set; }
+        public DbSet<StockSerialMovement> StockSerialMovements { get; set; }
+        public DbSet<StockSerialMovementType> StockSerialMovementTypes { get; set; }
         public DbSet<StockType> StockTypes { get; set; }
         public DbSet<StockTypeGroupMap> StockTypeGroupMaps { get; set; }
         public DbSet<_Task> _Tasks { get; set; }
