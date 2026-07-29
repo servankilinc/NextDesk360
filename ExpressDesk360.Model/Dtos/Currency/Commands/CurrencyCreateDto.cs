@@ -8,6 +8,7 @@ namespace ExpressDesk360.Model.Dtos.Currency.Commands
         public string Name { get; set; } = null!;
         public string ShortName { get; set; } = null!;
         public string Icon { get; set; } = null!;
+        public bool IsActive { get; set; } = true;
     }
 
     public class CurrencyCreateDtoValidator : AbstractValidator<CurrencyCreateDto>

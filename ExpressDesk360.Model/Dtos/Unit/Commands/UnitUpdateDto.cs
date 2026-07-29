@@ -8,6 +8,7 @@ namespace ExpressDesk360.Model.Dtos.Unit.Commands
         public int Id { get; set; }
         public string Name { get; set; } = null!;
         public string ShortName { get; set; } = null!;
+        public bool IsActive { get; set; } = true;
     }
 
     public class UnitUpdateDtoValidator : AbstractValidator<UnitUpdateDto>

@@ -69,7 +69,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 c.HasMany(c => c.Tickets).WithOne(t => t.Company).HasForeignKey(t => t.CompanyId).OnDelete(DeleteBehavior.Restrict);
                 c.HasMany(c => c.Users).WithOne(u => u.Company).HasForeignKey(u => u.CompanyId).OnDelete(DeleteBehavior.SetNull);
                 c.HasMany(c => c.Warehouses).WithOne(w => w.Company).HasForeignKey(w => w.CompanyId).OnDelete(DeleteBehavior.Restrict);
-                c.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<CompanyContact>(c =>
             {
@@ -96,7 +95,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 i.ToTable("InvoiceType");
                 i.HasKey(i => i.Id);
                 i.HasMany(i => i.Invoices).WithOne(i => i.InvoiceType).HasForeignKey(i => i.InvoiceTypeId).OnDelete(DeleteBehavior.Restrict);
-                i.HasQueryFilter(f => !f.IsDeleted);
             });
             #endregion
 
@@ -126,7 +124,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 p.ToTable("ProjectMovementType");
                 p.HasKey(p => p.Id);
                 p.HasMany(p => p.ProjectMovements).WithOne(p => p.ProjectMovementType).HasForeignKey(p => p.ProjectMovementTypeId).OnDelete(DeleteBehavior.Restrict);
-                p.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<ProjectStaff>(p =>
             {
@@ -161,14 +158,12 @@ namespace ExpressDesk360.DataAccess.Contexts
                 s.ToTable("ShippingType");
                 s.HasKey(s => s.Id);
                 s.HasMany(s => s.Shippings).WithOne(s => s.ShippingType).HasForeignKey(s => s.ShippingTypeId).OnDelete(DeleteBehavior.Restrict);
-                s.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<CargoCompany>(c =>
             {
                 c.ToTable("CargoCompany");
                 c.HasKey(c => c.Id);
                 c.HasMany(c => c.Shippings).WithOne(s => s.CargoCompany).HasForeignKey(s => s.CargoCompanyId).OnDelete(DeleteBehavior.Restrict);
-                c.HasQueryFilter(f => !f.IsDeleted);
             });
             #endregion
 
@@ -182,7 +177,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 s.HasMany(s => s.CompanyProducts).WithOne(c => c.Stock).HasForeignKey(c => c.StockId).OnDelete(DeleteBehavior.Restrict);
                 s.HasMany(s => s.StockMovements).WithOne(s => s.Stock).HasForeignKey(s => s.StockId).OnDelete(DeleteBehavior.Restrict);
                 s.HasMany(s => s.StockSerials).WithOne(s => s.Stock).HasForeignKey(s => s.StockId).OnDelete(DeleteBehavior.Restrict);
-                s.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<StockBrand>(s =>
             {
@@ -190,7 +184,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 s.HasKey(s => s.Id);
                 s.HasMany(s => s.Stocks).WithOne(s => s.StockBrand).HasForeignKey(s => s.StockBrandId).OnDelete(DeleteBehavior.Restrict);
                 s.HasMany(s => s.StockGroupBrandMaps).WithOne(s => s.StockBrand).HasForeignKey(s => s.StockBrandId).OnDelete(DeleteBehavior.Cascade);
-                s.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<StockGroup>(s =>
             {
@@ -200,7 +193,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 s.HasMany(s => s.StockGroupBrandMaps).WithOne(s => s.StockGroup).HasForeignKey(s => s.StockGroupId).OnDelete(DeleteBehavior.Cascade);
                 s.HasMany(s => s.StockGroupFaultTypeMaps).WithOne(s => s.StockGroup).HasForeignKey(s => s.StockGroupId).OnDelete(DeleteBehavior.Cascade);
                 s.HasMany(s => s.StockTypeGroupMaps).WithOne(s => s.StockGroup).HasForeignKey(s => s.StockGroupId).OnDelete(DeleteBehavior.Cascade);
-                s.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<StockGroupBrandMap>(s =>
             {
@@ -229,7 +221,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 s.ToTable("StockMovementType");
                 s.HasKey(s => s.Id);
                 s.HasMany(s => s.StockMovements).WithOne(s => s.StockMovementType).HasForeignKey(s => s.StockMovementTypeId).OnDelete(DeleteBehavior.Restrict);
-                s.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<StockSerial>(s =>
             {
@@ -239,7 +230,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 s.HasMany(s => s.StockMovementStockSerialMaps).WithOne(s => s.StockSerial).HasForeignKey(s => s.StockSerialId).OnDelete(DeleteBehavior.Restrict);
                 s.HasMany(s => s.StockSerialWarranties).WithOne(s => s.StockSerial).HasForeignKey(s => s.StockSerialId).OnDelete(DeleteBehavior.Cascade);
                 s.HasMany(s => s.StockSerialMovements).WithOne(s => s.StockSerial).HasForeignKey(s => s.StockSerialId).OnDelete(DeleteBehavior.Restrict);
-                s.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<StockSerialWarranty>(s =>
             {
@@ -252,7 +242,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 s.ToTable("StockType");
                 s.HasKey(s => s.Id);
                 s.HasMany(s => s.StockTypeGroupMaps).WithOne(s => s.StockType).HasForeignKey(s => s.StockTypeId).OnDelete(DeleteBehavior.Cascade);
-                s.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<StockTypeGroupMap>(s =>
             {
@@ -266,7 +255,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 w.HasMany(w => w.StockMovements).WithOne(s => s.Warehouse).HasForeignKey(s => s.WarehouseId).OnDelete(DeleteBehavior.Restrict);
                 w.HasMany(w => w.StockSerials).WithOne(s => s.Warehouse).HasForeignKey(s => s.WarehouseId).OnDelete(DeleteBehavior.Restrict);
                 w.HasMany(w => w.StockSerialMovements).WithOne(s => s.Warehouse).HasForeignKey(s => s.WarehouseId).OnDelete(DeleteBehavior.Restrict);
-                w.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<StockSerialMovementType>(s =>
             {
@@ -337,22 +325,21 @@ namespace ExpressDesk360.DataAccess.Contexts
                 t.HasKey(t => t.Id);
                 t.HasMany(t => t.LastTicketMovementTypeTickets).WithOne(t => t.LastTicketMovementType).HasForeignKey(t => t.LastTicketMovementTypeId).OnDelete(DeleteBehavior.Restrict);
                 t.HasMany(t => t.TicketMovements).WithOne(t => t.TicketMovementType).HasForeignKey(t => t.TicketMovementTypeId).OnDelete(DeleteBehavior.Restrict);
-                t.HasQueryFilter(f => !f.IsDeleted);
 
 
                 t.HasData(
-                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.NewTicket, Name = TicketEnums.TicketMovementType.NewTicket.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.NewTicket, Accessible = true, Color = "#3699FF", InformationText = "Talep ilk kez açıldı.", IsDeleted = false },
-                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.AppointedTechnicSupportStaff, Name = TicketEnums.TicketMovementType.AppointedTechnicSupportStaff.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.InTheProcess, Accessible = true, Color = "#8950FC", InformationText = "Talebe temsilci atandı.", IsDeleted = false },
-                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.DirectedToTechnicalServices, Name = TicketEnums.TicketMovementType.DirectedToTechnicalServices.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.InTheProcess, Accessible = true, Color = "#FFA800", InformationText = "Teknik servise yönlendirme yapıldı.", IsDeleted = false },
-                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.FaultDetected, Name = TicketEnums.TicketMovementType.FaultDetected.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.InTheProcess, Accessible = true, Color = "#1BC5BD", InformationText = "Arıza tespiti tamamlandı.", IsDeleted = false },
-                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.CargoWaiting, Name = TicketEnums.TicketMovementType.CargoWaiting.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.WaitingForProccess, Accessible = true, Color = "#F64E60", InformationText = "Kargo teslimatı bekleniyor.", IsDeleted = false },
-                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.PartWaiting, Name = TicketEnums.TicketMovementType.PartWaiting.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.WaitingForProccess, Accessible = true, Color = "#E4E6EF", InformationText = "Yedek parça bekleniyor.", IsDeleted = false },
-                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.CargoSent, Name = TicketEnums.TicketMovementType.CargoSent.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.WaitingForProccess, Accessible = true, Color = "#3699FF", InformationText = "Kargo gönderimi yapıldı.", IsDeleted = false },
-                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.ProcessApprovalWaiting, Name = TicketEnums.TicketMovementType.ProcessApprovalWaiting.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.ApprovalIsPending, Accessible = true, Color = "#FFA800", InformationText = "Yönetici onayı bekleniyor.", IsDeleted = false },
-                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.FeeApprovalaWaiting, Name = TicketEnums.TicketMovementType.FeeApprovalaWaiting.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.ApprovalIsPending, Accessible = true, Color = "#F64E60", InformationText = "Müşteri ücret onayı bekleniyor.", IsDeleted = false },
-                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.Approved, Name = TicketEnums.TicketMovementType.Approved.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.InTheProcess, Accessible = true, Color = "#1BC5BD", InformationText = "Onay alındı, işleme devam ediliyor.", IsDeleted = false },
-                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.Denied, Name = TicketEnums.TicketMovementType.Denied.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.Denied, Accessible = true, Color = "#3F4254", InformationText = "Talep iptal edildi.", IsDeleted = false },
-                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.Completted, Name = TicketEnums.TicketMovementType.Completted.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.Completted, Accessible = true, Color = "#1BC5BD", InformationText = "Talep tamamlandı ve kapatıldı.", IsDeleted = false }
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.NewTicket, Name = TicketEnums.TicketMovementType.NewTicket.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.NewTicket, Accessible = true, Color = "#3699FF", InformationText = "Talep ilk kez açıldı.", IsActive = true },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.AppointedTechnicSupportStaff, Name = TicketEnums.TicketMovementType.AppointedTechnicSupportStaff.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.InTheProcess, Accessible = true, Color = "#8950FC", InformationText = "Talebe temsilci atandı.", IsActive = true },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.DirectedToTechnicalServices, Name = TicketEnums.TicketMovementType.DirectedToTechnicalServices.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.InTheProcess, Accessible = true, Color = "#FFA800", InformationText = "Teknik servise yönlendirme yapıldı.", IsActive = true },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.FaultDetected, Name = TicketEnums.TicketMovementType.FaultDetected.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.InTheProcess, Accessible = true, Color = "#1BC5BD", InformationText = "Arıza tespiti tamamlandı.", IsActive = true },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.CargoWaiting, Name = TicketEnums.TicketMovementType.CargoWaiting.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.WaitingForProccess, Accessible = true, Color = "#F64E60", InformationText = "Kargo teslimatı bekleniyor.", IsActive = true },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.PartWaiting, Name = TicketEnums.TicketMovementType.PartWaiting.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.WaitingForProccess, Accessible = true, Color = "#E4E6EF", InformationText = "Yedek parça bekleniyor.", IsActive = true },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.CargoSent, Name = TicketEnums.TicketMovementType.CargoSent.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.WaitingForProccess, Accessible = true, Color = "#3699FF", InformationText = "Kargo gönderimi yapıldı.", IsActive = true },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.ProcessApprovalWaiting, Name = TicketEnums.TicketMovementType.ProcessApprovalWaiting.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.ApprovalIsPending, Accessible = true, Color = "#FFA800", InformationText = "Yönetici onayı bekleniyor.", IsActive = true },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.FeeApprovalaWaiting, Name = TicketEnums.TicketMovementType.FeeApprovalaWaiting.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.ApprovalIsPending, Accessible = true, Color = "#F64E60", InformationText = "Müşteri ücret onayı bekleniyor.", IsActive = true },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.Approved, Name = TicketEnums.TicketMovementType.Approved.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.InTheProcess, Accessible = true, Color = "#1BC5BD", InformationText = "Onay alındı, işleme devam ediliyor.", IsActive = true },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.Denied, Name = TicketEnums.TicketMovementType.Denied.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.Denied, Accessible = true, Color = "#3F4254", InformationText = "Talep iptal edildi.", IsActive = true },
+                    new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.Completted, Name = TicketEnums.TicketMovementType.Completted.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.Completted, Accessible = true, Color = "#1BC5BD", InformationText = "Talep tamamlandı ve kapatıldı.", IsActive = true }
                 );
             });
             modelBuilder.Entity<TicketPriority>(t =>
@@ -430,7 +417,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 t.ToTable("TicketType");
                 t.HasKey(t => t.Id);
                 t.HasMany(t => t.Tickets).WithOne(t => t.TicketType).HasForeignKey(t => t.TicketTypeId).OnDelete(DeleteBehavior.Restrict);
-                t.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<FaultType>(f =>
             {
@@ -438,7 +424,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 f.HasKey(f => f.Id);
                 f.HasMany(f => f.StockGroupFaultTypeMaps).WithOne(s => s.FaultType).HasForeignKey(s => s.FaultTypeId).OnDelete(DeleteBehavior.Cascade);
                 f.HasMany(f => f.TicketMovements).WithOne(t => t.FaultType).HasForeignKey(t => t.FaultTypeId).OnDelete(DeleteBehavior.Restrict);
-                f.HasQueryFilter(f => !f.IsDeleted);
             });
             #endregion
 
@@ -469,7 +454,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 _.HasKey(_ => _.Id);
                 _.HasMany(_ => _.LastTaskMovementTypeTasks).WithOne(_ => _.LastTaskMovementType).HasForeignKey(_ => _.LastTaskMovementTypeId).OnDelete(DeleteBehavior.Restrict);
                 _.HasMany(_ => _.TaskMovements).WithOne(_ => _.TaskMovementType).HasForeignKey(_ => _.TaskMovementTypeId).OnDelete(DeleteBehavior.Restrict);
-                _.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<_TaskPriority>(_ =>
             {
@@ -523,7 +507,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 c.HasKey(c => c.Id);
                 c.HasMany(c => c.CompanyContacts).WithOne(c => c.ContactType).HasForeignKey(c => c.ContactTypeId).OnDelete(DeleteBehavior.Cascade);
                 c.HasMany(c => c.UserContacts).WithOne(u => u.ContactType).HasForeignKey(u => u.ContactTypeId).OnDelete(DeleteBehavior.Cascade);
-                c.HasQueryFilter(f => !f.IsDeleted);
             });
 
             modelBuilder.Entity<Currency>(c =>
@@ -535,7 +518,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 c.HasMany(c => c.PurchaseCurrencyStocks).WithOne(s => s.PurchaseCurrency).HasForeignKey(s => s.PurchaseCurrencyId).OnDelete(DeleteBehavior.Restrict);
                 c.HasMany(c => c.SalePriceCurrencyStocks).WithOne(s => s.SalePriceCurrency).HasForeignKey(s => s.SalePriceCurrencyId).OnDelete(DeleteBehavior.Restrict);
                 c.HasMany(c => c.TicketServicePrices).WithOne(t => t.Currency).HasForeignKey(t => t.CurrencyId).OnDelete(DeleteBehavior.Restrict);
-                c.HasQueryFilter(f => !f.IsDeleted);
             });
 
             modelBuilder.Entity<Unit>(u =>
@@ -543,7 +525,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 u.ToTable("Unit");
                 u.HasKey(u => u.Id);
                 u.HasMany(u => u.Stocks).WithOne(s => s.Unit).HasForeignKey(s => s.UnitId).OnDelete(DeleteBehavior.Restrict);
-                u.HasQueryFilter(f => !f.IsDeleted);
             });
 
             modelBuilder.Entity<WarrantyType>(w =>
@@ -552,7 +533,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 w.HasKey(w => w.Id);
                 w.HasMany(w => w.CompanyProductWarranties).WithOne(c => c.WarrantyType).HasForeignKey(c => c.WarrantyTypeId).OnDelete(DeleteBehavior.Restrict);
                 w.HasMany(w => w.StockSerialWarranties).WithOne(s => s.WarrantyType).HasForeignKey(s => s.WarrantyTypeId).OnDelete(DeleteBehavior.Restrict);
-                w.HasQueryFilter(f => !f.IsDeleted);
             });
             #endregion
 
@@ -589,7 +569,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 u.HasMany(u => u.UserContacts).WithOne(u => u.User).HasForeignKey(u => u.UserId).OnDelete(DeleteBehavior.Cascade);
                 u.HasMany(u => u.UserFiles).WithOne(u => u.User).HasForeignKey(u => u.UserId).OnDelete(DeleteBehavior.Cascade);
                 u.HasMany(u => u.RefreshTokens).WithOne(r => r.User).HasForeignKey(r => r.UserId).OnDelete(DeleteBehavior.Cascade);
-                u.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<UserContact>(u =>
             {

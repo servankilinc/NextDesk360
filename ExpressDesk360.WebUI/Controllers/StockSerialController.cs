@@ -84,20 +84,6 @@ namespace ExpressDesk360.WebUI.Controllers
             return ToAction(result);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            var result = await _stockSerialService.DeleteAsync(id: id);
-            return ToAction(result);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Restore(Guid id)
-        {
-            var result = await _stockSerialService.RestoreAsync(id: id);
-            return ToAction(result);
-        }
-
         [HttpPost]
         public async Task<IActionResult> DatatableClientSide(DynamicDatatableRequest request)
         {

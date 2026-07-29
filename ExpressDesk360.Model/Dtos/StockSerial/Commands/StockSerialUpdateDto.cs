@@ -10,6 +10,7 @@ namespace ExpressDesk360.Model.Dtos.StockSerial.Commands
         public string? SerialNumber { get; set; }
         public Guid? CompanyId { get; set; }
         public int? WarehouseId { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 
     public class StockSerialUpdateDtoValidator : AbstractValidator<StockSerialUpdateDto>

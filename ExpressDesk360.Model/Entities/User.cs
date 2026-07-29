@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ExpressDesk360.Model.Entities
 {
-    public class User : IdentityUser<Guid>, IEntity, ISoftDeletableEntity, IAuditableEntity
+    public class User : IdentityUser<Guid>, IEntity, IActivatableEntity, IAuditableEntity
     {
         // public Guid Id { get; set; }
         // public string UserName { get; set; } = null!;
@@ -13,19 +13,14 @@ namespace ExpressDesk360.Model.Entities
         public DateTime? HireDate { get; set; }
         public string? LogoUrl { get; set; }
 
+        public bool IsActive { get; set; } = true;
+
         #region IAuditableEntity
         public string? CreatedBy { get; set; }
         public string? UpdatedBy { get; set; }
         public DateTime? CreateDateUtc { get; set; }
         public DateTime? UpdateDateUtc { get; set; }
         #endregion
-
-        #region ISoftDeletableEntity
-        public string? DeletedBy { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime? DeletedDateUtc { get; set; }
-        #endregion
-
         public virtual Company? Company { get; set; }
         public virtual ICollection<FSFolder>? OwnerFSFolders { get; set; }
         public virtual ICollection<ProjectMovement>? ProjectMovements { get; set; }

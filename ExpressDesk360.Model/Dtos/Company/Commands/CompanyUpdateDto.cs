@@ -12,6 +12,7 @@ namespace ExpressDesk360.Model.Dtos.Company.Commands
         public bool ManagerApproval { get; set; }
         public string? Description { get; set; }
         public string? LogoUrl { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 
     public class CompanyUpdateDtoValidator : AbstractValidator<CompanyUpdateDto>

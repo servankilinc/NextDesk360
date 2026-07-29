@@ -11,5 +11,6 @@ namespace ExpressDesk360.Model.Dtos.Company.Queries
         public bool ManagerApproval { get; set; }
         public string? Description { get; set; }
         public string? LogoUrl { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

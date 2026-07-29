@@ -24,5 +24,13 @@
             <input class="form-control form-control-solid" asp-for="UpdateModel.Description" type="text"/>
             <span class="form_validation_feedback" asp-validation-for="UpdateModel.Description"></span>
         </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold" asp-for="UpdateModel.IsActive">Active Status</label>
+            <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                <input class="form-check-input" type="checkbox" asp-for="UpdateModel.IsActive" />
+                <label class="form-check-label" asp-for="UpdateModel.IsActive">Is Active</label>
+            </div>
+            <span class="form_validation_feedback" asp-validation-for="UpdateModel.IsActive"></span>
+        </div>
 	</div>
 </form>

@@ -11,5 +11,6 @@ namespace ExpressDesk360.Model.Dtos.User.Queries
         public string? SurName { get; set; }
         public DateTime? HireDate { get; set; }
         public string? LogoUrl { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

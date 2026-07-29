@@ -2,11 +2,13 @@ using ExpressDesk360.Core.Model;
 
 namespace ExpressDesk360.Model.Entities
 {
-    public class FaultType : IEntity, ISoftDeletableEntity, IAuditableEntity
+    public class FaultType : IEntity, IActivatableEntity, IAuditableEntity
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
         public string? Description { get; set; }
+
+        public bool IsActive { get; set; } = true;
 
         #region IAuditableEntity
         public string? CreatedBy { get; set; }
@@ -14,13 +16,6 @@ namespace ExpressDesk360.Model.Entities
         public DateTime? CreateDateUtc { get; set; }
         public DateTime? UpdateDateUtc { get; set; }
         #endregion
-
-        #region ISoftDeletableEntity
-        public string? DeletedBy { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime? DeletedDateUtc { get; set; }
-        #endregion
-
         public virtual ICollection<StockGroupFaultTypeMap>? StockGroupFaultTypeMaps { get; set; }
         public virtual ICollection<TicketMovement>? TicketMovements { get; set; }
         public virtual ICollection<StockSerialMovement>? StockSerialMovements { get; set; }

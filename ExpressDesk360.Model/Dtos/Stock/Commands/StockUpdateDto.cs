@@ -20,6 +20,7 @@ namespace ExpressDesk360.Model.Dtos.Stock.Commands
         public int? PurchaseCurrencyId { get; set; }
         public decimal? SalePrice { get; set; }
         public int? SalePriceCurrencyId { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 
     public class StockUpdateDtoValidator : AbstractValidator<StockUpdateDto>

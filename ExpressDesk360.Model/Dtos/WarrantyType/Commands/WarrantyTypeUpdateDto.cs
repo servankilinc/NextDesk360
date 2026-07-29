@@ -8,6 +8,7 @@ namespace ExpressDesk360.Model.Dtos.WarrantyType.Commands
         public int Id { get; set; }
         public string Name { get; set; } = null!;
         public string? Description { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 
     public class WarrantyTypeUpdateDtoValidator : AbstractValidator<WarrantyTypeUpdateDto>

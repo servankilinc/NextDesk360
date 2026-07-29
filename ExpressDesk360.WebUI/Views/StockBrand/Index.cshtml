@@ -34,9 +34,9 @@
                     </div>
                     <div class="mb-10">
                         <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                            <input name="IsDeleted" value="false" type="hidden" />
-                            <input name="IsDeleted" value="true" type="checkbox" class="form-check-input" />
-                            <span class="form-check-label fs-sm">Include Deleted</span>
+                            <input name="IsActive" value="true" type="hidden" />
+                            <input name="IsActive" value="false" type="checkbox" class="form-check-input" />
+                            <span class="form-check-label fs-sm">Show Inactive</span>
                         </div>
                     </div>
             
@@ -59,9 +59,7 @@
                     					<th>Name</th>
 					<th>Create Date</th>
 					<th>Last Update Date</th>
-					<th>Status</th>
-					<th>Delete Date</th>
-					<th>Actions</th>
+					<th>Status</th><th>Actions</th>
 
                 </tr>
             </thead>
@@ -101,22 +99,11 @@
                                 field: 'Name',
                                 value: $("input[name='Name']").val()
                             }
-                , 
+                            ,
                             {
-                                operator: 'base',
-                                logic: 'or',
-                                filters: [
-                                    {
-                                        operator: 'eq',
-                                        field: 'isDeleted',
-                                        value: false,
-                                    },
-                                    {
-                                        operator: 'eq',
-                                        field: 'isDeleted',
-                                        value: $('input[name="IsDeleted"]:checked').prop("checked") || false,
-                                    }
-                                ]
+                                operator: 'eq',
+                                field: 'isActive',
+                                value: !($('input[name="IsActive"]:checked').prop("checked") || false)
                             }
             
                         ]
@@ -141,29 +128,19 @@
                         }
                     },
                     {
-                        data: 'isDeleted',
+                        data: 'isActive',
                         render: function (data) {
-                            if(data == true) return (`<span class="badge rounded-pill bg-label-danger"><i class="fa-solid fa-xmark"></i></span>`);
-                            else if(data == false) return (`<span class="badge rounded-pill bg-label-success"><i class="fa-solid fa-check"></i></span>`);
+                            if(data == true) return (`<span class="badge rounded-pill bg-label-success"><i class="fa-solid fa-check"></i> Active</span>`);
+                            else if(data == false) return (`<span class="badge rounded-pill bg-label-danger"><i class="fa-solid fa-xmark"></i> Inactive</span>`);
                             else return ('');
                         }
-                    },
-                    {
-                        data: 'deletedDateUtc',
-                        render: function (data) {
-                            if(data == null) return '';
-                            return moment(data).format('DD.MM.YYYY HH:mm');
-                        }
-                    },
-                    {
+                    },{
                         data: null,
                         defaultContent: '',
                         searchable: false,
                         createdCell: function (td, cellData, rowData, row, col)
                         {
-                            let deleteHandleButton = rowData.isDeleted == true ?
-                                HelperService.UndoDeleteButtonTable({ requestUrl: 'StockBrand/Restore', requestData: { "id": rowData.id }, pageTable: mainTable }) :
-                                HelperService.DeleteButtonTable({requestUrl: 'StockBrand/Delete', requestData: { "id": rowData.id }, pageTable: mainTable });
+                            
 
                             DatatableManager.AppendRowButtons(td,
                             [
@@ -174,9 +151,7 @@
                                         "id": rowData.id
                                     },
                                     pageTable: mainTable
-                                }),
-                                deleteHandleButton
-                            ]);
+                                })]);
                         }
                     }
                 ],

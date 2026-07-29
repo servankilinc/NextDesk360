@@ -10,6 +10,7 @@ namespace ExpressDesk360.Model.Dtos.InvoiceType.Commands
         public char InOutCode { get; set; }
         public string? NumberStart { get; set; }
         public byte Status { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 
     public class InvoiceTypeUpdateDtoValidator : AbstractValidator<InvoiceTypeUpdateDto>

@@ -2,7 +2,7 @@ using ExpressDesk360.Core.Model;
 
 namespace ExpressDesk360.Model.Entities
 {
-    public class Stock : IEntity, ISoftDeletableEntity, IArchivableEntity, IAuditableEntity
+    public class Stock : IEntity, IActivatableEntity, IArchivableEntity, IAuditableEntity
     {
         public Guid Id { get; set; }
         public int StockGroupId { get; set; }
@@ -20,19 +20,14 @@ namespace ExpressDesk360.Model.Entities
         public decimal? SalePrice { get; set; }
         public int? SalePriceCurrencyId { get; set; }
 
+        public bool IsActive { get; set; } = true;
+
         #region IAuditableEntity
         public string? CreatedBy { get; set; }
         public string? UpdatedBy { get; set; }
         public DateTime? CreateDateUtc { get; set; }
         public DateTime? UpdateDateUtc { get; set; }
         #endregion
-
-        #region ISoftDeletableEntity
-        public string? DeletedBy { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime? DeletedDateUtc { get; set; }
-        #endregion        
-
         public virtual StockGroup? StockGroup { get; set; }
         public virtual StockBrand? StockBrand { get; set; }
         public virtual Unit? Unit { get; set; }

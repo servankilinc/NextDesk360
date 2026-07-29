@@ -7,6 +7,7 @@ namespace ExpressDesk360.Model.Dtos.ContactType.Commands
     {
         public string Name { get; set; } = null!;
         public string Icon { get; set; } = null!;
+        public bool IsActive { get; set; } = true;
     }
 
     public class ContactTypeCreateDtoValidator : AbstractValidator<ContactTypeCreateDto>

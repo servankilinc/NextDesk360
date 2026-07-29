@@ -7,6 +7,7 @@ namespace ExpressDesk360.Model.Dtos.StockBrand.Commands
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
+        public bool IsActive { get; set; } = true;
     }
 
     public class StockBrandUpdateDtoValidator : AbstractValidator<StockBrandUpdateDto>

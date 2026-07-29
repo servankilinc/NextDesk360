@@ -11,6 +11,7 @@ namespace ExpressDesk360.Model.Dtos._TaskMovementType.Commands
         public string Color { get; set; } = null!;
         public string? InformationText { get; set; }
         public string? Description { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 
     public class TaskMovementTypeCreateDtoValidator : AbstractValidator<TaskMovementTypeCreateDto>

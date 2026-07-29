@@ -8,5 +8,6 @@ namespace ExpressDesk360.Model.Dtos.StockMovementType.Queries
         public string Name { get; set; } = null!;
         public char InOutCode { get; set; }
         public string? Description { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

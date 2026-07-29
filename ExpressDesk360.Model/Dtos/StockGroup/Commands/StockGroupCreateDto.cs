@@ -6,6 +6,7 @@ namespace ExpressDesk360.Model.Dtos.StockGroup.Commands
     public class StockGroupCreateDto : IDto
     {
         public string Name { get; set; } = null!;
+        public bool IsActive { get; set; } = true;
     }
 
     public class StockGroupCreateDtoValidator : AbstractValidator<StockGroupCreateDto>

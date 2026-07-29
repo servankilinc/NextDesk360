@@ -99,22 +99,12 @@
                                 operator: 'contains',
                                 field: 'Name',
                                 value: $("input[name='Name']").val()
-                            }, 
+                            }
+                            ,
                             {
-                                operator: 'base',
-                                logic: 'or',
-                                filters: [
-                                    {
-                                        operator: 'eq',
-                                        field: 'isDeleted',
-                                        value: false,
-                                    },
-                                    {
-                                        operator: 'eq',
-                                        field: 'isDeleted',
-                                        value: $('input[name="IsDeleted"]:checked').prop("checked") || false,
-                                    }
-                                ]
+                                operator: 'eq',
+                                field: 'isActive',
+                                value: !($('input[name="IsActive"]:checked').prop("checked") || false)
                             }            
                         ]
                     }
@@ -137,29 +127,19 @@
                         }
                     },
                     {
-                        data: 'isDeleted',
+                        data: 'isActive',
                         render: function (data) {
-                            if(data == true) return (`<span class="badge rounded-pill bg-label-danger"><i class="fa-solid fa-xmark"></i></span>`);
-                            else if(data == false) return (`<span class="badge rounded-pill bg-label-success"><i class="fa-solid fa-check"></i></span>`);
+                            if(data == true) return (`<span class="badge rounded-pill bg-label-success"><i class="fa-solid fa-check"></i> Active</span>`);
+                            else if(data == false) return (`<span class="badge rounded-pill bg-label-danger"><i class="fa-solid fa-xmark"></i> Inactive</span>`);
                             else return ('');
                         }
-                    },
-                    {
-                        data: 'deletedDateUtc',
-                        render: function (data) {
-                            if(data == null) return '';
-                            return moment(data).format('DD.MM.YYYY HH:mm');
-                        }
-                    },
-                    {
+                    },{
                         data: null,
                         defaultContent: '',
                         searchable: false,
                         createdCell: function (td, cellData, rowData, row, col)
                         {
-                            let deleteHandleButton = rowData.isDeleted == true ?
-                                HelperService.UndoDeleteButtonTable({ requestUrl: 'TicketType/Restore', requestData: { "id": rowData.id }, pageTable: mainTable }) :
-                                HelperService.DeleteButtonTable({requestUrl: 'TicketType/Delete', requestData: { "id": rowData.id }, pageTable: mainTable });
+                            
 
                             DatatableManager.AppendRowButtons(td,
                             [
@@ -170,9 +150,7 @@
                                         "id": rowData.id
                                     },
                                     pageTable: mainTable
-                                }),
-                                deleteHandleButton
-                            ]);
+                                })]);
                         }
                     }
                 ],

@@ -2,12 +2,14 @@ using ExpressDesk360.Core.Model;
 
 namespace ExpressDesk360.Model.Entities
 {
-    public class Currency : IEntity, ISoftDeletableEntity, IAuditableEntity
+    public class Currency : IEntity, IActivatableEntity, IAuditableEntity
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
         public string ShortName { get; set; } = null!;
         public string Icon { get; set; } = null!;
+
+        public bool IsActive { get; set; } = true;
 
         #region IAuditableEntity
         public string? CreatedBy { get; set; }
@@ -15,13 +17,6 @@ namespace ExpressDesk360.Model.Entities
         public DateTime? CreateDateUtc { get; set; }
         public DateTime? UpdateDateUtc { get; set; }
         #endregion
-
-        #region ISoftDeletableEntity
-        public string? DeletedBy { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime? DeletedDateUtc { get; set; }
-        #endregion
-
         public virtual ICollection<Invoice>? Invoices { get; set; }
         public virtual ICollection<Shipping>? PriceCurrencyShippings { get; set; }
         public virtual ICollection<Stock>? PurchaseCurrencyStocks { get; set; }
