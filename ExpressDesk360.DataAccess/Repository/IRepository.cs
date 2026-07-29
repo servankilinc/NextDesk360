@@ -28,13 +28,13 @@ public interface IRepository<TEntity> where TEntity : IEntity
     void DeleteAndSave(TEntity entity);
     void Delete(IEnumerable<TEntity> entities);
     void DeleteAndSave(IEnumerable<TEntity> entities);
-    void Delete(Expression<Func<TEntity, bool>> where);
-    void DeleteAndSave(Expression<Func<TEntity, bool>> where);
+    int Delete(Expression<Func<TEntity, bool>> where);
+    int DeleteAndSave(Expression<Func<TEntity, bool>> where);
     #endregion
     
     #region Restore
-    void Restore(Expression<Func<TEntity, bool>> where);
-    void RestoreAndSave(Expression<Func<TEntity, bool>> where);
+    int Restore(Expression<Func<TEntity, bool>> where);
+    int RestoreAndSave(Expression<Func<TEntity, bool>> where);
     #endregion
 
     #region IsExist & Count

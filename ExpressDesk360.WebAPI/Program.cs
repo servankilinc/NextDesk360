@@ -109,7 +109,7 @@ builder.Services.AddBusinessServices(builder.Configuration);
                         ValidAudience = tokenSettings.Audience,
                         IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(tokenSettings.SecurityKey)),
                         // Default is 5 minutes of leeway, which keeps expired tokens usable for too long.
-                        ClockSkew = TimeSpan.FromSeconds(30),
+                        ClockSkew = TimeSpan.FromMinutes(1),
                         RoleClaimType = System.Security.Claims.ClaimTypes.Role
                     };
                 });

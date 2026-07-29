@@ -6,7 +6,7 @@ namespace ExpressDesk360.Core.Utils.Datatable;
 public static class QueryableDatatableExtension
 {
     /// <summary>Upper bound for a single server-side page, guarding against unbounded reads.</summary>
-    public const int MaxPageSize = 500;
+    public const int MaxPageSize = 1000;
 
     #region SERVER-SIDE VERSION
     public static DatatableResponseServerSide<TData> ToDatatableServerSide<TData>(this IQueryable<TData> query, DatatableRequest dataTableRequest)

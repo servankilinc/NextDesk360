@@ -154,18 +154,13 @@ namespace ExpressDesk360.DataAccess.UoW
 
         public void CommitTransaction()
         {
-            // No-op when there is nothing to commit. Throwing here breaks the common
-            // catch { Rollback(); throw; } pattern by replacing the original exception.
             if (_transaction == null) return;
-
             try
             {
                 _transaction.Commit();
             }
             finally
             {
-                // Must run even if Commit throws, otherwise the transaction leaks and every
-                // later BeginTransaction in this scope fails with "already started".
                 _transaction.Dispose();
                 _transaction = null;
             }
@@ -174,7 +169,6 @@ namespace ExpressDesk360.DataAccess.UoW
         public void RollbackTransaction()
         {
             if (_transaction == null) return;
-
             try
             {
                 _transaction.Rollback();
@@ -200,10 +194,7 @@ namespace ExpressDesk360.DataAccess.UoW
 
         public async Task CommitTransactionAsync(CancellationToken cancellationToken = default)
         {
-            // See CommitTransaction: a no-op keeps catch { Rollback(); throw; } from masking
-            // the original exception, and the finally keeps a failed commit from leaking.
             if (_transaction == null) return;
-
             try
             {
                 await _transaction.CommitAsync(cancellationToken);
@@ -218,7 +209,6 @@ namespace ExpressDesk360.DataAccess.UoW
         public async Task RollbackTransactionAsync(CancellationToken cancellationToken = default)
         {
             if (_transaction == null) return;
-
             try
             {
                 await _transaction.RollbackAsync(cancellationToken);
@@ -230,10 +220,6 @@ namespace ExpressDesk360.DataAccess.UoW
             }
         }
 
-        // The DbContext is registered with AddDbContext (scoped) and shared with every repository
-        // in the same scope, so its lifetime belongs to the DI container. Disposing it here would
-        // leave the rest of the request holding a disposed context. Only the transaction we
-        // created is ours to release.
         public void Dispose()
         {
             if (_transaction != null)

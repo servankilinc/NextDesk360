@@ -80,10 +80,13 @@ public class RepositoryBase<TEntity, TContext> : IRepository<TEntity>, IReposito
         _context.Set<TEntity>().RemoveRange(entities);
     }
 
-    public void Delete(Expression<Func<TEntity, bool>> where)
+    public int Delete(Expression<Func<TEntity, bool>> where)
     {
-        var entitiesToDelete = _context.Set<TEntity>().Where(where);
+        var entitiesToDelete = _context.Set<TEntity>().Where(where).ToList();
+        if (entitiesToDelete.Count == 0) return 0;
+
         _context.Set<TEntity>().RemoveRange(entitiesToDelete);
+        return entitiesToDelete.Count;
     }
 
     public void DeleteAndSave(TEntity entity)
@@ -98,18 +101,22 @@ public class RepositoryBase<TEntity, TContext> : IRepository<TEntity>, IReposito
         _context.SaveChanges();
     }
 
-    public void DeleteAndSave(Expression<Func<TEntity, bool>> where)
+    public int DeleteAndSave(Expression<Func<TEntity, bool>> where)
     {
-        var entitiesToDelete = _context.Set<TEntity>().Where(where);
+        var entitiesToDelete = _context.Set<TEntity>().Where(where).ToList();
+        if (entitiesToDelete.Count == 0) return 0;
+
         _context.Set<TEntity>().RemoveRange(entitiesToDelete);
         _context.SaveChanges();
+        return entitiesToDelete.Count;
     }
     #endregion
-    
+
     #region Restore
-    public void Restore(Expression<Func<TEntity, bool>> where)
+    public int Restore(Expression<Func<TEntity, bool>> where)
     {
-        var entities = _context.Set<TEntity>().Where(where).ToList();
+        var entities = _context.Set<TEntity>().IgnoreQueryFilters().Where(where).ToList();
+        int restored = 0;
         foreach (var entity in entities)
         {
             if (entity is ISoftDeletableEntity softDeletableEntity)
@@ -117,14 +124,16 @@ public class RepositoryBase<TEntity, TContext> : IRepository<TEntity>, IReposito
                 softDeletableEntity.IsDeleted = false;
                 softDeletableEntity.DeletedBy = null;
                 softDeletableEntity.DeletedDateUtc = null;
+                restored++;
             }
         }
+        return restored;
     }
 
-    public void RestoreAndSave(Expression<Func<TEntity, bool>> where)
+    public int RestoreAndSave(Expression<Func<TEntity, bool>> where)
     {
-        // See RestoreAndSaveAsync: without IgnoreQueryFilters the deleted rows are never found.
         var entities = _context.Set<TEntity>().IgnoreQueryFilters().Where(where).ToList();
+        int restored = 0;
         foreach (var entity in entities)
         {
             if (entity is ISoftDeletableEntity softDeletableEntity)
@@ -132,9 +141,14 @@ public class RepositoryBase<TEntity, TContext> : IRepository<TEntity>, IReposito
                 softDeletableEntity.IsDeleted = false;
                 softDeletableEntity.DeletedBy = null;
                 softDeletableEntity.DeletedDateUtc = null;
+                restored++;
             }
         }
-        _context.SaveChanges();
+        
+        if (restored == 0) return 0;
+
+        _context.SaveChanges();        
+        return restored;
     }
     #endregion
 
@@ -556,8 +570,6 @@ public class RepositoryBase<TEntity, TContext> : IRepository<TEntity>, IReposito
 
     public async Task<int> DeleteAndSaveAsync(Expression<Func<TEntity, bool>> where, CancellationToken cancellationToken = default)
     {
-        // Materialise first: RemoveRange over a live IQueryable mutates the change tracker while
-        // the reader is still open, and we need the count to tell "deleted" from "nothing matched".
         var entitiesToDelete = await _context.Set<TEntity>().Where(where).ToListAsync(cancellationToken);
         if (entitiesToDelete.Count == 0) return 0;
 
@@ -566,12 +578,10 @@ public class RepositoryBase<TEntity, TContext> : IRepository<TEntity>, IReposito
         return entitiesToDelete.Count;
     }
     #endregion
-    
+
     #region Restore
     public async Task<int> RestoreAndSaveAsync(Expression<Func<TEntity, bool>> where, CancellationToken cancellationToken = default)
     {
-        // IgnoreQueryFilters is required: the global filter is !IsDeleted, so without it the
-        // rows we are trying to restore are exactly the ones excluded from the query.
         var entities = await _context.Set<TEntity>().IgnoreQueryFilters().Where(where).ToListAsync(cancellationToken);
         int restored = 0;
         foreach (var entity in entities)

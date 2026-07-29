@@ -4,11 +4,8 @@ namespace ExpressDesk360.Core.Utils.Pagination;
 
 public static class QueryablePaginationExtension
 {
-    /// <summary>Page size used when the caller does not supply a usable one.</summary>
     public const int DefaultPageSize = 25;
-
-    /// <summary>Upper bound for a single page, guarding against unbounded reads.</summary>
-    public const int MaxPageSize = 500;
+    public const int MaxPageSize = 1000;
 
     public static PaginationResponse<TData> ToPaginate<TData>(this IQueryable<TData> queryable, PaginationRequest request)
     {
