@@ -42,37 +42,9 @@ namespace ExpressDesk360.WebUI.Controllers
             return ToAction(result);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Update(int id)
-        {
-            var result = await _projectStatusService.GetUpdateModelAsync(id: id); if  ( ! result . IsSuccess ) return  ToAction ( result ) ; 
-            var viewModel = new ProjectStatusUpdateViewModel
-            {
-                UpdateModel = result.Data
-            };
-            return PartialView("./Partials/UpdateForm", viewModel);
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> Update(ProjectStatusUpdateDto updateModel)
-        {
-            var result = await _projectStatusService.UpdateAsync(updateModel);
-            return ToAction(result);
-        }
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var result = await _projectStatusService.DeleteAsync(id: id);
-            return ToAction(result);
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> Restore(int id)
-        {
-            var result = await _projectStatusService.RestoreAsync(id: id);
-            return ToAction(result);
-        }
 
         [HttpPost]
         public async Task<IActionResult> DatatableClientSide(DynamicDatatableRequest request)

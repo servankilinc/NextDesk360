@@ -2,7 +2,7 @@ using ExpressDesk360.Core.Model;
 
 namespace ExpressDesk360.Model.Entities
 {
-    public class StockSerialMovement : IEntity, ISoftDeletableEntity, IAuditableEntity
+    public class StockSerialMovement : IEntity, IImmutableEntity, IAuditableEntity
     {
         public Guid Id { get; set; }
         public Guid StockSerialId { get; set; }
@@ -22,7 +22,7 @@ namespace ExpressDesk360.Model.Entities
         public DateTime? UpdateDateUtc { get; set; }
         #endregion
 
-        #region ISoftDeletableEntity
+        #region IImmutableEntity
         public string? DeletedBy { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? DeletedDateUtc { get; set; }

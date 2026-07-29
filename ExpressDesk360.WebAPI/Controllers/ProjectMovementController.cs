@@ -51,33 +51,9 @@ namespace ExpressDesk360.WebAPI.Controllers
             return ToAction(result);
         }
 
-        [HttpGet("{id:guid}/update")]
-        public async Task<IActionResult> Update(Guid id)
-        {
-            var result = await _projectMovementService.GetUpdateModelAsync(id: id);
-            return ToAction(result);
-        }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(ProjectMovementUpdateDto request)
-        {
-            var result = await _projectMovementService.UpdateAsync(request);
-            return ToAction(result);
-        }
 
-        [HttpDelete("{id:guid}")]
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            var result = await _projectMovementService.DeleteAsync(id: id);
-            return ToAction(result);
-        }
 
-        [HttpGet("{id:guid}/restore")]
-        public async Task<IActionResult> Restore(Guid id)
-        {
-            var result = await _projectMovementService.RestoreAsync(id: id);
-            return ToAction(result);
-        }
 
         [HttpPost("pagination")]
         public async Task<IActionResult> Pagination(DynamicPaginationRequest request)

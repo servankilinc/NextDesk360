@@ -113,12 +113,9 @@ namespace ExpressDesk360.DataAccess.Contexts
                 p.ToTable("ProjectFile");
                 p.HasKey(p => p.Id);
             });
-            modelBuilder.Entity<ProjectMovement>(p =>
-            {
+            modelBuilder.Entity<ProjectMovement>(p =>{
                 p.ToTable("ProjectMovement");
-                p.HasKey(p => p.Id);
-                p.HasQueryFilter(f => !f.IsDeleted);
-            });
+                p.HasKey(p => p.Id);            });
             modelBuilder.Entity<ProjectMovementType>(p =>
             {
                 p.ToTable("ProjectMovementType");
@@ -130,13 +127,10 @@ namespace ExpressDesk360.DataAccess.Contexts
                 p.ToTable("ProjectStaff");
                 p.HasKey(p => p.Id);
             });
-            modelBuilder.Entity<ProjectStatus>(p =>
-            {
+            modelBuilder.Entity<ProjectStatus>(p =>{
                 p.ToTable("ProjectStatus");
                 p.HasKey(p => p.Id);
-                p.HasMany(p => p.ProjectMovementTypes).WithOne(p => p.ProjectStatus).HasForeignKey(p => p.ProjectStatusId).OnDelete(DeleteBehavior.Cascade);
-                p.HasQueryFilter(f => !f.IsDeleted);
-            });
+                p.HasMany(p => p.ProjectMovementTypes).WithOne(p => p.ProjectStatus).HasForeignKey(p => p.ProjectStatusId).OnDelete(DeleteBehavior.Cascade);            });
             #endregion
 
             #region Shipping
@@ -204,13 +198,10 @@ namespace ExpressDesk360.DataAccess.Contexts
                 s.ToTable("StockGroupFaultTypeMap");
                 s.HasKey(s => s.Id);
             });
-            modelBuilder.Entity<StockMovement>(s =>
-            {
+            modelBuilder.Entity<StockMovement>(s =>{
                 s.ToTable("StockMovement");
                 s.HasKey(s => s.Id);
-                s.HasMany(s => s.StockMovementStockSerialMaps).WithOne(s => s.StockMovement).HasForeignKey(s => s.StockMovementId).OnDelete(DeleteBehavior.Restrict);
-                s.HasQueryFilter(f => !f.IsDeleted);
-            });
+                s.HasMany(s => s.StockMovementStockSerialMaps).WithOne(s => s.StockMovement).HasForeignKey(s => s.StockMovementId).OnDelete(DeleteBehavior.Restrict);            });
             modelBuilder.Entity<StockMovementStockSerialMap>(s =>
             {
                 s.ToTable("StockMovementStockSerialMap");
@@ -262,8 +253,7 @@ namespace ExpressDesk360.DataAccess.Contexts
                 s.HasKey(s => s.Id);
                 s.HasMany(s => s.StockSerialMovements).WithOne(s => s.StockSerialMovementType).HasForeignKey(s => s.StockSerialMovementTypeId).OnDelete(DeleteBehavior.Restrict);
             });
-            modelBuilder.Entity<StockSerialMovement>(s =>
-            {
+            modelBuilder.Entity<StockSerialMovement>(s =>{
                 s.ToTable("StockSerialMovement");
                 s.HasKey(s => s.Id);
                 s.HasOne(s => s.StockSerial).WithMany(ss => ss.StockSerialMovements).HasForeignKey(s => s.StockSerialId).OnDelete(DeleteBehavior.Restrict);
@@ -272,9 +262,7 @@ namespace ExpressDesk360.DataAccess.Contexts
                 s.HasOne(s => s.CompanyProduct).WithMany(cp => cp.StockSerialMovements).HasForeignKey(s => s.CompanyProductId).OnDelete(DeleteBehavior.Restrict);
                 s.HasOne(s => s.FaultType).WithMany(ft => ft.StockSerialMovements).HasForeignKey(s => s.FaultTypeId).OnDelete(DeleteBehavior.Restrict);
                 s.HasOne(s => s.Ticket).WithMany(t => t.StockSerialMovements).HasForeignKey(s => s.TicketId).OnDelete(DeleteBehavior.Restrict);
-                s.HasOne(s => s.User).WithMany(u => u.StockSerialMovements).HasForeignKey(s => s.UserId).OnDelete(DeleteBehavior.Restrict);
-                s.HasQueryFilter(f => !f.IsDeleted);
-            });
+                s.HasOne(s => s.User).WithMany(u => u.StockSerialMovements).HasForeignKey(s => s.UserId).OnDelete(DeleteBehavior.Restrict);            });
             #endregion
 
             #region Ticket Tables
@@ -306,14 +294,11 @@ namespace ExpressDesk360.DataAccess.Contexts
                 t.ToTable("TicketMessageFile");
                 t.HasKey(t => t.Id);
             });
-            modelBuilder.Entity<TicketMovement>(t =>
-            {
+            modelBuilder.Entity<TicketMovement>(t =>{
                 t.ToTable("TicketMovement");
                 t.HasKey(t => t.Id);
                 t.HasMany(t => t.StockMovements).WithOne(s => s.TicketMovement).HasForeignKey(s => s.TicketMovementId).OnDelete(DeleteBehavior.Restrict);
-                t.HasMany(t => t.TicketMovementFiles).WithOne(t => t.TicketMovement).HasForeignKey(t => t.TicketMovementId).OnDelete(DeleteBehavior.Cascade);
-                t.HasQueryFilter(f => !f.IsDeleted);
-            });
+                t.HasMany(t => t.TicketMovementFiles).WithOne(t => t.TicketMovement).HasForeignKey(t => t.TicketMovementId).OnDelete(DeleteBehavior.Cascade);            });
             modelBuilder.Entity<TicketMovementFile>(t =>
             {
                 t.ToTable("TicketMovementFile");
@@ -342,13 +327,10 @@ namespace ExpressDesk360.DataAccess.Contexts
                     new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.Completted, Name = TicketEnums.TicketMovementType.Completted.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.Completted, Accessible = true, Color = "#1BC5BD", InformationText = "Talep tamamlandı ve kapatıldı.", IsActive = true }
                 );
             });
-            modelBuilder.Entity<TicketPriority>(t =>
-            {
+            modelBuilder.Entity<TicketPriority>(t =>{
                 t.ToTable("TicketPriority");
                 t.HasKey(t => t.Id);
-                t.HasMany(t => t.Tickets).WithOne(t => t.TicketPriority).HasForeignKey(t => t.TicketPriorityId).OnDelete(DeleteBehavior.Restrict);
-                t.HasQueryFilter(f => !f.IsDeleted);
-            });
+                t.HasMany(t => t.Tickets).WithOne(t => t.TicketPriority).HasForeignKey(t => t.TicketPriorityId).OnDelete(DeleteBehavior.Restrict);            });
             modelBuilder.Entity<TicketServicePrice>(t =>
             {
                 t.ToTable("TicketServicePrice");
@@ -360,57 +342,47 @@ namespace ExpressDesk360.DataAccess.Contexts
                 t.ToTable("TicketStaff");
                 t.HasKey(t => t.Id);
             });
-            modelBuilder.Entity<TicketStatus>(t =>
-            {
+            modelBuilder.Entity<TicketStatus>(t =>{
                 t.ToTable("TicketStatus");
                 t.HasKey(t => t.Id);
                 t.HasMany(t => t.TicketMovementTypes).WithOne(t => t.TicketStatus).HasForeignKey(t => t.TicketStatusId).OnDelete(DeleteBehavior.Restrict);
-                t.HasQueryFilter(f => !f.IsDeleted);
-
                 t.HasData(
                     new TicketStatus
                     {
                         Id = (int)TicketEnums.TicketStatusType.NewTicket,
                         Name = TicketEnums.TicketStatusType.NewTicket.GetDescription(),
-                        Description = "Yeni açılan ve atanma bekleyen talepler",
-                        IsDeleted = false
+                        Description = "Yeni açılan ve atanma bekleyen talepler"
                     },
                     new TicketStatus
                     {
                         Id = (int)TicketEnums.TicketStatusType.InTheProcess,
                         Name = TicketEnums.TicketStatusType.InTheProcess.GetDescription(),
-                        Description = "Personel atanmış ve işlem süreci devam eden talepler",
-                        IsDeleted = false
+                        Description = "Personel atanmış ve işlem süreci devam eden talepler"
                     },
                     new TicketStatus
                     {
                         Id = (int)TicketEnums.TicketStatusType.WaitingForProccess,
                         Name = TicketEnums.TicketStatusType.WaitingForProccess.GetDescription(),
-                        Description = "Kargo veya parça bekleyen talepler",
-                        IsDeleted = false
+                        Description = "Kargo veya parça bekleyen talepler"
                     },
                     new TicketStatus
                     {
                         Id = (int)TicketEnums.TicketStatusType.ApprovalIsPending,
                         Name = TicketEnums.TicketStatusType.ApprovalIsPending.GetDescription(),
-                        Description = "Yönetici veya müşteri onayı bekleyen talepler",
-                        IsDeleted = false
+                        Description = "Yönetici veya müşteri onayı bekleyen talepler"
                     },
                     new TicketStatus
                     {
                         Id = (int)TicketEnums.TicketStatusType.Denied,
                         Name = TicketEnums.TicketStatusType.Denied.GetDescription(),
-                        Description = "İptal edilen ve işlem yapılmayan talepler",
-                        IsDeleted = false
+                        Description = "İptal edilen ve işlem yapılmayan talepler"
                     },
                     new TicketStatus
                     {
                         Id = (int)TicketEnums.TicketStatusType.Completted,
                         Name = TicketEnums.TicketStatusType.Completted.GetDescription(),
-                        Description = "Çözümlenmiş ve kapatılmış talepler",
-                        IsDeleted = false
-                    }
-                );
+                        Description = "Çözümlenmiş ve kapatılmış talepler"
+                    });
             });
             modelBuilder.Entity<TicketType>(t =>
             {
@@ -442,12 +414,9 @@ namespace ExpressDesk360.DataAccess.Contexts
                 _.ToTable("_TaskFile");
                 _.HasKey(_ => _.Id);
             });
-            modelBuilder.Entity<_TaskMovement>(_ =>
-            {
+            modelBuilder.Entity<_TaskMovement>(_ =>{
                 _.ToTable("_TaskMovement");
-                _.HasKey(_ => _.Id);
-                _.HasQueryFilter(f => !f.IsDeleted);
-            });
+                _.HasKey(_ => _.Id);            });
             modelBuilder.Entity<_TaskMovementType>(_ =>
             {
                 _.ToTable("_TaskMovementType");
@@ -455,25 +424,19 @@ namespace ExpressDesk360.DataAccess.Contexts
                 _.HasMany(_ => _.LastTaskMovementTypeTasks).WithOne(_ => _.LastTaskMovementType).HasForeignKey(_ => _.LastTaskMovementTypeId).OnDelete(DeleteBehavior.Restrict);
                 _.HasMany(_ => _.TaskMovements).WithOne(_ => _.TaskMovementType).HasForeignKey(_ => _.TaskMovementTypeId).OnDelete(DeleteBehavior.Restrict);
             });
-            modelBuilder.Entity<_TaskPriority>(_ =>
-            {
+            modelBuilder.Entity<_TaskPriority>(_ =>{
                 _.ToTable("_TaskPriority");
                 _.HasKey(_ => _.Id);
-                _.HasMany(_ => _.Tasks).WithOne(_ => _.TaskPriority).HasForeignKey(_ => _.TaskPriorityId).OnDelete(DeleteBehavior.Restrict);
-                _.HasQueryFilter(f => !f.IsDeleted);
-            });
+                _.HasMany(_ => _.Tasks).WithOne(_ => _.TaskPriority).HasForeignKey(_ => _.TaskPriorityId).OnDelete(DeleteBehavior.Restrict);            });
             modelBuilder.Entity<_TaskStaff>(_ =>
             {
                 _.ToTable("_TaskStaff");
                 _.HasKey(_ => _.Id);
             });
-            modelBuilder.Entity<_TaskStatus>(_ =>
-            {
+            modelBuilder.Entity<_TaskStatus>(_ =>{
                 _.ToTable("_TaskStatus");
                 _.HasKey(_ => _.Id);
-                _.HasMany(_ => _.TaskMovementTypes).WithOne(_ => _.TaskStatus).HasForeignKey(_ => _.TaskStatusId).OnDelete(DeleteBehavior.Cascade);
-                _.HasQueryFilter(f => !f.IsDeleted);
-            });
+                _.HasMany(_ => _.TaskMovementTypes).WithOne(_ => _.TaskStatus).HasForeignKey(_ => _.TaskStatusId).OnDelete(DeleteBehavior.Cascade);            });
             #endregion
 
             #region File System

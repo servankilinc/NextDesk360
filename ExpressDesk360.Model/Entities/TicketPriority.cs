@@ -2,7 +2,7 @@ using ExpressDesk360.Core.Model;
 
 namespace ExpressDesk360.Model.Entities
 {
-    public class TicketPriority : IEntity, ISoftDeletableEntity, IAuditableEntity
+    public class TicketPriority : IEntity, IImmutableEntity, IAuditableEntity
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
@@ -17,7 +17,7 @@ namespace ExpressDesk360.Model.Entities
         public DateTime? UpdateDateUtc { get; set; }
         #endregion
 
-        #region ISoftDeletableEntity
+        #region IImmutableEntity
         public string? DeletedBy { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? DeletedDateUtc { get; set; }

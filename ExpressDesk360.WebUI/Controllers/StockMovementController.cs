@@ -72,49 +72,9 @@ namespace ExpressDesk360.WebUI.Controllers
             return ToAction(result);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Update(Guid id)
-        {
-            var result = await _stockMovementService.GetUpdateModelAsync(id: id); if  ( ! result . IsSuccess ) return  ToAction ( result ) ; 
-            var stockIds = await _stockService.SelectListAsync();
-            var stockMovementTypeIds = await _stockMovementTypeService.SelectListAsync();
-            var userIds = await _userService.SelectListAsync();
-            var invoiceIds = await _invoiceService.SelectListAsync();
-            var ticketMovementIds = await _ticketMovementService.SelectListAsync();
-            var warehouseIds = await _warehouseService.SelectListAsync();
-            var viewModel = new StockMovementUpdateViewModel
-            {
-                UpdateModel = result.Data,
-                StockIds = stockIds.Data,
-                StockMovementTypeIds = stockMovementTypeIds.Data,
-                UserIds = userIds.Data,
-                InvoiceIds = invoiceIds.Data,
-                TicketMovementIds = ticketMovementIds.Data,
-                WarehouseIds = warehouseIds.Data
-            };
-            return PartialView("./Partials/UpdateForm", viewModel);
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> Update(StockMovementUpdateDto updateModel)
-        {
-            var result = await _stockMovementService.UpdateAsync(updateModel);
-            return ToAction(result);
-        }
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            var result = await _stockMovementService.DeleteAsync(id: id);
-            return ToAction(result);
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> Restore(Guid id)
-        {
-            var result = await _stockMovementService.RestoreAsync(id: id);
-            return ToAction(result);
-        }
 
         [HttpPost]
         public async Task<IActionResult> DatatableClientSide(DynamicDatatableRequest request)

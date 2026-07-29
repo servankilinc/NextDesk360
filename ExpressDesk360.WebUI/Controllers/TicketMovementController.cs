@@ -62,47 +62,9 @@ namespace ExpressDesk360.WebUI.Controllers
             return ToAction(result);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Update(Guid id)
-        {
-            var result = await _ticketMovementService.GetUpdateModelAsync(id: id); if  ( ! result . IsSuccess ) return  ToAction ( result ) ; 
-            var ticketIds = await _ticketService.SelectListAsync();
-            var ticketMovementTypeIds = await _ticketMovementTypeService.SelectListAsync();
-            var userIds = await _userService.SelectListAsync();
-            var shippingIds = await _shippingService.SelectListAsync();
-            var faultTypeIds = await _faultTypeService.SelectListAsync();
-            var viewModel = new TicketMovementUpdateViewModel
-            {
-                UpdateModel = result.Data,
-                TicketIds = ticketIds.Data,
-                TicketMovementTypeIds = ticketMovementTypeIds.Data,
-                UserIds = userIds.Data,
-                ShippingIds = shippingIds.Data,
-                FaultTypeIds = faultTypeIds.Data
-            };
-            return PartialView("./Partials/UpdateForm", viewModel);
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> Update(TicketMovementUpdateDto updateModel)
-        {
-            var result = await _ticketMovementService.UpdateAsync(updateModel);
-            return ToAction(result);
-        }
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            var result = await _ticketMovementService.DeleteAsync(id: id);
-            return ToAction(result);
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> Restore(Guid id)
-        {
-            var result = await _ticketMovementService.RestoreAsync(id: id);
-            return ToAction(result);
-        }
 
         [HttpPost]
         public async Task<IActionResult> DatatableClientSide(DynamicDatatableRequest request)
