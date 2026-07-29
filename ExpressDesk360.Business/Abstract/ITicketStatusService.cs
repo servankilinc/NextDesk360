@@ -20,10 +20,6 @@ namespace ExpressDesk360.Business.Abstract
         Task<Result<ICollection<TicketStatusDto>>> GetBaseListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default);
         Task<Result<SelectList>> SelectListAsync(Expression<Func<TicketStatus, bool>>? where = default, CancellationToken cancellationToken = default);
         Task<Result> CreateAsync(TicketStatusCreateDto request, CancellationToken cancellationToken = default);
-        Task<Result<TicketStatusUpdateDto>> GetUpdateModelAsync(int id, CancellationToken cancellationToken = default);
-        Task<Result> UpdateAsync(TicketStatusUpdateDto request, CancellationToken cancellationToken = default);
-        Task<Result> DeleteAsync(int id, CancellationToken cancellationToken = default);
-        Task<Result> RestoreAsync(int id, CancellationToken cancellationToken = default);
         Task<Result<PaginationResponse<TicketStatus>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default);
         Task<Result<DatatableResponseClientSide<TicketStatus>>> DatatableClientSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);
         Task<Result<DatatableResponseServerSide<TicketStatus>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);

@@ -22,8 +22,6 @@ namespace ExpressDesk360.Business.Abstract
         Task<Result> CreateAsync(StockBrandCreateDto request, CancellationToken cancellationToken = default);
         Task<Result<StockBrandUpdateDto>> GetUpdateModelAsync(int id, CancellationToken cancellationToken = default);
         Task<Result> UpdateAsync(StockBrandUpdateDto request, CancellationToken cancellationToken = default);
-        Task<Result> DeleteAsync(int id, CancellationToken cancellationToken = default);
-        Task<Result> RestoreAsync(int id, CancellationToken cancellationToken = default);
         Task<Result<PaginationResponse<StockBrand>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default);
         Task<Result<DatatableResponseClientSide<StockBrand>>> DatatableClientSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);
         Task<Result<DatatableResponseServerSide<StockBrand>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);

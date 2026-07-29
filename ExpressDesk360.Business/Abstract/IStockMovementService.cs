@@ -20,10 +20,6 @@ namespace ExpressDesk360.Business.Abstract
         Task<Result<ICollection<StockMovementDto>>> GetBaseListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default);
         Task<Result<SelectList>> SelectListAsync(Expression<Func<StockMovement, bool>>? where = default, CancellationToken cancellationToken = default);
         Task<Result> CreateAsync(StockMovementCreateDto request, CancellationToken cancellationToken = default);
-        Task<Result<StockMovementUpdateDto>> GetUpdateModelAsync(Guid id, CancellationToken cancellationToken = default);
-        Task<Result> UpdateAsync(StockMovementUpdateDto request, CancellationToken cancellationToken = default);
-        Task<Result> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
-        Task<Result> RestoreAsync(Guid id, CancellationToken cancellationToken = default);
         Task<Result<PaginationResponse<StockMovement>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default);
         Task<Result<DatatableResponseClientSide<StockMovement>>> DatatableClientSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);
         Task<Result<DatatableResponseServerSide<StockMovement>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);

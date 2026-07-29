@@ -112,19 +112,7 @@ namespace ExpressDesk360.Business.Concrete
             return Result.Success();
         }
 
-        public async Task<Result> DeleteAsync(int id, CancellationToken cancellationToken = default)
-        {
-            var affected = await _unitOfWork.StockMovementTypes.DeleteAndSaveAsync(where: (f) => f.Id == id, cancellationToken);
-            if (affected == 0) return Result.NotFound();
-            return Result.Success();
-        }
 
-        public async Task<Result> RestoreAsync(int id, CancellationToken cancellationToken = default)
-        {
-            var restored = await _unitOfWork.StockMovementTypes.RestoreAndSaveAsync(where: (f) => f.Id == id, cancellationToken);
-            if (restored == 0) return Result.NotFound();
-            return Result.Success();
-        }
 
         public async Task<Result<PaginationResponse<StockMovementType>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default)
         {

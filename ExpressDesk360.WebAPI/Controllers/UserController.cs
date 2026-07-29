@@ -65,19 +65,7 @@ namespace ExpressDesk360.WebAPI.Controllers
             return ToAction(result);
         }
 
-        [HttpDelete("{id:guid}")]
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            var result = await _userService.DeleteAsync(id: id);
-            return ToAction(result);
-        }
 
-        [HttpGet("{id:guid}/restore")]
-        public async Task<IActionResult> Restore(Guid id)
-        {
-            var result = await _userService.RestoreAsync(id: id);
-            return ToAction(result);
-        }
 
         [HttpPost("pagination")]
         public async Task<IActionResult> Pagination(DynamicPaginationRequest request)

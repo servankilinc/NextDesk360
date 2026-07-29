@@ -92,39 +92,9 @@ namespace ExpressDesk360.Business.Concrete
             return Result.Success();
         }
 
-        public async Task<Result<TicketStatusUpdateDto>> GetUpdateModelAsync(int id, CancellationToken cancellationToken = default)
-        {
-            var result = await _unitOfWork.TicketStatuses.GetAsync<TicketStatusUpdateDto>(configurationProvider: _mapper.ConfigurationProvider, where: (f) => f.Id == id, cancellationToken: cancellationToken);
-            if (result == null)
-                return Result<TicketStatusUpdateDto>.NotFound();
-            return Result<TicketStatusUpdateDto>.Success(result);
-        }
 
-        public async Task<Result> UpdateAsync(TicketStatusUpdateDto request, CancellationToken cancellationToken = default)
-        {
-            var validationResult = await _validationService.ValidateAsync(request, cancellationToken);
-            if (!validationResult.IsValid)
-                return Result.Validation(validationResult.Failures);
-            var entity = await _unitOfWork.TicketStatuses.GetAsync(where: (f) => f.Id == request.Id, cancellationToken: cancellationToken);
-            if (entity == null)
-                return Result.NotFound();
-            await _unitOfWork.TicketStatuses.UpdateAndSaveAsync(_mapper.Map(request, entity), cancellationToken);
-            return Result.Success();
-        }
 
-        public async Task<Result> DeleteAsync(int id, CancellationToken cancellationToken = default)
-        {
-            var affected = await _unitOfWork.TicketStatuses.DeleteAndSaveAsync(where: (f) => f.Id == id, cancellationToken);
-            if (affected == 0) return Result.NotFound();
-            return Result.Success();
-        }
 
-        public async Task<Result> RestoreAsync(int id, CancellationToken cancellationToken = default)
-        {
-            var restored = await _unitOfWork.TicketStatuses.RestoreAndSaveAsync(where: (f) => f.Id == id, cancellationToken);
-            if (restored == 0) return Result.NotFound();
-            return Result.Success();
-        }
 
         public async Task<Result<PaginationResponse<TicketStatus>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default)
         {

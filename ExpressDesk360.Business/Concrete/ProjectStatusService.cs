@@ -92,39 +92,9 @@ namespace ExpressDesk360.Business.Concrete
             return Result.Success();
         }
 
-        public async Task<Result<ProjectStatusUpdateDto>> GetUpdateModelAsync(int id, CancellationToken cancellationToken = default)
-        {
-            var result = await _unitOfWork.ProjectStatuses.GetAsync<ProjectStatusUpdateDto>(configurationProvider: _mapper.ConfigurationProvider, where: (f) => f.Id == id, cancellationToken: cancellationToken);
-            if (result == null)
-                return Result<ProjectStatusUpdateDto>.NotFound();
-            return Result<ProjectStatusUpdateDto>.Success(result);
-        }
 
-        public async Task<Result> UpdateAsync(ProjectStatusUpdateDto request, CancellationToken cancellationToken = default)
-        {
-            var validationResult = await _validationService.ValidateAsync(request, cancellationToken);
-            if (!validationResult.IsValid)
-                return Result.Validation(validationResult.Failures);
-            var entity = await _unitOfWork.ProjectStatuses.GetAsync(where: (f) => f.Id == request.Id, cancellationToken: cancellationToken);
-            if (entity == null)
-                return Result.NotFound();
-            await _unitOfWork.ProjectStatuses.UpdateAndSaveAsync(_mapper.Map(request, entity), cancellationToken);
-            return Result.Success();
-        }
 
-        public async Task<Result> DeleteAsync(int id, CancellationToken cancellationToken = default)
-        {
-            var affected = await _unitOfWork.ProjectStatuses.DeleteAndSaveAsync(where: (f) => f.Id == id, cancellationToken);
-            if (affected == 0) return Result.NotFound();
-            return Result.Success();
-        }
 
-        public async Task<Result> RestoreAsync(int id, CancellationToken cancellationToken = default)
-        {
-            var restored = await _unitOfWork.ProjectStatuses.RestoreAndSaveAsync(where: (f) => f.Id == id, cancellationToken);
-            if (restored == 0) return Result.NotFound();
-            return Result.Success();
-        }
 
         public async Task<Result<PaginationResponse<ProjectStatus>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default)
         {
