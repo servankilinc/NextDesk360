@@ -2,7 +2,7 @@ using ExpressDesk360.Core.Model;
 
 namespace ExpressDesk360.Model.Entities
 {
-    public class UserContact : IEntity, ISoftDeletableEntity, IAuditableEntity
+    public class UserContact : IEntity, IAuditableEntity
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
@@ -15,13 +15,6 @@ namespace ExpressDesk360.Model.Entities
         public DateTime? CreateDateUtc { get; set; }
         public DateTime? UpdateDateUtc { get; set; }
         #endregion
-
-        #region ISoftDeletableEntity
-        public string? DeletedBy { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime? DeletedDateUtc { get; set; }
-        #endregion
-
         public virtual User? User { get; set; }
         public virtual ContactType? ContactType { get; set; }
     }

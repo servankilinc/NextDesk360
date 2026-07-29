@@ -82,13 +82,6 @@ namespace ExpressDesk360.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Restore(Guid id)
-        {
-            var result = await _fSFolderService.RestoreAsync(id: id);
-            return ToAction(result);
-        }
-
-        [HttpPost]
         public async Task<IActionResult> DatatableClientSide(DynamicDatatableRequest request)
         {
             var result = await _fSFolderService.DatatableClientSideAsync(request);

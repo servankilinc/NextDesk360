@@ -2,7 +2,7 @@ using ExpressDesk360.Core.Model;
 
 namespace ExpressDesk360.Model.Entities
 {
-    public class ProjectFile : IEntity, ISoftDeletableEntity, IAuditableEntity
+    public class ProjectFile : IEntity, IAuditableEntity
     {
         public Guid Id { get; set; }
         public Guid ProjectId { get; set; }
@@ -15,13 +15,6 @@ namespace ExpressDesk360.Model.Entities
         public DateTime? UpdateDateUtc { get; set; }
 
         #endregion
-
-        #region ISoftDeletableEntity
-        public string? DeletedBy { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime? DeletedDateUtc { get; set; }
-        #endregion
-
         public virtual Project? Project { get; set; }
         public virtual FSFile? File { get; set; }
     }

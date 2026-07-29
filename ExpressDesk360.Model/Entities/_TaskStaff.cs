@@ -2,7 +2,7 @@ using ExpressDesk360.Core.Model;
 
 namespace ExpressDesk360.Model.Entities
 {
-    public class _TaskStaff : IEntity, ISoftDeletableEntity, IAuditableEntity
+    public class _TaskStaff : IEntity, IAuditableEntity
     {
         public Guid Id { get; set; }
         public Guid TaskId { get; set; }
@@ -14,12 +14,6 @@ namespace ExpressDesk360.Model.Entities
         public string? UpdatedBy { get; set; }
         public DateTime? CreateDateUtc { get; set; }
         public DateTime? UpdateDateUtc { get; set; }
-        #endregion
-
-        #region ISoftDeletableEntity
-        public string? DeletedBy { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime? DeletedDateUtc { get; set; }
         #endregion
 
         public virtual _Task? Task { get; set; }

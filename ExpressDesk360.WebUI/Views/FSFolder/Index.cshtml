@@ -48,13 +48,6 @@
                         <label class="form-label fw-semibold" for="inpt_path">Path</label>
                         <input id="inpt_path" class="form-control form-control-sm form-control-solid" name="Path" type="text"/>
                     </div>
-                    <div class="mb-10">
-                        <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                            <input name="IsDeleted" value="false" type="hidden" />
-                            <input name="IsDeleted" value="true" type="checkbox" class="form-check-input" />
-                            <span class="form-check-label fs-sm">Include Deleted</span>
-                        </div>
-                    </div>
             
                     <div class="d-flex justify-content-end">
                         <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">Reset</button>
@@ -76,10 +69,7 @@
 					<th>Parent Folder</th>
 					<th>Name</th>
 					<th>Path</th>
-					<th>Create Date</th>
-					<th>Status</th>
-					<th>Delete Date</th>
-					<th>Actions</th>
+					<th>Create Date</th><th>Actions</th>
 
                 </tr>
             </thead>
@@ -137,23 +127,6 @@
                                 field: 'Path',
                                 value: $("input[name='Path']").val()
                             }
-                , 
-                            {
-                                operator: 'base',
-                                logic: 'or',
-                                filters: [
-                                    {
-                                        operator: 'eq',
-                                        field: 'isDeleted',
-                                        value: false,
-                                    },
-                                    {
-                                        operator: 'eq',
-                                        field: 'isDeleted',
-                                        value: $('input[name="IsDeleted"]:checked').prop("checked") || false,
-                                    }
-                                ]
-                            }
             
                         ]
                     }
@@ -171,31 +144,13 @@
                             if(data == null) return '';
                             return moment(data).format('DD.MM.YYYY HH:mm');
                         }
-                    },
-                    {
-                        data: 'isDeleted',
-                        render: function (data) {
-                            if(data == true) return (`<span class="badge rounded-pill bg-label-danger"><i class="fa-solid fa-xmark"></i></span>`);
-                            else if(data == false) return (`<span class="badge rounded-pill bg-label-success"><i class="fa-solid fa-check"></i></span>`);
-                            else return ('');
-                        }
-                    },
-                    {
-                        data: 'deletedDateUtc',
-                        render: function (data) {
-                            if(data == null) return '';
-                            return moment(data).format('DD.MM.YYYY HH:mm');
-                        }
-                    },
-                    {
+                    },{
                         data: null,
                         defaultContent: '',
                         searchable: false,
                         createdCell: function (td, cellData, rowData, row, col)
                         {
-                            let deleteHandleButton = rowData.isDeleted == true ?
-                                HelperService.UndoDeleteButtonTable({ requestUrl: 'FSFolder/Restore', requestData: { "id": rowData.id }, pageTable: mainTable }) :
-                                HelperService.DeleteButtonTable({requestUrl: 'FSFolder/Delete', requestData: { "id": rowData.id }, pageTable: mainTable });
+                            
 
                             DatatableManager.AppendRowButtons(td,
                             [
@@ -207,7 +162,7 @@
                                     },
                                     pageTable: mainTable
                                 }),
-                                deleteHandleButton
+                                HelperService.DeleteButtonTable({requestUrl: 'FSFolder/Delete', requestData: { 'id': rowData.id }, pageTable: mainTable })
                             ]);
                         }
                     }

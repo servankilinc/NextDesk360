@@ -46,7 +46,6 @@ namespace ExpressDesk360.DataAccess.Contexts
             {
                 c.ToTable("CompanyProductStockSerialMap");
                 c.HasKey(c => c.Id);
-                c.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<CompanyProductWarranty>(c =>
             {
@@ -76,13 +75,11 @@ namespace ExpressDesk360.DataAccess.Contexts
             {
                 c.ToTable("CompanyContact");
                 c.HasKey(c => c.Id);
-                c.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<CompanyFile>(c =>
             {
                 c.ToTable("CompanyFile");
                 c.HasKey(c => c.Id);
-                c.HasQueryFilter(f => !f.IsDeleted);
             });
             #endregion
 
@@ -117,7 +114,6 @@ namespace ExpressDesk360.DataAccess.Contexts
             {
                 p.ToTable("ProjectFile");
                 p.HasKey(p => p.Id);
-                p.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<ProjectMovement>(p =>
             {
@@ -136,7 +132,6 @@ namespace ExpressDesk360.DataAccess.Contexts
             {
                 p.ToTable("ProjectStaff");
                 p.HasKey(p => p.Id);
-                p.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<ProjectStatus>(p =>
             {
@@ -160,7 +155,6 @@ namespace ExpressDesk360.DataAccess.Contexts
             {
                 s.ToTable("ShippingFile");
                 s.HasKey(s => s.Id);
-                s.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<ShippingType>(s =>
             {
@@ -212,13 +206,11 @@ namespace ExpressDesk360.DataAccess.Contexts
             {
                 s.ToTable("StockGroupBrandMap");
                 s.HasKey(s => s.Id);
-                s.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<StockGroupFaultTypeMap>(s =>
             {
                 s.ToTable("StockGroupFaultTypeMap");
                 s.HasKey(s => s.Id);
-                s.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<StockMovement>(s =>
             {
@@ -231,7 +223,6 @@ namespace ExpressDesk360.DataAccess.Contexts
             {
                 s.ToTable("StockMovementStockSerialMap");
                 s.HasKey(s => s.Id);
-                s.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<StockMovementType>(s =>
             {
@@ -267,7 +258,6 @@ namespace ExpressDesk360.DataAccess.Contexts
             {
                 s.ToTable("StockTypeGroupMap");
                 s.HasKey(s => s.Id);
-                s.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<Warehouse>(w =>
             {
@@ -315,7 +305,6 @@ namespace ExpressDesk360.DataAccess.Contexts
             {
                 t.ToTable("TicketFile");
                 t.HasKey(t => t.Id);
-                t.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<TicketMessage>(t =>
             {
@@ -328,7 +317,6 @@ namespace ExpressDesk360.DataAccess.Contexts
             {
                 t.ToTable("TicketMessageFile");
                 t.HasKey(t => t.Id);
-                t.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<TicketMovement>(t =>
             {
@@ -342,7 +330,6 @@ namespace ExpressDesk360.DataAccess.Contexts
             {
                 t.ToTable("TicketMovementFile");
                 t.HasKey(t => t.Id);
-                t.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<TicketMovementType>(t =>
             {
@@ -385,7 +372,6 @@ namespace ExpressDesk360.DataAccess.Contexts
             {
                 t.ToTable("TicketStaff");
                 t.HasKey(t => t.Id);
-                t.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<TicketStatus>(t =>
             {
@@ -470,7 +456,6 @@ namespace ExpressDesk360.DataAccess.Contexts
             {
                 _.ToTable("_TaskFile");
                 _.HasKey(_ => _.Id);
-                _.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<_TaskMovement>(_ =>
             {
@@ -497,7 +482,6 @@ namespace ExpressDesk360.DataAccess.Contexts
             {
                 _.ToTable("_TaskStaff");
                 _.HasKey(_ => _.Id);
-                _.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<_TaskStatus>(_ =>
             {
@@ -521,7 +505,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 f.HasMany(f => f.FileTicketMessageFiles).WithOne(t => t.File).HasForeignKey(t => t.FileId).OnDelete(DeleteBehavior.Restrict);
                 f.HasMany(f => f.FileTicketMovementFiles).WithOne(t => t.File).HasForeignKey(t => t.FileId).OnDelete(DeleteBehavior.Restrict);
                 f.HasMany(f => f.FileUserFiles).WithOne(u => u.File).HasForeignKey(u => u.FileId).OnDelete(DeleteBehavior.Restrict);
-                f.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<FSFolder>(f =>
             {
@@ -530,7 +513,6 @@ namespace ExpressDesk360.DataAccess.Contexts
                 f.HasMany(f => f.FolderFSFiles).WithOne(f => f.Folder).HasForeignKey(f => f.FolderId).OnDelete(DeleteBehavior.Cascade);
                 // Self-referencing FK: SQL Server rejects ON DELETE CASCADE here (multiple cascade paths).
                 f.HasMany(f => f.ParentFolderFSFolders).WithOne(f => f.ParentFolder).HasForeignKey(f => f.ParentFolderId).OnDelete(DeleteBehavior.Restrict);
-                f.HasQueryFilter(f => !f.IsDeleted);
             });
             #endregion
 
@@ -613,13 +595,11 @@ namespace ExpressDesk360.DataAccess.Contexts
             {
                 u.ToTable("UserContact");
                 u.HasKey(u => u.Id);
-                u.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<UserFile>(u =>
             {
                 u.ToTable("UserFile");
                 u.HasKey(u => u.Id);
-                u.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<RefreshToken>(r =>
             {
