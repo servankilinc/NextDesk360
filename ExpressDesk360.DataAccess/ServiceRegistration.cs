@@ -78,15 +78,18 @@ namespace ExpressDesk360.DataAccess
             services.AddScoped<IWarehouseRepository, WarehouseRepository>();
             services.AddScoped<IWarrantyTypeRepository, WarrantyTypeRepository>();
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
-#region DB CONTEXT
+            #region DB CONTEXT
             services.AddSingleton<AuditInterceptor>();
             services.AddSingleton<ArchiveInterceptor>();
-            services.AddSingleton<SoftDeleteInterceptor>();
+            services.AddSingleton<EntityLifecycleInterceptor>();
             services.AddDbContext<AppDbContext>((serviceProvider, opt) =>
             {
-                opt.UseSqlServer(configuration.GetConnectionString("Database")).AddInterceptors(serviceProvider.GetRequiredService<AuditInterceptor>()).AddInterceptors(serviceProvider.GetRequiredService<ArchiveInterceptor>()).AddInterceptors(serviceProvider.GetRequiredService<SoftDeleteInterceptor>());
+                opt.UseSqlServer(configuration.GetConnectionString("Database"))
+                   .AddInterceptors(serviceProvider.GetRequiredService<AuditInterceptor>())
+                   .AddInterceptors(serviceProvider.GetRequiredService<ArchiveInterceptor>())
+                   .AddInterceptors(serviceProvider.GetRequiredService<EntityLifecycleInterceptor>());
             });
-#endregion
+            #endregion
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             return services;
         }

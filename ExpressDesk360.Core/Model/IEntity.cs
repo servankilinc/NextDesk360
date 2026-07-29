@@ -15,15 +15,6 @@ public interface IProjectEntity
 {
 }
 
-/// <summary>
-/// Interface for entities that support soft deletion.
-/// </summary>
-public interface ISoftDeletableEntity
-{
-    string? DeletedBy { get; set; }
-    bool IsDeleted { get; set; }
-    DateTime? DeletedDateUtc { get; set; }
-}
 
 /// <summary>
 /// Interface for entities that support auditing.
@@ -41,4 +32,29 @@ public interface IAuditableEntity
 /// </summary>
 public interface IArchivableEntity
 {
+}
+
+/// <summary>
+/// Interface for entities that support active/passive status.
+/// </summary>
+public interface IActivatableEntity
+{
+    bool IsActive { get; set; }
+}
+
+/// <summary>
+/// Interface for system locked / read-only entities.
+/// </summary>
+public interface IImmutableEntity
+{
+}
+
+/// <summary>
+/// Interface for entities that support soft deletion.
+/// </summary>
+public interface ISoftDeletableEntity
+{
+    string? DeletedBy { get; set; }
+    bool IsDeleted { get; set; }
+    DateTime? DeletedDateUtc { get; set; }
 }
