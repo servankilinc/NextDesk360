@@ -44,6 +44,19 @@ namespace ExpressDesk360.Business.Concrete
             return Result<StockGroup>.Success(result);
         }
 
+        public async Task<Result<StockGroup>> GetDetailAsync(int id, CancellationToken cancellationToken = default)
+        {
+            var result = await _unitOfWork.StockGroups.GetAsync(
+                where: f => f.Id == id,
+                include: i => i.Include(x => x.StockGroupBrandMaps).ThenInclude(m => m.StockBrand)
+                               .Include(x => x.StockGroupFaultTypeMaps).ThenInclude(m => m.FaultType),
+                cancellationToken: cancellationToken);
+
+            if (result == null)
+                return Result<StockGroup>.NotFound();
+            return Result<StockGroup>.Success(result);
+        }
+
         public async Task<Result<StockGroupDto>> GetBaseAsync(int id, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork.StockGroups.GetAsync<StockGroupDto>(configurationProvider: _mapper.ConfigurationProvider, where: (f) => f.Id == id, cancellationToken: cancellationToken);
@@ -88,15 +101,35 @@ namespace ExpressDesk360.Business.Concrete
             var validationResult = await _validationService.ValidateAsync(request, cancellationToken);
             if (!validationResult.IsValid)
                 return Result.Validation(validationResult.Failures, description: $"Validation failed for StockGroupCreateDto");
-            await _unitOfWork.StockGroups.AddAndSaveAsync(_mapper.Map<StockGroup>(request), cancellationToken);
+            
+            var entity = _mapper.Map<StockGroup>(request);
+            if (request.BrandIds != null && request.BrandIds.Any())
+            {
+                entity.StockGroupBrandMaps = request.BrandIds.Select(id => new StockGroupBrandMap { StockBrandId = id }).ToList();
+            }
+            if (request.FaultTypeIds != null && request.FaultTypeIds.Any())
+            {
+                entity.StockGroupFaultTypeMaps = request.FaultTypeIds.Select(id => new StockGroupFaultTypeMap { FaultTypeId = id }).ToList();
+            }
+
+            await _unitOfWork.StockGroups.AddAndSaveAsync(entity, cancellationToken);
             return Result.Success();
         }
 
         public async Task<Result<StockGroupUpdateDto>> GetUpdateModelAsync(int id, CancellationToken cancellationToken = default)
         {
-            var result = await _unitOfWork.StockGroups.GetAsync<StockGroupUpdateDto>(configurationProvider: _mapper.ConfigurationProvider, where: (f) => f.Id == id, cancellationToken: cancellationToken);
-            if (result == null)
+            var entity = await _unitOfWork.StockGroups.GetAsync(
+                where: f => f.Id == id,
+                include: i => i.Include(x => x.StockGroupBrandMaps).Include(x => x.StockGroupFaultTypeMaps),
+                cancellationToken: cancellationToken);
+
+            if (entity == null)
                 return Result<StockGroupUpdateDto>.NotFound();
+
+            var result = _mapper.Map<StockGroupUpdateDto>(entity);
+            result.BrandIds = entity.StockGroupBrandMaps?.Select(x => x.StockBrandId).ToList();
+            result.FaultTypeIds = entity.StockGroupFaultTypeMaps?.Select(x => x.FaultTypeId).ToList();
+
             return Result<StockGroupUpdateDto>.Success(result);
         }
 
@@ -105,10 +138,38 @@ namespace ExpressDesk360.Business.Concrete
             var validationResult = await _validationService.ValidateAsync(request, cancellationToken);
             if (!validationResult.IsValid)
                 return Result.Validation(validationResult.Failures);
-            var entity = await _unitOfWork.StockGroups.GetAsync(where: (f) => f.Id == request.Id, cancellationToken: cancellationToken);
+            
+            var entity = await _unitOfWork.StockGroups.GetAsync(
+                where: (f) => f.Id == request.Id, 
+                include: i => i.Include(x => x.StockGroupBrandMaps).Include(x => x.StockGroupFaultTypeMaps),
+                cancellationToken: cancellationToken);
+            
             if (entity == null)
                 return Result.NotFound();
-            await _unitOfWork.StockGroups.UpdateAndSaveAsync(_mapper.Map(request, entity), cancellationToken);
+
+            entity = _mapper.Map(request, entity);
+
+            if (request.BrandIds != null)
+            {
+                entity.StockGroupBrandMaps?.Clear();
+                if (entity.StockGroupBrandMaps == null) entity.StockGroupBrandMaps = new List<StockGroupBrandMap>();
+                foreach (var id in request.BrandIds)
+                {
+                    entity.StockGroupBrandMaps.Add(new StockGroupBrandMap { StockGroupId = entity.Id, StockBrandId = id });
+                }
+            }
+
+            if (request.FaultTypeIds != null)
+            {
+                entity.StockGroupFaultTypeMaps?.Clear();
+                if (entity.StockGroupFaultTypeMaps == null) entity.StockGroupFaultTypeMaps = new List<StockGroupFaultTypeMap>();
+                foreach (var id in request.FaultTypeIds)
+                {
+                    entity.StockGroupFaultTypeMaps.Add(new StockGroupFaultTypeMap { StockGroupId = entity.Id, FaultTypeId = id });
+                }
+            }
+
+            await _unitOfWork.StockGroups.UpdateAndSaveAsync(entity, cancellationToken);
             return Result.Success();
         }
 
@@ -126,10 +187,20 @@ namespace ExpressDesk360.Business.Concrete
             return Result<DatatableResponseClientSide<StockGroup>>.Success(result);
         }
 
-        public async Task<Result<DatatableResponseServerSide<StockGroup>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
+        public async Task<Result<DatatableResponseServerSide<StockGroupReportDto>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
         {
-            var result = await _unitOfWork.StockGroups.DatatableServerSideAsync(datatableRequest: request, cancellationToken: cancellationToken);
-            return Result<DatatableResponseServerSide<StockGroup>>.Success(result);
+            var result = await _unitOfWork.StockGroups.DatatableServerSideAsync(
+                datatableRequest: request,
+                select: s => new StockGroupReportDto
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    IsActive = s.IsActive,
+                    CreateDateUtc = s.CreateDateUtc,
+                    UpdateDateUtc = s.UpdateDateUtc
+                },
+                cancellationToken: cancellationToken);
+            return Result<DatatableResponseServerSide<StockGroupReportDto>>.Success(result);
         }
     }
 }

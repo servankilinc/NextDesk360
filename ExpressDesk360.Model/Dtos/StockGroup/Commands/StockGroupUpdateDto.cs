@@ -8,6 +8,8 @@ namespace ExpressDesk360.Model.Dtos.StockGroup.Commands
         public int Id { get; set; }
         public string Name { get; set; } = null!;
         public bool IsActive { get; set; } = true;
+        public List<int>? BrandIds { get; set; }
+        public List<int>? FaultTypeIds { get; set; }
     }
 
     public class StockGroupUpdateDtoValidator : AbstractValidator<StockGroupUpdateDto>

@@ -12,6 +12,9 @@ namespace ExpressDesk360.Model.Dtos.StockMovement.Commands
         public Guid? InvoiceId { get; set; }
         public Guid? TicketMovementId { get; set; }
         public int? WarehouseId { get; set; }
+        public Guid? CompanyProductId { get; set; }
+        public int? FaultTypeId { get; set; }
+        public List<Guid>? StockSerialIds { get; set; }
         public DateTime Date { get; set; }
     }
 

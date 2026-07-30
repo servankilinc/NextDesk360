@@ -105,5 +105,47 @@ namespace ExpressDesk360.WebUI.Controllers
             var result = await _stockService.DatatableServerSideAsync(request);
             return ToAction(result);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Detail(Guid id)
+        {
+            var result = await _stockService.GetDetailAsync(id);
+            if (!result.IsSuccess) return ToAction(result);
+
+            var viewModel = new StockDetailViewModel
+            {
+                Stock = result.Data
+            };
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Dashboard()
+        {
+            var result = await _stockService.GetDashboardDataAsync();
+            if (!result.IsSuccess || result.Data == null)
+            {
+                return View(new StockDashboardViewModel());
+            }
+
+            dynamic data = result.Data;
+
+            var viewModel = new StockDashboardViewModel
+            {
+                TotalStockModels = data.TotalStockModels,
+                TotalSerials = data.TotalSerials,
+                TotalActiveWarranties = data.TotalActiveWarranties,
+                AttachedSerials = data.AttachedSerials,
+                RecentMovements = ((IEnumerable<dynamic>)data.RecentMovements)?.Select(m => new RecentMovementViewModel
+                {
+                    Date = m.Date,
+                    StockModelName = m.StockModelName,
+                    MovementTypeName = m.MovementTypeName,
+                    Quantity = m.Quantity
+                }).ToList()
+            };
+
+            return View(viewModel);
+        }
     }
 }

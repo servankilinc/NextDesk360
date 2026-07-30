@@ -73,5 +73,18 @@ namespace ExpressDesk360.WebUI.Controllers
             var result = await _faultTypeService.DatatableServerSideAsync(request);
             return ToAction(result);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Detail(int id)
+        {
+            var result = await _faultTypeService.GetDetailAsync(id);
+            if (!result.IsSuccess) return ToAction(result);
+
+            var viewModel = new FaultTypeDetailViewModel
+            {
+                FaultType = result.Data
+            };
+            return View(viewModel);
+        }
     }
 }

@@ -44,6 +44,18 @@ namespace ExpressDesk360.Business.Concrete
             return Result<FaultType>.Success(result);
         }
 
+        public async Task<Result<FaultType>> GetDetailAsync(int id, CancellationToken cancellationToken = default)
+        {
+            var result = await _unitOfWork.FaultTypes.GetAsync(
+                where: f => f.Id == id,
+                include: i => i.Include(x => x.StockGroupFaultTypeMaps).ThenInclude(m => m.StockGroup),
+                cancellationToken: cancellationToken);
+
+            if (result == null)
+                return Result<FaultType>.NotFound();
+            return Result<FaultType>.Success(result);
+        }
+
         public async Task<Result<FaultTypeDto>> GetBaseAsync(int id, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork.FaultTypes.GetAsync<FaultTypeDto>(configurationProvider: _mapper.ConfigurationProvider, where: (f) => f.Id == id, cancellationToken: cancellationToken);
@@ -126,10 +138,21 @@ namespace ExpressDesk360.Business.Concrete
             return Result<DatatableResponseClientSide<FaultType>>.Success(result);
         }
 
-        public async Task<Result<DatatableResponseServerSide<FaultType>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
+        public async Task<Result<DatatableResponseServerSide<FaultTypeReportDto>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
         {
-            var result = await _unitOfWork.FaultTypes.DatatableServerSideAsync(datatableRequest: request, cancellationToken: cancellationToken);
-            return Result<DatatableResponseServerSide<FaultType>>.Success(result);
+            var result = await _unitOfWork.FaultTypes.DatatableServerSideAsync(
+                datatableRequest: request,
+                select: s => new FaultTypeReportDto
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    Description = s.Description,
+                    IsActive = s.IsActive,
+                    CreateDateUtc = s.CreateDateUtc,
+                    UpdateDateUtc = s.UpdateDateUtc
+                },
+                cancellationToken: cancellationToken);
+            return Result<DatatableResponseServerSide<FaultTypeReportDto>>.Success(result);
         }
     }
 }

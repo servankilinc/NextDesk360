@@ -14,6 +14,7 @@ namespace ExpressDesk360.Business.Abstract
     {
         Task<Result<StockGroup>> GetAsync(Expression<Func<StockGroup, bool>> where, CancellationToken cancellationToken = default);
         Task<Result<StockGroup>> GetAsync(int id, CancellationToken cancellationToken = default);
+        Task<Result<StockGroup>> GetDetailAsync(int id, CancellationToken cancellationToken = default);
         Task<Result<StockGroupDto>> GetBaseAsync(int id, CancellationToken cancellationToken = default);
         Task<Result<ICollection<StockGroup>>> GetListAsync(Expression<Func<StockGroup, bool>> where, CancellationToken cancellationToken = default);
         Task<Result<ICollection<StockGroup>>> GetListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default);
@@ -24,6 +25,6 @@ namespace ExpressDesk360.Business.Abstract
         Task<Result> UpdateAsync(StockGroupUpdateDto request, CancellationToken cancellationToken = default);
         Task<Result<PaginationResponse<StockGroup>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default);
         Task<Result<DatatableResponseClientSide<StockGroup>>> DatatableClientSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);
-        Task<Result<DatatableResponseServerSide<StockGroup>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);
+        Task<Result<DatatableResponseServerSide<StockGroupReportDto>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);
     }
 }

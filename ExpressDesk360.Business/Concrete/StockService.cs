@@ -44,6 +44,22 @@ namespace ExpressDesk360.Business.Concrete
             return Result<Stock>.Success(result);
         }
 
+        public async Task<Result<Stock>> GetDetailAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            var result = await _unitOfWork.Stocks.GetAsync(
+                where: f => f.Id == id,
+                include: i => i.Include(x => x.StockGroup)
+                               .Include(x => x.StockBrand)
+                               .Include(x => x.Unit)
+                               .Include(x => x.PurchaseCurrency)
+                               .Include(x => x.SalePriceCurrency),
+                cancellationToken: cancellationToken);
+
+            if (result == null)
+                return Result<Stock>.NotFound();
+            return Result<Stock>.Success(result);
+        }
+
         public async Task<Result<StockDto>> GetBaseAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork.Stocks.GetAsync<StockDto>(configurationProvider: _mapper.ConfigurationProvider, where: (f) => f.Id == id, cancellationToken: cancellationToken);
@@ -126,10 +142,63 @@ namespace ExpressDesk360.Business.Concrete
             return Result<DatatableResponseClientSide<Stock>>.Success(result);
         }
 
-        public async Task<Result<DatatableResponseServerSide<Stock>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
+        public async Task<Result<DatatableResponseServerSide<StockReportDto>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
         {
-            var result = await _unitOfWork.Stocks.DatatableServerSideAsync(datatableRequest: request, cancellationToken: cancellationToken);
-            return Result<DatatableResponseServerSide<Stock>>.Success(result);
+            var result = await _unitOfWork.Stocks.DatatableServerSideAsync(
+                datatableRequest: request,
+                select: s => new StockReportDto
+                {
+                    Id = s.Id,
+                    ModelName = s.ModelName,
+                    ModelCode = s.ModelCode,
+                    ModelType = s.ModelType,
+                    UnitShortName = s.Unit != null ? s.Unit.ShortName : null,
+                    SerialTracking = s.SerialTracking,
+                    Vat = s.Vat,
+                    PurchasePrice = s.PurchasePrice,
+                    PurchaseCurrencyShortName = s.PurchaseCurrency != null ? s.PurchaseCurrency.ShortName : null,
+                    SalePrice = s.SalePrice,
+                    SalePriceCurrencyShortName = s.SalePriceCurrency != null ? s.SalePriceCurrency.ShortName : null,
+                    StockGroupName = s.StockGroup != null ? s.StockGroup.Name : null,
+                    StockBrandName = s.StockBrand != null ? s.StockBrand.Name : null,
+                    TotalSerialCount = s.StockSerials.Count(),
+                    AvailableSerialCount = s.StockSerials.Count(x => !x.CompanyProductStockSerialMaps.Any()),
+                    IsActive = s.IsActive,
+                    CreateDateUtc = s.CreateDateUtc,
+                    UpdateDateUtc = s.UpdateDateUtc
+                },
+                cancellationToken: cancellationToken);
+            return Result<DatatableResponseServerSide<StockReportDto>>.Success(result);
+        }
+
+        public async Task<Result<object>> GetDashboardDataAsync(CancellationToken cancellationToken = default)
+        {
+            var totalStockModels = await _unitOfWork.Stocks.CountAsync(cancellationToken: cancellationToken);
+            var totalActiveSerials = await _unitOfWork.StockSerials.CountAsync(
+                where: s => s.StockSerialWarranties.Any(w => w.EndDate >= DateTime.UtcNow), 
+                cancellationToken: cancellationToken);
+            var totalSerials = await _unitOfWork.StockSerials.CountAsync(cancellationToken: cancellationToken);
+            var attachedSerials = await _unitOfWork.StockSerials.CountAsync(
+                where: s => s.CompanyProductStockSerialMaps.Any(), 
+                cancellationToken: cancellationToken);
+            var recentMovements = await _unitOfWork.StockMovements.GetAllAsync<object>(
+                select: s => new { 
+                    s.Date, 
+                    StockModelName = s.Stock != null ? s.Stock.ModelName : null, 
+                    MovementTypeName = s.StockMovementType != null ? s.StockMovementType.Name : null,
+                    Quantity = s.Quantity
+                },
+                orderBy: q => q.OrderByDescending(x => x.Date),
+                cancellationToken: cancellationToken);
+            
+            return Result<object>.Success(new
+            {
+                TotalStockModels = totalStockModels,
+                TotalSerials = totalSerials,
+                TotalActiveWarranties = totalActiveSerials,
+                AttachedSerials = attachedSerials,
+                RecentMovements = recentMovements?.Take(10).ToList()
+            });
         }
     }
 }

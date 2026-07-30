@@ -1,0 +1,50 @@
+@using ExpressDesk360.WebUI.Models.ViewModels.Stock
+@model StockDetailViewModel
+@{
+    ViewData["Title"] = "Stok Modeli Detayı";
+}
+
+@{
+    ViewData["Breadcrumb"] = new Breadcrum
+    {
+        BreadcrumbItems = new List<BreadcrumbItem>
+        {
+            new BreadcrumbItem { Title = "Ana Sayfa", Path = Url.Action("Index", "Home") },
+            new BreadcrumbItem { Title = "Stok Modelleri", Path = Url.Action("Index", "Stock") }
+        },
+        PageName = Model.Stock?.ModelName ?? "Detay"
+    };
+}
+
+<div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+    <div class="card-header cursor-pointer">
+        <div class="card-title m-0">
+            <h3 class="fw-bold m-0">Stok Modeli Bilgileri</h3>
+        </div>
+        <a href="javascript:void(0)" onclick="HelperService.InsertModal({ title: 'Stok Modeli Güncelle', formGetterUrl: 'Stock/Update', requestData: { id: '@Model.Stock?.Id' } })" class="btn btn-sm btn-primary align-self-center">Düzenle</a>
+    </div>
+
+    <div class="card-body p-9">
+        <div class="row mb-7">
+            <label class="col-lg-4 fw-semibold text-muted">Stok Grubu</label>
+            <div class="col-lg-8">
+                <span class="fw-bold fs-6 text-gray-800">@Model.Stock?.StockGroup?.Name</span>
+            </div>
+        </div>
+
+        <div class="row mb-7">
+            <label class="col-lg-4 fw-semibold text-muted">Marka</label>
+            <div class="col-lg-8">
+                <span class="fw-bold fs-6 text-gray-800">@Model.Stock?.StockBrand?.Name</span>
+            </div>
+        </div>
+
+        <div class="row mb-7">
+            <label class="col-lg-4 fw-semibold text-muted">Model Adı / Kodu</label>
+            <div class="col-lg-8 fv-row">
+                <span class="fw-semibold text-gray-800 fs-6">@Model.Stock?.ModelName / @Model.Stock?.ModelCode</span>
+            </div>
+        </div>
+
+    </div>
+</div>

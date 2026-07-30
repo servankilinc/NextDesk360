@@ -8,10 +8,24 @@
 <form asp-controller="StockGroup" asp-action="Create" method="post"> 
 	<div class="row row-gap-4 m-2">
         
-        <div class="col-md-6">
-            <label class="form-label fw-semibold" asp-for="CreateModel.Name">Name</label>
+        <div class="col-md-12">
+            <label class="form-label fw-semibold" asp-for="CreateModel.Name">Grup Adı</label>
             <input class="form-control form-control-solid" asp-for="CreateModel.Name" type="text"/>
             <span class="form_validation_feedback" asp-validation-for="CreateModel.Name"></span>
+        </div>
+        <div class="col-md-12">
+            <label class="form-label fw-semibold" asp-for="CreateModel.BrandIds">Markalar</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.BrandIds" asp-for="CreateModel.BrandIds" data-control="select2" data-placeholder="Marka Seçin" data-allow-clear="true" multiple="multiple">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.BrandIds"></span>
+        </div> 
+        <div class="col-md-12">
+            <label class="form-label fw-semibold" asp-for="CreateModel.FaultTypeIds">Arıza Tipleri</label>
+            <select class="autoInitSelect2 form-select form-select-solid" asp-items="Model.FaultTypeIds" asp-for="CreateModel.FaultTypeIds" data-control="select2" data-placeholder="Arıza Tipi Seçin" data-allow-clear="true" multiple="multiple">
+                <option></option>
+            </select>
+            <span class="form_validation_feedback" asp-validation-for="CreateModel.FaultTypeIds"></span>
         </div>
 	</div>
 </form>

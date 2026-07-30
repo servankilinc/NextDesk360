@@ -96,99 +96,57 @@ namespace ExpressDesk360.WebUI.ViewComponents
 
                new MenuItem
                 {
-                    Title = "Stock",
+                    Title = "Stok ve Envanter",
                     Icon = "<i class=\"ki-duotone ki-parcel-tracking fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>",
                     GroupName = "Stock",
                     SubMenuItems = new List<MenuItem>{
                         new MenuItem
                         {
-                            Title = "Stock",
-                            Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
+                            Title = "Dashboard",
+                            Icon = "<i class=\"ki-duotone ki-chart-pie-4 text-primary fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>",
+                            Path = "/Stock/Dashboard",
+                            CollorTheme = "primary"
+                        },
+                        new MenuItem
+                        {
+                            Title = "Stok Modelleri",
+                            Icon = "<i class=\"ki-duotone ki-add-item fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>",
                             Path = "/Stock/Index"
                         },
                         new MenuItem
                         {
-                            Title = "StockBrand",
-                            Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
+                            Title = "Markalar",
+                            Icon = "<i class=\"ki-duotone ki-dribbble fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span><span class=\"path6\"></span></i>",
                             Path = "/StockBrand/Index"
                         },
                         new MenuItem
                         {
-                            Title = "StockGroup",
-                            Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
+                            Title = "Stok Grupları",
+                            Icon = "<i class=\"ki-duotone ki-lots-shopping fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span><span class=\"path6\"></span><span class=\"path7\"></span><span class=\"path8\"></span></i>",
                             Path = "/StockGroup/Index"
                         },
                         new MenuItem
                         {
-                            Title = "FaultType",
+                            Title = "Arıza Tipleri",
                             Icon = "<i class=\"ki-duotone ki-book-square text-info fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>",
                             Path = "/FaultType/Index",
                             CollorTheme = "info"
                         },
-                        //new MenuItem
-                        //{
-                        //    Title = "StockGroupBrandMap",
-                        //    Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                        //    Path = "/StockGroupBrandMap/Index"
-                        //},
-                        //new MenuItem
-                        //{
-                        //    Title = "StockGroupFaultTypeMap",
-                        //    Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                        //    Path = "/StockGroupFaultTypeMap/Index"
-                        //},
-                        //new MenuItem
-                        //{
-                        //    Title = "StockMovement",
-                        //    Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                        //    Path = "/StockMovement/Index"
-                        //},
-                        //new MenuItem
-                        //{
-                        //    Title = "StockMovementStockSerialMap",
-                        //    Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                        //    Path = "/StockMovementStockSerialMap/Index"
-                        //},
-                        //new MenuItem // *** sistemde kod içerisinde olması gerekiyor o yüzden kullanıcı ekleyemez ***
-                        //{
-                        //    Title = "StockMovementType",
-                        //    Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                        //    Path = "/StockMovementType/Index"
-                        //},
                         new MenuItem
                         {
-                            Title = "StockSerial",
+                            Title = "Seri Numaraları",
                             Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
                             Path = "/StockSerial/Index"
                         },
-                        //new MenuItem
-                        //{
-                        //    Title = "StockSerialWarranty",
-                        //    Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                        //    Path = "/StockSerialWarranty/Index"
-                        //},
-                        //new MenuItem // *** sistemde kod içerisinde olması gerekiyor o yüzden kullanıcı ekleyemez ***
-                        //{
-                        //    Title = "StockType",
-                        //    Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                        //    Path = "/StockType/Index"
-                        //},
-                        //new MenuItem
-                        //{
-                        //    Title = "StockTypeGroupMap",
-                        //    Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                        //    Path = "/StockTypeGroupMap/Index"
-                        //},
-
                         new MenuItem
                         {
-                            Title = "Unit",
+                            Title = "Birimler",
                             Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
                             Path = "/Unit/Index"
                         },
                         new MenuItem
                         {
-                            Title = "Warehouse",
+                            Title = "Depolar",
                             Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
                             Path = "/Warehouse/Index"
                         },

@@ -12,9 +12,14 @@ namespace ExpressDesk360.WebUI.Controllers
     public class StockGroupController : BaseController
     {
         private readonly IStockGroupService _stockGroupService;
-        public StockGroupController(ILogger<StockGroupController> logger, IStockGroupService stockGroupService) : base(logger)
+        private readonly IStockBrandService _stockBrandService;
+        private readonly IFaultTypeService _faultTypeService;
+
+        public StockGroupController(ILogger<StockGroupController> logger, IStockGroupService stockGroupService, IStockBrandService stockBrandService, IFaultTypeService faultTypeService) : base(logger)
         {
             _stockGroupService = stockGroupService;
+            _stockBrandService = stockBrandService;
+            _faultTypeService = faultTypeService;
         }
 
         [HttpGet]
@@ -29,8 +34,13 @@ namespace ExpressDesk360.WebUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            var brandsResult = await _stockBrandService.SelectListAsync();
+            var faultTypesResult = await _faultTypeService.SelectListAsync();
+
             var viewModel = new StockGroupCreateViewModel
             {
+                BrandIds = brandsResult.Data,
+                FaultTypeIds = faultTypesResult.Data
             };
             return PartialView("./Partials/CreateForm", viewModel);
         }
@@ -46,9 +56,14 @@ namespace ExpressDesk360.WebUI.Controllers
         public async Task<IActionResult> Update(int id)
         {
             var result = await _stockGroupService.GetUpdateModelAsync(id: id); if  ( ! result . IsSuccess ) return  ToAction ( result ) ; 
+            var brandsResult = await _stockBrandService.SelectListAsync();
+            var faultTypesResult = await _faultTypeService.SelectListAsync();
+
             var viewModel = new StockGroupUpdateViewModel
             {
-                UpdateModel = result.Data
+                UpdateModel = result.Data,
+                BrandIds = brandsResult.Data,
+                FaultTypeIds = faultTypesResult.Data
             };
             return PartialView("./Partials/UpdateForm", viewModel);
         }
@@ -72,6 +87,19 @@ namespace ExpressDesk360.WebUI.Controllers
         {
             var result = await _stockGroupService.DatatableServerSideAsync(request);
             return ToAction(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Detail(int id)
+        {
+            var result = await _stockGroupService.GetDetailAsync(id);
+            if (!result.IsSuccess) return ToAction(result);
+
+            var viewModel = new StockGroupDetailViewModel
+            {
+                StockGroup = result.Data
+            };
+            return View(viewModel);
         }
     }
 }

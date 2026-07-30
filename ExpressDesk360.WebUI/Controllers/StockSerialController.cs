@@ -97,5 +97,18 @@ namespace ExpressDesk360.WebUI.Controllers
             var result = await _stockSerialService.DatatableServerSideAsync(request);
             return ToAction(result);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Detail(Guid id)
+        {
+            var result = await _stockSerialService.GetDetailAsync(id);
+            if (!result.IsSuccess) return ToAction(result);
+
+            var viewModel = new StockSerialDetailViewModel
+            {
+                StockSerial = result.Data
+            };
+            return View(viewModel);
+        }
     }
 }

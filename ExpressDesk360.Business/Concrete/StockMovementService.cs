@@ -13,6 +13,7 @@ using ExpressDesk360.DataAccess.UoW;
 using ExpressDesk360.Model.Entities;
 using ExpressDesk360.Model.Dtos.StockMovement.Commands;
 using ExpressDesk360.Model.Dtos.StockMovement.Queries;
+using ExpressDesk360.Model.Enums;
 
 namespace ExpressDesk360.Business.Concrete
 {
@@ -93,8 +94,50 @@ namespace ExpressDesk360.Business.Concrete
             var validationResult = await _validationService.ValidateAsync(request, cancellationToken);
             if (!validationResult.IsValid)
                 return Result.Validation(validationResult.Failures, description: $"Validation failed for StockMovementCreateDto");
-            await _unitOfWork.StockMovements.AddAndSaveAsync(_mapper.Map<StockMovement>(request), cancellationToken);
-            return Result.Success();
+
+            await _unitOfWork.BeginTransactionAsync(cancellationToken);
+            try
+            {
+                var entity = _mapper.Map<StockMovement>(request);
+                
+                if (request.StockSerialIds != null && request.StockSerialIds.Any())
+                {
+                    entity.StockMovementStockSerialMaps = request.StockSerialIds.Select(id => new StockMovementStockSerialMap
+                    {
+                        StockSerialId = id
+                    }).ToList();
+                }
+
+                await _unitOfWork.StockMovements.AddAndSaveAsync(entity, cancellationToken);
+
+                // CompanyProductStockSerialMap yönetimi
+                if (request.StockMovementTypeId == (int)StockEnums.StockMovementType.AttachedToProduct && request.CompanyProductId.HasValue && request.StockSerialIds != null) // AttachedToProduct
+                {
+                    var maps = request.StockSerialIds.Select(serialId => new CompanyProductStockSerialMap
+                    {
+                        CompanyProductId = request.CompanyProductId.Value,
+                        StockSerialId = serialId
+                    });
+                    await _unitOfWork.CompanyProductStockSerialMaps.AddAndSaveAsync(maps, cancellationToken);
+                }
+                else if (request.StockMovementTypeId == (int)StockEnums.StockMovementType.RemovedFromProduct && request.CompanyProductId.HasValue && request.StockSerialIds != null) // RemovedFromProduct
+                {
+                    foreach (var serialId in request.StockSerialIds)
+                    {
+                        await _unitOfWork.CompanyProductStockSerialMaps.DeleteAndSaveAsync(
+                            where: x => x.CompanyProductId == request.CompanyProductId.Value && x.StockSerialId == serialId, 
+                            cancellationToken: cancellationToken);
+                    }
+                }
+
+                await _unitOfWork.CommitTransactionAsync(cancellationToken);
+                return Result.Success();
+            }
+            catch (Exception)
+            {
+                await _unitOfWork.RollbackTransactionAsync(cancellationToken);
+                throw;
+            }
         }
 
 
@@ -113,10 +156,26 @@ namespace ExpressDesk360.Business.Concrete
             return Result<DatatableResponseClientSide<StockMovement>>.Success(result);
         }
 
-        public async Task<Result<DatatableResponseServerSide<StockMovement>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
+        public async Task<Result<DatatableResponseServerSide<StockMovementReportDto>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
         {
-            var result = await _unitOfWork.StockMovements.DatatableServerSideAsync(datatableRequest: request, cancellationToken: cancellationToken);
-            return Result<DatatableResponseServerSide<StockMovement>>.Success(result);
+            var result = await _unitOfWork.StockMovements.DatatableServerSideAsync(
+                datatableRequest: request,
+                select: s => new StockMovementReportDto
+                {
+                    Id = s.Id,
+                    StockModelName = s.Stock != null ? s.Stock.ModelName : null,
+                    StockMovementTypeName = s.StockMovementType != null ? s.StockMovementType.Name : null,
+                    InOutCode = s.StockMovementType != null ? s.StockMovementType.InOutCode : ' ',
+                    UserName = s.User != null ? s.User.Name + " " + s.User.SurName : null,
+                    Quantity = s.Quantity,
+                    WarehouseName = s.Warehouse != null ? s.Warehouse.Name : null,
+                    FaultTypeName = s.FaultType != null ? s.FaultType.Name : null,
+                    CompanyProductName = s.CompanyProduct != null ? s.CompanyProduct.Name : null,
+                    Date = s.Date,
+                    CreateDateUtc = s.CreateDateUtc
+                },
+                cancellationToken: cancellationToken);
+            return Result<DatatableResponseServerSide<StockMovementReportDto>>.Success(result);
         }
 
         /// <summary>Intermediate projection for <see cref="SelectListAsync"/>; label is built in memory.</summary>

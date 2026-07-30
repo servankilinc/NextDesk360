@@ -1,0 +1,58 @@
+@using ExpressDesk360.WebUI.Models.ViewModels.StockSerial
+@model StockSerialDetailViewModel
+@{
+    ViewData["Title"] = "Seri Numarası Detayı";
+}
+
+@{
+    ViewData["Breadcrumb"] = new Breadcrum
+    {
+        BreadcrumbItems = new List<BreadcrumbItem>
+        {
+            new BreadcrumbItem { Title = "Ana Sayfa", Path = Url.Action("Index", "Home") },
+            new BreadcrumbItem { Title = "Seri Numaraları", Path = Url.Action("Index", "StockSerial") }
+        },
+        PageName = Model.StockSerial?.SerialNumber ?? "Detay"
+    };
+}
+
+<div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+    <!-- Profil & Detay Kartı -->
+    <div class="col-xl-4">
+        <div class="card card-flush h-md-100">
+            <div class="card-header pt-5">
+                <h3 class="card-title align-items-start flex-column">
+                    <span class="card-label fw-bold text-dark">Seri No Bilgileri</span>
+                    <span class="text-gray-400 pt-2 fw-semibold fs-6">Genel ve Garanti Durumu</span>
+                </h3>
+                <div class="card-toolbar">
+                    <a href="javascript:void(0)" onclick="HelperService.InsertModal({ title: 'Seri No Güncelle', formGetterUrl: 'StockSerial/Update', requestData: { id: '@Model.StockSerial?.Id' } })" class="btn btn-sm btn-light-primary">
+                        Düzenle
+                    </a>
+                </div>
+            </div>
+            <div class="card-body pt-5">
+                <div class="d-flex flex-stack fs-4 py-3">
+                    <div class="fw-bold text-gray-800">Seri Numarası</div>
+                    <div class="fw-semibold text-gray-600">@Model.StockSerial?.SerialNumber</div>
+                </div>
+                <div class="d-flex flex-stack fs-4 py-3">
+                    <div class="fw-bold text-gray-800">Stok Modeli</div>
+                    <div class="fw-semibold text-gray-600">@Model.StockSerial?.Stock?.ModelName</div>
+                </div>
+                <div class="d-flex flex-stack fs-4 py-3">
+                    <div class="fw-bold text-gray-800">Marka</div>
+                    <div class="fw-semibold text-gray-600">@Model.StockSerial?.Stock?.StockBrand?.Name</div>
+                </div>
+                <div class="d-flex flex-stack fs-4 py-3">
+                    <div class="fw-bold text-gray-800">Firma</div>
+                    <div class="fw-semibold text-gray-600">@(Model.StockSerial?.Company?.Name ?? "Yok")</div>
+                </div>
+                <div class="d-flex flex-stack fs-4 py-3">
+                    <div class="fw-bold text-gray-800">Depo</div>
+                    <div class="fw-semibold text-gray-600">@(Model.StockSerial?.Warehouse?.Name ?? "Yok")</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

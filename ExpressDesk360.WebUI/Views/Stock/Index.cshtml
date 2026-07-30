@@ -10,9 +10,9 @@
     {
         BreadcrumbItems = new List<BreadcrumbItem>
         {
-            new BreadcrumbItem { Title = "Home", Path = Url.Action("Index", "Home") },
+            new BreadcrumbItem { Title = "Ana Sayfa", Path = Url.Action("Index", "Home") },
         },
-        PageName = ViewData["Title"]?.ToString() ?? "Page"
+        PageName = ViewData["Title"]?.ToString() ?? "Sayfa"
     };
 }
 
@@ -23,48 +23,44 @@
         <div class="card-title">
             <div class="menu menu-sub menu-sub-dropdown mt-2 w-75 w-lg-500px" data-kt-menu="true">
                 <div class="px-7 py-5">
-                    <div class="fs-5 text-gray-900 fw-bold">Filter Options</div>
+                    <div class="fs-5 text-gray-900 fw-bold">Filtreleme Seçenekleri</div>
                 </div>
                 <div class="separator border-gray-200"></div>
                 <div class="px-7 py-5">
                     
                     <div class="mb-10">
-                        <label class="form-label fw-semibold" for="slct_stockGroupId">Stock Group</label>
+                        <label class="form-label fw-semibold" for="slct_stockGroupId">Stok Grubu</label>
                         <select id="slct_stockGroupId" class="autoInitSelect2 form-select form-select-sm form-select-solid" name="StockGroupId" asp-items="Model.StockGroupIds" data-control="select2"  data-allow-clear="true">
                             <option></option>
                         </select>
                     </div>
                     <div class="mb-10">
-                        <label class="form-label fw-semibold" for="slct_stockBrandId">Stock Brand</label>
+                        <label class="form-label fw-semibold" for="slct_stockBrandId">Marka</label>
                         <select id="slct_stockBrandId" class="autoInitSelect2 form-select form-select-sm form-select-solid" name="StockBrandId" asp-items="Model.StockBrandIds" data-control="select2"  data-allow-clear="true">
                             <option></option>
                         </select>
                     </div>
                     <div class="mb-10 form-check">
                         <input id="chckb_serialTracking" class="form-check-input" name="SerialTracking" type="checkbox" value=""/>
-                        <label class="form-check-label fw-semibold" for="chckb_serialTracking">Serial Tracking</label>
-                    </div>
-                    <div class="mb-10 form-check">
-                        <input id="chckb_virtualSeries" class="form-check-input" name="VirtualSeries" type="checkbox" value=""/>
-                        <label class="form-check-label fw-semibold" for="chckb_virtualSeries">Virtual Series</label>
+                        <label class="form-check-label fw-semibold" for="chckb_serialTracking">Seri Takipli</label>
                     </div>
                     <div class="mb-10">
                         <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
                             <input name="IsActive" value="true" type="hidden" />
                             <input name="IsActive" value="false" type="checkbox" class="form-check-input" />
-                            <span class="form-check-label fs-sm">Show Inactive</span>
+                            <span class="form-check-label fs-sm">Pasifleri Göster</span>
                         </div>
                     </div>
             
                     <div class="d-flex justify-content-end">
-                        <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">Reset</button>
-                        <button type="button" onclick="InitilazeTable(this)" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">Apply</button>
+                        <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">Sıfırla</button>
+                        <button type="button" onclick="InitilazeTable(this)" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">Uygula</button>
                     </div>
                 </div>
             </div>
             <button class="btn btn-sm btn-flex btn-light-dark fw-bold" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start">
                 <i class="ki-duotone ki-filter fs-6 text-muted me-1"><span class="path1"></span><span class="path2"></span></i>
-                Filter
+                Filtrele
             </button>
         </div>
     </div>
@@ -72,24 +68,19 @@
         <table id="main_table" class="table align-middle table-row-dashed fs-6 gy-5">
             <thead>
                 <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
-                    					<th>Stock Group</th>
-					<th>Stock Brand</th>
-					<th>Model Name</th>
-					<th>Model Code</th>
-					<th>Model Type</th>
-					<th>Unit</th>
-					<th>Serial Tracking</th>
-					<th>Virtual Series</th>
-					<th>Serial Number Start</th>
-					<th>Vat</th>
-					<th>Purchase Price</th>
-					<th>Purchase Currency</th>
-					<th>Sale Price</th>
-					<th>Sale Price Currency</th>
-					<th>Create Date</th>
-					<th>Last Update Date</th>
-					<th>Status</th><th>Actions</th>
-
+                    <th>Grup</th>
+                    <th>Marka</th>
+                    <th>Model Adı</th>
+                    <th>Model Kodu</th>
+                    <th>Birim</th>
+                    <th>Seri Takipli</th>
+                    <th>Toplam Seri</th>
+                    <th>Uygun Seri</th>
+                    <th>Alış Fiyatı</th>
+                    <th>Satış Fiyatı</th>
+                    <th>KDV</th>
+                    <th>Durum</th>
+                    <th>İşlemler</th>
                 </tr>
             </thead>
             <tbody class="fw-semibold text-gray-600">
@@ -122,122 +113,111 @@
                         operator: 'base',
                         logic: 'and',
                         filters: [
-                             
                             {
                                 operator: 'eq',
                                 field: 'StockGroupId',
                                 value: $("select[name='StockGroupId']").val()
-                            }
-                , 
+                            }, 
                             {
                                 operator: 'eq',
                                 field: 'StockBrandId',
                                 value: $("select[name='StockBrandId']").val()
-                            }
-                , 
+                            }, 
                             {
                                 operator: 'eq',
                                 field: 'SerialTracking',
                                 value: $('input[name="SerialTracking"]:checked').prop("checked") || false,
-                            }
-                , 
-                            {
-                                operator: 'eq',
-                                field: 'VirtualSeries',
-                                value: $('input[name="VirtualSeries"]:checked').prop("checked") || false,
-                            }
-                            ,
+                            },
                             {
                                 operator: 'eq',
                                 field: 'isActive',
                                 value: !($('input[name="IsActive"]:checked').prop("checked") || false)
                             }
-            
                         ]
                     }
                 },
         
                 columns: [
-                    					{ data: 'stockGroupId' },
-					{ data: 'stockBrandId' },
-					{ data: 'modelName' },
-					{ data: 'modelCode' },
-					{ data: 'modelType' },
-					{ data: 'unitId' },
-
+                    { data: 'stockGroupName' },
+                    { data: 'stockBrandName' },
+                    { data: 'modelName' },
+                    { data: 'modelCode' },
+                    { data: 'unitShortName' },
                     {
                         data: 'serialTracking',
                         render: function (data) {
-                            if(data == true) return (`<span class="badge rounded-pill bg-label-danger"><i class="fa-solid fa-xmark"></i></span>`);
-                            else if(data == false) return (`<span class="badge rounded-pill bg-label-success"><i class="fa-solid fa-check"></i></span>`);
-                            else return ('');
+                            if(data == true) return (`<span class="badge rounded-pill bg-label-success"><i class="fa-solid fa-check"></i> Evet</span>`);
+                            else return (`<span class="badge rounded-pill bg-label-danger"><i class="fa-solid fa-xmark"></i> Hayır</span>`);
                         }
                     },
-                    {
-                        data: 'virtualSeries',
-                        render: function (data) {
-                            if(data == true) return (`<span class="badge rounded-pill bg-label-danger"><i class="fa-solid fa-xmark"></i></span>`);
-                            else if(data == false) return (`<span class="badge rounded-pill bg-label-success"><i class="fa-solid fa-check"></i></span>`);
-                            else return ('');
-                        }
-                    },					{ data: 'serialNumberStart' },
-					{ data: 'vat' },
-					{ data: 'purchasePrice' },
-					{ data: 'purchaseCurrencyId' },
-					{ data: 'salePrice' },
-					{ data: 'salePriceCurrencyId' },
-
-                    {
-                        data: 'createDateUtc',
-                        render: function (data) {
-                            if(data == null) return '';
-                            return moment(data).format('DD.MM.YYYY HH:mm');
+                    { data: 'totalSerialCount' },
+                    { data: 'availableSerialCount' },
+                    { 
+                        data: 'purchasePrice',
+                        render: function (data, type, row) {
+                            if (data == null) return '';
+                            return data + ' ' + (row.purchaseCurrencyShortName || '');
                         }
                     },
-                    {
-                        data: 'updateDateUtc',
-                        render: function (data) {
-                            if(data == null) return '';
-                            return moment(data).format('DD.MM.YYYY HH:mm');
+                    { 
+                        data: 'salePrice',
+                        render: function (data, type, row) {
+                            if (data == null) return '';
+                            return data + ' ' + (row.salePriceCurrencyShortName || '');
                         }
                     },
+                    { data: 'vat' },
                     {
                         data: 'isActive',
                         render: function (data) {
-                            if(data == true) return (`<span class="badge rounded-pill bg-label-success"><i class="fa-solid fa-check"></i> Active</span>`);
-                            else if(data == false) return (`<span class="badge rounded-pill bg-label-danger"><i class="fa-solid fa-xmark"></i> Inactive</span>`);
+                            if(data == true) return (`<span class="badge rounded-pill bg-label-success"><i class="fa-solid fa-check"></i> Aktif</span>`);
+                            else if(data == false) return (`<span class="badge rounded-pill bg-label-danger"><i class="fa-solid fa-xmark"></i> Pasif</span>`);
                             else return ('');
                         }
-                    },{
+                    },
+                    {
                         data: null,
                         defaultContent: '',
                         searchable: false,
                         createdCell: function (td, cellData, rowData, row, col)
                         {
-                            
+                            let detailBtn = document.createElement("a");
+                            detailBtn.className = "btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1";
+                            detailBtn.href = "/Stock/Detail/" + rowData.id;
+                            detailBtn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i>';
+                            detailBtn.title = "Detay";
 
-                            DatatableManager.AppendRowButtons(td,
-                            [
-                                HelperService.UpdateButtonTable({
-                                    title: 'Update Stock Informations',
-                                    formGetterUrl: 'Stock/Update',
-                                    requestData: {
-                                        "id": rowData.id
-                                    },
-                                    pageTable: mainTable
-                                })]);
+                            let btnContainer = document.createElement("div");
+                            btnContainer.className = "d-flex justify-content-end flex-shrink-0";
+                            btnContainer.appendChild(detailBtn);
+
+                            let updateBtn = HelperService.UpdateButtonTable({
+                                title: 'Stok Modeli Güncelle',
+                                formGetterUrl: 'Stock/Update',
+                                requestData: {
+                                    "id": rowData.id
+                                },
+                                pageTable: mainTable
+                            });
+
+                            let parser = new DOMParser();
+                            let updateBtnEl = parser.parseFromString(updateBtn, "text/html").body.firstChild;
+                            btnContainer.appendChild(updateBtnEl);
+                            
+                            td.innerHTML = "";
+                            td.appendChild(btnContainer);
                         }
                     }
                 ],
                 customButtons:
                 [  
                     {
-                        text: '<span class="dynamic-content"><i class="fa-solid fa-file-circle-plus me-2"></i>Add New Stock</span>',
+                        text: '<span class="dynamic-content"><i class="fa-solid fa-file-circle-plus me-2"></i>Yeni Stok Ekle</span>',
                         className: 'btn btn-primary mx-2',
                         action: (e_btn) =>
                         {
                             HelperService.InsertModal({
-                                title: 'Add New Stock',
+                                title: 'Yeni Stok Ekle',
                                 formGetterUrl: 'Stock/Create',
                                 e_btn: e_btn.currentTarget,
                                 pageTable: mainTable

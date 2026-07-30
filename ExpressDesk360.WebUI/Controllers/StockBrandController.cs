@@ -73,5 +73,18 @@ namespace ExpressDesk360.WebUI.Controllers
             var result = await _stockBrandService.DatatableServerSideAsync(request);
             return ToAction(result);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Detail(int id)
+        {
+            var result = await _stockBrandService.GetDetailAsync(id);
+            if (!result.IsSuccess) return ToAction(result);
+
+            var viewModel = new StockBrandDetailViewModel
+            {
+                StockBrand = result.Data
+            };
+            return View(viewModel);
+        }
     }
 }

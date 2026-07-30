@@ -1,0 +1,107 @@
+@model ExpressDesk360.WebUI.Models.ViewModels.Stock.StockDashboardViewModel
+@{
+    ViewData["Title"] = "Envanter Panosu";
+}
+
+<div class="row g-5 g-xl-8">
+    <div class="col-xl-3">
+        <div class="card bg-primary hoverable card-xl-stretch mb-xl-8">
+            <div class="card-body">
+                <i class="ki-duotone ki-briefcase text-white fs-2x ms-n1"><span class="path1"></span><span class="path2"></span></i>
+                <div class="text-white fw-bold fs-2 mb-2 mt-5">@Model.TotalStockModels</div>
+                <div class="fw-semibold text-white">Toplam Stok Modeli</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3">
+        <div class="card bg-success hoverable card-xl-stretch mb-xl-8">
+            <div class="card-body">
+                <i class="ki-duotone ki-parcel text-white fs-2x ms-n1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>
+                <div class="text-white fw-bold fs-2 mb-2 mt-5">@Model.TotalSerials</div>
+                <div class="fw-semibold text-white">Toplam Seri Numarası</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3">
+        <div class="card bg-warning hoverable card-xl-stretch mb-xl-8">
+            <div class="card-body">
+                <i class="ki-duotone ki-shield-tick text-white fs-2x ms-n1"><span class="path1"></span><span class="path2"></span></i>
+                <div class="text-white fw-bold fs-2 mb-2 mt-5">@Model.TotalActiveWarranties</div>
+                <div class="fw-semibold text-white">Garantisi Aktif Seriler</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3">
+        <div class="card bg-info hoverable card-xl-stretch mb-xl-8">
+            <div class="card-body">
+                <i class="ki-duotone ki-devices text-white fs-2x ms-n1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>
+                <div class="text-white fw-bold fs-2 mb-2 mt-5">@Model.AttachedSerials</div>
+                <div class="fw-semibold text-white">Ürüne Takılı Seriler</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-5 g-xl-8">
+    <div class="col-xl-12">
+        <div class="card card-xl-stretch mb-5 mb-xl-8">
+            <div class="card-header border-0 pt-5">
+                <h3 class="card-title align-items-start flex-column">
+                    <span class="card-label fw-bold fs-3 mb-1">Son Stok Hareketleri</span>
+                    <span class="text-muted mt-1 fw-semibold fs-7">Son 10 stok giriş ve çıkış işlemi</span>
+                </h3>
+            </div>
+            <div class="card-body py-3">
+                <div class="table-responsive">
+                    <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+                        <thead>
+                            <tr class="fw-bold text-muted">
+                                <th class="min-w-150px">Tarih</th>
+                                <th class="min-w-150px">Stok Modeli</th>
+                                <th class="min-w-140px">Hareket Tipi</th>
+                                <th class="min-w-120px">Miktar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.RecentMovements != null && Model.RecentMovements.Any())
+                            {
+                                foreach (var movement in Model.RecentMovements)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="d-flex justify-content-start flex-column">
+                                                    <span class="text-dark fw-bold text-hover-primary fs-6">@movement.Date.ToString("dd.MM.yyyy HH:mm")</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="text-dark fw-bold d-block fs-6">@movement.StockModelName</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-dark fw-bold d-block fs-6">@movement.MovementTypeName</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-dark fw-bold d-block fs-6">@movement.Quantity</span>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted fw-semibold py-5">
+                                        Henüz stok hareketi bulunmuyor.
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

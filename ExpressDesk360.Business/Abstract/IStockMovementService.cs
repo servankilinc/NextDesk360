@@ -22,6 +22,6 @@ namespace ExpressDesk360.Business.Abstract
         Task<Result> CreateAsync(StockMovementCreateDto request, CancellationToken cancellationToken = default);
         Task<Result<PaginationResponse<StockMovement>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default);
         Task<Result<DatatableResponseClientSide<StockMovement>>> DatatableClientSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);
-        Task<Result<DatatableResponseServerSide<StockMovement>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);
+        Task<Result<DatatableResponseServerSide<StockMovementReportDto>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);
     }
 }

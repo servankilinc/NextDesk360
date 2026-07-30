@@ -44,6 +44,20 @@ namespace ExpressDesk360.Business.Concrete
             return Result<StockSerial>.Success(result);
         }
 
+        public async Task<Result<StockSerial>> GetDetailAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            var result = await _unitOfWork.StockSerials.GetAsync(
+                where: f => f.Id == id,
+                include: i => i.Include(x => x.Stock)
+                               .Include(x => x.Company)
+                               .Include(x => x.Warehouse),
+                cancellationToken: cancellationToken);
+
+            if (result == null)
+                return Result<StockSerial>.NotFound();
+            return Result<StockSerial>.Success(result);
+        }
+
         public async Task<Result<StockSerialDto>> GetBaseAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork.StockSerials.GetAsync<StockSerialDto>(configurationProvider: _mapper.ConfigurationProvider, where: (f) => f.Id == id, cancellationToken: cancellationToken);
@@ -126,10 +140,25 @@ namespace ExpressDesk360.Business.Concrete
             return Result<DatatableResponseClientSide<StockSerial>>.Success(result);
         }
 
-        public async Task<Result<DatatableResponseServerSide<StockSerial>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
+        public async Task<Result<DatatableResponseServerSide<StockSerialReportDto>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
         {
-            var result = await _unitOfWork.StockSerials.DatatableServerSideAsync(datatableRequest: request, cancellationToken: cancellationToken);
-            return Result<DatatableResponseServerSide<StockSerial>>.Success(result);
+            var result = await _unitOfWork.StockSerials.DatatableServerSideAsync(
+                datatableRequest: request,
+                select: s => new StockSerialReportDto
+                {
+                    Id = s.Id,
+                    SerialNumber = s.SerialNumber,
+                    StockModelName = s.Stock != null ? s.Stock.ModelName : null,
+                    CompanyName = s.Company != null ? s.Company.Name : null,
+                    WarehouseName = s.Warehouse != null ? s.Warehouse.Name : null,
+                    IsAttachedToProduct = s.CompanyProductStockSerialMaps.Any(),
+                    AttachedProductName = s.CompanyProductStockSerialMaps.FirstOrDefault() != null && s.CompanyProductStockSerialMaps.FirstOrDefault().CompanyProduct != null ? s.CompanyProductStockSerialMaps.FirstOrDefault().CompanyProduct.Name : null,
+                    WarrantyStatus = s.StockSerialWarranties.Any(w => w.EndDate >= DateTime.UtcNow) ? "Aktif" : (s.StockSerialWarranties.Any() ? "Süresi Dolmuş" : "Yok"),
+                    IsActive = s.IsActive,
+                    CreateDateUtc = s.CreateDateUtc
+                },
+                cancellationToken: cancellationToken);
+            return Result<DatatableResponseServerSide<StockSerialReportDto>>.Success(result);
         }
     }
 }

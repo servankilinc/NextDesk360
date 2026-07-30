@@ -44,6 +44,18 @@ namespace ExpressDesk360.Business.Concrete
             return Result<StockBrand>.Success(result);
         }
 
+        public async Task<Result<StockBrand>> GetDetailAsync(int id, CancellationToken cancellationToken = default)
+        {
+            var result = await _unitOfWork.StockBrands.GetAsync(
+                where: f => f.Id == id,
+                include: i => i.Include(x => x.StockGroupBrandMaps).ThenInclude(m => m.StockGroup),
+                cancellationToken: cancellationToken);
+
+            if (result == null)
+                return Result<StockBrand>.NotFound();
+            return Result<StockBrand>.Success(result);
+        }
+
         public async Task<Result<StockBrandDto>> GetBaseAsync(int id, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork.StockBrands.GetAsync<StockBrandDto>(configurationProvider: _mapper.ConfigurationProvider, where: (f) => f.Id == id, cancellationToken: cancellationToken);
@@ -126,10 +138,20 @@ namespace ExpressDesk360.Business.Concrete
             return Result<DatatableResponseClientSide<StockBrand>>.Success(result);
         }
 
-        public async Task<Result<DatatableResponseServerSide<StockBrand>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
+        public async Task<Result<DatatableResponseServerSide<StockBrandReportDto>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
         {
-            var result = await _unitOfWork.StockBrands.DatatableServerSideAsync(datatableRequest: request, cancellationToken: cancellationToken);
-            return Result<DatatableResponseServerSide<StockBrand>>.Success(result);
+            var result = await _unitOfWork.StockBrands.DatatableServerSideAsync(
+                datatableRequest: request,
+                select: s => new StockBrandReportDto
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    IsActive = s.IsActive,
+                    CreateDateUtc = s.CreateDateUtc,
+                    UpdateDateUtc = s.UpdateDateUtc
+                },
+                cancellationToken: cancellationToken);
+            return Result<DatatableResponseServerSide<StockBrandReportDto>>.Success(result);
         }
     }
 }

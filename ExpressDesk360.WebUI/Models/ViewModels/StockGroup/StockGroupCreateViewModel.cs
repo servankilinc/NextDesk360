@@ -6,5 +6,7 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.StockGroup
     public class StockGroupCreateViewModel
     {
         public StockGroupCreateDto CreateModel { get; set; } = new StockGroupCreateDto();
+        public SelectList? BrandIds { get; set; }
+        public SelectList? FaultTypeIds { get; set; }
     }
 }
