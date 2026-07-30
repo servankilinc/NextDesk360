@@ -26,10 +26,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -47,10 +44,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -65,13 +59,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -89,13 +81,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                     ManagerApproval = table.Column<bool>(type: "bit", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LogoUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -110,13 +100,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Icon = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -132,13 +120,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ShortName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Icon = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -153,13 +139,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -176,13 +160,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                     InOutCode = table.Column<string>(type: "nvarchar(1)", nullable: false),
                     NumberStart = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<byte>(type: "tinyint", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -264,10 +246,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -296,13 +275,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -316,13 +293,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -336,13 +311,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -358,13 +331,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     InOutCode = table.Column<string>(type: "nvarchar(1)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -379,13 +350,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -405,10 +374,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -426,10 +392,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -444,13 +407,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -465,13 +426,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ShortName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -486,9 +445,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -507,13 +464,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     InformationText = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -536,13 +491,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                     SurName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HireDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     LogoUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -578,13 +531,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -608,10 +559,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -700,13 +648,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     InformationText = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -750,10 +696,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -782,10 +725,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -814,10 +754,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -848,13 +785,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     InformationText = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -886,13 +821,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                     PurchaseCurrencyId = table.Column<int>(type: "int", nullable: true),
                     SalePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     SalePriceCurrencyId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -980,10 +913,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     ParentFolderId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Path = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1013,10 +943,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1145,10 +1072,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1244,10 +1168,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1308,13 +1229,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                     SerialNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     WarehouseId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1352,10 +1271,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1391,10 +1307,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1426,10 +1339,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     Size = table.Column<long>(type: "bigint", nullable: true),
                     Hash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1560,10 +1470,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1592,10 +1499,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1624,10 +1528,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1656,10 +1557,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1688,10 +1586,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1720,10 +1615,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1854,10 +1746,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1927,10 +1816,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2014,10 +1900,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TicketId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AddedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    AddedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -2046,10 +1929,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2081,17 +1961,28 @@ namespace ExpressDesk360.DataAccess.Migrations
                     TicketMovementId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     WarehouseId = table.Column<int>(type: "int", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CompanyProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    FaultTypeId = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StockMovement", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StockMovement_CompanyProduct_CompanyProductId",
+                        column: x => x.CompanyProductId,
+                        principalTable: "CompanyProduct",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StockMovement_FaultType_FaultTypeId",
+                        column: x => x.FaultTypeId,
+                        principalTable: "FaultType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_StockMovement_Invoice_InvoiceId",
                         column: x => x.InvoiceId,
@@ -2140,10 +2031,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2172,10 +2060,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdateDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2195,6 +2080,28 @@ namespace ExpressDesk360.DataAccess.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "InvoiceType",
+                columns: new[] { "Id", "CreateDateUtc", "CreatedBy", "InOutCode", "IsActive", "Name", "NumberStart", "Status", "UpdateDateUtc", "UpdatedBy" },
+                values: new object[,]
+                {
+                    { 1, null, null, "\0", true, "Alış Faturası", null, (byte)0, null, null },
+                    { 2, null, null, "\0", true, "Satış Faturası", null, (byte)0, null, null },
+                    { 3, null, null, "\0", true, "İade Faturası", null, (byte)0, null, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProjectStatus",
+                columns: new[] { "Id", "CreateDateUtc", "CreatedBy", "Description", "Name", "UpdateDateUtc", "UpdatedBy" },
+                values: new object[,]
+                {
+                    { 1, null, null, "Planlama aşamasındaki projeler", "Planlanıyor", null, null },
+                    { 2, null, null, "Devam eden projeler", "Devam Ediyor", null, null },
+                    { 3, null, null, "Beklemeye alınmış projeler", "Beklemede", null, null },
+                    { 4, null, null, "İptal edilen projeler", "İptal Edildi", null, null },
+                    { 5, null, null, "Tamamlanan projeler", "Tamamlandı", null, null }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
@@ -2203,6 +2110,137 @@ namespace ExpressDesk360.DataAccess.Migrations
                     { new Guid("7138ec51-4f9e-4afd-b61b-5a9a4584f5da"), "7138ec51-4f9e-4afd-b61b-5a9a4584f5da", "Admin", "ADMIN" },
                     { new Guid("b370875e-34cd-4b79-891c-93ae38f99d11"), "b370875e-34cd-4b79-891c-93ae38f99d11", "User", "USER" },
                     { new Guid("cd6040ef-dacc-4678-9a85-154f12581cff"), "cd6040ef-dacc-4678-9a85-154f12581cff", "Manager", "MANAGER" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ShippingType",
+                columns: new[] { "Id", "CreateDateUtc", "CreatedBy", "Description", "IsActive", "Name", "UpdateDateUtc", "UpdatedBy" },
+                values: new object[,]
+                {
+                    { 1, null, null, null, true, "Alıcı Ödemeli", null, null },
+                    { 2, null, null, null, true, "Gönderen Ödemeli", null, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "StockMovementType",
+                columns: new[] { "Id", "CreateDateUtc", "CreatedBy", "Description", "InOutCode", "IsActive", "Name", "UpdateDateUtc", "UpdatedBy" },
+                values: new object[,]
+                {
+                    { 1, null, null, null, "\0", true, "Satış Faturası Çıkış", null, null },
+                    { 2, null, null, null, "\0", true, "Alış Faturası Giriş", null, null },
+                    { 3, null, null, null, "\0", true, "Depolar Arası Transfer Giriş", null, null },
+                    { 4, null, null, null, "\0", true, "Depolar Arası Transfer Çıkış", null, null },
+                    { 5, null, null, null, "\0", true, "Üretimden Giriş", null, null },
+                    { 6, null, null, null, "\0", true, "Üretime Çıkış", null, null },
+                    { 7, null, null, null, "\0", true, "Rezerve Çıkış", null, null },
+                    { 8, null, null, null, "\0", true, "Devir Giriş", null, null },
+                    { 9, null, null, null, "\0", true, "Yedek Parça Değişti", null, null },
+                    { 10, null, null, null, "\0", true, "Ürüne Takıldı", null, null },
+                    { 11, null, null, null, "\0", true, "Ürününden Çıkartıldı", null, null },
+                    { 12, null, null, null, "\0", true, "Destek Talebinin Açıldı", null, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "StockType",
+                columns: new[] { "Id", "CreateDateUtc", "CreatedBy", "Description", "IsActive", "Name", "UpdateDateUtc", "UpdatedBy" },
+                values: new object[,]
+                {
+                    { 1, null, null, null, true, "Hammadde", null, null },
+                    { 2, null, null, null, true, "Yarı Mamul", null, null },
+                    { 3, null, null, null, true, "Mamul", null, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TicketStatus",
+                columns: new[] { "Id", "CreateDateUtc", "CreatedBy", "Description", "Name", "UpdateDateUtc", "UpdatedBy" },
+                values: new object[,]
+                {
+                    { 1, null, null, "Yeni açılan ve atanma bekleyen talepler", "Yeni Kayıt", null, null },
+                    { 2, null, null, "Personel atanmış ve işlem süreci devam eden talepler", "İşlemde", null, null },
+                    { 3, null, null, "Kargo veya parça bekleyen talepler", "Beklemede", null, null },
+                    { 4, null, null, "Yönetici veya müşteri onayı bekleyen talepler", "Onay Bekleniyor", null, null },
+                    { 5, null, null, "İptal edilen ve işlem yapılmayan talepler", "İptal Edildi", null, null },
+                    { 6, null, null, "Çözümlenmiş ve kapatılmış talepler", "Tamamlandı", null, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TicketType",
+                columns: new[] { "Id", "CreateDateUtc", "CreatedBy", "Description", "IsActive", "Name", "UpdateDateUtc", "UpdatedBy" },
+                values: new object[,]
+                {
+                    { 1, null, null, null, true, "Teknik Destek", null, null },
+                    { 2, null, null, null, true, "Genel Bakım", null, null },
+                    { 3, null, null, null, true, "Yazılım Destek", null, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "WarrantyType",
+                columns: new[] { "Id", "Description", "IsActive", "Name" },
+                values: new object[,]
+                {
+                    { 1, null, true, "Üretici Garantisi" },
+                    { 2, null, true, "Satıcı Garantisi" },
+                    { 3, null, true, "Uzatılmış Garanti" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "_TaskStatus",
+                columns: new[] { "Id", "CreateDateUtc", "CreatedBy", "Description", "Name", "UpdateDateUtc", "UpdatedBy" },
+                values: new object[,]
+                {
+                    { 1, null, null, "Yeni atanmış görevler", "Yeni Görev", null, null },
+                    { 2, null, null, "İşlemdeki görevler", "İşlemde", null, null },
+                    { 3, null, null, "Beklemedeki görevler", "Beklemede", null, null },
+                    { 4, null, null, "İptal edilmiş görevler", "İptal Edildi", null, null },
+                    { 5, null, null, "Tamamlanmış görevler", "Tamamlandı", null, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProjectMovementType",
+                columns: new[] { "Id", "Accessible", "Color", "CreateDateUtc", "CreatedBy", "Description", "InformationText", "IsActive", "Name", "ProjectStatusId", "UpdateDateUtc", "UpdatedBy" },
+                values: new object[,]
+                {
+                    { 1, true, "#3699FF", null, null, null, null, true, "Proje Oluşturuldu", 1, null, null },
+                    { 2, true, "#8950FC", null, null, null, null, true, "Planlama Aşamasına Geçildi", 1, null, null },
+                    { 3, true, "#FFA800", null, null, null, null, true, "Geliştirme Aşamasına Geçildi", 2, null, null },
+                    { 4, true, "#1BC5BD", null, null, null, null, true, "Test Aşamasına Geçildi", 2, null, null },
+                    { 5, true, "#1BC5BD", null, null, null, null, true, "Yayına Alındı", 5, null, null },
+                    { 6, true, "#3F4254", null, null, null, null, true, "İptal Edildi", 4, null, null },
+                    { 7, true, "#1BC5BD", null, null, null, null, true, "Tamamlandı", 5, null, null },
+                    { 8, true, "#E4E6EF", null, null, null, null, true, "Dosya Eklendi", 2, null, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TicketMovementType",
+                columns: new[] { "Id", "Accessible", "Color", "CreateDateUtc", "CreatedBy", "Description", "InformationText", "IsActive", "Name", "TicketStatusId", "UpdateDateUtc", "UpdatedBy" },
+                values: new object[,]
+                {
+                    { 1, true, "#3699FF", null, null, null, "Talep ilk kez açıldı.", true, "Yeni Kayıt", 1, null, null },
+                    { 2, true, "#8950FC", null, null, null, "Talebe temsilci atandı.", true, "Temsilci Atandı", 2, null, null },
+                    { 3, true, "#FFA800", null, null, null, "Teknik servise yönlendirme yapıldı.", true, "Teknik Hizmetlere Yönlendirildi", 2, null, null },
+                    { 4, true, "#1BC5BD", null, null, null, "Arıza tespiti tamamlandı.", true, "Arıza Tespiti Yapıldı", 2, null, null },
+                    { 5, true, "#F64E60", null, null, null, "Kargo teslimatı bekleniyor.", true, "Kargo Bekleniyor", 3, null, null },
+                    { 6, true, "#E4E6EF", null, null, null, "Yedek parça bekleniyor.", true, "Parça Bekleniyor", 3, null, null },
+                    { 7, true, "#3699FF", null, null, null, "Kargo gönderimi yapıldı.", true, "Kargo Gönderildi", 3, null, null },
+                    { 8, true, "#FFA800", null, null, null, "Yönetici onayı bekleniyor.", true, "Müdür Onayı Bekleniyor", 4, null, null },
+                    { 9, true, "#F64E60", null, null, null, "Müşteri ücret onayı bekleniyor.", true, "Ücret Onayı Bekleniyor", 4, null, null },
+                    { 10, true, "#1BC5BD", null, null, null, "Onay alındı, işleme devam ediliyor.", true, "Onay Alındı", 2, null, null },
+                    { 11, true, "#3F4254", null, null, null, "Talep iptal edildi.", true, "İptal Edildi", 5, null, null },
+                    { 12, true, "#1BC5BD", null, null, null, "Talep tamamlandı ve kapatıldı.", true, "Tamamlandı", 6, null, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "_TaskMovementType",
+                columns: new[] { "Id", "Accessible", "Color", "CreateDateUtc", "CreatedBy", "Description", "InformationText", "IsActive", "Name", "TaskStatusId", "UpdateDateUtc", "UpdatedBy" },
+                values: new object[,]
+                {
+                    { 1, true, "#3699FF", null, null, null, null, true, "Görev Oluşturuldu", 1, null, null },
+                    { 2, true, "#8950FC", null, null, null, null, true, "Personel Atandı", 2, null, null },
+                    { 3, true, "#FFA800", null, null, null, null, true, "İşleme Alındı", 2, null, null },
+                    { 4, true, "#F64E60", null, null, null, null, true, "Beklemeye Alındı", 3, null, null },
+                    { 5, true, "#3F4254", null, null, null, null, true, "İptal Edildi", 4, null, null },
+                    { 6, true, "#1BC5BD", null, null, null, null, true, "Tamamlandı", 5, null, null },
+                    { 7, true, "#E4E6EF", null, null, null, null, true, "Dosya Eklendi", 2, null, null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -2496,6 +2534,16 @@ namespace ExpressDesk360.DataAccess.Migrations
                 name: "IX_StockGroupFaultTypeMap_StockGroupId",
                 table: "StockGroupFaultTypeMap",
                 column: "StockGroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockMovement_CompanyProductId",
+                table: "StockMovement",
+                column: "CompanyProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockMovement_FaultTypeId",
+                table: "StockMovement",
+                column: "FaultTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StockMovement_InvoiceId",

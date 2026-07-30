@@ -129,14 +129,14 @@ namespace ExpressDesk360.DataAccess.Contexts
                 p.HasMany(p => p.ProjectMovements).WithOne(p => p.ProjectMovementType).HasForeignKey(p => p.ProjectMovementTypeId).OnDelete(DeleteBehavior.Restrict);
 
                 p.HasData(
-                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.ProjectCreated, Name = ProjectEnums.ProjectMovementType.ProjectCreated.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.Planning },
-                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.PlanningPhase, Name = ProjectEnums.ProjectMovementType.PlanningPhase.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.Planning },
-                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.DevelopmentPhase, Name = ProjectEnums.ProjectMovementType.DevelopmentPhase.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.InProgress },
-                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.TestingPhase, Name = ProjectEnums.ProjectMovementType.TestingPhase.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.InProgress },
-                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.Deployed, Name = ProjectEnums.ProjectMovementType.Deployed.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.Completed },
-                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.Cancelled, Name = ProjectEnums.ProjectMovementType.Cancelled.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.Cancelled },
-                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.Completed, Name = ProjectEnums.ProjectMovementType.Completed.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.Completed },
-                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.FileAdded, Name = ProjectEnums.ProjectMovementType.FileAdded.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.InProgress }
+                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.ProjectCreated, Name = ProjectEnums.ProjectMovementType.ProjectCreated.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.Planning, Accessible = true, Color = "#3699FF" },
+                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.PlanningPhase, Name = ProjectEnums.ProjectMovementType.PlanningPhase.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.Planning, Accessible = true, Color = "#8950FC" },
+                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.DevelopmentPhase, Name = ProjectEnums.ProjectMovementType.DevelopmentPhase.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.InProgress, Accessible = true, Color = "#FFA800" },
+                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.TestingPhase, Name = ProjectEnums.ProjectMovementType.TestingPhase.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.InProgress, Accessible = true, Color = "#1BC5BD" },
+                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.Deployed, Name = ProjectEnums.ProjectMovementType.Deployed.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.Completed, Accessible = true, Color = "#1BC5BD" },
+                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.Cancelled, Name = ProjectEnums.ProjectMovementType.Cancelled.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.Cancelled, Accessible = true, Color = "#3F4254" },
+                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.Completed, Name = ProjectEnums.ProjectMovementType.Completed.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.Completed, Accessible = true, Color = "#1BC5BD" },
+                    new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.FileAdded, Name = ProjectEnums.ProjectMovementType.FileAdded.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.InProgress, Accessible = true, Color = "#E4E6EF" }
                 );
             });
             modelBuilder.Entity<ProjectStaff>(p =>
@@ -147,7 +147,15 @@ namespace ExpressDesk360.DataAccess.Contexts
             modelBuilder.Entity<ProjectStatus>(p =>{
                 p.ToTable("ProjectStatus");
                 p.HasKey(p => p.Id);
-                p.HasMany(p => p.ProjectMovementTypes).WithOne(p => p.ProjectStatus).HasForeignKey(p => p.ProjectStatusId).OnDelete(DeleteBehavior.Cascade);            });
+                p.HasMany(p => p.ProjectMovementTypes).WithOne(p => p.ProjectStatus).HasForeignKey(p => p.ProjectStatusId).OnDelete(DeleteBehavior.Cascade);
+                p.HasData(
+                    new ProjectStatus { Id = (int)ProjectEnums.ProjectStatusType.Planning, Name = ProjectEnums.ProjectStatusType.Planning.GetDescription(), Description = "Planlama aşamasındaki projeler" },
+                    new ProjectStatus { Id = (int)ProjectEnums.ProjectStatusType.InProgress, Name = ProjectEnums.ProjectStatusType.InProgress.GetDescription(), Description = "Devam eden projeler" },
+                    new ProjectStatus { Id = (int)ProjectEnums.ProjectStatusType.OnHold, Name = ProjectEnums.ProjectStatusType.OnHold.GetDescription(), Description = "Beklemeye alınmış projeler" },
+                    new ProjectStatus { Id = (int)ProjectEnums.ProjectStatusType.Cancelled, Name = ProjectEnums.ProjectStatusType.Cancelled.GetDescription(), Description = "İptal edilen projeler" },
+                    new ProjectStatus { Id = (int)ProjectEnums.ProjectStatusType.Completed, Name = ProjectEnums.ProjectStatusType.Completed.GetDescription(), Description = "Tamamlanan projeler" }
+                );
+            });
             #endregion
 
             #region Shipping
@@ -480,7 +488,15 @@ namespace ExpressDesk360.DataAccess.Contexts
             modelBuilder.Entity<_TaskStatus>(_ =>{
                 _.ToTable("_TaskStatus");
                 _.HasKey(_ => _.Id);
-                _.HasMany(_ => _.TaskMovementTypes).WithOne(_ => _.TaskStatus).HasForeignKey(_ => _.TaskStatusId).OnDelete(DeleteBehavior.Cascade);            });
+                _.HasMany(_ => _.TaskMovementTypes).WithOne(_ => _.TaskStatus).HasForeignKey(_ => _.TaskStatusId).OnDelete(DeleteBehavior.Cascade);
+                _.HasData(
+                    new _TaskStatus { Id = (int)TaskEnums.TaskStatusType.NewTask, Name = TaskEnums.TaskStatusType.NewTask.GetDescription(), Description = "Yeni atanmış görevler" },
+                    new _TaskStatus { Id = (int)TaskEnums.TaskStatusType.InTheProcess, Name = TaskEnums.TaskStatusType.InTheProcess.GetDescription(), Description = "İşlemdeki görevler" },
+                    new _TaskStatus { Id = (int)TaskEnums.TaskStatusType.Waiting, Name = TaskEnums.TaskStatusType.Waiting.GetDescription(), Description = "Beklemedeki görevler" },
+                    new _TaskStatus { Id = (int)TaskEnums.TaskStatusType.Cancelled, Name = TaskEnums.TaskStatusType.Cancelled.GetDescription(), Description = "İptal edilmiş görevler" },
+                    new _TaskStatus { Id = (int)TaskEnums.TaskStatusType.Completed, Name = TaskEnums.TaskStatusType.Completed.GetDescription(), Description = "Tamamlanmış görevler" }
+                );
+            });
             #endregion
 
             #region File System

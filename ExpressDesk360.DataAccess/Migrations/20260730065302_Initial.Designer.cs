@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExpressDesk360.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260728075431_SeedDataTicketType")]
-    partial class SeedDataTicketType
+    [Migration("20260730065302_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -127,16 +127,10 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -169,19 +163,13 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Fax")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("LogoUrl")
@@ -222,18 +210,9 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Info")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("UpdateDateUtc")
                         .HasColumnType("datetime2");
@@ -265,17 +244,8 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("FileId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("UpdateDateUtc")
                         .HasColumnType("datetime2");
@@ -357,15 +327,6 @@ namespace ExpressDesk360.DataAccess.Migrations
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<Guid>("StockSerialId")
                         .HasColumnType("uniqueidentifier");
@@ -450,17 +411,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Icon")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -492,17 +447,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Icon")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -533,12 +482,6 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Extension")
                         .HasColumnType("nvarchar(max)");
 
@@ -547,9 +490,6 @@ namespace ExpressDesk360.DataAccess.Migrations
 
                     b.Property<string>("Hash")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("MimeType")
                         .HasColumnType("nvarchar(max)");
@@ -583,15 +523,6 @@ namespace ExpressDesk360.DataAccess.Migrations
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -630,16 +561,10 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -759,17 +684,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("InOutCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(1)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -791,6 +710,32 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("InvoiceType", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            InOutCode = "\0",
+                            IsActive = true,
+                            Name = "Alış Faturası",
+                            Status = (byte)0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            InOutCode = "\0",
+                            IsActive = true,
+                            Name = "Satış Faturası",
+                            Status = (byte)0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            InOutCode = "\0",
+                            IsActive = true,
+                            Name = "İade Faturası",
+                            Status = (byte)0
+                        });
                 });
 
             modelBuilder.Entity("ExpressDesk360.Model.Entities.Project", b =>
@@ -850,17 +795,8 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("FileId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<Guid>("ProjectId")
                         .HasColumnType("uniqueidentifier");
@@ -895,17 +831,8 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<Guid>("ProjectId")
                         .HasColumnType("uniqueidentifier");
@@ -954,19 +881,13 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("InformationText")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -987,6 +908,80 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.HasIndex("ProjectStatusId");
 
                     b.ToTable("ProjectMovementType", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Accessible = true,
+                            Color = "#3699FF",
+                            IsActive = true,
+                            Name = "Proje Oluşturuldu",
+                            ProjectStatusId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Accessible = true,
+                            Color = "#8950FC",
+                            IsActive = true,
+                            Name = "Planlama Aşamasına Geçildi",
+                            ProjectStatusId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Accessible = true,
+                            Color = "#FFA800",
+                            IsActive = true,
+                            Name = "Geliştirme Aşamasına Geçildi",
+                            ProjectStatusId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Accessible = true,
+                            Color = "#1BC5BD",
+                            IsActive = true,
+                            Name = "Test Aşamasına Geçildi",
+                            ProjectStatusId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Accessible = true,
+                            Color = "#1BC5BD",
+                            IsActive = true,
+                            Name = "Yayına Alındı",
+                            ProjectStatusId = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Accessible = true,
+                            Color = "#3F4254",
+                            IsActive = true,
+                            Name = "İptal Edildi",
+                            ProjectStatusId = 4
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Accessible = true,
+                            Color = "#1BC5BD",
+                            IsActive = true,
+                            Name = "Tamamlandı",
+                            ProjectStatusId = 5
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Accessible = true,
+                            Color = "#E4E6EF",
+                            IsActive = true,
+                            Name = "Dosya Eklendi",
+                            ProjectStatusId = 2
+                        });
                 });
 
             modelBuilder.Entity("ExpressDesk360.Model.Entities.ProjectStaff", b =>
@@ -1000,15 +995,6 @@ namespace ExpressDesk360.DataAccess.Migrations
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime>("JoinedDate")
                         .HasColumnType("datetime2");
@@ -1048,17 +1034,8 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1073,6 +1050,38 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProjectStatus", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Planlama aşamasındaki projeler",
+                            Name = "Planlanıyor"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Devam eden projeler",
+                            Name = "Devam Ediyor"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Beklemeye alınmış projeler",
+                            Name = "Beklemede"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "İptal edilen projeler",
+                            Name = "İptal Edildi"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Tamamlanan projeler",
+                            Name = "Tamamlandı"
+                        });
                 });
 
             modelBuilder.Entity("ExpressDesk360.Model.Entities.RefreshToken", b =>
@@ -1198,17 +1207,8 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("FileId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<Guid>("ShippingId")
                         .HasColumnType("uniqueidentifier");
@@ -1242,16 +1242,10 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -1267,6 +1261,20 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ShippingType", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsActive = true,
+                            Name = "Alıcı Ödemeli"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsActive = true,
+                            Name = "Gönderen Ödemeli"
+                        });
                 });
 
             modelBuilder.Entity("ExpressDesk360.Model.Entities.Stock", b =>
@@ -1281,13 +1289,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("ModelCode")
@@ -1367,13 +1369,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -1405,13 +1401,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -1440,15 +1430,6 @@ namespace ExpressDesk360.DataAccess.Migrations
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<int>("StockBrandId")
                         .HasColumnType("int");
@@ -1483,17 +1464,8 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("FaultTypeId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<int>("StockGroupId")
                         .HasColumnType("int");
@@ -1519,6 +1491,9 @@ namespace ExpressDesk360.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CompanyProductId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime?>("CreateDateUtc")
                         .HasColumnType("datetime2");
 
@@ -1528,17 +1503,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("FaultTypeId")
+                        .HasColumnType("int");
 
                     b.Property<Guid?>("InvoiceId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(18,2)");
@@ -1566,6 +1535,10 @@ namespace ExpressDesk360.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CompanyProductId");
+
+                    b.HasIndex("FaultTypeId");
+
                     b.HasIndex("InvoiceId");
 
                     b.HasIndex("StockId");
@@ -1592,15 +1565,6 @@ namespace ExpressDesk360.DataAccess.Migrations
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<Guid>("StockMovementId")
                         .HasColumnType("uniqueidentifier");
@@ -1637,12 +1601,6 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -1650,7 +1608,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(1)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -1666,6 +1624,92 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("StockMovementType", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            InOutCode = "\0",
+                            IsActive = true,
+                            Name = "Satış Faturası Çıkış"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            InOutCode = "\0",
+                            IsActive = true,
+                            Name = "Alış Faturası Giriş"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            InOutCode = "\0",
+                            IsActive = true,
+                            Name = "Depolar Arası Transfer Giriş"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            InOutCode = "\0",
+                            IsActive = true,
+                            Name = "Depolar Arası Transfer Çıkış"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            InOutCode = "\0",
+                            IsActive = true,
+                            Name = "Üretimden Giriş"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            InOutCode = "\0",
+                            IsActive = true,
+                            Name = "Üretime Çıkış"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            InOutCode = "\0",
+                            IsActive = true,
+                            Name = "Rezerve Çıkış"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            InOutCode = "\0",
+                            IsActive = true,
+                            Name = "Devir Giriş"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            InOutCode = "\0",
+                            IsActive = true,
+                            Name = "Yedek Parça Değişti"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            InOutCode = "\0",
+                            IsActive = true,
+                            Name = "Ürüne Takıldı"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            InOutCode = "\0",
+                            IsActive = true,
+                            Name = "Ürününden Çıkartıldı"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            InOutCode = "\0",
+                            IsActive = true,
+                            Name = "Destek Talebinin Açıldı"
+                        });
                 });
 
             modelBuilder.Entity("ExpressDesk360.Model.Entities.StockSerial", b =>
@@ -1683,13 +1727,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("SerialNumber")
@@ -1783,16 +1821,10 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -1808,6 +1840,26 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("StockType", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsActive = true,
+                            Name = "Hammadde"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsActive = true,
+                            Name = "Yarı Mamul"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsActive = true,
+                            Name = "Mamul"
+                        });
                 });
 
             modelBuilder.Entity("ExpressDesk360.Model.Entities.StockTypeGroupMap", b =>
@@ -1821,15 +1873,6 @@ namespace ExpressDesk360.DataAccess.Migrations
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<int>("StockGroupId")
                         .HasColumnType("int");
@@ -1948,17 +1991,8 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("FileId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<Guid>("TicketId")
                         .HasColumnType("uniqueidentifier");
@@ -2045,17 +2079,8 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("FileId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<Guid>("TicketMessageId")
                         .HasColumnType("uniqueidentifier");
@@ -2090,20 +2115,11 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("FaultTypeId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<Guid?>("ShippingId")
                         .HasColumnType("uniqueidentifier");
@@ -2150,17 +2166,8 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("FileId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<Guid>("TicketMovementId")
                         .HasColumnType("uniqueidentifier");
@@ -2201,19 +2208,13 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("InformationText")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -2242,7 +2243,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                             Accessible = true,
                             Color = "#3699FF",
                             InformationText = "Talep ilk kez açıldı.",
-                            IsDeleted = false,
+                            IsActive = true,
                             Name = "Yeni Kayıt",
                             TicketStatusId = 1
                         },
@@ -2252,7 +2253,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                             Accessible = true,
                             Color = "#8950FC",
                             InformationText = "Talebe temsilci atandı.",
-                            IsDeleted = false,
+                            IsActive = true,
                             Name = "Temsilci Atandı",
                             TicketStatusId = 2
                         },
@@ -2262,7 +2263,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                             Accessible = true,
                             Color = "#FFA800",
                             InformationText = "Teknik servise yönlendirme yapıldı.",
-                            IsDeleted = false,
+                            IsActive = true,
                             Name = "Teknik Hizmetlere Yönlendirildi",
                             TicketStatusId = 2
                         },
@@ -2272,7 +2273,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                             Accessible = true,
                             Color = "#1BC5BD",
                             InformationText = "Arıza tespiti tamamlandı.",
-                            IsDeleted = false,
+                            IsActive = true,
                             Name = "Arıza Tespiti Yapıldı",
                             TicketStatusId = 2
                         },
@@ -2282,7 +2283,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                             Accessible = true,
                             Color = "#F64E60",
                             InformationText = "Kargo teslimatı bekleniyor.",
-                            IsDeleted = false,
+                            IsActive = true,
                             Name = "Kargo Bekleniyor",
                             TicketStatusId = 3
                         },
@@ -2292,7 +2293,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                             Accessible = true,
                             Color = "#E4E6EF",
                             InformationText = "Yedek parça bekleniyor.",
-                            IsDeleted = false,
+                            IsActive = true,
                             Name = "Parça Bekleniyor",
                             TicketStatusId = 3
                         },
@@ -2302,7 +2303,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                             Accessible = true,
                             Color = "#3699FF",
                             InformationText = "Kargo gönderimi yapıldı.",
-                            IsDeleted = false,
+                            IsActive = true,
                             Name = "Kargo Gönderildi",
                             TicketStatusId = 3
                         },
@@ -2312,7 +2313,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                             Accessible = true,
                             Color = "#FFA800",
                             InformationText = "Yönetici onayı bekleniyor.",
-                            IsDeleted = false,
+                            IsActive = true,
                             Name = "Müdür Onayı Bekleniyor",
                             TicketStatusId = 4
                         },
@@ -2322,7 +2323,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                             Accessible = true,
                             Color = "#F64E60",
                             InformationText = "Müşteri ücret onayı bekleniyor.",
-                            IsDeleted = false,
+                            IsActive = true,
                             Name = "Ücret Onayı Bekleniyor",
                             TicketStatusId = 4
                         },
@@ -2332,7 +2333,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                             Accessible = true,
                             Color = "#1BC5BD",
                             InformationText = "Onay alındı, işleme devam ediliyor.",
-                            IsDeleted = false,
+                            IsActive = true,
                             Name = "Onay Alındı",
                             TicketStatusId = 2
                         },
@@ -2342,7 +2343,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                             Accessible = true,
                             Color = "#3F4254",
                             InformationText = "Talep iptal edildi.",
-                            IsDeleted = false,
+                            IsActive = true,
                             Name = "İptal Edildi",
                             TicketStatusId = 5
                         },
@@ -2352,7 +2353,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                             Accessible = true,
                             Color = "#1BC5BD",
                             InformationText = "Talep tamamlandı ve kapatıldı.",
-                            IsDeleted = false,
+                            IsActive = true,
                             Name = "Tamamlandı",
                             TicketStatusId = 6
                         });
@@ -2375,17 +2376,8 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Icon")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -2480,15 +2472,6 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<DateTime>("AddedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<Guid>("TicketId")
                         .HasColumnType("uniqueidentifier");
 
@@ -2518,17 +2501,8 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -2549,42 +2523,36 @@ namespace ExpressDesk360.DataAccess.Migrations
                         {
                             Id = 1,
                             Description = "Yeni açılan ve atanma bekleyen talepler",
-                            IsDeleted = false,
                             Name = "Yeni Kayıt"
                         },
                         new
                         {
                             Id = 2,
                             Description = "Personel atanmış ve işlem süreci devam eden talepler",
-                            IsDeleted = false,
                             Name = "İşlemde"
                         },
                         new
                         {
                             Id = 3,
                             Description = "Kargo veya parça bekleyen talepler",
-                            IsDeleted = false,
                             Name = "Beklemede"
                         },
                         new
                         {
                             Id = 4,
                             Description = "Yönetici veya müşteri onayı bekleyen talepler",
-                            IsDeleted = false,
                             Name = "Onay Bekleniyor"
                         },
                         new
                         {
                             Id = 5,
                             Description = "İptal edilen ve işlem yapılmayan talepler",
-                            IsDeleted = false,
                             Name = "İptal Edildi"
                         },
                         new
                         {
                             Id = 6,
                             Description = "Çözümlenmiş ve kapatılmış talepler",
-                            IsDeleted = false,
                             Name = "Tamamlandı"
                         });
                 });
@@ -2603,16 +2571,10 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -2627,6 +2589,26 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TicketType", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsActive = true,
+                            Name = "Teknik Destek"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsActive = true,
+                            Name = "Genel Bakım"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsActive = true,
+                            Name = "Yazılım Destek"
+                        });
                 });
 
             modelBuilder.Entity("ExpressDesk360.Model.Entities.Unit", b =>
@@ -2643,13 +2625,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -2693,12 +2669,6 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -2709,7 +2679,7 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<DateTime?>("HireDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
@@ -2790,18 +2760,9 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Info")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("UpdateDateUtc")
                         .HasColumnType("datetime2");
@@ -2833,17 +2794,8 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("FileId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("UpdateDateUtc")
                         .HasColumnType("datetime2");
@@ -2880,16 +2832,10 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -2916,16 +2862,10 @@ namespace ExpressDesk360.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -2935,6 +2875,26 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("WarrantyType", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsActive = true,
+                            Name = "Üretici Garantisi"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsActive = true,
+                            Name = "Satıcı Garantisi"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsActive = true,
+                            Name = "Uzatılmış Garanti"
+                        });
                 });
 
             modelBuilder.Entity("ExpressDesk360.Model.Entities._Task", b =>
@@ -3006,17 +2966,8 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("FileId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<Guid>("TaskId")
                         .HasColumnType("uniqueidentifier");
@@ -3051,17 +3002,8 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<Guid>("TaskId")
                         .HasColumnType("uniqueidentifier");
@@ -3110,19 +3052,13 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("InformationText")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -3143,6 +3079,71 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.HasIndex("TaskStatusId");
 
                     b.ToTable("_TaskMovementType", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Accessible = true,
+                            Color = "#3699FF",
+                            IsActive = true,
+                            Name = "Görev Oluşturuldu",
+                            TaskStatusId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Accessible = true,
+                            Color = "#8950FC",
+                            IsActive = true,
+                            Name = "Personel Atandı",
+                            TaskStatusId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Accessible = true,
+                            Color = "#FFA800",
+                            IsActive = true,
+                            Name = "İşleme Alındı",
+                            TaskStatusId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Accessible = true,
+                            Color = "#F64E60",
+                            IsActive = true,
+                            Name = "Beklemeye Alındı",
+                            TaskStatusId = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Accessible = true,
+                            Color = "#3F4254",
+                            IsActive = true,
+                            Name = "İptal Edildi",
+                            TaskStatusId = 4
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Accessible = true,
+                            Color = "#1BC5BD",
+                            IsActive = true,
+                            Name = "Tamamlandı",
+                            TaskStatusId = 5
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Accessible = true,
+                            Color = "#E4E6EF",
+                            IsActive = true,
+                            Name = "Dosya Eklendi",
+                            TaskStatusId = 2
+                        });
                 });
 
             modelBuilder.Entity("ExpressDesk360.Model.Entities._TaskPriority", b =>
@@ -3162,17 +3163,8 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Icon")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -3203,15 +3195,6 @@ namespace ExpressDesk360.DataAccess.Migrations
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime>("JoinedDate")
                         .HasColumnType("datetime2");
@@ -3251,17 +3234,8 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDateUtc")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -3276,6 +3250,38 @@ namespace ExpressDesk360.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("_TaskStatus", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Yeni atanmış görevler",
+                            Name = "Yeni Görev"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "İşlemdeki görevler",
+                            Name = "İşlemde"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Beklemedeki görevler",
+                            Name = "Beklemede"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "İptal edilmiş görevler",
+                            Name = "İptal Edildi"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Tamamlanmış görevler",
+                            Name = "Tamamlandı"
+                        });
                 });
 
             modelBuilder.Entity("ExpressDesk360.Model.ProjectEntities.Archive", b =>
@@ -3930,6 +3936,16 @@ namespace ExpressDesk360.DataAccess.Migrations
 
             modelBuilder.Entity("ExpressDesk360.Model.Entities.StockMovement", b =>
                 {
+                    b.HasOne("ExpressDesk360.Model.Entities.CompanyProduct", "CompanyProduct")
+                        .WithMany("StockMovements")
+                        .HasForeignKey("CompanyProductId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ExpressDesk360.Model.Entities.FaultType", "FaultType")
+                        .WithMany("StockMovements")
+                        .HasForeignKey("FaultTypeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("ExpressDesk360.Model.Entities.Invoice", "Invoice")
                         .WithMany("StockMovements")
                         .HasForeignKey("InvoiceId")
@@ -3961,6 +3977,10 @@ namespace ExpressDesk360.DataAccess.Migrations
                         .WithMany("StockMovements")
                         .HasForeignKey("WarehouseId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CompanyProduct");
+
+                    b.Navigation("FaultType");
 
                     b.Navigation("Invoice");
 
@@ -4522,6 +4542,8 @@ namespace ExpressDesk360.DataAccess.Migrations
 
                     b.Navigation("CompanyProductWarranties");
 
+                    b.Navigation("StockMovements");
+
                     b.Navigation("Tickets");
                 });
 
@@ -4574,6 +4596,8 @@ namespace ExpressDesk360.DataAccess.Migrations
             modelBuilder.Entity("ExpressDesk360.Model.Entities.FaultType", b =>
                 {
                     b.Navigation("StockGroupFaultTypeMaps");
+
+                    b.Navigation("StockMovements");
 
                     b.Navigation("TicketMovements");
                 });
