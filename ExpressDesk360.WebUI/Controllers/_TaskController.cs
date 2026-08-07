@@ -1,21 +1,22 @@
 using Microsoft.AspNetCore.Mvc;
 using ExpressDesk360.Core.BaseRequestModels;
 using ExpressDesk360.Model.Entities;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.WebUI.Controllers.Base;
 using ExpressDesk360.WebUI.Models.ViewModels._Task;
-using ExpressDesk360.Model.Dtos._Task.Commands;
 using ExpressDesk360.Model.Dtos._Task.Queries;
+using ExpressDesk360.Business.Abstract.TaskModule;
+using ExpressDesk360.Business.Abstract.UserModule;
+using ExpressDesk360.Model.Dtos.TaskModule.Task.Commands;
 
 namespace ExpressDesk360.WebUI.Controllers
 {
     public class _TaskController : BaseController
     {
-        private readonly I_TaskService __TaskService;
-        private readonly I_TaskPriorityService __TaskPriorityService;
-        private readonly I_TaskMovementTypeService __TaskMovementTypeService;
+        private readonly ITaskService __TaskService;
+        private readonly ITaskPriorityService __TaskPriorityService;
+        private readonly ITaskMovementTypeService __TaskMovementTypeService;
         private readonly IUserService _userService;
-        public _TaskController(ILogger<_TaskController> logger, I_TaskService _TaskService, I_TaskPriorityService _TaskPriorityService, I_TaskMovementTypeService _TaskMovementTypeService, IUserService userService) : base(logger)
+        public _TaskController(ILogger<_TaskController> logger, ITaskService _TaskService, ITaskPriorityService _TaskPriorityService, ITaskMovementTypeService _TaskMovementTypeService, IUserService userService) : base(logger)
         {
             __TaskService = _TaskService;
             __TaskPriorityService = _TaskPriorityService;

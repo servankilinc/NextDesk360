@@ -5,8 +5,8 @@ using ExpressDesk360.Model.Auth.Login;
 using ExpressDesk360.Model.Auth.Logout;
 using ExpressDesk360.Model.Auth.Refresh;
 using ExpressDesk360.Model.Auth.SignUp;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.WebAPI.Controllers.Base;
+using ExpressDesk360.Business.Abstract.UserModule;
 
 namespace ExpressDesk360.WebAPI.Controllers;
 

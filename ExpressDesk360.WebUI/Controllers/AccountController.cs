@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using ExpressDesk360.Core.Utils.Logging;
-using ExpressDesk360.Model.Entities;
 using ExpressDesk360.WebUI.Controllers.Base;
 using ExpressDesk360.WebUI.Models.Auth;
+using ExpressDesk360.Model.Entities.UserModule;
 
 namespace ExpressDesk360.WebUI.Controllers;
 

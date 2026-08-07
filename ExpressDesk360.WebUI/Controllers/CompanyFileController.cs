@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using ExpressDesk360.Core.BaseRequestModels;
 using ExpressDesk360.Model.Entities;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.WebUI.Controllers.Base;
 using ExpressDesk360.WebUI.Models.ViewModels.CompanyFile;
-using ExpressDesk360.Model.Dtos.CompanyFile.Commands;
 using ExpressDesk360.Model.Dtos.CompanyFile.Queries;
+using ExpressDesk360.Model.Dtos.CompanyModule.CompanyFile.Commands;
+using ExpressDesk360.Business.Abstract.Common;
+using ExpressDesk360.Business.Abstract.CompanyModule;
 
 namespace ExpressDesk360.WebUI.Controllers
 {

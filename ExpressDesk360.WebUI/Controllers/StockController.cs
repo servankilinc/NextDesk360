@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using ExpressDesk360.Core.BaseRequestModels;
 using ExpressDesk360.Model.Entities;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.WebUI.Controllers.Base;
 using ExpressDesk360.WebUI.Models.ViewModels.Stock;
-using ExpressDesk360.Model.Dtos.Stock.Commands;
 using ExpressDesk360.Model.Dtos.Stock.Queries;
+using ExpressDesk360.Model.Dtos.StockModule.Stock.Commands;
+using ExpressDesk360.Business.Abstract.StockModule;
+using ExpressDesk360.Business.Abstract.Common;
 
 namespace ExpressDesk360.WebUI.Controllers
 {

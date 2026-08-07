@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ExpressDesk360.Core.BaseRequestModels;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.WebAPI.Controllers.Base;
-using ExpressDesk360.Model.Dtos.StockTypeGroupMap.Commands;
 using ExpressDesk360.Model.Dtos.StockTypeGroupMap.Queries;
+using ExpressDesk360.Model.Dtos.StockModule.StockTypeGroupMap.Commands;
+using ExpressDesk360.Business.Abstract.StockModule;
 
 namespace ExpressDesk360.WebAPI.Controllers
 {

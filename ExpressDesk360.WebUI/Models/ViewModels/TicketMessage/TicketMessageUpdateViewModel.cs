@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Model.Dtos.TicketMessage.Commands;
+using ExpressDesk360.Model.Dtos.TicketModule.TicketMessage.Commands;
 
 namespace ExpressDesk360.WebUI.Models.ViewModels.TicketMessage
 {

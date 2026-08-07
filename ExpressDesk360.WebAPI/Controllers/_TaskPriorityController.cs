@@ -1,17 +1,17 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ExpressDesk360.Core.BaseRequestModels;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.WebAPI.Controllers.Base;
-using ExpressDesk360.Model.Dtos._TaskPriority.Commands;
 using ExpressDesk360.Model.Dtos._TaskPriority.Queries;
+using ExpressDesk360.Business.Abstract.TaskModule;
+using ExpressDesk360.Model.Dtos.TaskModule.TaskPriority.Commands;
 
 namespace ExpressDesk360.WebAPI.Controllers
 {
     public class _TaskPriorityController : BaseController
     {
-        private readonly I_TaskPriorityService __TaskPriorityService;
-        public _TaskPriorityController(ILogger<_TaskPriorityController> logger, I_TaskPriorityService _TaskPriorityService) : base(logger)
+        private readonly ITaskPriorityService __TaskPriorityService;
+        public _TaskPriorityController(ILogger<_TaskPriorityController> logger, ITaskPriorityService _TaskPriorityService) : base(logger)
         {
             __TaskPriorityService = _TaskPriorityService;
         }

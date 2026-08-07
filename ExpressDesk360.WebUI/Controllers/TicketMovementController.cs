@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using ExpressDesk360.Core.BaseRequestModels;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.WebUI.Controllers.Base;
 using ExpressDesk360.WebUI.Models.ViewModels.TicketMovement;
-using ExpressDesk360.Model.Dtos.TicketMovement.Commands;
+using ExpressDesk360.Model.Dtos.TicketModule.TicketMovement.Commands;
+using ExpressDesk360.Business.Abstract.ShippingModule;
+using ExpressDesk360.Business.Abstract.TicketModule;
+using ExpressDesk360.Business.Abstract.StockModule;
+using ExpressDesk360.Business.Abstract.UserModule;
 
 namespace ExpressDesk360.WebUI.Controllers
 {

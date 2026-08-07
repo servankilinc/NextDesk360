@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Model.Dtos.CompanyProduct.Commands;
+using ExpressDesk360.Model.Dtos.ProductionModule.CompanyProduct.Commands;
 
 namespace ExpressDesk360.WebUI.Models.ViewModels.CompanyProduct
 {

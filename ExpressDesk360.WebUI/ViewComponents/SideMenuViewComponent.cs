@@ -105,50 +105,56 @@ namespace ExpressDesk360.WebUI.ViewComponents
                             Title = "Dashboard",
                             Icon = "<i class=\"ki-duotone ki-chart-pie-4 text-primary fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>",
                             Path = "/Stock/Dashboard",
-                            CollorTheme = "primary"
+                            CollorTheme = "dark"
                         },
                         new MenuItem
                         {
                             Title = "Stok Modelleri",
-                            Icon = "<i class=\"ki-duotone ki-add-item fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>",
-                            Path = "/Stock/Index"
+                            Icon = "<i class=\"ki-duotone ki-parcel text-success fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span></i>",
+                            Path = "/Stock/Index",
+                            CollorTheme = "dark"
                         },
                         new MenuItem
                         {
                             Title = "Markalar",
-                            Icon = "<i class=\"ki-duotone ki-dribbble fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span><span class=\"path6\"></span></i>",
-                            Path = "/StockBrand/Index"
+                            Icon = "<i class=\"ki-duotone ki-dribbble text-dark fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span><span class=\"path6\"></span></i>",
+                            Path = "/StockBrand/Index",
+                            CollorTheme = "dark"
                         },
                         new MenuItem
                         {
                             Title = "Stok Grupları",
-                            Icon = "<i class=\"ki-duotone ki-lots-shopping fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span><span class=\"path6\"></span><span class=\"path7\"></span><span class=\"path8\"></span></i>",
-                            Path = "/StockGroup/Index"
+                            Icon = "<i class=\"ki-duotone ki-lots-shopping text-danger fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span><span class=\"path6\"></span><span class=\"path7\"></span><span class=\"path8\"></span></i>",
+                            Path = "/StockGroup/Index",
+                            CollorTheme = "dark"
                         },
                         new MenuItem
                         {
                             Title = "Arıza Tipleri",
                             Icon = "<i class=\"ki-duotone ki-book-square text-info fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span></i>",
                             Path = "/FaultType/Index",
-                            CollorTheme = "info"
+                            CollorTheme = "dark"
                         },
                         new MenuItem
                         {
                             Title = "Seri Numaraları",
-                            Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                            Path = "/StockSerial/Index"
+                            Icon = "<i class=\"ki-duotone ki-barcode text-dark fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span><span class=\"path3\"></span><span class=\"path4\"></span><span class=\"path5\"></span><span class=\"path6\"></span><span class=\"path7\"></span><span class=\"path8\"></span></i>",
+                            Path = "/StockSerial/Index",
+                            CollorTheme = "dark"
                         },
                         new MenuItem
                         {
                             Title = "Birimler",
-                            Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                            Path = "/Unit/Index"
+                            Icon = "<i class=\"ki-duotone ki-abstract-21 text-warning fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span></i>",
+                            Path = "/Unit/Index",
+                            CollorTheme = "dark"
                         },
                         new MenuItem
                         {
                             Title = "Depolar",
-                            Icon = "<i class=\"ki-outline ki-to-right text-gray-600 fs-8\"></i>",
-                            Path = "/Warehouse/Index"
+                            Icon = "<i class=\"ki-duotone ki-geolocation text-success fs-2x\"><span class=\"path1\"></span><span class=\"path2\"></span></i>",
+                            Path = "/Warehouse/Index",
+                            CollorTheme = "dark"
                         },
                     }
                 },

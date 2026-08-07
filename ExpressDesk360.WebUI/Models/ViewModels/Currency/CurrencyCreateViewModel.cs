@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Model.Dtos.Currency.Commands;
+using ExpressDesk360.Model.Dtos.Common.Currency.Commands;
 
 namespace ExpressDesk360.WebUI.Models.ViewModels.Currency
 {

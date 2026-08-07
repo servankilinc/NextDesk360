@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Model.Dtos.BOMItem.Commands;
+using ExpressDesk360.Model.Dtos.ProductionModule.BOMItem.Commands;
 
 namespace ExpressDesk360.WebUI.Models.ViewModels.BOMItem
 {

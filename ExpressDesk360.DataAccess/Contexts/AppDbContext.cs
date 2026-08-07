@@ -1,10 +1,19 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using ExpressDesk360.Model.Entities;
 using ExpressDesk360.Model.ProjectEntities;
 using ExpressDesk360.Model.Enums;
 using ExpressDesk360.Core.Utils;
+using ExpressDesk360.Model.Entities.StockModule;
+using ExpressDesk360.Model.Entities.Common;
+using ExpressDesk360.Model.Entities.CompanyModule;
+using ExpressDesk360.Model.Entities.InvoiceModule;
+using ExpressDesk360.Model.Entities.ProductionModule;
+using ExpressDesk360.Model.Entities.TaskModule;
+using ExpressDesk360.Model.Entities.ProjectModule;
+using ExpressDesk360.Model.Entities.ShippingModule;
+using ExpressDesk360.Model.Entities.TicketModule;
+using ExpressDesk360.Model.Entities.UserModule;
 
 namespace ExpressDesk360.DataAccess.Contexts
 {
@@ -14,24 +23,203 @@ namespace ExpressDesk360.DataAccess.Contexts
         {
         }
 
+        #region Common
+        public DbSet<FSFile> FSFiles { get; set; }
+        public DbSet<FSFolder> FSFolders { get; set; }
+        public DbSet<ContactType> ContactTypes { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
+        public DbSet<Unit> Units { get; set; }
+        public DbSet<WarrantyType> WarrantyTypes { get; set; }
+        #endregion
+
+        #region Production
+        public DbSet<BOM> BOMs { get; set; }
+        public DbSet<BOMItem> BOMItems { get; set; }
+        public DbSet<CompanyProduct> CompanyProducts { get; set; }
+        public DbSet<CompanyProductStockSerialMap> CompanyProductStockSerialMaps { get; set; }
+        public DbSet<CompanyProductWarranty> CompanyProductWarranties { get; set; }
+        #endregion
+
+        #region Company
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<CompanyContact> CompanyContacts { get; set; }
+        public DbSet<CompanyFile> CompanyFiles { get; set; }
+        #endregion
+
+        #region Invoice
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<InvoiceType> InvoiceTypes { get; set; }
+        #endregion
+
+        #region Project
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<ProjectStaff> ProjectStaffs { get; set; }
+        public DbSet<ProjectFile> ProjectFiles { get; set; }
+        public DbSet<ProjectMovement> ProjectMovements { get; set; }
+        public DbSet<ProjectMovementType> ProjectMovementTypes { get; set; }
+        public DbSet<ProjectStatus> ProjectStatuses { get; set; }
+        #endregion
+
+        #region Shipping
+        public DbSet<Shipping> Shippings { get; set; }
+        public DbSet<ShippingType> ShippingTypes { get; set; }
+        public DbSet<ShippingFile> ShippingFiles { get; set; }
+        public DbSet<CargoCompany> CargoCompanies { get; set; }
+        #endregion
+
+        #region Stock
+        public DbSet<Stock> Stocks { get; set; }
+        public DbSet<FaultType> FaultTypes { get; set; }
+        public DbSet<StockBrand> StockBrands { get; set; }
+        public DbSet<StockGroup> StockGroups { get; set; }
+        public DbSet<StockGroupBrandMap> StockGroupBrandMaps { get; set; }
+        public DbSet<StockGroupFaultTypeMap> StockGroupFaultTypeMaps { get; set; }
+        public DbSet<StockMovement> StockMovements { get; set; }
+        public DbSet<StockMovementStockSerialMap> StockMovementStockSerialMaps { get; set; }
+        public DbSet<StockMovementType> StockMovementTypes { get; set; }
+        public DbSet<StockSerial> StockSerials { get; set; }
+        public DbSet<StockSerialWarranty> StockSerialWarranties { get; set; }
+        public DbSet<StockType> StockTypes { get; set; }
+        public DbSet<StockTypeGroupMap> StockTypeGroupMaps { get; set; }
+        public DbSet<Warehouse> Warehouses { get; set; }
+        #endregion
+
+        #region Task
+        public DbSet<_Task> _Tasks { get; set; }
+        public DbSet<TaskStaff> _TaskStaffs { get; set; }
+        public DbSet<TaskFile> _TaskFiles { get; set; }
+        public DbSet<TaskMovement> _TaskMovements { get; set; }
+        public DbSet<TaskMovementType> _TaskMovementTypes { get; set; }
+        public DbSet<_TaskStatus> _TaskStatuses { get; set; }
+        public DbSet<TaskPriority> _TaskPriorities { get; set; }
+        #endregion
+
+        #region Ticket
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<TicketFile> TicketFiles { get; set; }
+        public DbSet<TicketMessage> TicketMessages { get; set; }
+        public DbSet<TicketMessageFile> TicketMessageFiles { get; set; }
+        public DbSet<TicketMovement> TicketMovements { get; set; }
+        public DbSet<TicketMovementFile> TicketMovementFiles { get; set; }
+        public DbSet<TicketMovementType> TicketMovementTypes { get; set; }
+        public DbSet<TicketPriority> TicketPriorities { get; set; }
+        public DbSet<TicketServicePrice> TicketServicePrices { get; set; }
+        public DbSet<TicketStaff> TicketStaffs { get; set; }
+        public DbSet<TicketStatus> TicketStatuses { get; set; }
+        public DbSet<TicketType> TicketTypes { get; set; }
+        #endregion
+
+        #region User
+        public override DbSet<User> Users { get; set; }
+        public DbSet<UserContact> UserContacts { get; set; }
+        public DbSet<UserFile> UserFiles { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+        #endregion
+
+        #region Project Core
+        public DbSet<Log> Logs { get; set; }
+        public DbSet<Archive> Archives { get; set; }
+        #endregion
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            #region Production Tables
+            #region Commons
+            modelBuilder.Entity<FSFile>(f =>
+            {
+                f.ToTable("FS_File");
+                f.HasKey(f => f.Id);
+                f.HasMany(f => f.FileCompanyFiles).WithOne(c => c.File).HasForeignKey(c => c.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileProjectFiles).WithOne(p => p.File).HasForeignKey(p => p.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileShippingFiles).WithOne(s => s.File).HasForeignKey(s => s.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileTaskFiles).WithOne(_ => _.File).HasForeignKey(_ => _.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileTicketFiles).WithOne(t => t.File).HasForeignKey(t => t.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileTicketMessageFiles).WithOne(t => t.File).HasForeignKey(t => t.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileTicketMovementFiles).WithOne(t => t.File).HasForeignKey(t => t.FileId).OnDelete(DeleteBehavior.Restrict);
+                f.HasMany(f => f.FileUserFiles).WithOne(u => u.File).HasForeignKey(u => u.FileId).OnDelete(DeleteBehavior.Restrict);
+            });
+            modelBuilder.Entity<FSFolder>(f =>
+            {
+                f.ToTable("FS_Folder");
+                f.HasKey(f => f.Id);
+                f.HasMany(f => f.FolderFSFiles).WithOne(f => f.Folder).HasForeignKey(f => f.FolderId).OnDelete(DeleteBehavior.Cascade);
+                f.HasMany(f => f.ParentFolderFSFolders).WithOne(f => f.ParentFolder).HasForeignKey(f => f.ParentFolderId).OnDelete(DeleteBehavior.Restrict);
+            });
+            modelBuilder.Entity<ContactType>(c =>
+            {
+                c.ToTable("ContactType");
+                c.HasKey(c => c.Id);
+                c.HasMany(c => c.CompanyContacts).WithOne(c => c.ContactType).HasForeignKey(c => c.ContactTypeId).OnDelete(DeleteBehavior.Cascade);
+                c.HasMany(c => c.UserContacts).WithOne(u => u.ContactType).HasForeignKey(u => u.ContactTypeId).OnDelete(DeleteBehavior.Cascade);
+
+                c.HasData(
+                    new ContactType { Id = (int)CommonEnums.ContactType.Phone, Name = CommonEnums.ContactType.Phone.GetDescription(), Icon = "fa-solid fa-phone", IsActive = true },
+                    new ContactType { Id = (int)CommonEnums.ContactType.Email, Name = CommonEnums.ContactType.Email.GetDescription(), Icon = "fa-solid fa-envelope", IsActive = true },
+                    new ContactType { Id = (int)CommonEnums.ContactType.Address, Name = CommonEnums.ContactType.Address.GetDescription(), Icon = "fa-solid fa-map-location-dot", IsActive = true },
+                    new ContactType { Id = (int)CommonEnums.ContactType.Fax, Name = CommonEnums.ContactType.Fax.GetDescription(), Icon = "fa-solid fa-fax", IsActive = true },
+                    new ContactType { Id = (int)CommonEnums.ContactType.Website, Name = CommonEnums.ContactType.Website.GetDescription(), Icon = "fa-solid fa-earth-europe", IsActive = true }
+                );
+            });
+            modelBuilder.Entity<Currency>(c =>
+            {
+                c.ToTable("Currency");
+                c.HasKey(c => c.Id);
+                c.HasMany(c => c.Invoices).WithOne(i => i.Currency).HasForeignKey(i => i.CurrencyId).OnDelete(DeleteBehavior.Restrict);
+                c.HasMany(c => c.PriceCurrencyShippings).WithOne(s => s.PriceCurrency).HasForeignKey(s => s.PriceCurrencyId).OnDelete(DeleteBehavior.Restrict);
+                c.HasMany(c => c.PurchaseCurrencyStocks).WithOne(s => s.PurchaseCurrency).HasForeignKey(s => s.PurchaseCurrencyId).OnDelete(DeleteBehavior.Restrict);
+                c.HasMany(c => c.SalePriceCurrencyStocks).WithOne(s => s.SalePriceCurrency).HasForeignKey(s => s.SalePriceCurrencyId).OnDelete(DeleteBehavior.Restrict);
+                c.HasMany(c => c.TicketServicePrices).WithOne(t => t.Currency).HasForeignKey(t => t.CurrencyId).OnDelete(DeleteBehavior.Restrict);
+
+                c.HasData(
+                  new Currency { Id = (int)CommonEnums.CurrencyType.TRY, Name = CommonEnums.CurrencyType.TRY.GetDescription(), Icon = "fa-solid fa-turkish-lira-sign", IsActive = true, ShortName = "TRY" },
+                  new Currency { Id = (int)CommonEnums.CurrencyType.USD, Name = CommonEnums.CurrencyType.USD.GetDescription(), Icon = "fa-solid fa-dollar-sign", IsActive = true, ShortName = "USD" },
+                  new Currency { Id = (int)CommonEnums.CurrencyType.EUR, Name = CommonEnums.CurrencyType.EUR.GetDescription(), Icon = "fa-solid fa-euro-sign", IsActive = true, ShortName = "EUR" },
+                  new Currency { Id = (int)CommonEnums.CurrencyType.GBP, Name = CommonEnums.CurrencyType.GBP.GetDescription(), Icon = "fa-solid fa-sterling-sign", IsActive = true, ShortName = "GBP" }
+                );
+            });
+            modelBuilder.Entity<Unit>(u =>
+            {
+                u.ToTable("Unit");
+                u.HasKey(u => u.Id);
+                u.HasMany(u => u.Stocks).WithOne(s => s.Unit).HasForeignKey(s => s.UnitId).OnDelete(DeleteBehavior.Restrict);
+
+                u.HasData(
+                    new Unit { Id = (int)CommonEnums.UnitType.Piece, Name = CommonEnums.UnitType.Piece.GetDescription() },
+                    new Unit { Id = (int)CommonEnums.UnitType.Kilogram, Name = CommonEnums.UnitType.Kilogram.GetDescription() },
+                    new Unit { Id = (int)CommonEnums.UnitType.Liter, Name = CommonEnums.UnitType.Liter.GetDescription() },
+                    new Unit { Id = (int)CommonEnums.UnitType.Meter, Name = CommonEnums.UnitType.Meter.GetDescription() },
+                    new Unit { Id = (int)CommonEnums.UnitType.Box, Name = CommonEnums.UnitType.Box.GetDescription() },
+                    new Unit { Id = (int)CommonEnums.UnitType.Package, Name = CommonEnums.UnitType.Package.GetDescription() }
+                );
+            });
+            modelBuilder.Entity<WarrantyType>(w =>
+            {
+                w.ToTable("WarrantyType");
+                w.HasKey(w => w.Id);
+                w.HasMany(w => w.CompanyProductWarranties).WithOne(c => c.WarrantyType).HasForeignKey(c => c.WarrantyTypeId).OnDelete(DeleteBehavior.Restrict);
+                w.HasMany(w => w.StockSerialWarranties).WithOne(s => s.WarrantyType).HasForeignKey(s => s.WarrantyTypeId).OnDelete(DeleteBehavior.Restrict);
+
+                w.HasData(
+                    new WarrantyType { Id = (int)CommonEnums.WarrantyType.ManufacturerWarranty, Name = CommonEnums.WarrantyType.ManufacturerWarranty.GetDescription() },
+                    new WarrantyType { Id = (int)CommonEnums.WarrantyType.SellerWarranty, Name = CommonEnums.WarrantyType.SellerWarranty.GetDescription() },
+                    new WarrantyType { Id = (int)CommonEnums.WarrantyType.ExtendedWarranty, Name = CommonEnums.WarrantyType.ExtendedWarranty.GetDescription() }
+                );
+            });
+            #endregion
+
+            #region Production
             modelBuilder.Entity<BOM>(b =>
             {
                 b.ToTable("BOM");
                 b.HasKey(b => b.Id);
                 b.HasMany(b => b.BOMItems).WithOne(b => b.BOM).HasForeignKey(b => b.BOMId).OnDelete(DeleteBehavior.Cascade);
                 b.HasMany(b => b.CompanyProducts).WithOne(c => c.BOM).HasForeignKey(c => c.BOMId).OnDelete(DeleteBehavior.SetNull);
-                b.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<BOMItem>(b =>
             {
                 b.ToTable("BOMItem");
                 b.HasKey(b => b.Id);
-                b.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<CompanyProduct>(c =>
             {
@@ -40,12 +228,13 @@ namespace ExpressDesk360.DataAccess.Contexts
                 c.HasMany(c => c.CompanyProductStockSerialMaps).WithOne(c => c.CompanyProduct).HasForeignKey(c => c.CompanyProductId).OnDelete(DeleteBehavior.Restrict);
                 c.HasMany(c => c.CompanyProductWarranties).WithOne(c => c.CompanyProduct).HasForeignKey(c => c.CompanyProductId).OnDelete(DeleteBehavior.Cascade);
                 c.HasMany(c => c.Tickets).WithOne(t => t.CompanyProduct).HasForeignKey(t => t.CompanyProductId).OnDelete(DeleteBehavior.Restrict);
-                c.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<CompanyProductStockSerialMap>(c =>
             {
                 c.ToTable("CompanyProductStockSerialMap");
                 c.HasKey(c => c.Id);
+
+                c.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<CompanyProductWarranty>(c =>
             {
@@ -55,7 +244,7 @@ namespace ExpressDesk360.DataAccess.Contexts
             });
             #endregion
 
-            #region Company Tables
+            #region Company
             modelBuilder.Entity<Company>(c =>
             {
                 c.ToTable("Company");
@@ -97,14 +286,14 @@ namespace ExpressDesk360.DataAccess.Contexts
                 i.HasMany(i => i.Invoices).WithOne(i => i.InvoiceType).HasForeignKey(i => i.InvoiceTypeId).OnDelete(DeleteBehavior.Restrict);
 
                 i.HasData(
-                    new InvoiceType { Id = (int)GeneralEnums.InvoiceType.PurchaseInvoice, Name = GeneralEnums.InvoiceType.PurchaseInvoice.GetDescription() },
-                    new InvoiceType { Id = (int)GeneralEnums.InvoiceType.SalesInvoice, Name = GeneralEnums.InvoiceType.SalesInvoice.GetDescription() },
-                    new InvoiceType { Id = (int)GeneralEnums.InvoiceType.ReturnInvoice, Name = GeneralEnums.InvoiceType.ReturnInvoice.GetDescription() }
+                    new InvoiceType { Id = (int)InvoiceEnums.InvoiceType.PurchaseInvoice, Name = InvoiceEnums.InvoiceType.PurchaseInvoice.GetDescription() },
+                    new InvoiceType { Id = (int)InvoiceEnums.InvoiceType.SalesInvoice, Name = InvoiceEnums.InvoiceType.SalesInvoice.GetDescription() },
+                    new InvoiceType { Id = (int)InvoiceEnums.InvoiceType.ReturnInvoice, Name = InvoiceEnums.InvoiceType.ReturnInvoice.GetDescription() }
                 );
             });
             #endregion
 
-            #region Project Tables
+            #region Project
             modelBuilder.Entity<Project>(p =>
             {
                 p.ToTable("Project");
@@ -114,14 +303,21 @@ namespace ExpressDesk360.DataAccess.Contexts
                 p.HasMany(p => p.ProjectStaffs).WithOne(p => p.Project).HasForeignKey(p => p.ProjectId).OnDelete(DeleteBehavior.Cascade);
                 p.HasQueryFilter(f => !f.IsDeleted);
             });
+            modelBuilder.Entity<ProjectStaff>(p =>
+            {
+                p.ToTable("ProjectStaff");
+                p.HasKey(p => p.Id);
+            });
             modelBuilder.Entity<ProjectFile>(p =>
             {
                 p.ToTable("ProjectFile");
                 p.HasKey(p => p.Id);
             });
-            modelBuilder.Entity<ProjectMovement>(p =>{
+            modelBuilder.Entity<ProjectMovement>(p =>
+            {
                 p.ToTable("ProjectMovement");
-                p.HasKey(p => p.Id);            });
+                p.HasKey(p => p.Id);
+            });
             modelBuilder.Entity<ProjectMovementType>(p =>
             {
                 p.ToTable("ProjectMovementType");
@@ -139,12 +335,8 @@ namespace ExpressDesk360.DataAccess.Contexts
                     new ProjectMovementType { Id = (int)ProjectEnums.ProjectMovementType.FileAdded, Name = ProjectEnums.ProjectMovementType.FileAdded.GetDescription(), ProjectStatusId = (int)ProjectEnums.ProjectStatusType.InProgress, Accessible = true, Color = "#E4E6EF" }
                 );
             });
-            modelBuilder.Entity<ProjectStaff>(p =>
+            modelBuilder.Entity<ProjectStatus>(p =>
             {
-                p.ToTable("ProjectStaff");
-                p.HasKey(p => p.Id);
-            });
-            modelBuilder.Entity<ProjectStatus>(p =>{
                 p.ToTable("ProjectStatus");
                 p.HasKey(p => p.Id);
                 p.HasMany(p => p.ProjectMovementTypes).WithOne(p => p.ProjectStatus).HasForeignKey(p => p.ProjectStatusId).OnDelete(DeleteBehavior.Cascade);
@@ -179,8 +371,8 @@ namespace ExpressDesk360.DataAccess.Contexts
                 s.HasMany(s => s.Shippings).WithOne(s => s.ShippingType).HasForeignKey(s => s.ShippingTypeId).OnDelete(DeleteBehavior.Restrict);
 
                 s.HasData(
-                    new ShippingType { Id = (int)GeneralEnums.ShippingType.ReceiverPays, Name = GeneralEnums.ShippingType.ReceiverPays.GetDescription() },
-                    new ShippingType { Id = (int)GeneralEnums.ShippingType.SenderPays, Name = GeneralEnums.ShippingType.SenderPays.GetDescription() }
+                    new ShippingType { Id = (int)ShippingEnums.ShippingType.ReceiverPays, Name = ShippingEnums.ShippingType.ReceiverPays.GetDescription() },
+                    new ShippingType { Id = (int)ShippingEnums.ShippingType.SenderPays, Name = ShippingEnums.ShippingType.SenderPays.GetDescription() }
                 );
             });
             modelBuilder.Entity<CargoCompany>(c =>
@@ -191,7 +383,7 @@ namespace ExpressDesk360.DataAccess.Contexts
             });
             #endregion
 
-            #region Stock Tables
+            #region Stock
             modelBuilder.Entity<Stock>(s =>
             {
                 s.ToTable("Stock");
@@ -223,12 +415,20 @@ namespace ExpressDesk360.DataAccess.Contexts
                 s.ToTable("StockGroupBrandMap");
                 s.HasKey(s => s.Id);
             });
+            modelBuilder.Entity<FaultType>(f =>
+            {
+                f.ToTable("FaultType");
+                f.HasKey(f => f.Id);
+                f.HasMany(f => f.StockGroupFaultTypeMaps).WithOne(s => s.FaultType).HasForeignKey(s => s.FaultTypeId).OnDelete(DeleteBehavior.Cascade);
+                f.HasMany(f => f.TicketMovements).WithOne(t => t.FaultType).HasForeignKey(t => t.FaultTypeId).OnDelete(DeleteBehavior.Restrict);
+            });
             modelBuilder.Entity<StockGroupFaultTypeMap>(s =>
             {
                 s.ToTable("StockGroupFaultTypeMap");
                 s.HasKey(s => s.Id);
             });
-            modelBuilder.Entity<StockMovement>(s =>{
+            modelBuilder.Entity<StockMovement>(s =>
+            {
                 s.ToTable("StockMovement");
                 s.HasKey(s => s.Id);
                 s.HasMany(s => s.StockMovementStockSerialMaps).WithOne(s => s.StockMovement).HasForeignKey(s => s.StockMovementId).OnDelete(DeleteBehavior.Restrict);
@@ -239,6 +439,8 @@ namespace ExpressDesk360.DataAccess.Contexts
             {
                 s.ToTable("StockMovementStockSerialMap");
                 s.HasKey(s => s.Id);
+
+                s.HasQueryFilter(f => !f.IsDeleted);
             });
             modelBuilder.Entity<StockMovementType>(s =>
             {
@@ -301,7 +503,7 @@ namespace ExpressDesk360.DataAccess.Contexts
             });
             #endregion
 
-            #region Ticket Tables
+            #region Ticket
             modelBuilder.Entity<Ticket>(t =>
             {
                 t.ToTable("Ticket");
@@ -330,11 +532,13 @@ namespace ExpressDesk360.DataAccess.Contexts
                 t.ToTable("TicketMessageFile");
                 t.HasKey(t => t.Id);
             });
-            modelBuilder.Entity<TicketMovement>(t =>{
+            modelBuilder.Entity<TicketMovement>(t =>
+            {
                 t.ToTable("TicketMovement");
                 t.HasKey(t => t.Id);
                 t.HasMany(t => t.StockMovements).WithOne(s => s.TicketMovement).HasForeignKey(s => s.TicketMovementId).OnDelete(DeleteBehavior.Restrict);
-                t.HasMany(t => t.TicketMovementFiles).WithOne(t => t.TicketMovement).HasForeignKey(t => t.TicketMovementId).OnDelete(DeleteBehavior.Cascade);            });
+                t.HasMany(t => t.TicketMovementFiles).WithOne(t => t.TicketMovement).HasForeignKey(t => t.TicketMovementId).OnDelete(DeleteBehavior.Cascade);
+            });
             modelBuilder.Entity<TicketMovementFile>(t =>
             {
                 t.ToTable("TicketMovementFile");
@@ -363,10 +567,19 @@ namespace ExpressDesk360.DataAccess.Contexts
                     new TicketMovementType { Id = (int)TicketEnums.TicketMovementType.Completted, Name = TicketEnums.TicketMovementType.Completted.GetDescription(), TicketStatusId = (int)TicketEnums.TicketStatusType.Completted, Accessible = true, Color = "#1BC5BD", InformationText = "Talep tamamlandı ve kapatıldı.", IsActive = true }
                 );
             });
-            modelBuilder.Entity<TicketPriority>(t =>{
+            modelBuilder.Entity<TicketPriority>(t =>
+            {
                 t.ToTable("TicketPriority");
                 t.HasKey(t => t.Id);
-                t.HasMany(t => t.Tickets).WithOne(t => t.TicketPriority).HasForeignKey(t => t.TicketPriorityId).OnDelete(DeleteBehavior.Restrict);            });
+                t.HasMany(t => t.Tickets).WithOne(t => t.TicketPriority).HasForeignKey(t => t.TicketPriorityId).OnDelete(DeleteBehavior.Restrict);
+
+                t.HasData(
+                    new TicketPriority { Id = (int)TicketEnums.TicketPriorityType.Low, Name = TicketEnums.TicketPriorityType.Low.GetDescription(), Value = 1, Icon = "fa-solid fa-clipboard-list", Color = "#1BC5BD", IsActive = true },
+                    new TicketPriority { Id = (int)TicketEnums.TicketPriorityType.Normal, Name = TicketEnums.TicketPriorityType.Normal.GetDescription(), Value = 2, Icon = "fa-solid fa-circle-info", Color = "#3699FF", IsActive = true },
+                    new TicketPriority { Id = (int)TicketEnums.TicketPriorityType.High, Name = TicketEnums.TicketPriorityType.High.GetDescription(), Value = 3, Icon = "fa-solid fa-circle-exclamation", Color = "#FFA800", IsActive = true },
+                    new TicketPriority { Id = (int)TicketEnums.TicketPriorityType.Critical, Name = TicketEnums.TicketPriorityType.Critical.GetDescription(), Value = 4, Icon = "fa-solid fa-heart-pulse", Color = "#F64E60", IsActive = true }
+                );
+            });
             modelBuilder.Entity<TicketServicePrice>(t =>
             {
                 t.ToTable("TicketServicePrice");
@@ -378,7 +591,8 @@ namespace ExpressDesk360.DataAccess.Contexts
                 t.ToTable("TicketStaff");
                 t.HasKey(t => t.Id);
             });
-            modelBuilder.Entity<TicketStatus>(t =>{
+            modelBuilder.Entity<TicketStatus>(t =>
+            {
                 t.ToTable("TicketStatus");
                 t.HasKey(t => t.Id);
                 t.HasMany(t => t.TicketMovementTypes).WithOne(t => t.TicketStatus).HasForeignKey(t => t.TicketStatusId).OnDelete(DeleteBehavior.Restrict);
@@ -432,64 +646,69 @@ namespace ExpressDesk360.DataAccess.Contexts
                     new TicketType { Id = (int)TicketEnums.TicketType.SoftwareSupport, Name = TicketEnums.TicketType.SoftwareSupport.GetDescription() }
                 );
             });
-            modelBuilder.Entity<FaultType>(f =>
-            {
-                f.ToTable("FaultType");
-                f.HasKey(f => f.Id);
-                f.HasMany(f => f.StockGroupFaultTypeMaps).WithOne(s => s.FaultType).HasForeignKey(s => s.FaultTypeId).OnDelete(DeleteBehavior.Cascade);
-                f.HasMany(f => f.TicketMovements).WithOne(t => t.FaultType).HasForeignKey(t => t.FaultTypeId).OnDelete(DeleteBehavior.Restrict);
-            });
             #endregion
 
-            #region Task Tables
-            modelBuilder.Entity<_Task>(_ =>
+            #region Task
+            modelBuilder.Entity<_Task>(t =>
             {
-                _.ToTable("_Task");
-                _.HasKey(_ => _.Id);
-                _.HasMany(_ => _.TaskFiles).WithOne(_ => _.Task).HasForeignKey(_ => _.TaskId).OnDelete(DeleteBehavior.Cascade);
-                _.HasMany(_ => _.TaskMovements).WithOne(_ => _.Task).HasForeignKey(_ => _.TaskId).OnDelete(DeleteBehavior.Cascade);
-                _.HasMany(_ => _.TaskStaffs).WithOne(_ => _.Task).HasForeignKey(_ => _.TaskId).OnDelete(DeleteBehavior.Cascade);
-                _.HasQueryFilter(f => !f.IsDeleted);
+                t.ToTable("Task");
+                t.HasKey(t => t.Id);
+                t.HasMany(t => t.TaskFiles).WithOne(t => t.Task).HasForeignKey(tf => tf.TaskId).OnDelete(DeleteBehavior.Cascade);
+                t.HasMany(t => t.TaskMovements).WithOne(t => t.Task).HasForeignKey(tm => tm.TaskId).OnDelete(DeleteBehavior.Cascade);
+                t.HasMany(t => t.TaskStaffs).WithOne(t => t.Task).HasForeignKey(ts => ts.TaskId).OnDelete(DeleteBehavior.Cascade);
+                t.HasQueryFilter(f => !f.IsDeleted);
             });
-            modelBuilder.Entity<_TaskFile>(_ =>
+            modelBuilder.Entity<TaskFile>(tf =>
             {
-                _.ToTable("_TaskFile");
-                _.HasKey(_ => _.Id);
+                tf.ToTable("TaskFile");
+                tf.HasKey(tf => tf.Id);
             });
-            modelBuilder.Entity<_TaskMovement>(_ =>{
-                _.ToTable("_TaskMovement");
-                _.HasKey(_ => _.Id);            });
-            modelBuilder.Entity<_TaskMovementType>(_ =>
+            modelBuilder.Entity<TaskMovement>(tm =>
             {
-                _.ToTable("_TaskMovementType");
-                _.HasKey(_ => _.Id);
-                _.HasMany(_ => _.LastTaskMovementTypeTasks).WithOne(_ => _.LastTaskMovementType).HasForeignKey(_ => _.LastTaskMovementTypeId).OnDelete(DeleteBehavior.Restrict);
-                _.HasMany(_ => _.TaskMovements).WithOne(_ => _.TaskMovementType).HasForeignKey(_ => _.TaskMovementTypeId).OnDelete(DeleteBehavior.Restrict);
+                tm.ToTable("TaskMovement");
+                tm.HasKey(tm => tm.Id);
+            });
+            modelBuilder.Entity<TaskMovementType>(tmt =>
+            {
+                tmt.ToTable("TaskMovementType");
+                tmt.HasKey(tmt => tmt.Id);
+                tmt.HasMany(tmt => tmt.LastTaskMovementTypeTasks).WithOne(t => t.LastTaskMovementType).HasForeignKey(t => t.LastTaskMovementTypeId).OnDelete(DeleteBehavior.Restrict);
+                tmt.HasMany(tmt => tmt.TaskMovements).WithOne(tm => tm.TaskMovementType).HasForeignKey(tm => tm.TaskMovementTypeId).OnDelete(DeleteBehavior.Restrict);
 
-                _.HasData(
-                    new _TaskMovementType { Id = (int)TaskEnums.TaskMovementType.TaskCreated, Name = TaskEnums.TaskMovementType.TaskCreated.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.NewTask, Accessible = true, Color = "#3699FF" },
-                    new _TaskMovementType { Id = (int)TaskEnums.TaskMovementType.StaffAssigned, Name = TaskEnums.TaskMovementType.StaffAssigned.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.InTheProcess, Accessible = true, Color = "#8950FC" },
-                    new _TaskMovementType { Id = (int)TaskEnums.TaskMovementType.Processing, Name = TaskEnums.TaskMovementType.Processing.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.InTheProcess, Accessible = true, Color = "#FFA800" },
-                    new _TaskMovementType { Id = (int)TaskEnums.TaskMovementType.PutOnHold, Name = TaskEnums.TaskMovementType.PutOnHold.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.Waiting, Accessible = true, Color = "#F64E60" },
-                    new _TaskMovementType { Id = (int)TaskEnums.TaskMovementType.Cancelled, Name = TaskEnums.TaskMovementType.Cancelled.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.Cancelled, Accessible = true, Color = "#3F4254" },
-                    new _TaskMovementType { Id = (int)TaskEnums.TaskMovementType.Completed, Name = TaskEnums.TaskMovementType.Completed.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.Completed, Accessible = true, Color = "#1BC5BD" },
-                    new _TaskMovementType { Id = (int)TaskEnums.TaskMovementType.FileAdded, Name = TaskEnums.TaskMovementType.FileAdded.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.InTheProcess, Accessible = true, Color = "#E4E6EF" }
+                tmt.HasData(
+                    new TaskMovementType { Id = (int)TaskEnums.TaskMovementType.TaskCreated, Name = TaskEnums.TaskMovementType.TaskCreated.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.NewTask, Accessible = true, Color = "#3699FF" },
+                    new TaskMovementType { Id = (int)TaskEnums.TaskMovementType.StaffAssigned, Name = TaskEnums.TaskMovementType.StaffAssigned.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.InTheProcess, Accessible = true, Color = "#8950FC" },
+                    new TaskMovementType { Id = (int)TaskEnums.TaskMovementType.Processing, Name = TaskEnums.TaskMovementType.Processing.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.InTheProcess, Accessible = true, Color = "#FFA800" },
+                    new TaskMovementType { Id = (int)TaskEnums.TaskMovementType.PutOnHold, Name = TaskEnums.TaskMovementType.PutOnHold.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.Waiting, Accessible = true, Color = "#F64E60" },
+                    new TaskMovementType { Id = (int)TaskEnums.TaskMovementType.Cancelled, Name = TaskEnums.TaskMovementType.Cancelled.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.Cancelled, Accessible = true, Color = "#3F4254" },
+                    new TaskMovementType { Id = (int)TaskEnums.TaskMovementType.Completed, Name = TaskEnums.TaskMovementType.Completed.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.Completed, Accessible = true, Color = "#1BC5BD" },
+                    new TaskMovementType { Id = (int)TaskEnums.TaskMovementType.FileAdded, Name = TaskEnums.TaskMovementType.FileAdded.GetDescription(), TaskStatusId = (int)TaskEnums.TaskStatusType.InTheProcess, Accessible = true, Color = "#E4E6EF" }
                 );
             });
-            modelBuilder.Entity<_TaskPriority>(_ =>{
-                _.ToTable("_TaskPriority");
-                _.HasKey(_ => _.Id);
-                _.HasMany(_ => _.Tasks).WithOne(_ => _.TaskPriority).HasForeignKey(_ => _.TaskPriorityId).OnDelete(DeleteBehavior.Restrict);            });
-            modelBuilder.Entity<_TaskStaff>(_ =>
+            modelBuilder.Entity<TaskPriority>(tp =>
             {
-                _.ToTable("_TaskStaff");
-                _.HasKey(_ => _.Id);
+                tp.ToTable("TaskPriority");
+                tp.HasKey(tp => tp.Id);
+                tp.HasMany(tp => tp.Tasks).WithOne(t => t.TaskPriority).HasForeignKey(t => t.TaskPriorityId).OnDelete(DeleteBehavior.Restrict);
+
+                tp.HasData(
+                  new TaskPriority { Id = (int)TaskEnums.TaskPriorityType.Low, Name = TaskEnums.TaskPriorityType.Low.GetDescription(), Value = 1, Icon = "fa-solid fa-handshake", Color = "#1BC5BD", IsActive = true },
+                  new TaskPriority { Id = (int)TaskEnums.TaskPriorityType.Normal, Name = TaskEnums.TaskPriorityType.Normal.GetDescription(), Value = 2, Icon = "fa-solid fa-circle-info", Color = "#3699FF", IsActive = true },
+                  new TaskPriority { Id = (int)TaskEnums.TaskPriorityType.High, Name = TaskEnums.TaskPriorityType.High.GetDescription(), Value = 3, Icon = "fa-solid fa-circle-exclamation", Color = "#FFA800", IsActive = true },
+                  new TaskPriority { Id = (int)TaskEnums.TaskPriorityType.Critical, Name = TaskEnums.TaskPriorityType.Critical.GetDescription(), Value = 4, Icon = "fa-solid fa-heart-pulse", Color = "#F64E60", IsActive = true }
+              );
             });
-            modelBuilder.Entity<_TaskStatus>(_ =>{
-                _.ToTable("_TaskStatus");
-                _.HasKey(_ => _.Id);
-                _.HasMany(_ => _.TaskMovementTypes).WithOne(_ => _.TaskStatus).HasForeignKey(_ => _.TaskStatusId).OnDelete(DeleteBehavior.Cascade);
-                _.HasData(
+            modelBuilder.Entity<TaskStaff>(ts =>
+            {
+                ts.ToTable("TaskStaff");
+                ts.HasKey(ts => ts.Id);
+            });
+            modelBuilder.Entity<_TaskStatus>(ts =>
+            {
+                ts.ToTable("TaskStatus");
+                ts.HasKey(ts => ts.Id);
+                ts.HasMany(ts => ts.TaskMovementTypes).WithOne(tmt => tmt.TaskStatus).HasForeignKey(tmt => tmt.TaskStatusId).OnDelete(DeleteBehavior.Cascade);
+                ts.HasData(
                     new _TaskStatus { Id = (int)TaskEnums.TaskStatusType.NewTask, Name = TaskEnums.TaskStatusType.NewTask.GetDescription(), Description = "Yeni atanmış görevler" },
                     new _TaskStatus { Id = (int)TaskEnums.TaskStatusType.InTheProcess, Name = TaskEnums.TaskStatusType.InTheProcess.GetDescription(), Description = "İşlemdeki görevler" },
                     new _TaskStatus { Id = (int)TaskEnums.TaskStatusType.Waiting, Name = TaskEnums.TaskStatusType.Waiting.GetDescription(), Description = "Beklemedeki görevler" },
@@ -499,86 +718,7 @@ namespace ExpressDesk360.DataAccess.Contexts
             });
             #endregion
 
-            #region File System
-            modelBuilder.Entity<FSFile>(f =>
-            {
-                f.ToTable("FS_File");
-                f.HasKey(f => f.Id);
-                f.HasMany(f => f.FileCompanyFiles).WithOne(c => c.File).HasForeignKey(c => c.FileId).OnDelete(DeleteBehavior.Restrict);
-                f.HasMany(f => f.FileProjectFiles).WithOne(p => p.File).HasForeignKey(p => p.FileId).OnDelete(DeleteBehavior.Restrict);
-                f.HasMany(f => f.FileShippingFiles).WithOne(s => s.File).HasForeignKey(s => s.FileId).OnDelete(DeleteBehavior.Restrict);
-                f.HasMany(f => f.FileTaskFiles).WithOne(_ => _.File).HasForeignKey(_ => _.FileId).OnDelete(DeleteBehavior.Restrict);
-                f.HasMany(f => f.FileTicketFiles).WithOne(t => t.File).HasForeignKey(t => t.FileId).OnDelete(DeleteBehavior.Restrict);
-                f.HasMany(f => f.FileTicketMessageFiles).WithOne(t => t.File).HasForeignKey(t => t.FileId).OnDelete(DeleteBehavior.Restrict);
-                f.HasMany(f => f.FileTicketMovementFiles).WithOne(t => t.File).HasForeignKey(t => t.FileId).OnDelete(DeleteBehavior.Restrict);
-                f.HasMany(f => f.FileUserFiles).WithOne(u => u.File).HasForeignKey(u => u.FileId).OnDelete(DeleteBehavior.Restrict);
-            });
-            modelBuilder.Entity<FSFolder>(f =>
-            {
-                f.ToTable("FS_Folder");
-                f.HasKey(f => f.Id);
-                f.HasMany(f => f.FolderFSFiles).WithOne(f => f.Folder).HasForeignKey(f => f.FolderId).OnDelete(DeleteBehavior.Cascade);
-                // Self-referencing FK: SQL Server rejects ON DELETE CASCADE here (multiple cascade paths).
-                f.HasMany(f => f.ParentFolderFSFolders).WithOne(f => f.ParentFolder).HasForeignKey(f => f.ParentFolderId).OnDelete(DeleteBehavior.Restrict);
-            });
-            #endregion
-
-            #region Commons
-            modelBuilder.Entity<ContactType>(c =>
-            {
-                c.ToTable("ContactType");
-                c.HasKey(c => c.Id);
-                c.HasMany(c => c.CompanyContacts).WithOne(c => c.ContactType).HasForeignKey(c => c.ContactTypeId).OnDelete(DeleteBehavior.Cascade);
-                c.HasMany(c => c.UserContacts).WithOne(u => u.ContactType).HasForeignKey(u => u.ContactTypeId).OnDelete(DeleteBehavior.Cascade);
-            });
-
-            modelBuilder.Entity<Currency>(c =>
-            {
-                c.ToTable("Currency");
-                c.HasKey(c => c.Id);
-                c.HasMany(c => c.Invoices).WithOne(i => i.Currency).HasForeignKey(i => i.CurrencyId).OnDelete(DeleteBehavior.Restrict);
-                c.HasMany(c => c.PriceCurrencyShippings).WithOne(s => s.PriceCurrency).HasForeignKey(s => s.PriceCurrencyId).OnDelete(DeleteBehavior.Restrict);
-                c.HasMany(c => c.PurchaseCurrencyStocks).WithOne(s => s.PurchaseCurrency).HasForeignKey(s => s.PurchaseCurrencyId).OnDelete(DeleteBehavior.Restrict);
-                c.HasMany(c => c.SalePriceCurrencyStocks).WithOne(s => s.SalePriceCurrency).HasForeignKey(s => s.SalePriceCurrencyId).OnDelete(DeleteBehavior.Restrict);
-                c.HasMany(c => c.TicketServicePrices).WithOne(t => t.Currency).HasForeignKey(t => t.CurrencyId).OnDelete(DeleteBehavior.Restrict);
-            });
-
-            modelBuilder.Entity<Unit>(u =>
-            {
-                u.ToTable("Unit");
-                u.HasKey(u => u.Id);
-                u.HasMany(u => u.Stocks).WithOne(s => s.Unit).HasForeignKey(s => s.UnitId).OnDelete(DeleteBehavior.Restrict);
-            });
-
-            modelBuilder.Entity<WarrantyType>(w =>
-            {
-                w.ToTable("WarrantyType");
-                w.HasKey(w => w.Id);
-                w.HasMany(w => w.CompanyProductWarranties).WithOne(c => c.WarrantyType).HasForeignKey(c => c.WarrantyTypeId).OnDelete(DeleteBehavior.Restrict);
-                w.HasMany(w => w.StockSerialWarranties).WithOne(s => s.WarrantyType).HasForeignKey(s => s.WarrantyTypeId).OnDelete(DeleteBehavior.Restrict);
-
-                w.HasData(
-                    new WarrantyType { Id = (int)GeneralEnums.WarrantyType.ManufacturerWarranty, Name = GeneralEnums.WarrantyType.ManufacturerWarranty.GetDescription() },
-                    new WarrantyType { Id = (int)GeneralEnums.WarrantyType.SellerWarranty, Name = GeneralEnums.WarrantyType.SellerWarranty.GetDescription() },
-                    new WarrantyType { Id = (int)GeneralEnums.WarrantyType.ExtendedWarranty, Name = GeneralEnums.WarrantyType.ExtendedWarranty.GetDescription() }
-                );
-            });
-            #endregion
-
-            #region Project Core Tables
-            modelBuilder.Entity<Log>(l =>
-                {
-                    l.ToTable("ProjectLogs");
-                    l.HasKey(l => l.Id);
-                });
-            modelBuilder.Entity<Archive>(a =>
-            {
-                a.ToTable("ProjectArchives");
-                a.HasKey(a => a.Id);
-            });
-            #endregion
-
-            #region User Tables
+            #region User
             modelBuilder.Entity<User>(u =>
             {
                 u.ToTable("User");
@@ -616,7 +756,7 @@ namespace ExpressDesk360.DataAccess.Contexts
             });
             #endregion
 
-            #region Identity Tables
+            #region Identity
             modelBuilder.Entity<IdentityRole<Guid>>(entity =>
             {
                 entity.ToTable("Roles");
@@ -671,73 +811,19 @@ namespace ExpressDesk360.DataAccess.Contexts
                 entity.ToTable("UserTokens");
             });
             #endregion
+
+            #region Project Core
+            modelBuilder.Entity<Log>(l =>
+            {
+                l.ToTable("ProjectLogs");
+                l.HasKey(l => l.Id);
+            });
+            modelBuilder.Entity<Archive>(a =>
+            {
+                a.ToTable("ProjectArchives");
+                a.HasKey(a => a.Id);
+            });
+            #endregion
         }
-
-
-        public DbSet<BOM> BOMs { get; set; }
-        public DbSet<BOMItem> BOMItems { get; set; }
-        public DbSet<CargoCompany> CargoCompanies { get; set; }
-        public DbSet<Company> Companies { get; set; }
-        public DbSet<CompanyContact> CompanyContacts { get; set; }
-        public DbSet<CompanyFile> CompanyFiles { get; set; }
-        public DbSet<CompanyProduct> CompanyProducts { get; set; }
-        public DbSet<CompanyProductStockSerialMap> CompanyProductStockSerialMaps { get; set; }
-        public DbSet<CompanyProductWarranty> CompanyProductWarranties { get; set; }
-        public DbSet<ContactType> ContactTypes { get; set; }
-        public DbSet<Currency> Currencies { get; set; }
-        public DbSet<FaultType> FaultTypes { get; set; }
-        public DbSet<FSFile> FSFiles { get; set; }
-        public DbSet<FSFolder> FSFolders { get; set; }
-        public DbSet<Invoice> Invoices { get; set; }
-        public DbSet<InvoiceType> InvoiceTypes { get; set; }
-        public DbSet<Project> Projects { get; set; }
-        public DbSet<ProjectFile> ProjectFiles { get; set; }
-        public DbSet<ProjectMovement> ProjectMovements { get; set; }
-        public DbSet<ProjectMovementType> ProjectMovementTypes { get; set; }
-        public DbSet<ProjectStaff> ProjectStaffs { get; set; }
-        public DbSet<ProjectStatus> ProjectStatuses { get; set; }
-        public DbSet<Shipping> Shippings { get; set; }
-        public DbSet<ShippingFile> ShippingFiles { get; set; }
-        public DbSet<ShippingType> ShippingTypes { get; set; }
-        public DbSet<Stock> Stocks { get; set; }
-        public DbSet<StockBrand> StockBrands { get; set; }
-        public DbSet<StockGroup> StockGroups { get; set; }
-        public DbSet<StockGroupBrandMap> StockGroupBrandMaps { get; set; }
-        public DbSet<StockGroupFaultTypeMap> StockGroupFaultTypeMaps { get; set; }
-        public DbSet<StockMovement> StockMovements { get; set; }
-        public DbSet<StockMovementStockSerialMap> StockMovementStockSerialMaps { get; set; }
-        public DbSet<StockMovementType> StockMovementTypes { get; set; }
-        public DbSet<StockSerial> StockSerials { get; set; }
-        public DbSet<StockSerialWarranty> StockSerialWarranties { get; set; }
-        public DbSet<StockType> StockTypes { get; set; }
-        public DbSet<StockTypeGroupMap> StockTypeGroupMaps { get; set; }
-        public DbSet<_Task> _Tasks { get; set; }
-        public DbSet<_TaskFile> _TaskFiles { get; set; }
-        public DbSet<_TaskMovement> _TaskMovements { get; set; }
-        public DbSet<_TaskMovementType> _TaskMovementTypes { get; set; }
-        public DbSet<_TaskPriority> _TaskPriorities { get; set; }
-        public DbSet<_TaskStaff> _TaskStaffs { get; set; }
-        public DbSet<_TaskStatus> _TaskStatuses { get; set; }
-        public DbSet<Ticket> Tickets { get; set; }
-        public DbSet<TicketFile> TicketFiles { get; set; }
-        public DbSet<TicketMessage> TicketMessages { get; set; }
-        public DbSet<TicketMessageFile> TicketMessageFiles { get; set; }
-        public DbSet<TicketMovement> TicketMovements { get; set; }
-        public DbSet<TicketMovementFile> TicketMovementFiles { get; set; }
-        public DbSet<TicketMovementType> TicketMovementTypes { get; set; }
-        public DbSet<TicketPriority> TicketPriorities { get; set; }
-        public DbSet<TicketServicePrice> TicketServicePrices { get; set; }
-        public DbSet<TicketStaff> TicketStaffs { get; set; }
-        public DbSet<TicketStatus> TicketStatuses { get; set; }
-        public DbSet<TicketType> TicketTypes { get; set; }
-        public DbSet<Unit> Units { get; set; }
-        public override DbSet<User> Users { get; set; }
-        public DbSet<UserContact> UserContacts { get; set; }
-        public DbSet<UserFile> UserFiles { get; set; }
-        public DbSet<Warehouse> Warehouses { get; set; }
-        public DbSet<WarrantyType> WarrantyTypes { get; set; }
-        public DbSet<RefreshToken> RefreshTokens { get; set; }
-        public DbSet<Log> Logs { get; set; }
-        public DbSet<Archive> Archives { get; set; }
     }
 }

@@ -1,0 +1,33 @@
+using ExpressDesk360.Core.Model;
+using ExpressDesk360.Model.Entities.CompanyModule;
+using ExpressDesk360.Model.Entities.ProjectModule;
+using ExpressDesk360.Model.Entities.ShippingModule;
+using ExpressDesk360.Model.Entities.TaskModule;
+using ExpressDesk360.Model.Entities.TicketModule;
+using ExpressDesk360.Model.Entities.UserModule;
+
+namespace ExpressDesk360.Model.Entities.Common;
+
+public class FSFile : IEntity
+{
+    public Guid Id { get; set; }
+    public Guid FolderId { get; set; }
+    public string Name { get; set; } = null!;
+    public string Path { get; set; } = null!;
+    public string? Extension { get; set; }
+    public string? MimeType { get; set; }
+    public long? Size { get; set; }
+    public string? Hash { get; set; }
+    public DateTime CreateDate { get; set; }
+    public DateTime? UpdateDate { get; set; }
+
+    public virtual FSFolder? Folder { get; set; }
+    public virtual ICollection<CompanyFile>? FileCompanyFiles { get; set; }
+    public virtual ICollection<ProjectFile>? FileProjectFiles { get; set; }
+    public virtual ICollection<ShippingFile>? FileShippingFiles { get; set; }
+    public virtual ICollection<TaskFile>? FileTaskFiles { get; set; }
+    public virtual ICollection<TicketFile>? FileTicketFiles { get; set; }
+    public virtual ICollection<TicketMessageFile>? FileTicketMessageFiles { get; set; }
+    public virtual ICollection<TicketMovementFile>? FileTicketMovementFiles { get; set; }
+    public virtual ICollection<UserFile>? FileUserFiles { get; set; }
+}

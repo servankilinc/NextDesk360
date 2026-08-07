@@ -1,8 +1,18 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.Business.Concrete;
 using ExpressDesk360.Business.Utils.TokenService;
+using ExpressDesk360.Business.Abstract.StockModule;
+using ExpressDesk360.Business.Concrete.StockModule;
+using ExpressDesk360.Business.Abstract.ProductionModule;
+using ExpressDesk360.Business.Abstract.ShippingModule;
+using ExpressDesk360.Business.Abstract.InvoiceModule;
+using ExpressDesk360.Business.Abstract.ProjectModule;
+using ExpressDesk360.Business.Abstract.Common;
+using ExpressDesk360.Business.Abstract.CompanyModule;
+using ExpressDesk360.Business.Abstract.TaskModule;
+using ExpressDesk360.Business.Abstract.TicketModule;
+using ExpressDesk360.Business.Abstract.UserModule;
 
 namespace ExpressDesk360.Business
 {
@@ -50,13 +60,13 @@ namespace ExpressDesk360.Business
             services.AddScoped<IStockSerialWarrantyService, StockSerialWarrantyService>();
             services.AddScoped<IStockTypeService, StockTypeService>();
             services.AddScoped<IStockTypeGroupMapService, StockTypeGroupMapService>();
-            services.AddScoped<I_TaskService, _TaskService>();
-            services.AddScoped<I_TaskFileService, _TaskFileService>();
-            services.AddScoped<I_TaskMovementService, _TaskMovementService>();
-            services.AddScoped<I_TaskMovementTypeService, _TaskMovementTypeService>();
-            services.AddScoped<I_TaskPriorityService, _TaskPriorityService>();
-            services.AddScoped<I_TaskStaffService, _TaskStaffService>();
-            services.AddScoped<I_TaskStatusService, _TaskStatusService>();
+            services.AddScoped<ITaskService, _TaskService>();
+            services.AddScoped<ITaskFileService, _TaskFileService>();
+            services.AddScoped<ITaskMovementService, _TaskMovementService>();
+            services.AddScoped<ITaskMovementTypeService, _TaskMovementTypeService>();
+            services.AddScoped<ITaskPriorityService, _TaskPriorityService>();
+            services.AddScoped<ITaskStaffService, _TaskStaffService>();
+            services.AddScoped<ITaskStatusService, _TaskStatusService>();
             services.AddScoped<ITicketService, TicketService>();
             services.AddScoped<ITicketFileService, TicketFileService>();
             services.AddScoped<ITicketMessageService, TicketMessageService>();

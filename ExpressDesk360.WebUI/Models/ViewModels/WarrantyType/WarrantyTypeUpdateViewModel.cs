@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Model.Dtos.WarrantyType.Commands;
+using ExpressDesk360.Model.Dtos.Common.WarrantyType.Commands;
 
 namespace ExpressDesk360.WebUI.Models.ViewModels.WarrantyType
 {

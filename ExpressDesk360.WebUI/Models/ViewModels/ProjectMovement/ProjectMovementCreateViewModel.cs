@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Model.Dtos.ProjectMovement.Commands;
+using ExpressDesk360.Model.Dtos.ProjectModule.ProjectMovement.Commands;
 
 namespace ExpressDesk360.WebUI.Models.ViewModels.ProjectMovement
 {

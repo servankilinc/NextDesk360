@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Model.Dtos.FSFolder.Commands;
+using ExpressDesk360.Model.Dtos.Common.FSFolder.Commands;
 
 namespace ExpressDesk360.WebUI.Models.ViewModels.FSFolder
 {

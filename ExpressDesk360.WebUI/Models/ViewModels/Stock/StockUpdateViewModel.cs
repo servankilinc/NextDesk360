@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Model.Dtos.Stock.Commands;
+using ExpressDesk360.Model.Dtos.StockModule.Stock.Commands;
 
 namespace ExpressDesk360.WebUI.Models.ViewModels.Stock
 {

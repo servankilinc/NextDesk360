@@ -7,12 +7,12 @@ using Scalar.AspNetCore;
 using FluentValidation;
 using ExpressDesk360.Core;
 using ExpressDesk360.Core.Utils.Auth;
-using ExpressDesk360.Model.Entities;
 using ExpressDesk360.DataAccess;
 using ExpressDesk360.DataAccess.Contexts;
 using ExpressDesk360.Business;
 using ExpressDesk360.WebAPI.ExceptionHandler;
 using ExpressDesk360.WebAPI.Utils;
+using ExpressDesk360.Model.Entities.UserModule;
 
 var builder = WebApplication.CreateBuilder(args);
 

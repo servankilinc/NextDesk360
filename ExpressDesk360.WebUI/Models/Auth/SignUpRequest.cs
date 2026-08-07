@@ -1,6 +1,6 @@
 using AutoMapper;
 using FluentValidation;
-using ExpressDesk360.Model.Entities;
+using ExpressDesk360.Model.Entities.UserModule;
 
 namespace ExpressDesk360.WebUI.Models.Auth;
 

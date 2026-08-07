@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Model.Dtos.ShippingFile.Commands;
+using ExpressDesk360.Model.Dtos.ShippingModule.ShippingFile.Commands;
 
 namespace ExpressDesk360.WebUI.Models.ViewModels.ShippingFile
 {

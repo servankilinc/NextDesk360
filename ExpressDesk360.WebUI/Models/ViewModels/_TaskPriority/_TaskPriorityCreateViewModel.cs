@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Model.Dtos._TaskPriority.Commands;
+using ExpressDesk360.Model.Dtos.TaskModule.TaskPriority.Commands;
 
 namespace ExpressDesk360.WebUI.Models.ViewModels._TaskPriority
 {

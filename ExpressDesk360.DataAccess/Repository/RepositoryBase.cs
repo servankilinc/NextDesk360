@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
-using ExpressDesk360.Model.Entities;
 using System.Linq.Expressions;
+using ExpressDesk360.Model.Entities.UserModule;
 
 namespace ExpressDesk360.DataAccess.Repository;
 

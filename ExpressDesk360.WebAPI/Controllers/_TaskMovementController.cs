@@ -1,17 +1,17 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ExpressDesk360.Core.BaseRequestModels;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.WebAPI.Controllers.Base;
-using ExpressDesk360.Model.Dtos._TaskMovement.Commands;
 using ExpressDesk360.Model.Dtos._TaskMovement.Queries;
+using ExpressDesk360.Business.Abstract.TaskModule;
+using ExpressDesk360.Model.Dtos.TaskModule.TaskMovement.Commands;
 
 namespace ExpressDesk360.WebAPI.Controllers
 {
     public class _TaskMovementController : BaseController
     {
-        private readonly I_TaskMovementService __TaskMovementService;
-        public _TaskMovementController(ILogger<_TaskMovementController> logger, I_TaskMovementService _TaskMovementService) : base(logger)
+        private readonly ITaskMovementService __TaskMovementService;
+        public _TaskMovementController(ILogger<_TaskMovementController> logger, ITaskMovementService _TaskMovementService) : base(logger)
         {
             __TaskMovementService = _TaskMovementService;
         }

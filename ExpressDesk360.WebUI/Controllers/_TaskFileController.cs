@@ -1,20 +1,21 @@
 using Microsoft.AspNetCore.Mvc;
 using ExpressDesk360.Core.BaseRequestModels;
 using ExpressDesk360.Model.Entities;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.WebUI.Controllers.Base;
 using ExpressDesk360.WebUI.Models.ViewModels._TaskFile;
-using ExpressDesk360.Model.Dtos._TaskFile.Commands;
 using ExpressDesk360.Model.Dtos._TaskFile.Queries;
+using ExpressDesk360.Business.Abstract.Common;
+using ExpressDesk360.Business.Abstract.TaskModule;
+using ExpressDesk360.Model.Dtos.TaskModule.TaskFile.Commands;
 
 namespace ExpressDesk360.WebUI.Controllers
 {
     public class _TaskFileController : BaseController
     {
-        private readonly I_TaskFileService __TaskFileService;
-        private readonly I_TaskService __TaskService;
+        private readonly ITaskFileService __TaskFileService;
+        private readonly ITaskService __TaskService;
         private readonly IFSFileService _fSFileService;
-        public _TaskFileController(ILogger<_TaskFileController> logger, I_TaskFileService _TaskFileService, I_TaskService _TaskService, IFSFileService fSFileService) : base(logger)
+        public _TaskFileController(ILogger<_TaskFileController> logger, ITaskFileService _TaskFileService, ITaskService _TaskService, IFSFileService fSFileService) : base(logger)
         {
             __TaskFileService = _TaskFileService;
             __TaskService = _TaskService;

@@ -2,11 +2,11 @@ using ExpressDesk360.Core.Utils.Auth;
 using ExpressDesk360.Core.Utils.HttpContextManager;
 using ExpressDesk360.Core.Utils.ResultPattern;
 using Microsoft.IdentityModel.Tokens;
-using ExpressDesk360.Model.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using ExpressDesk360.Model.Entities.UserModule;
 
 namespace ExpressDesk360.Business.Utils.TokenService;
 

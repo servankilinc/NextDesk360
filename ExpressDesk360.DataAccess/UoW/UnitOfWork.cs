@@ -1,4 +1,13 @@
-using ExpressDesk360.DataAccess.Abstract;
+using ExpressDesk360.DataAccess.Abstract.Common;
+using ExpressDesk360.DataAccess.Abstract.CompanyModule;
+using ExpressDesk360.DataAccess.Abstract.InvoiceModule;
+using ExpressDesk360.DataAccess.Abstract.ProductionModule;
+using ExpressDesk360.DataAccess.Abstract.ProjectModule;
+using ExpressDesk360.DataAccess.Abstract.ShippingModule;
+using ExpressDesk360.DataAccess.Abstract.StockModule;
+using ExpressDesk360.DataAccess.Abstract.TaskModule;
+using ExpressDesk360.DataAccess.Abstract.TicketModule;
+using ExpressDesk360.DataAccess.Abstract.UserModule;
 using ExpressDesk360.DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore.Storage;
 
@@ -45,13 +54,13 @@ namespace ExpressDesk360.DataAccess.UoW
         public IStockSerialWarrantyRepository StockSerialWarranties { get; private set; }
         public IStockTypeRepository StockTypes { get; private set; }
         public IStockTypeGroupMapRepository StockTypeGroupMaps { get; private set; }
-        public I_TaskRepository _Tasks { get; private set; }
-        public I_TaskFileRepository _TaskFiles { get; private set; }
-        public I_TaskMovementRepository _TaskMovements { get; private set; }
-        public I_TaskMovementTypeRepository _TaskMovementTypes { get; private set; }
-        public I_TaskPriorityRepository _TaskPriorities { get; private set; }
-        public I_TaskStaffRepository _TaskStaffs { get; private set; }
-        public I_TaskStatusRepository _TaskStatuses { get; private set; }
+        public ITaskRepository _Tasks { get; private set; }
+        public ITaskFileRepository _TaskFiles { get; private set; }
+        public ITaskMovementRepository _TaskMovements { get; private set; }
+        public ITaskMovementTypeRepository _TaskMovementTypes { get; private set; }
+        public ITaskPriorityRepository _TaskPriorities { get; private set; }
+        public ITaskStaffRepository _TaskStaffs { get; private set; }
+        public ITaskStatusRepository _TaskStatuses { get; private set; }
         public ITicketRepository Tickets { get; private set; }
         public ITicketFileRepository TicketFiles { get; private set; }
         public ITicketMessageRepository TicketMessages { get; private set; }
@@ -72,7 +81,7 @@ namespace ExpressDesk360.DataAccess.UoW
         public IWarrantyTypeRepository WarrantyTypes { get; private set; }
         public IRefreshTokenRepository RefreshTokens { get; private set; }
 
-        public UnitOfWork(AppDbContext context, IBOMRepository bOMRepository, IBOMItemRepository bOMItemRepository, ICargoCompanyRepository cargoCompanyRepository, ICompanyRepository companyRepository, ICompanyContactRepository companyContactRepository, ICompanyFileRepository companyFileRepository, ICompanyProductRepository companyProductRepository, ICompanyProductStockSerialMapRepository companyProductStockSerialMapRepository, ICompanyProductWarrantyRepository companyProductWarrantyRepository, IContactTypeRepository contactTypeRepository, ICurrencyRepository currencyRepository, IFaultTypeRepository faultTypeRepository, IFSFileRepository fSFileRepository, IFSFolderRepository fSFolderRepository, IInvoiceRepository invoiceRepository, IInvoiceTypeRepository invoiceTypeRepository, IProjectRepository projectRepository, IProjectFileRepository projectFileRepository, IProjectMovementRepository projectMovementRepository, IProjectMovementTypeRepository projectMovementTypeRepository, IProjectStaffRepository projectStaffRepository, IProjectStatusRepository projectStatusRepository, IShippingRepository shippingRepository, IShippingFileRepository shippingFileRepository, IShippingTypeRepository shippingTypeRepository, IStockRepository stockRepository, IStockBrandRepository stockBrandRepository, IStockGroupRepository stockGroupRepository, IStockGroupBrandMapRepository stockGroupBrandMapRepository, IStockGroupFaultTypeMapRepository stockGroupFaultTypeMapRepository, IStockMovementRepository stockMovementRepository, IStockMovementStockSerialMapRepository stockMovementStockSerialMapRepository, IStockMovementTypeRepository stockMovementTypeRepository, IStockSerialRepository stockSerialRepository, IStockSerialWarrantyRepository stockSerialWarrantyRepository, IStockTypeRepository stockTypeRepository, IStockTypeGroupMapRepository stockTypeGroupMapRepository, I_TaskRepository _TaskRepository, I_TaskFileRepository _TaskFileRepository, I_TaskMovementRepository _TaskMovementRepository, I_TaskMovementTypeRepository _TaskMovementTypeRepository, I_TaskPriorityRepository _TaskPriorityRepository, I_TaskStaffRepository _TaskStaffRepository, I_TaskStatusRepository _TaskStatusRepository, ITicketRepository ticketRepository, ITicketFileRepository ticketFileRepository, ITicketMessageRepository ticketMessageRepository, ITicketMessageFileRepository ticketMessageFileRepository, ITicketMovementRepository ticketMovementRepository, ITicketMovementFileRepository ticketMovementFileRepository, ITicketMovementTypeRepository ticketMovementTypeRepository, ITicketPriorityRepository ticketPriorityRepository, ITicketServicePriceRepository ticketServicePriceRepository, ITicketStaffRepository ticketStaffRepository, ITicketStatusRepository ticketStatusRepository, ITicketTypeRepository ticketTypeRepository, IUnitRepository unitRepository, IUserRepository userRepository, IUserContactRepository userContactRepository, IUserFileRepository userFileRepository, IWarehouseRepository warehouseRepository, IWarrantyTypeRepository warrantyTypeRepository, IRefreshTokenRepository refreshTokenRepository)
+        public UnitOfWork(AppDbContext context, IBOMRepository bOMRepository, IBOMItemRepository bOMItemRepository, ICargoCompanyRepository cargoCompanyRepository, ICompanyRepository companyRepository, ICompanyContactRepository companyContactRepository, ICompanyFileRepository companyFileRepository, ICompanyProductRepository companyProductRepository, ICompanyProductStockSerialMapRepository companyProductStockSerialMapRepository, ICompanyProductWarrantyRepository companyProductWarrantyRepository, IContactTypeRepository contactTypeRepository, ICurrencyRepository currencyRepository, IFaultTypeRepository faultTypeRepository, IFSFileRepository fSFileRepository, IFSFolderRepository fSFolderRepository, IInvoiceRepository invoiceRepository, IInvoiceTypeRepository invoiceTypeRepository, IProjectRepository projectRepository, IProjectFileRepository projectFileRepository, IProjectMovementRepository projectMovementRepository, IProjectMovementTypeRepository projectMovementTypeRepository, IProjectStaffRepository projectStaffRepository, IProjectStatusRepository projectStatusRepository, IShippingRepository shippingRepository, IShippingFileRepository shippingFileRepository, IShippingTypeRepository shippingTypeRepository, IStockRepository stockRepository, IStockBrandRepository stockBrandRepository, IStockGroupRepository stockGroupRepository, IStockGroupBrandMapRepository stockGroupBrandMapRepository, IStockGroupFaultTypeMapRepository stockGroupFaultTypeMapRepository, IStockMovementRepository stockMovementRepository, IStockMovementStockSerialMapRepository stockMovementStockSerialMapRepository, IStockMovementTypeRepository stockMovementTypeRepository, IStockSerialRepository stockSerialRepository, IStockSerialWarrantyRepository stockSerialWarrantyRepository, IStockTypeRepository stockTypeRepository, IStockTypeGroupMapRepository stockTypeGroupMapRepository, ITaskRepository _TaskRepository, ITaskFileRepository _TaskFileRepository, ITaskMovementRepository _TaskMovementRepository, ITaskMovementTypeRepository _TaskMovementTypeRepository, ITaskPriorityRepository _TaskPriorityRepository, ITaskStaffRepository _TaskStaffRepository, ITaskStatusRepository _TaskStatusRepository, ITicketRepository ticketRepository, ITicketFileRepository ticketFileRepository, ITicketMessageRepository ticketMessageRepository, ITicketMessageFileRepository ticketMessageFileRepository, ITicketMovementRepository ticketMovementRepository, ITicketMovementFileRepository ticketMovementFileRepository, ITicketMovementTypeRepository ticketMovementTypeRepository, ITicketPriorityRepository ticketPriorityRepository, ITicketServicePriceRepository ticketServicePriceRepository, ITicketStaffRepository ticketStaffRepository, ITicketStatusRepository ticketStatusRepository, ITicketTypeRepository ticketTypeRepository, IUnitRepository unitRepository, IUserRepository userRepository, IUserContactRepository userContactRepository, IUserFileRepository userFileRepository, IWarehouseRepository warehouseRepository, IWarrantyTypeRepository warrantyTypeRepository, IRefreshTokenRepository refreshTokenRepository)
         {
             _context = context;
             BOMs = bOMRepository;

@@ -2,7 +2,6 @@ using AutoMapper;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.Core.BaseRequestModels;
 using ExpressDesk360.Core.Utils.Datatable;
 using ExpressDesk360.Core.Utils.Pagination;
@@ -10,13 +9,14 @@ using ExpressDesk360.Core.Utils.ResultPattern;
 using ExpressDesk360.Core.Utils.Validation;
 using ExpressDesk360.DataAccess.Abstract;
 using ExpressDesk360.DataAccess.UoW;
-using ExpressDesk360.Model.Entities;
-using ExpressDesk360.Model.Dtos._TaskMovementType.Commands;
-using ExpressDesk360.Model.Dtos._TaskMovementType.Queries;
+using ExpressDesk360.Model.Entities.TaskModule;
+using ExpressDesk360.Business.Abstract.TaskModule;
+using ExpressDesk360.Model.Dtos.TaskModule.TaskMovementType.Queries;
+using ExpressDesk360.Model.Dtos.TaskModule.TaskMovementType.Commands;
 
 namespace ExpressDesk360.Business.Concrete
 {
-    public class _TaskMovementTypeService : I_TaskMovementTypeService
+    public class _TaskMovementTypeService : ITaskMovementTypeService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IValidationService _validationService;
@@ -28,20 +28,20 @@ namespace ExpressDesk360.Business.Concrete
             _mapper = mapper;
         }
 
-        public async Task<Result<_TaskMovementType>> GetAsync(Expression<Func<_TaskMovementType, bool>> where, CancellationToken cancellationToken = default)
+        public async Task<Result<TaskMovementType>> GetAsync(Expression<Func<TaskMovementType, bool>> where, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskMovementTypes.GetAsync(where: where, cancellationToken: cancellationToken);
             if (result == null)
-                return Result<_TaskMovementType>.NotFound();
-            return Result<_TaskMovementType>.Success(result);
+                return Result<TaskMovementType>.NotFound();
+            return Result<TaskMovementType>.Success(result);
         }
 
-        public async Task<Result<_TaskMovementType>> GetAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<Result<TaskMovementType>> GetAsync(int id, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskMovementTypes.GetAsync(where: (f) => f.Id == id, cancellationToken: cancellationToken);
             if (result == null)
-                return Result<_TaskMovementType>.NotFound();
-            return Result<_TaskMovementType>.Success(result);
+                return Result<TaskMovementType>.NotFound();
+            return Result<TaskMovementType>.Success(result);
         }
 
         public async Task<Result<TaskMovementTypeDto>> GetBaseAsync(int id, CancellationToken cancellationToken = default)
@@ -52,20 +52,20 @@ namespace ExpressDesk360.Business.Concrete
             return Result<TaskMovementTypeDto>.Success(result);
         }
 
-        public async Task<Result<ICollection<_TaskMovementType>>> GetListAsync(Expression<Func<_TaskMovementType, bool>>? where = default, CancellationToken cancellationToken = default)
+        public async Task<Result<ICollection<TaskMovementType>>> GetListAsync(Expression<Func<TaskMovementType, bool>>? where = default, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskMovementTypes.GetAllAsync(where: where, cancellationToken: cancellationToken);
             if (result == null)
-                return Result<ICollection<_TaskMovementType>>.NotFound();
-            return Result<ICollection<_TaskMovementType>>.Success(result);
+                return Result<ICollection<TaskMovementType>>.NotFound();
+            return Result<ICollection<TaskMovementType>>.Success(result);
         }
 
-        public async Task<Result<ICollection<_TaskMovementType>>> GetListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default)
+        public async Task<Result<ICollection<TaskMovementType>>> GetListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskMovementTypes.GetAllAsync(filter: request?.Filter, sorts: request?.Sorts, tracking: false, cancellationToken: cancellationToken);
             if (result == null)
-                return Result<ICollection<_TaskMovementType>>.NotFound();
-            return Result<ICollection<_TaskMovementType>>.Success(result);
+                return Result<ICollection<TaskMovementType>>.NotFound();
+            return Result<ICollection<TaskMovementType>>.Success(result);
         }
 
         public async Task<Result<ICollection<TaskMovementTypeDto>>> GetBaseListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default)
@@ -76,7 +76,7 @@ namespace ExpressDesk360.Business.Concrete
             return Result<ICollection<TaskMovementTypeDto>>.Success(result);
         }
 
-        public async Task<Result<SelectList>> SelectListAsync(Expression<Func<_TaskMovementType, bool>>? where = default, CancellationToken cancellationToken = default)
+        public async Task<Result<SelectList>> SelectListAsync(Expression<Func<TaskMovementType, bool>>? where = default, CancellationToken cancellationToken = default)
         {
             var list = await _unitOfWork._TaskMovementTypes.GetAllAsync<object>(select: s => new { s.Id, s.Name }, where: where, cancellationToken: cancellationToken);
             var selectList = new SelectList(list ?? new List<object>(), "Id", "Name");
@@ -88,7 +88,7 @@ namespace ExpressDesk360.Business.Concrete
             var validationResult = await _validationService.ValidateAsync(request, cancellationToken);
             if (!validationResult.IsValid)
                 return Result.Validation(validationResult.Failures, description: $"Validation failed for TaskMovementTypeCreateDto");
-            await _unitOfWork._TaskMovementTypes.AddAndSaveAsync(_mapper.Map<_TaskMovementType>(request), cancellationToken);
+            await _unitOfWork._TaskMovementTypes.AddAndSaveAsync(_mapper.Map<TaskMovementType>(request), cancellationToken);
             return Result.Success();
         }
 
@@ -114,22 +114,22 @@ namespace ExpressDesk360.Business.Concrete
 
 
 
-        public async Task<Result<PaginationResponse<_TaskMovementType>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default)
+        public async Task<Result<PaginationResponse<TaskMovementType>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskMovementTypes.PaginationAsync(paginationRequest: request, cancellationToken: cancellationToken);
-            return Result<PaginationResponse<_TaskMovementType>>.Success(result);
+            return Result<PaginationResponse<TaskMovementType>>.Success(result);
         }
 
-        public async Task<Result<DatatableResponseClientSide<_TaskMovementType>>> DatatableClientSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
+        public async Task<Result<DatatableResponseClientSide<TaskMovementType>>> DatatableClientSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskMovementTypes.DatatableClientSideAsync(datatableRequest: request, cancellationToken: cancellationToken);
-            return Result<DatatableResponseClientSide<_TaskMovementType>>.Success(result);
+            return Result<DatatableResponseClientSide<TaskMovementType>>.Success(result);
         }
 
-        public async Task<Result<DatatableResponseServerSide<_TaskMovementType>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
+        public async Task<Result<DatatableResponseServerSide<TaskMovementType>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskMovementTypes.DatatableServerSideAsync(datatableRequest: request, cancellationToken: cancellationToken);
-            return Result<DatatableResponseServerSide<_TaskMovementType>>.Success(result);
+            return Result<DatatableResponseServerSide<TaskMovementType>>.Success(result);
         }
     }
 }

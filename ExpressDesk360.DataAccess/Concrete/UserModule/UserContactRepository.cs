@@ -1,0 +1,16 @@
+using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
+using ExpressDesk360.DataAccess.Contexts;
+using ExpressDesk360.DataAccess.Repository;
+using ExpressDesk360.Model.Entities.UserModule;
+using ExpressDesk360.DataAccess.Abstract.UserModule;
+
+namespace ExpressDesk360.DataAccess.Concrete.UserModule
+{
+    public class UserContactRepository : RepositoryBase<UserContact, AppDbContext>, IUserContactRepository
+    {
+        public UserContactRepository(AppDbContext context) : base(context)
+        {
+        }
+    }
+}

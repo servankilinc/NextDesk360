@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using ExpressDesk360.Core.Utils.Auth;
 using ExpressDesk360.Core.Utils.ResultPattern;
-using ExpressDesk360.Model.Entities;
+using ExpressDesk360.Model.Entities.UserModule;
 
 namespace ExpressDesk360.Business.Utils.TokenService;
 

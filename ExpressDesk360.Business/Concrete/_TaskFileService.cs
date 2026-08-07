@@ -2,7 +2,6 @@ using AutoMapper;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.Core.BaseRequestModels;
 using ExpressDesk360.Core.Utils.Datatable;
 using ExpressDesk360.Core.Utils.Pagination;
@@ -10,13 +9,14 @@ using ExpressDesk360.Core.Utils.ResultPattern;
 using ExpressDesk360.Core.Utils.Validation;
 using ExpressDesk360.DataAccess.Abstract;
 using ExpressDesk360.DataAccess.UoW;
-using ExpressDesk360.Model.Entities;
-using ExpressDesk360.Model.Dtos._TaskFile.Commands;
-using ExpressDesk360.Model.Dtos._TaskFile.Queries;
+using ExpressDesk360.Model.Entities.TaskModule;
+using ExpressDesk360.Business.Abstract.TaskModule;
+using ExpressDesk360.Model.Dtos.TaskModule.TaskFile.Queries;
+using ExpressDesk360.Model.Dtos.TaskModule.TaskFile.Commands;
 
 namespace ExpressDesk360.Business.Concrete
 {
-    public class _TaskFileService : I_TaskFileService
+    public class _TaskFileService : ITaskFileService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IValidationService _validationService;
@@ -28,20 +28,20 @@ namespace ExpressDesk360.Business.Concrete
             _mapper = mapper;
         }
 
-        public async Task<Result<_TaskFile>> GetAsync(Expression<Func<_TaskFile, bool>> where, CancellationToken cancellationToken = default)
+        public async Task<Result<TaskFile>> GetAsync(Expression<Func<TaskFile, bool>> where, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskFiles.GetAsync(where: where, cancellationToken: cancellationToken);
             if (result == null)
-                return Result<_TaskFile>.NotFound();
-            return Result<_TaskFile>.Success(result);
+                return Result<TaskFile>.NotFound();
+            return Result<TaskFile>.Success(result);
         }
 
-        public async Task<Result<_TaskFile>> GetAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<Result<TaskFile>> GetAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskFiles.GetAsync(where: (f) => f.Id == id, cancellationToken: cancellationToken);
             if (result == null)
-                return Result<_TaskFile>.NotFound();
-            return Result<_TaskFile>.Success(result);
+                return Result<TaskFile>.NotFound();
+            return Result<TaskFile>.Success(result);
         }
 
         public async Task<Result<TaskFileDto>> GetBaseAsync(Guid id, CancellationToken cancellationToken = default)
@@ -52,20 +52,20 @@ namespace ExpressDesk360.Business.Concrete
             return Result<TaskFileDto>.Success(result);
         }
 
-        public async Task<Result<ICollection<_TaskFile>>> GetListAsync(Expression<Func<_TaskFile, bool>>? where = default, CancellationToken cancellationToken = default)
+        public async Task<Result<ICollection<TaskFile>>> GetListAsync(Expression<Func<TaskFile, bool>>? where = default, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskFiles.GetAllAsync(where: where, cancellationToken: cancellationToken);
             if (result == null)
-                return Result<ICollection<_TaskFile>>.NotFound();
-            return Result<ICollection<_TaskFile>>.Success(result);
+                return Result<ICollection<TaskFile>>.NotFound();
+            return Result<ICollection<TaskFile>>.Success(result);
         }
 
-        public async Task<Result<ICollection<_TaskFile>>> GetListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default)
+        public async Task<Result<ICollection<TaskFile>>> GetListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskFiles.GetAllAsync(filter: request?.Filter, sorts: request?.Sorts, tracking: false, cancellationToken: cancellationToken);
             if (result == null)
-                return Result<ICollection<_TaskFile>>.NotFound();
-            return Result<ICollection<_TaskFile>>.Success(result);
+                return Result<ICollection<TaskFile>>.NotFound();
+            return Result<ICollection<TaskFile>>.Success(result);
         }
 
         public async Task<Result<ICollection<TaskFileDto>>> GetBaseListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default)
@@ -81,7 +81,7 @@ namespace ExpressDesk360.Business.Concrete
             var validationResult = await _validationService.ValidateAsync(request, cancellationToken);
             if (!validationResult.IsValid)
                 return Result.Validation(validationResult.Failures, description: $"Validation failed for TaskFileCreateDto");
-            await _unitOfWork._TaskFiles.AddAndSaveAsync(_mapper.Map<_TaskFile>(request), cancellationToken);
+            await _unitOfWork._TaskFiles.AddAndSaveAsync(_mapper.Map<TaskFile>(request), cancellationToken);
             return Result.Success();
         }
 
@@ -112,22 +112,22 @@ namespace ExpressDesk360.Business.Concrete
             return Result.Success();
         }
 
-        public async Task<Result<PaginationResponse<_TaskFile>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default)
+        public async Task<Result<PaginationResponse<TaskFile>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskFiles.PaginationAsync(paginationRequest: request, cancellationToken: cancellationToken);
-            return Result<PaginationResponse<_TaskFile>>.Success(result);
+            return Result<PaginationResponse<TaskFile>>.Success(result);
         }
 
-        public async Task<Result<DatatableResponseClientSide<_TaskFile>>> DatatableClientSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
+        public async Task<Result<DatatableResponseClientSide<TaskFile>>> DatatableClientSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskFiles.DatatableClientSideAsync(datatableRequest: request, cancellationToken: cancellationToken);
-            return Result<DatatableResponseClientSide<_TaskFile>>.Success(result);
+            return Result<DatatableResponseClientSide<TaskFile>>.Success(result);
         }
 
-        public async Task<Result<DatatableResponseServerSide<_TaskFile>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
+        public async Task<Result<DatatableResponseServerSide<TaskFile>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskFiles.DatatableServerSideAsync(datatableRequest: request, cancellationToken: cancellationToken);
-            return Result<DatatableResponseServerSide<_TaskFile>>.Success(result);
+            return Result<DatatableResponseServerSide<TaskFile>>.Success(result);
         }
     }
 }

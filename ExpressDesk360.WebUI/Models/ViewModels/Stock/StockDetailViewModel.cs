@@ -2,6 +2,6 @@ namespace ExpressDesk360.WebUI.Models.ViewModels.Stock
 {
     public class StockDetailViewModel
     {
-        public Model.Entities.Stock? Stock { get; set; }
+        public Model.Entities.StockModule.Stock? Stock { get; set; }
     }
 }

@@ -1,17 +1,17 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ExpressDesk360.Core.BaseRequestModels;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.WebAPI.Controllers.Base;
-using ExpressDesk360.Model.Dtos._Task.Commands;
 using ExpressDesk360.Model.Dtos._Task.Queries;
+using ExpressDesk360.Business.Abstract.TaskModule;
+using ExpressDesk360.Model.Dtos.TaskModule.Task.Commands;
 
 namespace ExpressDesk360.WebAPI.Controllers
 {
     public class _TaskController : BaseController
     {
-        private readonly I_TaskService __TaskService;
-        public _TaskController(ILogger<_TaskController> logger, I_TaskService _TaskService) : base(logger)
+        private readonly ITaskService __TaskService;
+        public _TaskController(ILogger<_TaskController> logger, ITaskService _TaskService) : base(logger)
         {
             __TaskService = _TaskService;
         }

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Model.Dtos.CompanyContact.Commands;
+using ExpressDesk360.Model.Dtos.CompanyModule.CompanyContact.Commands;
 
 namespace ExpressDesk360.WebUI.Models.ViewModels.CompanyContact
 {

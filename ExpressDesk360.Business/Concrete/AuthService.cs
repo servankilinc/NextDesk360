@@ -12,9 +12,9 @@ using ExpressDesk360.Model.Auth.Login;
 using ExpressDesk360.Model.Auth.Logout;
 using ExpressDesk360.Model.Auth.Refresh;
 using ExpressDesk360.Model.Auth.SignUp;
-using ExpressDesk360.Model.Entities;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.Business.Utils.TokenService;
+using ExpressDesk360.Model.Entities.UserModule;
+using ExpressDesk360.Business.Abstract.UserModule;
 
 namespace ExpressDesk360.Business.Concrete
 {

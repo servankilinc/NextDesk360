@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Model.Dtos.CompanyProductStockSerialMap.Commands;
+using ExpressDesk360.Model.Dtos.ProductionModule.CompanyProductStockSerialMap.Commands;
 
 namespace ExpressDesk360.WebUI.Models.ViewModels.CompanyProductStockSerialMap
 {

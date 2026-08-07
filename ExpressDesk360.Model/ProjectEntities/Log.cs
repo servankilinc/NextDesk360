@@ -3,7 +3,7 @@ using ExpressDesk360.Core.Model;
 
 namespace ExpressDesk360.Model.ProjectEntities;
 
-public class Log: IEntity, IProjectEntity
+public class Log : IEntity, IProjectEntity
 {
     public int Id { get; set; }
     public string? EntityId { get; set; }

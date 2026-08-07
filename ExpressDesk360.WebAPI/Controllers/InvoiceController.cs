@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ExpressDesk360.Core.BaseRequestModels;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.WebAPI.Controllers.Base;
-using ExpressDesk360.Model.Dtos.Invoice.Commands;
 using ExpressDesk360.Model.Dtos.Invoice.Queries;
+using ExpressDesk360.Model.Dtos.InvoiceModule.Invoice.Commands;
+using ExpressDesk360.Business.Abstract.InvoiceModule;
 
 namespace ExpressDesk360.WebAPI.Controllers
 {

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Model.Dtos.CompanyProductWarranty.Commands;
+using ExpressDesk360.Model.Dtos.ProductionModule.CompanyProductWarranty.Commands;
 
 namespace ExpressDesk360.WebUI.Models.ViewModels.CompanyProductWarranty
 {

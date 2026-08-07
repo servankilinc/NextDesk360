@@ -1,0 +1,30 @@
+using System.Linq.Expressions;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using ExpressDesk360.Core.BaseRequestModels;
+using ExpressDesk360.Core.Utils.Datatable;
+using ExpressDesk360.Core.Utils.Pagination;
+using ExpressDesk360.Core.Utils.ResultPattern;
+using ExpressDesk360.Model.Dtos.StockModule.Stock.Commands;
+using ExpressDesk360.Model.Dtos.StockModule.Stock.Queries;
+using ExpressDesk360.Model.Entities.StockModule;
+
+namespace ExpressDesk360.Business.Abstract.StockModule;
+
+public interface IStockService
+{
+    Task<Result<Stock>> GetAsync(Expression<Func<Stock, bool>> where, CancellationToken cancellationToken = default);
+    Task<Result<Stock>> GetAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<Result<Stock>> GetDetailAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<Result<StockDto>> GetBaseAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<Result<ICollection<Stock>>> GetListAsync(Expression<Func<Stock, bool>> where, CancellationToken cancellationToken = default);
+    Task<Result<ICollection<Stock>>> GetListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default);
+    Task<Result<ICollection<StockDto>>> GetBaseListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default);
+    Task<Result<SelectList>> SelectListAsync(Expression<Func<Stock, bool>>? where = default, CancellationToken cancellationToken = default);
+    Task<Result> CreateAsync(StockCreateDto request, CancellationToken cancellationToken = default);
+    Task<Result<StockUpdateDto>> GetUpdateModelAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<Result> UpdateAsync(StockUpdateDto request, CancellationToken cancellationToken = default);
+    Task<Result<PaginationResponse<Stock>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default);
+    Task<Result<DatatableResponseClientSide<Stock>>> DatatableClientSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);
+    Task<Result<DatatableResponseServerSide<StockReportDto>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default);
+    Task<Result<object>> GetDashboardDataAsync(CancellationToken cancellationToken = default);
+}

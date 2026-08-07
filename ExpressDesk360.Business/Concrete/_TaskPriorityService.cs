@@ -2,7 +2,6 @@ using AutoMapper;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.Core.BaseRequestModels;
 using ExpressDesk360.Core.Utils.Datatable;
 using ExpressDesk360.Core.Utils.Pagination;
@@ -10,13 +9,14 @@ using ExpressDesk360.Core.Utils.ResultPattern;
 using ExpressDesk360.Core.Utils.Validation;
 using ExpressDesk360.DataAccess.Abstract;
 using ExpressDesk360.DataAccess.UoW;
-using ExpressDesk360.Model.Entities;
-using ExpressDesk360.Model.Dtos._TaskPriority.Commands;
-using ExpressDesk360.Model.Dtos._TaskPriority.Queries;
+using ExpressDesk360.Model.Entities.TaskModule;
+using ExpressDesk360.Business.Abstract.TaskModule;
+using ExpressDesk360.Model.Dtos.TaskModule.TaskPriority.Commands;
+using ExpressDesk360.Model.Dtos.TaskModule.TaskPriority.Queries;
 
 namespace ExpressDesk360.Business.Concrete
 {
-    public class _TaskPriorityService : I_TaskPriorityService
+    public class _TaskPriorityService : ITaskPriorityService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IValidationService _validationService;
@@ -28,20 +28,20 @@ namespace ExpressDesk360.Business.Concrete
             _mapper = mapper;
         }
 
-        public async Task<Result<_TaskPriority>> GetAsync(Expression<Func<_TaskPriority, bool>> where, CancellationToken cancellationToken = default)
+        public async Task<Result<TaskPriority>> GetAsync(Expression<Func<TaskPriority, bool>> where, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskPriorities.GetAsync(where: where, cancellationToken: cancellationToken);
             if (result == null)
-                return Result<_TaskPriority>.NotFound();
-            return Result<_TaskPriority>.Success(result);
+                return Result<TaskPriority>.NotFound();
+            return Result<TaskPriority>.Success(result);
         }
 
-        public async Task<Result<_TaskPriority>> GetAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<Result<TaskPriority>> GetAsync(int id, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskPriorities.GetAsync(where: (f) => f.Id == id, cancellationToken: cancellationToken);
             if (result == null)
-                return Result<_TaskPriority>.NotFound();
-            return Result<_TaskPriority>.Success(result);
+                return Result<TaskPriority>.NotFound();
+            return Result<TaskPriority>.Success(result);
         }
 
         public async Task<Result<TaskPriorityDto>> GetBaseAsync(int id, CancellationToken cancellationToken = default)
@@ -52,20 +52,20 @@ namespace ExpressDesk360.Business.Concrete
             return Result<TaskPriorityDto>.Success(result);
         }
 
-        public async Task<Result<ICollection<_TaskPriority>>> GetListAsync(Expression<Func<_TaskPriority, bool>>? where = default, CancellationToken cancellationToken = default)
+        public async Task<Result<ICollection<TaskPriority>>> GetListAsync(Expression<Func<TaskPriority, bool>>? where = default, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskPriorities.GetAllAsync(where: where, cancellationToken: cancellationToken);
             if (result == null)
-                return Result<ICollection<_TaskPriority>>.NotFound();
-            return Result<ICollection<_TaskPriority>>.Success(result);
+                return Result<ICollection<TaskPriority>>.NotFound();
+            return Result<ICollection<TaskPriority>>.Success(result);
         }
 
-        public async Task<Result<ICollection<_TaskPriority>>> GetListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default)
+        public async Task<Result<ICollection<TaskPriority>>> GetListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskPriorities.GetAllAsync(filter: request?.Filter, sorts: request?.Sorts, tracking: false, cancellationToken: cancellationToken);
             if (result == null)
-                return Result<ICollection<_TaskPriority>>.NotFound();
-            return Result<ICollection<_TaskPriority>>.Success(result);
+                return Result<ICollection<TaskPriority>>.NotFound();
+            return Result<ICollection<TaskPriority>>.Success(result);
         }
 
         public async Task<Result<ICollection<TaskPriorityDto>>> GetBaseListAsync(DynamicRequest? request = default, CancellationToken cancellationToken = default)
@@ -76,7 +76,7 @@ namespace ExpressDesk360.Business.Concrete
             return Result<ICollection<TaskPriorityDto>>.Success(result);
         }
 
-        public async Task<Result<SelectList>> SelectListAsync(Expression<Func<_TaskPriority, bool>>? where = default, CancellationToken cancellationToken = default)
+        public async Task<Result<SelectList>> SelectListAsync(Expression<Func<TaskPriority, bool>>? where = default, CancellationToken cancellationToken = default)
         {
             var list = await _unitOfWork._TaskPriorities.GetAllAsync<object>(select: s => new { s.Id, s.Name }, where: where, cancellationToken: cancellationToken);
             var selectList = new SelectList(list ?? new List<object>(), "Id", "Name");
@@ -88,7 +88,7 @@ namespace ExpressDesk360.Business.Concrete
             var validationResult = await _validationService.ValidateAsync(request, cancellationToken);
             if (!validationResult.IsValid)
                 return Result.Validation(validationResult.Failures, description: $"Validation failed for TaskPriorityCreateDto");
-            await _unitOfWork._TaskPriorities.AddAndSaveAsync(_mapper.Map<_TaskPriority>(request), cancellationToken);
+            await _unitOfWork._TaskPriorities.AddAndSaveAsync(_mapper.Map<TaskPriority>(request), cancellationToken);
             return Result.Success();
         }
 
@@ -96,22 +96,22 @@ namespace ExpressDesk360.Business.Concrete
 
 
 
-        public async Task<Result<PaginationResponse<_TaskPriority>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default)
+        public async Task<Result<PaginationResponse<TaskPriority>>> PaginationAsync(DynamicPaginationRequest request, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskPriorities.PaginationAsync(paginationRequest: request, cancellationToken: cancellationToken);
-            return Result<PaginationResponse<_TaskPriority>>.Success(result);
+            return Result<PaginationResponse<TaskPriority>>.Success(result);
         }
 
-        public async Task<Result<DatatableResponseClientSide<_TaskPriority>>> DatatableClientSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
+        public async Task<Result<DatatableResponseClientSide<TaskPriority>>> DatatableClientSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskPriorities.DatatableClientSideAsync(datatableRequest: request, cancellationToken: cancellationToken);
-            return Result<DatatableResponseClientSide<_TaskPriority>>.Success(result);
+            return Result<DatatableResponseClientSide<TaskPriority>>.Success(result);
         }
 
-        public async Task<Result<DatatableResponseServerSide<_TaskPriority>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
+        public async Task<Result<DatatableResponseServerSide<TaskPriority>>> DatatableServerSideAsync(DynamicDatatableRequest request, CancellationToken cancellationToken = default)
         {
             var result = await _unitOfWork._TaskPriorities.DatatableServerSideAsync(datatableRequest: request, cancellationToken: cancellationToken);
-            return Result<DatatableResponseServerSide<_TaskPriority>>.Success(result);
+            return Result<DatatableResponseServerSide<TaskPriority>>.Success(result);
         }
     }
 }

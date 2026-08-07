@@ -1,0 +1,33 @@
+using ExpressDesk360.Core.Model;
+using ExpressDesk360.Model.Entities.ShippingModule;
+using ExpressDesk360.Model.Entities.StockModule;
+using ExpressDesk360.Model.Entities.UserModule;
+
+namespace ExpressDesk360.Model.Entities.TicketModule;
+
+public class TicketMovement : IEntity, IImmutableEntity, IAuditableEntity
+{
+    public Guid Id { get; set; }
+    public Guid TicketId { get; set; }
+    public int TicketMovementTypeId { get; set; }
+    public Guid UserId { get; set; }
+    public Guid? ShippingId { get; set; }
+    public int? FaultTypeId { get; set; }
+    public DateTime Date { get; set; }
+    public string? Description { get; set; }
+
+    #region IAuditableEntity
+    public string? CreatedBy { get; set; }
+    public string? UpdatedBy { get; set; }
+    public DateTime? CreateDateUtc { get; set; }
+    public DateTime? UpdateDateUtc { get; set; }
+    #endregion
+
+    public virtual Ticket? Ticket { get; set; }
+    public virtual TicketMovementType? TicketMovementType { get; set; }
+    public virtual User? User { get; set; }
+    public virtual Shipping? Shipping { get; set; }
+    public virtual FaultType? FaultType { get; set; }
+    public virtual ICollection<StockMovement>? StockMovements { get; set; }
+    public virtual ICollection<TicketMovementFile>? TicketMovementFiles { get; set; }
+}

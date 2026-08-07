@@ -1,20 +1,21 @@
 using Microsoft.AspNetCore.Mvc;
 using ExpressDesk360.Core.BaseRequestModels;
 using ExpressDesk360.Model.Entities;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.WebUI.Controllers.Base;
 using ExpressDesk360.WebUI.Models.ViewModels._TaskStaff;
-using ExpressDesk360.Model.Dtos._TaskStaff.Commands;
 using ExpressDesk360.Model.Dtos._TaskStaff.Queries;
+using ExpressDesk360.Business.Abstract.TaskModule;
+using ExpressDesk360.Business.Abstract.UserModule;
+using ExpressDesk360.Model.Dtos.TaskModule.TaskStaff.Commands;
 
 namespace ExpressDesk360.WebUI.Controllers
 {
     public class _TaskStaffController : BaseController
     {
-        private readonly I_TaskStaffService __TaskStaffService;
-        private readonly I_TaskService __TaskService;
+        private readonly ITaskStaffService __TaskStaffService;
+        private readonly ITaskService __TaskService;
         private readonly IUserService _userService;
-        public _TaskStaffController(ILogger<_TaskStaffController> logger, I_TaskStaffService _TaskStaffService, I_TaskService _TaskService, IUserService userService) : base(logger)
+        public _TaskStaffController(ILogger<_TaskStaffController> logger, ITaskStaffService _TaskStaffService, ITaskService _TaskService, IUserService userService) : base(logger)
         {
             __TaskStaffService = _TaskStaffService;
             __TaskService = _TaskService;

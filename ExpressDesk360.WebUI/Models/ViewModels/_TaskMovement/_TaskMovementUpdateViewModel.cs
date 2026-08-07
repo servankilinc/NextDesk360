@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Model.Dtos._TaskMovement.Commands;
+using ExpressDesk360.Model.Dtos.TaskModule.TaskMovement.Commands;
 
 namespace ExpressDesk360.WebUI.Models.ViewModels._TaskMovement
 {

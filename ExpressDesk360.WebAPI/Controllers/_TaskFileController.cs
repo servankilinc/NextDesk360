@@ -1,17 +1,17 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ExpressDesk360.Core.BaseRequestModels;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.WebAPI.Controllers.Base;
-using ExpressDesk360.Model.Dtos._TaskFile.Commands;
 using ExpressDesk360.Model.Dtos._TaskFile.Queries;
+using ExpressDesk360.Business.Abstract.TaskModule;
+using ExpressDesk360.Model.Dtos.TaskModule.TaskFile.Commands;
 
 namespace ExpressDesk360.WebAPI.Controllers
 {
     public class _TaskFileController : BaseController
     {
-        private readonly I_TaskFileService __TaskFileService;
-        public _TaskFileController(ILogger<_TaskFileController> logger, I_TaskFileService _TaskFileService) : base(logger)
+        private readonly ITaskFileService __TaskFileService;
+        public _TaskFileController(ILogger<_TaskFileController> logger, ITaskFileService _TaskFileService) : base(logger)
         {
             __TaskFileService = _TaskFileService;
         }

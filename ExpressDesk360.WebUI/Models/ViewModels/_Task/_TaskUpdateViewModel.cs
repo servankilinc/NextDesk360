@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Model.Dtos._Task.Commands;
+using ExpressDesk360.Model.Dtos.TaskModule.Task.Commands;
 
 namespace ExpressDesk360.WebUI.Models.ViewModels._Task
 {

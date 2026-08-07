@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Model.Dtos.ProjectStaff.Commands;
+using ExpressDesk360.Model.Dtos.ProjectModule.ProjectStaff.Commands;
 
 namespace ExpressDesk360.WebUI.Models.ViewModels.ProjectStaff
 {

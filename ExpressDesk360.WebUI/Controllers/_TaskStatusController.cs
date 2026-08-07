@@ -1,18 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
 using ExpressDesk360.Core.BaseRequestModels;
 using ExpressDesk360.Model.Entities;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.WebUI.Controllers.Base;
 using ExpressDesk360.WebUI.Models.ViewModels._TaskStatus;
-using ExpressDesk360.Model.Dtos._TaskStatus.Commands;
 using ExpressDesk360.Model.Dtos._TaskStatus.Queries;
+using ExpressDesk360.Business.Abstract.TaskModule;
+using ExpressDesk360.Model.Dtos.TaskModule.TaskStatus.Commands;
 
 namespace ExpressDesk360.WebUI.Controllers
 {
     public class _TaskStatusController : BaseController
     {
-        private readonly I_TaskStatusService __TaskStatusService;
-        public _TaskStatusController(ILogger<_TaskStatusController> logger, I_TaskStatusService _TaskStatusService) : base(logger)
+        private readonly ITaskStatusService __TaskStatusService;
+        public _TaskStatusController(ILogger<_TaskStatusController> logger, ITaskStatusService _TaskStatusService) : base(logger)
         {
             __TaskStatusService = _TaskStatusService;
         }

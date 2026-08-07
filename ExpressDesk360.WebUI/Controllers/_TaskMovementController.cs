@@ -1,21 +1,22 @@
 using Microsoft.AspNetCore.Mvc;
 using ExpressDesk360.Core.BaseRequestModels;
 using ExpressDesk360.Model.Entities;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.WebUI.Controllers.Base;
 using ExpressDesk360.WebUI.Models.ViewModels._TaskMovement;
-using ExpressDesk360.Model.Dtos._TaskMovement.Commands;
 using ExpressDesk360.Model.Dtos._TaskMovement.Queries;
+using ExpressDesk360.Business.Abstract.TaskModule;
+using ExpressDesk360.Business.Abstract.UserModule;
+using ExpressDesk360.Model.Dtos.TaskModule.TaskMovement.Commands;
 
 namespace ExpressDesk360.WebUI.Controllers
 {
     public class _TaskMovementController : BaseController
     {
-        private readonly I_TaskMovementService __TaskMovementService;
-        private readonly I_TaskService __TaskService;
-        private readonly I_TaskMovementTypeService __TaskMovementTypeService;
+        private readonly ITaskMovementService __TaskMovementService;
+        private readonly ITaskService __TaskService;
+        private readonly ITaskMovementTypeService __TaskMovementTypeService;
         private readonly IUserService _userService;
-        public _TaskMovementController(ILogger<_TaskMovementController> logger, I_TaskMovementService _TaskMovementService, I_TaskService _TaskService, I_TaskMovementTypeService _TaskMovementTypeService, IUserService userService) : base(logger)
+        public _TaskMovementController(ILogger<_TaskMovementController> logger, ITaskMovementService _TaskMovementService, ITaskService _TaskService, ITaskMovementTypeService _TaskMovementTypeService, IUserService userService) : base(logger)
         {
             __TaskMovementService = _TaskMovementService;
             __TaskService = _TaskService;

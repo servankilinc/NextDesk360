@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Model.Dtos.Invoice.Commands;
+using ExpressDesk360.Model.Dtos.InvoiceModule.Invoice.Commands;
 
 namespace ExpressDesk360.WebUI.Models.ViewModels.Invoice
 {

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Model.Dtos.User.Commands;
+using ExpressDesk360.Model.Dtos.UserModule.User.Commands;
 
 namespace ExpressDesk360.WebUI.Models.ViewModels.User
 {

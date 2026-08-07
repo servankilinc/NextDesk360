@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using ExpressDesk360.Core.BaseRequestModels;
 using ExpressDesk360.Model.Entities;
-using ExpressDesk360.Business.Abstract;
 using ExpressDesk360.WebUI.Controllers.Base;
 using ExpressDesk360.WebUI.Models.ViewModels.ShippingType;
-using ExpressDesk360.Model.Dtos.ShippingType.Commands;
 using ExpressDesk360.Model.Dtos.ShippingType.Queries;
+using ExpressDesk360.Model.Dtos.ShippingModule.ShippingType.Commands;
+using ExpressDesk360.Business.Abstract.ShippingModule;
 
 namespace ExpressDesk360.WebUI.Controllers
 {

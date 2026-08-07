@@ -1,4 +1,13 @@
-using ExpressDesk360.DataAccess.Abstract;
+using ExpressDesk360.DataAccess.Abstract.Common;
+using ExpressDesk360.DataAccess.Abstract.CompanyModule;
+using ExpressDesk360.DataAccess.Abstract.InvoiceModule;
+using ExpressDesk360.DataAccess.Abstract.ProductionModule;
+using ExpressDesk360.DataAccess.Abstract.ProjectModule;
+using ExpressDesk360.DataAccess.Abstract.ShippingModule;
+using ExpressDesk360.DataAccess.Abstract.StockModule;
+using ExpressDesk360.DataAccess.Abstract.TaskModule;
+using ExpressDesk360.DataAccess.Abstract.TicketModule;
+using ExpressDesk360.DataAccess.Abstract.UserModule;
 
 namespace ExpressDesk360.DataAccess.UoW
 {
@@ -80,19 +89,19 @@ namespace ExpressDesk360.DataAccess.UoW
 
         IStockTypeGroupMapRepository StockTypeGroupMaps { get; }
 
-        I_TaskRepository _Tasks { get; }
+        ITaskRepository _Tasks { get; }
 
-        I_TaskFileRepository _TaskFiles { get; }
+        ITaskFileRepository _TaskFiles { get; }
 
-        I_TaskMovementRepository _TaskMovements { get; }
+        ITaskMovementRepository _TaskMovements { get; }
 
-        I_TaskMovementTypeRepository _TaskMovementTypes { get; }
+        ITaskMovementTypeRepository _TaskMovementTypes { get; }
 
-        I_TaskPriorityRepository _TaskPriorities { get; }
+        ITaskPriorityRepository _TaskPriorities { get; }
 
-        I_TaskStaffRepository _TaskStaffs { get; }
+        ITaskStaffRepository _TaskStaffs { get; }
 
-        I_TaskStatusRepository _TaskStatuses { get; }
+        ITaskStatusRepository _TaskStatuses { get; }
 
         ITicketRepository Tickets { get; }
 

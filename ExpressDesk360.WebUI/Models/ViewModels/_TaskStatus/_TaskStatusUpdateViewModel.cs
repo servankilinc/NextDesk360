@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ExpressDesk360.Model.Dtos._TaskStatus.Commands;
+using ExpressDesk360.Model.Dtos.TaskModule.TaskStatus.Commands;
 
 namespace ExpressDesk360.WebUI.Models.ViewModels._TaskStatus
 {

@@ -8,13 +8,13 @@ public static class TicketEnums
     {
         [Description("Düşük")]
         Low = 1,
-        
+
         [Description("Normal")]
         Normal = 2,
-        
+
         [Description("Yüksek")]
         High = 3,
-        
+
         [Description("Kritik")]
         Critical = 4
     }
@@ -23,10 +23,10 @@ public static class TicketEnums
     {
         [Description("Teknik Destek")]
         TechnicalSupport = 1,
-        
+
         [Description("Genel Bakım")]
         GeneralMaintenance = 2,
-        
+
         [Description("Yazılım Destek")]
         SoftwareSupport = 3
     }
@@ -44,7 +44,7 @@ public static class TicketEnums
 
         [Description("Onay Bekleniyor")]
         ApprovalIsPending = 4,
-        
+
         [Description("İptal Edildi")]
         Denied = 5,
 
@@ -56,13 +56,13 @@ public static class TicketEnums
     {
         [Description("Yeni Kayıt")]
         NewTicket = 1,
-        
+
         [Description("Temsilci Atandı")]
         AppointedTechnicSupportStaff = 2,
-        
+
         [Description("Teknik Hizmetlere Yönlendirildi")]
         DirectedToTechnicalServices = 3,
-        
+
         [Description("Arıza Tespiti Yapıldı")]
         FaultDetected = 4,
 
@@ -83,10 +83,10 @@ public static class TicketEnums
 
         [Description("Onay Alındı")]
         Approved = 10,
-        
+
         [Description("İptal Edildi")]
         Denied = 11,
-        
+
         [Description("Tamamlandı")]
         Completted = 12
     }
